@@ -8,8 +8,6 @@ import SelectInput from './SelectInput'
 import StringInput from './StringInput'
 
 export interface ConfigurableInputProps extends BaseInputProps {
-  type: string
-  [key: string]: any
   onValueChange: (code: string, value: any) => void
 }
 
@@ -21,22 +19,14 @@ export default function ConfigurableInput(props: ConfigurableInputProps) {
   switch (props.type) {
     case 'text':
       return (
-        <StringInput
-          key={props.title}
-          title={props.title}
-          maxSize={props.maxSize}
-          code={props.code}
-          disabled={props.disabled}
-          onChange={handleChange}
-        />
+        <StringInput key={props.title} {...props} onChange={handleChange} />
       )
     case 'select':
       return (
         <SelectInput
           key={props.title}
-          title={props.title}
-          code={props.code}
-          options={props.choices}
+          {...props}
+          options={props.choices || { fail: 'no choices provided' }}
           defaultValue={props.defaultValue}
           onChange={handleChange}
         />
@@ -45,14 +35,23 @@ export default function ConfigurableInput(props: ConfigurableInputProps) {
       return (
         <NumberInput key={props.title} {...props} onChange={handleChange} />
       )
-    case 'bool':
+    case 'boolean':
       return <Checkbox key={props.title} {...props} onChange={handleChange} />
     case 'counter':
       return (
         <CounterInput key={props.title} {...props} onChange={handleChange} />
       )
     case 'range':
-      return <RangeInput key={props.title} {...props} onChange={handleChange} />
+      return (
+        <RangeInput
+          key={props.title}
+          {...props}
+          min={props.min || -10000}
+          max={props.max || 10000}
+          defaultValue={props.defaultValue}
+          onChange={handleChange}
+        />
+      )
     default:
       return (
         <div className="py-2 px-1">

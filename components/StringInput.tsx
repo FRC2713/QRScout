@@ -7,6 +7,10 @@ export interface StringInputProps extends BaseInputProps {
 
 export default function StringInput(data: StringInputProps) {
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    let d: React.DetailedHTMLProps<
+      React.InputHTMLAttributes<HTMLInputElement>,
+      HTMLInputElement
+    >
     data.onChange(e.target.value)
     e.preventDefault()
   }
@@ -27,6 +31,7 @@ export default function StringInput(data: StringInputProps) {
         type="text"
         maxLength={data.maxSize}
         onChange={handleChange}
+        value={data.value}
       ></input>
     </div>
   )

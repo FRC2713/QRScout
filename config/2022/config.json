@@ -1,22 +1,21 @@
 {
+  "$schema": "../schema.json",
   "title": "QRScout",
   "page_title": "Rapid React",
-  "elements": {
+  "sections": {
     "Prematch": [
       {
         "title": "Scouter Initials",
         "code": "s",
         "type": "text",
-        "size": 5,
-        "maxSize": 5,
-        "required": true
+        "min": 5,
+        "max": 5
       },
       {
         "title": "Event",
         "code": "e",
         "type": "text",
         "defaultValue": "2022flwp",
-        "required": true,
         "disabled": true
       },
       {
@@ -30,16 +29,14 @@
           "sf": "Semi Final",
           "f": "Final"
         },
-        "defaultValue": "qm",
-        "required": true
+        "defaultValue": "qm"
       },
       {
         "title": "Match #",
         "code": "m",
         "type": "number",
         "min": 1,
-        "max": 100,
-        "required": true
+        "max": 100
       },
       {
         "title": "Robot",
@@ -52,8 +49,7 @@
           "b2": "Blue 2",
           "r3": "Red 3",
           "b3": "Blue 3"
-        },
-        "required": true
+        }
       },
       {
         "title": "Team #",
@@ -73,7 +69,7 @@
       {
         "code": "at",
         "title": "Taxied?",
-        "type": "bool",
+        "type": "boolean",
         "defaultValue": false
       },
       {
@@ -91,7 +87,7 @@
       {
         "code": "ac",
         "title": "Picked up more cargo?",
-        "type": "bool",
+        "type": "boolean",
         "defaultValue": false
       }
     ],
@@ -123,7 +119,7 @@
       {
         "code": "wd",
         "title": "Was Defended",
-        "type": "bool",
+        "type": "boolean",
         "defaultValue": false
       },
       {
@@ -141,7 +137,7 @@
       {
         "code": "ss",
         "title": "Shooting Spot",
-        "type": "field_image",
+        "type": "image",
         "filename": "2022/field_image.png"
       }
     ],
@@ -163,7 +159,7 @@
       {
         "code": "be",
         "title": "Started climb before EndGame",
-        "type": "bool",
+        "type": "boolean",
         "defaultValue": false
       },
       {
@@ -209,27 +205,27 @@
       {
         "code": "d",
         "title": "Died",
-        "type": "bool",
+        "type": "boolean",
         "defaultValue": false
       },
       {
         "code": "to",
         "title": "Tipped Over",
-        "type": "bool",
+        "type": "boolean",
         "defaultValue": false
       },
       {
         "code": "cf",
         "title": "Yellow/Red Card",
-        "type": "bool",
+        "type": "boolean",
         "defaultValue": false
       },
       {
         "code": "co",
         "title": "Comments",
         "type": "text",
-        "size": 15,
-        "maxSize": 50
+        "min": 0,
+        "max": 50
       }
     ]
   }

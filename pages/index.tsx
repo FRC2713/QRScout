@@ -2,12 +2,15 @@ import Head from 'next/head'
 import { useState } from 'react'
 import QRCode from 'qrcode.react'
 import ConfigurableInput from '../components/ConfigurableInput'
-import config from '../config/2022/config.json'
+import configJson from '../config/2022/config.json'
+import { Config } from '../components/BaseInputProps'
+
+const config: Config = configJson as Config
 
 function getDefaultValues(): Record<string, any> {
   let defaults: Record<string, any> = {}
-  Object.values(config.elements).forEach((element) => {
-    Object.values(element).forEach((i) => (defaults[i.code] = i.defaultValue))
+  Object.values(config.sections).forEach((section) => {
+    Object.values(section).forEach((i) => (defaults[i.code] = i.defaultValue))
   })
 
   return defaults
@@ -15,8 +18,8 @@ function getDefaultValues(): Record<string, any> {
 
 function getColumnNames(): string {
   let columns: string[] = []
-  Object.values(config.elements).forEach((element) => {
-    Object.values(element).forEach((i) => columns.push(i.title))
+  Object.values(config.sections).forEach((section) => {
+    Object.values(section).forEach((i) => columns.push(i.title))
   })
 
   return columns.join('\t')
@@ -64,7 +67,7 @@ export default function Home() {
           </div>
           <form>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-              {Object.keys(config.elements).map((element) => {
+              {Object.keys(config.sections).map((element) => {
                 return (
                   <div
                     className="mb-4 rounded bg-white shadow-md"
@@ -75,7 +78,7 @@ export default function Home() {
                         {element}
                       </h2>
                     </div>
-                    {config.elements[element].map((e) => (
+                    {config.sections[element].map((e: any) => (
                       <ConfigurableInput
                         key={`${element}_${e.title}`}
                         {...e}
