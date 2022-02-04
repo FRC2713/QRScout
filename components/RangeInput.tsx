@@ -1,20 +1,14 @@
 import React from 'react'
 import BaseInputProps from './BaseInputProps'
 
-export interface RangeInputProps extends BaseInputProps {
-  min: number
-  max: number
-  defaultValue: number
-}
-
-export default function RangeInput(data: RangeInputProps) {
+export default function RangeInput(data: BaseInputProps) {
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     data.onChange(e.target.value)
     e.preventDefault()
   }
 
   return (
-    <div className="py-2 px-1">
+    <div className="w-full py-2 px-1">
       <label
         htmlFor={data.title}
         className="mb-2 block text-sm font-bold text-gray-700"
@@ -22,6 +16,7 @@ export default function RangeInput(data: RangeInputProps) {
         {data.title}
       </label>
       <input
+        className="w-full"
         type="range"
         min={data.min}
         max={data.max}

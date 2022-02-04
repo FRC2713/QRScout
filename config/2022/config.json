@@ -74,7 +74,7 @@
       },
       {
         "code": "au",
-        "title": "Uppoer Cargo Scored",
+        "title": "Upper Cargo Scored",
         "type": "counter",
         "defaultValue": 0
       },
@@ -94,7 +94,7 @@
     "Teleop": [
       {
         "code": "tu",
-        "title": "Uppoer Cargo Scored",
+        "title": "Upper Cargo Scored",
         "type": "counter",
         "defaultValue": 0
       },
@@ -106,7 +106,7 @@
       },
       {
         "code": "tm",
-        "title": "Uppoer Cargo Missed",
+        "title": "Upper Cargo Missed",
         "type": "counter",
         "defaultValue": 0
       },

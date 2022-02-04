@@ -46,9 +46,9 @@ export default function ConfigurableInput(props: ConfigurableInputProps) {
         <RangeInput
           key={props.title}
           {...props}
-          min={props.min || -10000}
-          max={props.max || 10000}
-          defaultValue={props.defaultValue}
+          min={props.min}
+          max={props.max}
+          defaultValue={props.defaultValue as number}
           onChange={handleChange}
         />
       )

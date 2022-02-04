@@ -29,7 +29,7 @@ export default function CounterInput(data: CounterInputProps) {
         >
           -
         </button>
-        <h2 className="text-2xl">{data.value}</h2>
+        <h2 className="px-4 text-2xl">{data.value}</h2>
         <button
           className="focus:shadow-outline mx-2 rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
           type="button"
