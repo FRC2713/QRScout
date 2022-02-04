@@ -1,0 +1,236 @@
+{
+  "title": "QRScout",
+  "page_title": "Rapid React",
+  "elements": {
+    "Prematch": [
+      {
+        "title": "Scouter Initials",
+        "code": "s",
+        "type": "text",
+        "size": 5,
+        "maxSize": 5,
+        "required": true
+      },
+      {
+        "title": "Event",
+        "code": "e",
+        "type": "text",
+        "defaultValue": "2022flwp",
+        "required": true,
+        "disabled": true
+      },
+      {
+        "title": "Match Level",
+        "code": "l",
+        "type": "select",
+        "choices": {
+          "qm": "Quals",
+          "ef": "Eighth Final",
+          "qf": "Quarter Final",
+          "sf": "Semi Final",
+          "f": "Final"
+        },
+        "defaultValue": "qm",
+        "required": true
+      },
+      {
+        "title": "Match #",
+        "code": "m",
+        "type": "number",
+        "min": 1,
+        "max": 100,
+        "required": true
+      },
+      {
+        "title": "Robot",
+        "code": "r",
+        "type": "select",
+        "choices": {
+          "r1": "Red 1",
+          "b1": "Blue 1",
+          "r2": "Red 2",
+          "b2": "Blue 2",
+          "r3": "Red 3",
+          "b3": "Blue 3"
+        },
+        "required": true
+      },
+      {
+        "title": "Team #",
+        "code": "t",
+        "type": "number",
+        "min": 1,
+        "max": 99999
+      },
+      {
+        "title": "Auto Start Position",
+        "code": "as",
+        "type": "image",
+        "filename": "2022/field_image.png"
+      }
+    ],
+    "Autonomous": [
+      {
+        "code": "at",
+        "title": "Taxied?",
+        "type": "bool",
+        "defaultValue": false
+      },
+      {
+        "code": "au",
+        "title": "Uppoer Cargo Scored",
+        "type": "counter",
+        "defaultValue": 0
+      },
+      {
+        "code": "al",
+        "title": "Lower Cargo Scored",
+        "type": "counter",
+        "defaultValue": 0
+      },
+      {
+        "code": "ac",
+        "title": "Picked up more cargo?",
+        "type": "bool",
+        "defaultValue": false
+      }
+    ],
+    "Teleop": [
+      {
+        "code": "tu",
+        "title": "Uppoer Cargo Scored",
+        "type": "counter",
+        "defaultValue": 0
+      },
+      {
+        "code": "tl",
+        "title": "Lower Cargo Scored",
+        "type": "counter",
+        "defaultValue": 0
+      },
+      {
+        "code": "tm",
+        "title": "Uppoer Cargo Missed",
+        "type": "counter",
+        "defaultValue": 0
+      },
+      {
+        "code": "tn",
+        "title": "Lower Cargo Missed",
+        "type": "counter",
+        "defaultValue": 0
+      },
+      {
+        "code": "wd",
+        "title": "Was Defended",
+        "type": "bool",
+        "defaultValue": false
+      },
+      {
+        "code": "cl",
+        "title": "Pick up Cargo where",
+        "type": "select",
+        "choices": {
+          "t": "Terminal",
+          "g": "Ground",
+          "b": "Both",
+          "x": "Not Attempted"
+        },
+        "defaultValue": "x"
+      },
+      {
+        "code": "ss",
+        "title": "Shooting Spot",
+        "type": "field_image",
+        "filename": "2022/field_image.png"
+      }
+    ],
+    "Endgame": [
+      {
+        "code": "c",
+        "title": "Climb",
+        "type": "select",
+        "choices": {
+          "1": "Low",
+          "2": "Mid",
+          "3": "High",
+          "4": "Traversal",
+          "f": "Attempted but Failed",
+          "x": "Not Attempted"
+        },
+        "defaultValue": "x"
+      },
+      {
+        "code": "be",
+        "title": "Started climb before EndGame",
+        "type": "bool",
+        "defaultValue": false
+      },
+      {
+        "code": "cn",
+        "title": "# of alliance bots climbed",
+        "type": "counter",
+        "defaultValue": 0
+      }
+    ],
+    "Postmatch": [
+      {
+        "code": "ds",
+        "title": "Driver Skill",
+        "type": "select",
+        "choices": {
+          "n": "Not Effective",
+          "a": "Average",
+          "v": "Very Effective",
+          "x": "Not Observed"
+        },
+        "defaultValue": "x"
+      },
+      {
+        "code": "dsr",
+        "title": "Driver Skill Range",
+        "type": "range",
+        "min": 0,
+        "max": 10,
+        "defaultValue": 5
+      },
+      {
+        "code": "dr",
+        "title": "Defense Rating",
+        "type": "select",
+        "choices": {
+          "n": "Not Effective",
+          "a": "Average",
+          "v": "Very Effective",
+          "x": "Not Observed"
+        },
+        "defaultValue": "x"
+      },
+      {
+        "code": "d",
+        "title": "Died",
+        "type": "bool",
+        "defaultValue": false
+      },
+      {
+        "code": "to",
+        "title": "Tipped Over",
+        "type": "bool",
+        "defaultValue": false
+      },
+      {
+        "code": "cf",
+        "title": "Yellow/Red Card",
+        "type": "bool",
+        "defaultValue": false
+      },
+      {
+        "code": "co",
+        "title": "Comments",
+        "type": "text",
+        "size": 15,
+        "maxSize": 50
+      }
+    ]
+  }
+}
