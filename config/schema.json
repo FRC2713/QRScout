@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Config",
+  "description": "The schema for QRScout Config Files",
+  "definitions": {
+    "Config": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the browser window"
+        },
+        "page_title": {
+          "type": "string",
+          "description": "The title of the scouting page."
+        },
+        "sections": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/InputProps"
+            }
+          },
+          "description": "The sections of the scouting form."
+        }
+      },
+      "required": ["title", "page_title", "sections"],
+      "additionalProperties": false
+    },
+    "InputProps": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of this input."
+        },
+        "type": {
+          "$ref": "#/definitions/InputTypes",
+          "description": "The type of input to render"
+        },
+        "code": {
+          "type": "string",
+          "description": "A shorthand code for this input. Must be unique."
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Disable this input"
+        },
+        "choices": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Define the options for select type inputs."
+        },
+        "defaultValue": {
+          "description": "Set the default value of this input.  Will be used when the form is reset.",
+          "examples": [false, 0, 10.34, "No Auto"]
+        },
+        "min": {
+          "type": "number",
+          "description": "Min value for number fields, min length for text fields"
+        },
+        "max": {
+          "type": "number",
+          "description": "Max value for number fields, Max length for text fields"
+        },
+        "filename": {
+          "type": "string",
+          "description": "The filename of the image to use."
+        }
+      },
+      "required": ["title", "type", "code"],
+      "additionalProperties": false
+    },
+    "InputTypes": {
+      "type": "string",
+      "enum": [
+        "text",
+        "number",
+        "boolean",
+        "range",
+        "select",
+        "image",
+        "counter"
+      ]
+    }
+  }
+}
