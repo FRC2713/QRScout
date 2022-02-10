@@ -118,7 +118,12 @@ export default function Home() {
       </main>
       <footer>
         <div className="flex items-center justify-center">
-          <img src="https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg"></img>
+          <a
+            href="https://vercel.com/?utm_source=iraiders&utm_campaign=oss"
+            target="_blank"
+          >
+            <img src="https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg"></img>
+          </a>
         </div>
       </footer>
     </div>
