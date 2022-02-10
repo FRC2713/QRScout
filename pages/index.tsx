@@ -1,10 +1,9 @@
 import Head from 'next/head'
 import { useState } from 'react'
-import ConfigurableInput from '../components/ConfigurableInput'
 import configJson from '../config/2022/config.json'
-import { Config } from '../components/BaseInputProps'
+import { Config } from '../components/inputs/BaseInputProps'
 import QRModal from '../components/QRModal'
-import InputCard from '../components/InputCard'
+import Section from '../components/Section'
 
 const config: Config = configJson as Config
 
@@ -24,6 +23,15 @@ function getColumnNames(): string {
   })
 
   return columns.join('\t')
+}
+
+function getRequiredFieldCodes(): string[] {
+  const codes = Object.values(config.sections)
+    .map((s) => s.filter((i) => i.required).map((i) => i.code))
+    .flat()
+
+  console.log('required fields:', codes)
+  return codes
 }
 
 export default function Home() {
@@ -65,33 +73,22 @@ export default function Home() {
             <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
               {Object.keys(config.sections).map((element) => {
                 return (
-                  <div
-                    className="mb-4 rounded bg-white shadow-md"
+                  <Section
                     key={element}
-                  >
-                    <div className="mb-2 rounded-t bg-red-800 p-1 shadow-md">
-                      <h2 className="text-2xl font-bold uppercase text-white">
-                        {element}
-                      </h2>
-                    </div>
-                    {config.sections[element].map((e: any) => (
-                      <InputCard title={e.title} key={`${element}_${e.title}`}>
-                        <ConfigurableInput
-                          {...e}
-                          onValueChange={updateValue}
-                          value={values[e.code]}
-                        />
-                      </InputCard>
-                    ))}
-                  </div>
+                    name={element}
+                    inputs={config.sections[element]}
+                    values={values}
+                    onValueChanged={updateValue}
+                  />
                 )
               })}
 
               <div className="mb-4 flex flex-col justify-center rounded bg-white shadow-md">
                 <button
-                  className="focus:shadow-outline mx-2 my-6 rounded bg-gray-700 py-2 px-6 font-bold uppercase text-white hover:bg-gray-700 focus:shadow-lg focus:outline-none"
+                  className="focus:shadow-outline mx-2 my-6 rounded bg-gray-700 py-2 px-6 font-bold uppercase text-white hover:bg-gray-700 focus:shadow-lg focus:outline-none disabled:bg-gray-300"
                   type="button"
                   onClick={() => setShowQR(true)}
+                  disabled={getRequiredFieldCodes().some((v) => !values[v])}
                 >
                   Commit
                 </button>
