@@ -4,6 +4,7 @@ import ConfigurableInput from '../components/ConfigurableInput'
 import configJson from '../config/2022/config.json'
 import { Config } from '../components/BaseInputProps'
 import QRModal from '../components/QRModal'
+import InputCard from '../components/InputCard'
 
 const config: Config = configJson as Config
 
@@ -50,8 +51,8 @@ export default function Home() {
       </Head>
 
       <main className="flex w-full flex-1 flex-col items-center justify-center px-4 text-center">
-        <h1 className="text-6xl font-bold">
-          <div className="text-blue-600">{config.page_title}</div>
+        <h1 className="font-sans text-6xl font-bold">
+          <div className="text-red-600">{config.page_title}</div>
         </h1>
         <QRModal
           show={showQR}
@@ -61,36 +62,35 @@ export default function Home() {
         />
         {!showQR && (
           <form>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
               {Object.keys(config.sections).map((element) => {
                 return (
                   <div
                     className="mb-4 rounded bg-white shadow-md"
                     key={element}
                   >
-                    <div className="mt-4 rounded bg-blue-600 p-2">
-                      <h2 className="text-2xl font-bold text-white ">
+                    <div className="mb-2 rounded-t bg-red-800 p-1 shadow-md">
+                      <h2 className="text-2xl font-bold uppercase text-white">
                         {element}
                       </h2>
                     </div>
                     {config.sections[element].map((e: any) => (
-                      <ConfigurableInput
-                        key={`${element}_${e.title}`}
-                        {...e}
-                        onValueChange={updateValue}
-                        value={values[e.code]}
-                      />
+                      <InputCard title={e.title}>
+                        <ConfigurableInput
+                          key={`${element}_${e.title}`}
+                          {...e}
+                          onValueChange={updateValue}
+                          value={values[e.code]}
+                        />
+                      </InputCard>
                     ))}
                   </div>
                 )
               })}
 
-              <div
-                className="mb-4 rounded bg-white p-8 shadow-md"
-                key="resetButton"
-              >
+              <div className="mb-4 flex flex-col justify-center rounded bg-white shadow-md">
                 <button
-                  className="focus:shadow-outline mx-2 rounded bg-gray-500 py-2 px-4 font-bold text-white hover:bg-gray-700 focus:outline-none"
+                  className="focus:shadow-outline mx-2 my-6 rounded bg-gray-700 py-2 px-6 font-bold uppercase text-white hover:bg-gray-700 focus:shadow-lg focus:outline-none"
                   type="button"
                   onClick={() => setShowQR(true)}
                 >
@@ -98,13 +98,13 @@ export default function Home() {
                 </button>
 
                 <input
-                  className="focus:shadow-outline mx-2 rounded bg-red-400 py-2 px-4 font-bold text-white hover:bg-red-500 focus:outline-none"
+                  className="focus:shadow-outline mx-2 my-6 rounded border border-red-400 bg-white py-2 font-bold text-red-400 hover:bg-red-200 focus:outline-none"
                   type="reset"
                   onClick={() => setValues(getDefaultValues())}
                 />
 
                 <button
-                  className="focus:shadow-outline mx-2 rounded bg-gray-500 py-2 px-4 font-bold text-white hover:bg-gray-700 focus:outline-none"
+                  className="focus:shadow-outline mx-2 my-6 rounded bg-gray-500 py-2 font-bold text-white hover:bg-gray-700 focus:outline-none"
                   type="button"
                   onClick={() =>
                     navigator.clipboard.writeText(getColumnNames())

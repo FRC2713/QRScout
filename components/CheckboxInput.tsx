@@ -11,19 +11,15 @@ export default function Checkbox(data: BoolInputProps) {
   }
 
   return (
-    <div className="py-2 px-1">
-      <label
-        htmlFor={data.title}
-        className="mb-2 block text-sm font-bold text-gray-700"
-      >
-        {data.title}
-      </label>
+    <div className="form-check form-switch">
       <input
+        className="form-check-input m-2 h-5 w-9 cursor-pointer appearance-none rounded-full bg-gray-300 bg-contain bg-no-repeat align-top shadow-sm focus:outline-none"
         type="checkbox"
+        role="switch"
         defaultChecked={data.defaultValue}
         id={data.title}
         onChange={handleChange}
-      ></input>
+      />
     </div>
   )
 }

@@ -43,6 +43,10 @@
           "type": "string",
           "description": "A shorthand code for this input. Must be unique."
         },
+        "required": {
+          "type": "boolean",
+          "description": "Is this input required?"
+        },
         "disabled": {
           "type": "boolean",
           "description": "Disable this input"
@@ -71,7 +75,7 @@
           "description": "The filename of the image to use."
         }
       },
-      "required": ["title", "type", "code"],
+      "required": ["title", "type", "code", "required"],
       "additionalProperties": false
     },
     "InputTypes": {

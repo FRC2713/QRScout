@@ -9,14 +9,16 @@
         "code": "s",
         "type": "text",
         "min": 5,
-        "max": 5
+        "max": 5,
+        "required": true
       },
       {
         "title": "Event",
         "code": "e",
         "type": "text",
         "defaultValue": "2022flwp",
-        "disabled": true
+        "disabled": true,
+        "required": true
       },
       {
         "title": "Match Level",
@@ -29,14 +31,16 @@
           "sf": "Semi Final",
           "f": "Final"
         },
-        "defaultValue": "qm"
+        "defaultValue": "qm",
+        "required": true
       },
       {
         "title": "Match #",
         "code": "m",
         "type": "number",
         "min": 1,
-        "max": 100
+        "max": 100,
+        "required": true
       },
       {
         "title": "Robot",
@@ -49,20 +53,16 @@
           "b2": "Blue 2",
           "r3": "Red 3",
           "b3": "Blue 3"
-        }
+        },
+        "required": true
       },
       {
         "title": "Team #",
         "code": "t",
         "type": "number",
         "min": 1,
-        "max": 99999
-      },
-      {
-        "title": "Auto Start Position",
-        "code": "as",
-        "type": "image",
-        "filename": "2022/field_image.png"
+        "max": 99999,
+        "required": true
       }
     ],
     "Autonomous": [
@@ -70,25 +70,29 @@
         "code": "at",
         "title": "Taxied?",
         "type": "boolean",
-        "defaultValue": false
+        "defaultValue": false,
+        "required": false
       },
       {
         "code": "au",
         "title": "Upper Cargo Scored",
         "type": "counter",
-        "defaultValue": 0
+        "defaultValue": 0,
+        "required": false
       },
       {
         "code": "al",
         "title": "Lower Cargo Scored",
         "type": "counter",
-        "defaultValue": 0
+        "defaultValue": 0,
+        "required": false
       },
       {
         "code": "ac",
         "title": "Picked up more cargo?",
         "type": "boolean",
-        "defaultValue": false
+        "defaultValue": false,
+        "required": false
       }
     ],
     "Teleop": [
@@ -96,31 +100,36 @@
         "code": "tu",
         "title": "Upper Cargo Scored",
         "type": "counter",
-        "defaultValue": 0
+        "defaultValue": 0,
+        "required": false
       },
       {
         "code": "tl",
         "title": "Lower Cargo Scored",
         "type": "counter",
-        "defaultValue": 0
+        "defaultValue": 0,
+        "required": false
       },
       {
         "code": "tm",
         "title": "Upper Cargo Missed",
         "type": "counter",
-        "defaultValue": 0
+        "defaultValue": 0,
+        "required": false
       },
       {
         "code": "tn",
         "title": "Lower Cargo Missed",
         "type": "counter",
-        "defaultValue": 0
+        "defaultValue": 0,
+        "required": false
       },
       {
         "code": "wd",
         "title": "Was Defended",
         "type": "boolean",
-        "defaultValue": false
+        "defaultValue": false,
+        "required": false
       },
       {
         "code": "cl",
@@ -132,13 +141,8 @@
           "b": "Both",
           "x": "Not Attempted"
         },
-        "defaultValue": "x"
-      },
-      {
-        "code": "ss",
-        "title": "Shooting Spot",
-        "type": "image",
-        "filename": "2022/field_image.png"
+        "defaultValue": "x",
+        "required": false
       }
     ],
     "Endgame": [
@@ -154,19 +158,22 @@
           "f": "Attempted but Failed",
           "x": "Not Attempted"
         },
-        "defaultValue": "x"
+        "defaultValue": "x",
+        "required": false
       },
       {
         "code": "be",
         "title": "Started climb before EndGame",
         "type": "boolean",
-        "defaultValue": false
+        "defaultValue": false,
+        "required": false
       },
       {
         "code": "cn",
         "title": "# of alliance bots climbed",
         "type": "counter",
-        "defaultValue": 0
+        "defaultValue": 0,
+        "required": false
       }
     ],
     "Postmatch": [
@@ -180,15 +187,8 @@
           "v": "Very Effective",
           "x": "Not Observed"
         },
-        "defaultValue": "x"
-      },
-      {
-        "code": "dsr",
-        "title": "Driver Skill Range",
-        "type": "range",
-        "min": 0,
-        "max": 10,
-        "defaultValue": 5
+        "defaultValue": "x",
+        "required": false
       },
       {
         "code": "dr",
@@ -200,32 +200,37 @@
           "v": "Very Effective",
           "x": "Not Observed"
         },
-        "defaultValue": "x"
+        "defaultValue": "x",
+        "required": false
       },
       {
         "code": "d",
         "title": "Died",
         "type": "boolean",
-        "defaultValue": false
+        "defaultValue": false,
+        "required": false
       },
       {
         "code": "to",
         "title": "Tipped Over",
         "type": "boolean",
-        "defaultValue": false
+        "defaultValue": false,
+        "required": false
       },
       {
         "code": "cf",
         "title": "Yellow/Red Card",
         "type": "boolean",
-        "defaultValue": false
+        "defaultValue": false,
+        "required": false
       },
       {
         "code": "co",
         "title": "Comments",
         "type": "text",
         "min": 0,
-        "max": 50
+        "max": 50,
+        "required": false
       }
     ]
   }

@@ -14,21 +14,14 @@ export default function NumberInput(data: NumberInputProps) {
   }
 
   return (
-    <div className="py-2 px-1">
-      <label
-        htmlFor={data.title}
-        className="mb-2 block text-sm font-bold text-gray-700"
-      >
-        {data.title}
-      </label>
-      <input
-        type="number"
-        min={data.min}
-        max={data.max}
-        defaultValue={data.defaultValue}
-        id={data.title}
-        onChange={handleChange}
-      />
-    </div>
+    <input
+      className="rounded py-2 px-1"
+      type="number"
+      min={data.min}
+      max={data.max}
+      defaultValue={data.defaultValue}
+      id={data.title}
+      onChange={handleChange}
+    />
   )
 }

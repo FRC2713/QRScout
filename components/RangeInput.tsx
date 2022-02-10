@@ -8,22 +8,14 @@ export default function RangeInput(data: BaseInputProps) {
   }
 
   return (
-    <div className="w-full py-2 px-1">
-      <label
-        htmlFor={data.title}
-        className="mb-2 block text-sm font-bold text-gray-700"
-      >
-        {data.title}
-      </label>
-      <input
-        className="w-full"
-        type="range"
-        min={data.min}
-        max={data.max}
-        defaultValue={data.defaultValue}
-        id={data.title}
-        onChange={handleChange}
-      />
-    </div>
+    <input
+      className="w-full py-2 px-1"
+      type="range"
+      min={data.min}
+      max={data.max}
+      defaultValue={data.defaultValue}
+      id={data.title}
+      onChange={handleChange}
+    />
   )
 }

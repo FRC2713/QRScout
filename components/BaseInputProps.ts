@@ -13,6 +13,7 @@ export interface Config {
 export interface InputProps {
   title: string
   type: InputTypes
+  required: boolean
   // A shorthand code for this input
   code: string
   disabled?: boolean

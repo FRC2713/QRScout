@@ -28,7 +28,7 @@ export default function QRModal(props: QRModalProps) {
                   }
                 >
                   <svg
-                    className="h-8 w-8 text-gray-500 hover:text-black"
+                    className="h-8 w-8 text-gray-500 hover:text-gray-800"
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
@@ -44,7 +44,7 @@ export default function QRModal(props: QRModalProps) {
                   </svg>
                 </div>
                 <button
-                  className="focus:shadow-outline mx-2 mt-4 rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
+                  className="focus:shadow-outline mx-2 mt-4 rounded bg-red-800 py-2 px-4 font-bold text-white hover:bg-red-700 focus:outline-none"
                   type="button"
                   onClick={props.onDismiss}
                 >
