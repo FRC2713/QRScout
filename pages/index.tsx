@@ -1,9 +1,9 @@
 import Head from 'next/head'
 import { useState } from 'react'
-import QRCode from 'qrcode.react'
 import ConfigurableInput from '../components/ConfigurableInput'
 import configJson from '../config/2022/config.json'
 import { Config } from '../components/BaseInputProps'
+import QRModal from '../components/QRModal'
 
 const config: Config = configJson as Config
 
@@ -27,6 +27,7 @@ function getColumnNames(): string {
 
 export default function Home() {
   const [values, setValues] = useState<Record<string, any>>(getDefaultValues())
+  const [showQR, setShowQR] = useState(false)
 
   function updateValue(code: string, data: any) {
     const currVals = { ...values }
@@ -52,19 +53,13 @@ export default function Home() {
         <h1 className="text-6xl font-bold">
           <div className="text-blue-600">{config.page_title}</div>
         </h1>
-        <div className="flex flex-col items-center">
-          <div className="m-4 flex flex-col items-center rounded bg-white p-8 shadow-md">
-            <QRCode className="m-2" value={getQRCodeData()} />
-            <button
-              className="focus:shadow-outline mx-2 rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
-              type="button"
-              onClick={() =>
-                navigator.clipboard.writeText(getQRCodeData() + '\n')
-              }
-            >
-              Copy To Clipboard
-            </button>
-          </div>
+        <QRModal
+          show={showQR}
+          title={`${values['l']}${values['m']}`}
+          data={getQRCodeData()}
+          onDismiss={() => setShowQR(false)}
+        />
+        {!showQR && (
           <form>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
               {Object.keys(config.sections).map((element) => {
@@ -94,6 +89,14 @@ export default function Home() {
                 className="mb-4 rounded bg-white p-8 shadow-md"
                 key="resetButton"
               >
+                <button
+                  className="focus:shadow-outline mx-2 rounded bg-gray-500 py-2 px-4 font-bold text-white hover:bg-gray-700 focus:outline-none"
+                  type="button"
+                  onClick={() => setShowQR(true)}
+                >
+                  Commit
+                </button>
+
                 <input
                   className="focus:shadow-outline mx-2 rounded bg-red-400 py-2 px-4 font-bold text-white hover:bg-red-500 focus:outline-none"
                   type="reset"
@@ -112,7 +115,7 @@ export default function Home() {
               </div>
             </div>
           </form>
-        </div>
+        )}
       </main>
     </div>
   )
