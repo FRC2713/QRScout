@@ -75,9 +75,8 @@ export default function Home() {
                       </h2>
                     </div>
                     {config.sections[element].map((e: any) => (
-                      <InputCard title={e.title}>
+                      <InputCard title={e.title} key={`${element}_${e.title}`}>
                         <ConfigurableInput
-                          key={`${element}_${e.title}`}
                           {...e}
                           onValueChange={updateValue}
                           value={values[e.code]}
@@ -117,6 +116,11 @@ export default function Home() {
           </form>
         )}
       </main>
+      <footer>
+        <div className="flex items-center justify-center">
+          <img src="https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg"></img>
+        </div>
+      </footer>
     </div>
   )
 }
