@@ -3,68 +3,6 @@
   "title": "QRScout",
   "page_title": "Rapid React",
   "sections": {
-    "Prematch": [
-      {
-        "title": "Scouter Initials",
-        "code": "s",
-        "type": "text",
-        "min": 5,
-        "max": 5,
-        "required": true
-      },
-      {
-        "title": "Event",
-        "code": "e",
-        "type": "text",
-        "defaultValue": "2022flwp",
-        "disabled": true,
-        "required": true
-      },
-      {
-        "title": "Match Level",
-        "code": "l",
-        "type": "select",
-        "choices": {
-          "qm": "Quals",
-          "ef": "Eighth Final",
-          "qf": "Quarter Final",
-          "sf": "Semi Final",
-          "f": "Final"
-        },
-        "defaultValue": "qm",
-        "required": true
-      },
-      {
-        "title": "Match #",
-        "code": "m",
-        "type": "number",
-        "min": 1,
-        "max": 100,
-        "required": true
-      },
-      {
-        "title": "Robot",
-        "code": "r",
-        "type": "select",
-        "choices": {
-          "r1": "Red 1",
-          "b1": "Blue 1",
-          "r2": "Red 2",
-          "b2": "Blue 2",
-          "r3": "Red 3",
-          "b3": "Blue 3"
-        },
-        "required": true
-      },
-      {
-        "title": "Team #",
-        "code": "t",
-        "type": "number",
-        "min": 1,
-        "max": 99999,
-        "required": true
-      }
-    ],
     "Autonomous": [
       {
         "code": "at",

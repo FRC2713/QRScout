@@ -4,6 +4,7 @@ import configJson from '../config/2022/config.json'
 import { Config } from '../components/inputs/BaseInputProps'
 import QRModal from '../components/QRModal'
 import Section from '../components/Section'
+import Prematch from '../components/PreMatch'
 
 const config: Config = configJson as Config
 
@@ -71,6 +72,15 @@ export default function Home() {
         {!showQR && (
           <form>
             <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+              <Prematch
+                scouter={values['s']}
+                eventCode={values['e']}
+                matchLevel={values['l']}
+                matchNumber={values['m']}
+                robot={values['r']}
+                teamNumber={values['t']}
+                onValueChange={(code, data) => updateValue(code, data)}
+              />
               {Object.keys(config.sections).map((element) => {
                 return (
                   <Section
