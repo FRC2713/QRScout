@@ -1,16 +1,22 @@
 import React from 'react'
 
 export default interface BaseInputProps extends InputProps {
-  value: any
   onChange: (value: any) => void
 }
 export interface Config {
   title: string
   page_title: string
-  sections: { [name: string]: InputProps[] }
+  sections: SectionProps[]
+}
+
+export interface SectionProps {
+  name: string
+  preserveDataOnReset?: boolean
+  fields: InputProps[]
 }
 
 export interface InputProps {
+  title: string
   type: InputTypes
   required: boolean
   // A shorthand code for this input

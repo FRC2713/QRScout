@@ -1,4 +1,3 @@
-import config from 'next/config'
 import React from 'react'
 import { InputProps } from './inputs/BaseInputProps'
 import ConfigurableInput from './inputs/ConfigurableInput'
@@ -7,8 +6,7 @@ import InputCard from './inputs/InputCard'
 interface SectionProps {
   name: string
   inputs: InputProps[]
-  values: Record<string, any>
-  onValueChanged: (code: string, data: any) => void
+  onValueChanged: (section: string, code: string, data: any) => void
 }
 
 export default function Section(props: SectionProps) {
@@ -19,16 +17,16 @@ export default function Section(props: SectionProps) {
           {props.name}
         </h2>
       </div>
-      {props.inputs.map((e: any) => (
+      {props.inputs.map((e: InputProps) => (
         <InputCard
           title={e.title}
           required={e.required}
+          hasValue={e.value !== null && e.value !== undefined && e.value !== ''}
           key={`${props.name}_${e.title}`}
         >
           <ConfigurableInput
             {...e}
-            onValueChange={props.onValueChanged}
-            value={props.values[e.code]}
+            onChange={(data) => props.onValueChanged(props.name, e.code, data)}
           />
         </InputCard>
       ))}

@@ -7,13 +7,11 @@ import RangeInput from './RangeInput'
 import SelectInput from './SelectInput'
 import StringInput from './StringInput'
 
-export interface ConfigurableInputProps extends BaseInputProps {
-  onValueChange: (code: string, value: any) => void
-}
+export interface ConfigurableInputProps extends BaseInputProps {}
 
 export default function ConfigurableInput(props: ConfigurableInputProps) {
   function handleChange(data: any) {
-    props.onValueChange(props.code, data)
+    props.onChange(data)
   }
 
   switch (props.type) {

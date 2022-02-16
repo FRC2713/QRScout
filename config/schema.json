@@ -1,81 +1,80 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$ref": "#/definitions/Config",
-  "description": "The schema for QRScout Config Files",
   "definitions": {
     "Config": {
       "type": "object",
       "properties": {
         "title": {
-          "type": "string",
-          "description": "The title of the browser window"
+          "type": "string"
         },
         "page_title": {
-          "type": "string",
-          "description": "The title of the scouting page."
+          "type": "string"
         },
         "sections": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "array",
-            "items": {
-              "$ref": "#/definitions/InputProps"
-            }
-          },
-          "description": "The sections of the scouting form."
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Section"
+          }
         }
       },
       "required": ["title", "page_title", "sections"],
+      "additionalProperties": false
+    },
+    "Section": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "preserveDataOnReset": {
+          "type": "boolean",
+          "description": "If true, field data will not be cleared when the scouting form is reset."
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InputProps"
+          }
+        }
+      },
+      "required": ["name", "fields"],
       "additionalProperties": false
     },
     "InputProps": {
       "type": "object",
       "properties": {
         "title": {
-          "type": "string",
-          "description": "The title of this input."
+          "type": "string"
         },
         "type": {
-          "$ref": "#/definitions/InputTypes",
-          "description": "The type of input to render"
-        },
-        "code": {
-          "type": "string",
-          "description": "A shorthand code for this input. Must be unique."
+          "$ref": "#/definitions/InputTypes"
         },
         "required": {
-          "type": "boolean",
-          "description": "Is this input required?"
+          "type": "boolean"
+        },
+        "code": {
+          "type": "string"
         },
         "disabled": {
-          "type": "boolean",
-          "description": "Disable this input"
+          "type": "boolean"
         },
+        "value": {},
         "choices": {
           "type": "object",
           "additionalProperties": {
             "type": "string"
-          },
-          "description": "Define the options for select type inputs."
+          }
         },
-        "defaultValue": {
-          "description": "Set the default value of this input.  Will be used when the form is reset.",
-          "examples": [false, 0, 10.34, "No Auto"]
-        },
+        "defaultValue": {},
         "min": {
-          "type": "number",
-          "description": "Min value for number fields, min length for text fields"
+          "type": "number"
         },
         "max": {
-          "type": "number",
-          "description": "Max value for number fields, Max length for text fields"
-        },
-        "filename": {
-          "type": "string",
-          "description": "The filename of the image to use."
+          "type": "number"
         }
       },
-      "required": ["title", "type", "code", "required"],
+      "required": ["title", "type", "required", "code"],
       "additionalProperties": false
     },
     "InputTypes": {
@@ -86,8 +85,8 @@
         "boolean",
         "range",
         "select",
-        "image",
-        "counter"
+        "counter",
+        "image"
       ]
     }
   }

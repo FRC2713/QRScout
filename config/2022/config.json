@@ -2,174 +2,186 @@
   "$schema": "../schema.json",
   "title": "QRScout",
   "page_title": "Rapid React",
-  "sections": {
-    "Autonomous": [
-      {
-        "code": "at",
-        "title": "Taxied?",
-        "type": "boolean",
-        "defaultValue": false,
-        "required": false
-      },
-      {
-        "code": "au",
-        "title": "Upper Cargo Scored",
-        "type": "counter",
-        "defaultValue": 0,
-        "required": false
-      },
-      {
-        "code": "al",
-        "title": "Lower Cargo Scored",
-        "type": "counter",
-        "defaultValue": 0,
-        "required": false
-      },
-      {
-        "code": "ac",
-        "title": "Picked up more cargo?",
-        "type": "boolean",
-        "defaultValue": false,
-        "required": false
-      }
-    ],
-    "Teleop": [
-      {
-        "code": "tu",
-        "title": "Upper Cargo Scored",
-        "type": "counter",
-        "defaultValue": 0,
-        "required": false
-      },
-      {
-        "code": "tl",
-        "title": "Lower Cargo Scored",
-        "type": "counter",
-        "defaultValue": 0,
-        "required": false
-      },
-      {
-        "code": "tm",
-        "title": "Upper Cargo Missed",
-        "type": "counter",
-        "defaultValue": 0,
-        "required": false
-      },
-      {
-        "code": "tn",
-        "title": "Lower Cargo Missed",
-        "type": "counter",
-        "defaultValue": 0,
-        "required": false
-      },
-      {
-        "code": "wd",
-        "title": "Was Defended",
-        "type": "boolean",
-        "defaultValue": false,
-        "required": false
-      },
-      {
-        "code": "cl",
-        "title": "Pick up Cargo where",
-        "type": "select",
-        "choices": {
-          "t": "Terminal",
-          "g": "Ground",
-          "b": "Both",
-          "x": "Not Attempted"
+  "sections": [
+    {
+      "name": "Autonomous",
+      "fields": [
+        {
+          "code": "at",
+          "title": "Taxied?",
+          "type": "boolean",
+          "defaultValue": false,
+          "required": false
         },
-        "defaultValue": "x",
-        "required": false
-      }
-    ],
-    "Endgame": [
-      {
-        "code": "c",
-        "title": "Climb",
-        "type": "select",
-        "choices": {
-          "1": "Low",
-          "2": "Mid",
-          "3": "High",
-          "4": "Traversal",
-          "f": "Attempted but Failed",
-          "x": "Not Attempted"
+        {
+          "code": "au",
+          "title": "Upper Cargo Scored",
+          "type": "counter",
+          "defaultValue": 0,
+          "required": false
         },
-        "defaultValue": "x",
-        "required": false
-      },
-      {
-        "code": "be",
-        "title": "Started climb before EndGame",
-        "type": "boolean",
-        "defaultValue": false,
-        "required": false
-      },
-      {
-        "code": "cn",
-        "title": "# of alliance bots climbed",
-        "type": "counter",
-        "defaultValue": 0,
-        "required": false
-      }
-    ],
-    "Postmatch": [
-      {
-        "code": "ds",
-        "title": "Driver Skill",
-        "type": "select",
-        "choices": {
-          "n": "Not Effective",
-          "a": "Average",
-          "v": "Very Effective",
-          "x": "Not Observed"
+        {
+          "code": "al",
+          "title": "Lower Cargo Scored",
+          "type": "counter",
+          "defaultValue": 0,
+          "required": false
         },
-        "defaultValue": "x",
-        "required": false
-      },
-      {
-        "code": "dr",
-        "title": "Defense Rating",
-        "type": "select",
-        "choices": {
-          "n": "Not Effective",
-          "a": "Average",
-          "v": "Very Effective",
-          "x": "Not Observed"
+        {
+          "code": "ac",
+          "title": "Picked up more cargo?",
+          "type": "boolean",
+          "defaultValue": false,
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Teleop",
+      "fields": [
+        {
+          "code": "tu",
+          "title": "Upper Cargo Scored",
+          "type": "counter",
+          "defaultValue": 0,
+          "required": false
         },
-        "defaultValue": "x",
-        "required": false
-      },
-      {
-        "code": "d",
-        "title": "Died",
-        "type": "boolean",
-        "defaultValue": false,
-        "required": false
-      },
-      {
-        "code": "to",
-        "title": "Tipped Over",
-        "type": "boolean",
-        "defaultValue": false,
-        "required": false
-      },
-      {
-        "code": "cf",
-        "title": "Yellow/Red Card",
-        "type": "boolean",
-        "defaultValue": false,
-        "required": false
-      },
-      {
-        "code": "co",
-        "title": "Comments",
-        "type": "text",
-        "min": 0,
-        "max": 50,
-        "required": false
-      }
-    ]
-  }
+        {
+          "code": "tl",
+          "title": "Lower Cargo Scored",
+          "type": "counter",
+          "defaultValue": 0,
+          "required": false
+        },
+        {
+          "code": "tm",
+          "title": "Upper Cargo Missed",
+          "type": "counter",
+          "defaultValue": 0,
+          "required": false
+        },
+        {
+          "code": "tn",
+          "title": "Lower Cargo Missed",
+          "type": "counter",
+          "defaultValue": 0,
+          "required": false
+        },
+        {
+          "code": "wd",
+          "title": "Was Defended",
+          "type": "boolean",
+          "defaultValue": false,
+          "required": false
+        },
+        {
+          "code": "cl",
+          "title": "Pick up Cargo where",
+          "type": "select",
+          "choices": {
+            "t": "Terminal",
+            "g": "Ground",
+            "b": "Both",
+            "x": "Not Attempted"
+          },
+          "defaultValue": "x",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Endgame",
+      "fields": [
+        {
+          "code": "c",
+          "title": "Climb",
+          "type": "select",
+          "choices": {
+            "1": "Low",
+            "2": "Mid",
+            "3": "High",
+            "4": "Traversal",
+            "f": "Attempted but Failed",
+            "x": "Not Attempted"
+          },
+          "defaultValue": "x",
+          "required": false
+        },
+        {
+          "code": "be",
+          "title": "Started climb before EndGame",
+          "type": "boolean",
+          "defaultValue": false,
+          "required": false
+        },
+        {
+          "code": "cn",
+          "title": "# of alliance bots climbed",
+          "type": "counter",
+          "defaultValue": 0,
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Postmatch",
+      "fields": [
+        {
+          "code": "ds",
+          "title": "Driver Skill",
+          "type": "select",
+          "choices": {
+            "n": "Not Effective",
+            "a": "Average",
+            "v": "Very Effective",
+            "x": "Not Observed"
+          },
+          "defaultValue": "x",
+          "required": false
+        },
+        {
+          "code": "dr",
+          "title": "Defense Rating",
+          "type": "select",
+          "choices": {
+            "n": "Not Effective",
+            "a": "Average",
+            "v": "Very Effective",
+            "x": "Not Observed"
+          },
+          "defaultValue": "x",
+          "required": false
+        },
+        {
+          "code": "d",
+          "title": "Died",
+          "type": "boolean",
+          "defaultValue": false,
+          "required": false
+        },
+        {
+          "code": "to",
+          "title": "Tipped Over",
+          "type": "boolean",
+          "defaultValue": false,
+          "required": false
+        },
+        {
+          "code": "cf",
+          "title": "Yellow/Red Card",
+          "type": "boolean",
+          "defaultValue": false,
+          "required": false
+        },
+        {
+          "code": "co",
+          "title": "Comments",
+          "type": "text",
+          "min": 0,
+          "max": 50,
+          "required": false
+        }
+      ]
+    }
+  ]
 }

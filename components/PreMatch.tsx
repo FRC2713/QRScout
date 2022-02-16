@@ -24,28 +24,28 @@ export default function Prematch(props: PrematchProps) {
       <InputCard title="Scouter Initials" required>
         <StringInput
           value={props.scouter}
-          onChange={(value) => props.onValueChange('s', value)}
+          onChange={(value) => props.onValueChange('scouter', value)}
           type={'text'}
           required={true}
-          code={'s'}
+          code={'scouter'}
         />
       </InputCard>
       <InputCard title="Event" required>
         <StringInput
           value={props.eventCode}
-          onChange={(value) => props.onValueChange('e', value)}
+          onChange={(value) => props.onValueChange('eventCode', value)}
           type={'text'}
           required={true}
-          code={'e'}
+          code={'eventCode'}
         />
       </InputCard>
       <InputCard title="Match Level" required>
         <SelectInput
           value={props.matchLevel}
-          onChange={(value) => props.onValueChange('l', value)}
+          onChange={(value) => props.onValueChange('matchLevel', value)}
           type={'text'}
           required={true}
-          code={'l'}
+          code={'matchLevel'}
           options={{
             qm: 'Quals',
             ef: 'Eighth Final',
@@ -59,19 +59,19 @@ export default function Prematch(props: PrematchProps) {
       <InputCard title="Match Number" required>
         <NumberInput
           value={props.matchNumber}
-          onChange={(value) => props.onValueChange('m', value)}
+          onChange={(value) => props.onValueChange('matchNumber', value)}
           type={'number'}
           required={true}
-          code={'m'}
+          code={'matchNumber'}
         ></NumberInput>
       </InputCard>
       <InputCard title="Robot" required>
         <SelectInput
           value={props.robot}
-          onChange={(value) => props.onValueChange('r', value)}
+          onChange={(value) => props.onValueChange('robot', value)}
           type={'select'}
           required={true}
-          code={'r'}
+          code={'robot'}
           options={{
             r1: 'Red 1',
             b1: 'Blue 1',
@@ -86,10 +86,10 @@ export default function Prematch(props: PrematchProps) {
       <InputCard title="Team Number" required>
         <NumberInput
           value={props.teamNumber}
-          onChange={(value) => props.onValueChange('t', value)}
+          onChange={(value) => props.onValueChange('teamNumber', value)}
           type={'number'}
           required={true}
-          code={'t'}
+          code={'teamNumber'}
         ></NumberInput>
       </InputCard>
     </div>

@@ -25,6 +25,7 @@ export default function StringInput(data: StringInputProps) {
       maxLength={data.maxSize}
       onChange={handleChange}
       value={data.value}
+      defaultValue={data.defaultValue}
     ></input>
   )
 }
