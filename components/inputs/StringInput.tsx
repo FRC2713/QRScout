@@ -22,10 +22,9 @@ export default function StringInput(data: StringInputProps) {
       name={`${data.title}_input`}
       id={`${data.title}_input`}
       type="text"
-      maxLength={data.maxSize}
       onChange={handleChange}
-      value={data.value}
       defaultValue={data.defaultValue}
+      value={data.value}
     ></input>
   )
 }

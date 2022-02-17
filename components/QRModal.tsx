@@ -17,11 +17,11 @@ export default function QRModal(props: QRModalProps) {
             className="fixed inset-0 h-full w-full overflow-y-auto bg-gray-600 bg-opacity-50"
             id="my-modal"
           />
-          <div className="relative top-20 mx-auto w-72 rounded-md border bg-white p-5 shadow-lg md:w-72 lg:w-96">
+          <div className="fixed top-20 mx-auto w-72 rounded-md border bg-white p-5 shadow-lg md:w-72 lg:w-96">
             <div className="mt-3 text-center">
               <h1 className="text-4xl">{props.title.toUpperCase()}</h1>
               <div className="flex flex-col items-center">
-                <QRCode className="m-2 mt-4 w-72" value={props.data} />
+                <QRCode className="m-2 mt-4" value={props.data} />
                 <div
                   onClick={() =>
                     navigator.clipboard.writeText(props.data + '\n')

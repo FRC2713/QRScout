@@ -40,7 +40,6 @@ const prematchSection: SectionProps = {
       type: 'number',
       required: true,
       code: 'matchNumber',
-      defaultValue: 1,
     },
     {
       title: 'Robot',
@@ -62,7 +61,6 @@ const prematchSection: SectionProps = {
       type: 'number',
       required: true,
       code: 'teamNumber',
-      defaultValue: 1,
     },
   ],
 }
@@ -124,7 +122,10 @@ export default function Home() {
       .filter((s) => !s.preserveDataOnReset)
       .map((s) => s.fields)
       .flat()
-      .forEach((f) => (f.value = f.defaultValue))
+      .forEach((f) => {
+        console.log(`resetting ${f.title} from ${f.value} to ${f.defaultValue}`)
+        f.value = f.defaultValue
+      })
 
     setFormData(currentData)
   }
@@ -194,74 +195,73 @@ export default function Home() {
           data={getQRCodeData()}
           onDismiss={() => setShowQR(false)}
         />
-        {!showQR && (
-          <form>
-            <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-              {formData.sections.map((section) => {
-                return (
-                  <Section
-                    key={section.name}
-                    name={section.name}
-                    inputs={section.fields}
-                    onValueChanged={updateValue}
-                  />
-                )
-              })}
 
-              <div className="mb-4 flex flex-col justify-center rounded bg-white shadow-md">
-                <button
-                  className="focus:shadow-outline mx-2 rounded bg-gray-700 py-6 px-6 font-bold uppercase text-white hover:bg-gray-700 focus:shadow-lg focus:outline-none disabled:bg-gray-300"
-                  type="button"
-                  onClick={() => setShowQR(true)}
-                  disabled={getMissingRequiredFields().length > 0}
-                >
-                  Commit
-                </button>
-                <input
-                  className="focus:shadow-outline mx-2 my-6 rounded border border-red-400 bg-white py-2 font-bold text-red-400 hover:bg-red-200 focus:outline-none"
-                  type="reset"
-                  onClick={() => resetSections()}
+        <form>
+          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            {formData.sections.map((section) => {
+              return (
+                <Section
+                  key={section.name}
+                  name={section.name}
+                  inputs={section.fields}
+                  onValueChanged={updateValue}
                 />
-              </div>
-              <div className="mb-4 flex flex-col justify-center rounded bg-white shadow-md">
-                <Button
-                  variant={Variant.Secondary}
-                  className="m-2"
-                  onClick={() =>
-                    navigator.clipboard.writeText(
-                      formData.sections
-                        .map((s) => s.fields)
-                        .flat()
-                        .map((f) => f.title)
-                        .join('\t')
-                    )
-                  }
-                >
-                  Copy Column Names
-                </Button>
-                <Button
-                  variant={Variant.Secondary}
-                  className="m-2"
-                  onClick={() => downloadConfig()}
-                  disabled
-                >
-                  Download Config
-                </Button>
-                <label className="m-2 flex cursor-pointer flex-row justify-center rounded border bg-gray-500 py-2 text-center font-bold text-white hover:bg-gray-600">
-                  <span className="text-base leading-normal">
-                    Upload Config
-                  </span>
-                  <input
-                    type="file"
-                    className="hidden"
-                    accept=".json"
-                    onChange={(e) => handleFileChange(e)}
-                  />
-                </label>
-              </div>
+              )
+            })}
+
+            <div className="mb-4 flex flex-col justify-center rounded bg-white shadow-md">
+              <button
+                className="focus:shadow-outline mx-2 rounded bg-gray-700 py-6 px-6 font-bold uppercase text-white hover:bg-gray-700 focus:shadow-lg focus:outline-none disabled:bg-gray-300"
+                type="button"
+                onClick={() => setShowQR(true)}
+                disabled={getMissingRequiredFields().length > 0}
+              >
+                Commit
+              </button>
+              <button
+                className="focus:shadow-outline mx-2 my-6 rounded border border-red-400 bg-white py-2 font-bold text-red-400 hover:bg-red-200 focus:outline-none"
+                type="button"
+                onClick={() => resetSections()}
+              >
+                Reset
+              </button>
             </div>
-          </form>
-        )}
+            <div className="mb-4 flex flex-col justify-center rounded bg-white shadow-md">
+              <Button
+                variant={Variant.Secondary}
+                className="m-2"
+                onClick={() =>
+                  navigator.clipboard.writeText(
+                    formData.sections
+                      .map((s) => s.fields)
+                      .flat()
+                      .map((f) => f.title)
+                      .join('\t')
+                  )
+                }
+              >
+                Copy Column Names
+              </Button>
+              <Button
+                variant={Variant.Secondary}
+                className="m-2"
+                onClick={() => downloadConfig()}
+                disabled
+              >
+                Download Config
+              </Button>
+              <label className="m-2 flex cursor-pointer flex-row justify-center rounded border bg-gray-500 py-2 text-center font-bold text-white hover:bg-gray-600">
+                <span className="text-base leading-normal">Upload Config</span>
+                <input
+                  type="file"
+                  className="hidden"
+                  accept=".json"
+                  onChange={(e) => handleFileChange(e)}
+                />
+              </label>
+            </div>
+          </div>
+        </form>
       </main>
       <footer>
         <div className="flex items-center justify-center">
