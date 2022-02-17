@@ -246,7 +246,6 @@ export default function Home() {
                 variant={Variant.Secondary}
                 className="m-2"
                 onClick={() => downloadConfig()}
-                disabled
               >
                 Download Config
               </Button>
