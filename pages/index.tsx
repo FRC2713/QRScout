@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import configJson from '../config/2022/config.json'
 import {
   Config,
@@ -10,66 +10,8 @@ import QRModal from '../components/QRModal'
 import Section from '../components/Section'
 import Button, { Variant } from '../components/core/Button'
 
-const prematchSection: SectionProps = {
-  name: 'Prematch',
-  preserveDataOnReset: true,
-  fields: [
-    {
-      title: 'Scouter Initials',
-      type: 'text',
-      required: true,
-      code: 'scouter',
-    },
-    { title: 'Event Code', type: 'text', required: true, code: 'eventCode' },
-    {
-      title: 'Match Level',
-      type: 'select',
-      required: true,
-      code: 'matchLevel',
-      choices: {
-        qm: 'Quals',
-        ef: 'Eighth Final',
-        qf: 'Quarter Final',
-        sf: 'Semi Final',
-        f: 'Final',
-      },
-      defaultValue: 'qm',
-    },
-    {
-      title: 'Match Number',
-      type: 'number',
-      required: true,
-      code: 'matchNumber',
-    },
-    {
-      title: 'Robot',
-      type: 'select',
-      required: true,
-      code: 'robot',
-      choices: {
-        r1: 'Red 1',
-        b1: 'Blue 1',
-        r2: 'Red 2',
-        b2: 'Blue 2',
-        r3: 'Red 3',
-        b3: 'Blue 3',
-      },
-      defaultValue: 'r1',
-    },
-    {
-      title: 'Team Number',
-      type: 'number',
-      required: true,
-      code: 'teamNumber',
-    },
-  ],
-}
-
 function buildConfig(c: Config) {
   let config: Config = { ...c }
-  if (!config.sections.some((s) => s.name === prematchSection.name)) {
-    config.sections = [prematchSection, ...config.sections]
-  }
   config.sections
     .map((s) => s.fields)
     .flat()
@@ -84,6 +26,15 @@ function getDefaultConfig(): Config {
 export default function Home() {
   const [formData, setFormData] = useState<Config>(getDefaultConfig)
   const [showQR, setShowQR] = useState(false)
+
+  useEffect(() => {
+    let userConfig = localStorage.getItem('QRScoutUserConfig')
+    if (userConfig) {
+      setFormData(buildConfig(JSON.parse(userConfig) as Config))
+    } else {
+      setFormData(getDefaultConfig())
+    }
+  }, [])
 
   function updateValue(sectionName: string, code: string, data: any) {
     const currentData = { ...formData }
@@ -156,9 +107,7 @@ export default function Home() {
 
   function downloadConfig() {
     const configDownload = { ...formData }
-    configDownload.sections = configDownload.sections.filter(
-      (s) => s.name !== 'Prematch'
-    )
+
     configDownload.sections.forEach((s) =>
       s.fields.forEach((f) => (f.value = undefined))
     )
@@ -168,7 +117,9 @@ export default function Home() {
   function handleFileChange(evt: ChangeEvent<HTMLInputElement>) {
     var reader = new FileReader()
     reader.onload = function (e) {
-      const jsonData = JSON.parse(e.target?.result as string)
+      const configText = e.target?.result as string
+      localStorage.setItem('QRScoutUserConfig', configText)
+      const jsonData = JSON.parse(configText)
       setFormData(buildConfig(jsonData as Config))
     }
     if (evt.target.files && evt.target.files.length > 0) {
