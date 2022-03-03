@@ -24,7 +24,7 @@ function getDefaultConfig(): Config {
 }
 
 export default function Home() {
-  const [formData, setFormData] = useState<Config>(getDefaultConfig())
+  const [formData, setFormData] = useState<Config>(getDefaultConfig)
   const [showQR, setShowQR] = useState(false)
 
   useEffect(() => {
@@ -43,11 +43,8 @@ export default function Home() {
       let field = section.fields.find((f) => f.code === code)
       if (field) {
         field.value = data
-        console.log(`updated field with value ${data}`, field)
-        console.log(`field value is now ${field}`, field)
       }
     }
-    console.log('setting form data', currentData)
     setFormData(currentData)
   }
 

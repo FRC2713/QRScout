@@ -11,14 +11,11 @@ export interface CounterInputProps extends BaseInputProps {
 export default function CounterInput(data: CounterInputProps) {
   function handleChange(increment: number) {
     const newVal = data.value + increment
-    console.log('handling counter change', newVal)
-    if (data.max && newVal > data.max) {
-      console.log('max value reached')
+    if (data.max !== undefined && newVal > data.max) {
       // Don't fire the event if the new value would be greater than the max
       return
     }
-    if (data.min && newVal < data.min) {
-      console.log('min value reached')
+    if (data.min !== undefined && newVal < data.min) {
       // Don't fire the event if the new value would be less than the min
       return
     }
