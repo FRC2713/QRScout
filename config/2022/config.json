@@ -14,26 +14,6 @@
           "code": "scouter"
         },
         {
-          "title": "Event Code",
-          "type": "text",
-          "required": true,
-          "code": "eventCode"
-        },
-        {
-          "title": "Match Level",
-          "type": "select",
-          "required": true,
-          "code": "matchLevel",
-          "choices": {
-            "qm": "Quals",
-            "ef": "Eighth Final",
-            "qf": "Quarter Final",
-            "sf": "Semi Final",
-            "f": "Final"
-          },
-          "defaultValue": "qm"
-        },
-        {
           "title": "Match Number",
           "type": "number",
           "required": true,
@@ -59,12 +39,37 @@
           "type": "number",
           "required": true,
           "code": "teamNumber"
+        },
+        {
+          "title": "No Show",
+          "type": "boolean",
+          "defaultValue": false,
+          "required": false,
+          "code": "noShow"
+        },
+        {
+          "title": "Using Human Player",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "code": "humanPlayer"
         }
       ]
     },
     {
       "name": "Autonomous",
       "fields": [
+        {
+          "title": "Starting Location",
+          "type": "select",
+          "choices": {
+            "left": "Left",
+            "middle": "Middle",
+            "right": "Right"
+          },
+          "required": false,
+          "code": "autoStart"
+        },
         {
           "code": "at",
           "title": "Taxied?",
@@ -81,8 +86,24 @@
           "required": false
         },
         {
+          "code": "aum",
+          "title": "Upper Cargo Missed",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
           "code": "al",
           "title": "Lower Cargo Scored",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
+          "code": "alm",
+          "title": "Lower Cargo Missed",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,

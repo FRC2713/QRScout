@@ -6,25 +6,24 @@ export interface StringInputProps extends BaseInputProps {
 }
 
 export default function StringInput(data: StringInputProps) {
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     let d: React.DetailedHTMLProps<
-      React.InputHTMLAttributes<HTMLInputElement>,
-      HTMLInputElement
+      React.InputHTMLAttributes<HTMLTextAreaElement>,
+      HTMLTextAreaElement
     >
     data.onChange(e.target.value)
     e.preventDefault()
   }
 
   return (
-    <input
-      className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+    <textarea
+      className="focus:shadow-outline w-full appearance-none break-words break-all rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
       disabled={data.disabled}
       name={`${data.title}_input`}
       id={`${data.title}_input`}
-      type="text"
       onChange={handleChange}
       defaultValue={data.defaultValue}
       value={data.value}
-    ></input>
+    ></textarea>
   )
 }
