@@ -140,9 +140,7 @@ export default function Home() {
         </h1>
         <QRModal
           show={showQR}
-          title={`${getFieldValue('robot')} - ${getFieldValue(
-            'matchLevel'
-          )}${getFieldValue('matchNumber')}`}
+          title={`${getFieldValue('robot')} - ${getFieldValue('matchNumber')}`}
           data={getQRCodeData()}
           onDismiss={() => setShowQR(false)}
         />
