@@ -17,18 +17,18 @@ export default function QRModal(props: QRModalProps) {
             className="fixed inset-0 h-full w-full overflow-y-auto bg-gray-600 bg-opacity-50"
             id="my-modal"
           />
-          <div className="fixed top-20 mx-auto w-72 rounded-md border bg-white p-5 shadow-lg md:w-72 lg:w-96">
-            <div className="mt-3 text-center">
+          <div className="fixed top-20 rounded-md border bg-white p-5 shadow-lg">
+            <div className="flex flex-col items-center">
               <h1 className="text-4xl">{props.title.toUpperCase()}</h1>
-              <div className="flex flex-col items-center">
-                <QRCode className="m-2 mt-4" value={props.data} />
+              <QRCode className="m-2 mt-4" size={256} value={props.data} />
+              <div className="mt-4 flex w-full flex-row items-center justify-between">
                 <div
                   onClick={() =>
                     navigator.clipboard.writeText(props.data + '\n')
                   }
                 >
                   <svg
-                    className="h-8 w-8 text-gray-500 hover:text-gray-800"
+                    className="mr-4 h-8 w-8 text-gray-500 hover:text-gray-800 "
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
@@ -44,7 +44,7 @@ export default function QRModal(props: QRModalProps) {
                   </svg>
                 </div>
                 <button
-                  className="focus:shadow-outline mx-2 mt-4 rounded bg-red-800 py-2 px-4 font-bold text-white hover:bg-red-700 focus:outline-none"
+                  className="focus:shadow-outline rounded bg-red-800 py-2 px-4 font-bold text-white hover:bg-red-700 focus:outline-none"
                   type="button"
                   onClick={props.onDismiss}
                 >
