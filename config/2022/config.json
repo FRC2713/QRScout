@@ -1,29 +1,29 @@
 {
   "$schema": "../schema.json",
   "title": "QRScout",
-  "page_title": "Rapid Reactish",
+  "page_title": "Charged Up",
   "sections": [
     {
       "name": "Prematch",
       "preserveDataOnReset": true,
       "fields": [
         {
+          "code": "scouter",
           "title": "Scouter Initials",
           "type": "text",
-          "required": true,
-          "code": "scouter"
+          "required": true
         },
         {
+          "code": "matchNumber",
           "title": "Match Number",
           "type": "number",
-          "required": true,
-          "code": "matchNumber"
+          "required": true
         },
         {
+          "code": "robot",
           "title": "Robot",
           "type": "select",
           "required": true,
-          "code": "robot",
           "choices": {
             "r1": "Red 1",
             "b1": "Blue 1",
@@ -35,24 +35,17 @@
           "defaultValue": "r1"
         },
         {
+          "code": "teamNumber",
           "title": "Team Number",
           "type": "number",
-          "required": true,
-          "code": "teamNumber"
+          "required": true
         },
         {
+          "code": "noShow",
           "title": "No Show",
           "type": "boolean",
           "defaultValue": false,
-          "required": false,
-          "code": "noShow"
-        },
-        {
-          "title": "Using Human Player",
-          "type": "boolean",
-          "required": false,
-          "defaultValue": false,
-          "code": "humanPlayer"
+          "required": false
         }
       ]
     },
@@ -60,60 +53,54 @@
       "name": "Autonomous",
       "fields": [
         {
-          "title": "Starting Location",
+          "code": "Engaged",
+          "title": "Docked/Engaged",
           "type": "select",
           "choices": {
-            "left": "Left",
-            "middle": "Middle",
-            "right": "Right"
+            "1": "None",
+            "2": "Docked",
+            "3": "Engaged"
           },
-          "required": false,
-          "code": "autoStart"
+          "defaultValue": false,
+          "required": false
         },
         {
-          "code": "at",
-          "title": "Taxied?",
+          "code": "mb",
+          "title": "Mobility Bounus",
           "type": "boolean",
           "defaultValue": false,
           "required": false
         },
         {
-          "code": "au",
-          "title": "Upper Cargo Scored",
+          "code": "ahp",
+          "title": "High Pieces Scored",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
           "required": false
         },
         {
-          "code": "aum",
-          "title": "Upper Cargo Missed",
+          "code": "amp",
+          "title": "Mid Pieces Scored",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
           "required": false
         },
         {
-          "code": "al",
-          "title": "Lower Cargo Scored",
+          "code": "afp",
+          "title": "Floor Pieces Scored",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
           "required": false
         },
         {
-          "code": "alm",
-          "title": "Lower Cargo Missed",
-          "type": "counter",
-          "defaultValue": 0,
-          "min": 0,
-          "required": false
-        },
-        {
-          "code": "ac",
-          "title": "Picked up more cargo?",
+          "code": "apu",
+          "title": "Picked Up Piece",
           "type": "boolean",
-          "defaultValue": false,
+          "defaultValue": 0,
+          "min": 0,
           "required": false
         }
       ]
@@ -122,55 +109,54 @@
       "name": "Teleop",
       "fields": [
         {
-          "code": "tu",
-          "title": "Upper Cargo Scored",
+          "code": "thp",
+          "title": "High Pieces Scored",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
           "required": false
         },
         {
-          "code": "tm",
-          "title": "Upper Cargo Missed",
+          "code": "tmp",
+          "title": "Mid Pieces Scored",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
           "required": false
         },
         {
-          "code": "tl",
-          "title": "Lower Cargo Scored",
+          "code": "tfp",
+          "title": "Floor Pieces Scored",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
           "required": false
         },
         {
-          "code": "tn",
-          "title": "Lower Cargo Missed",
-          "type": "counter",
-          "defaultValue": 0,
-          "min": 0,
+          "code": "cw",
+          "title": "Pick up Cargo where",
+          "type": "select",
+          "choices": {
+            "t": "Substations",
+            "g": "Ground",
+            "b": "Both",
+            "x": "None"
+          },
+          "defaultValue": "x",
           "required": false
         },
         {
-          "code": "wd",
-          "title": "Was Defended",
+          "code": "cube",
+          "title": "Can Score Cubes",
           "type": "boolean",
           "defaultValue": false,
           "required": false
         },
         {
-          "code": "cl",
-          "title": "Pick up Cargo where",
-          "type": "select",
-          "choices": {
-            "t": "Terminal",
-            "g": "Ground",
-            "b": "Both",
-            "x": "Not Attempted"
-          },
-          "defaultValue": "x",
+          "code": "cone",
+          "title": "Can Score Cones",
+          "type": "boolean",
+          "defaultValue": false,
           "required": false
         }
       ]
@@ -179,68 +165,21 @@
       "name": "Endgame",
       "fields": [
         {
-          "code": "c",
-          "title": "Climb",
+          "code": "egp",
+          "title": "EndGame Position",
           "type": "select",
           "choices": {
-            "1": "Low",
-            "2": "Mid",
-            "3": "High",
-            "4": "Traversal",
-            "f": "Attempted but Failed",
-            "x": "Not Attempted"
+            "1": "None",
+            "2": "Parked",
+            "3": "Docked",
+            "4": "Engaged"
           },
-          "defaultValue": "x",
+          "defaultValue": "None",
           "required": false
         },
         {
-          "code": "be",
-          "title": "Started climb before EndGame",
-          "type": "boolean",
-          "defaultValue": false,
-          "required": false
-        },
-        {
-          "code": "cn",
-          "title": "# of alliance bots climbed",
-          "type": "counter",
-          "defaultValue": 0,
-          "required": false
-        }
-      ]
-    },
-    {
-      "name": "Postmatch",
-      "fields": [
-        {
-          "code": "ds",
-          "title": "Driver Skill",
-          "type": "select",
-          "choices": {
-            "n": "Not Effective",
-            "a": "Average",
-            "v": "Very Effective",
-            "x": "Not Observed"
-          },
-          "defaultValue": "x",
-          "required": false
-        },
-        {
-          "code": "dr",
-          "title": "Defense Rating",
-          "type": "select",
-          "choices": {
-            "n": "Not Effective",
-            "a": "Average",
-            "v": "Very Effective",
-            "x": "Not Observed"
-          },
-          "defaultValue": "x",
-          "required": false
-        },
-        {
-          "code": "d",
-          "title": "Died",
+          "code": "bb",
+          "title": "Buddy Balance",
           "type": "boolean",
           "defaultValue": false,
           "required": false
@@ -251,20 +190,43 @@
           "type": "boolean",
           "defaultValue": false,
           "required": false
-        },
+        }
+      ]
+    },
+    {
+      "name": "Postmatch",
+      "fields": [
         {
-          "code": "cf",
-          "title": "Yellow/Red Card",
+          "code": "d",
+          "title": "Died",
           "type": "boolean",
           "defaultValue": false,
           "required": false
         },
         {
-          "code": "co",
-          "title": "Comments",
-          "type": "text",
-          "min": 0,
-          "max": 50,
+          "code": "drs",
+          "title": "Driver Skill",
+          "type": "select",
+          "choices": {
+            "1": "Poor",
+            "2": "Average",
+            "3": "Good",
+            "4": "Exelent"
+          },
+          "defaultValue": false,
+          "required": false
+        },
+        {
+          "code": "ds",
+          "title": "Defense Skill",
+          "type": "select",
+          "choices": {
+            "1": "Poor",
+            "2": "Average",
+            "3": "Good",
+            "4": "Exelent"
+          },
+          "defaultValue": false,
           "required": false
         }
       ]
