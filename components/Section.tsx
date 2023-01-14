@@ -12,7 +12,7 @@ interface SectionProps {
 export default function Section(props: SectionProps) {
   return (
     <div className="mb-4 rounded bg-white shadow-md" key={props.name}>
-      <div className="mb-2 rounded-t bg-red-800 p-1 shadow-md">
+      <div className="mb-2 rounded-t bg-yellow-800 p-1 shadow-md">
         <h2 className="text-2xl font-bold uppercase text-white">
           {props.name}
         </h2>
