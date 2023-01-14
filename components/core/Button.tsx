@@ -15,7 +15,7 @@ export enum Variant {
 const VARIANT_MAPS: Record<Variant, string> = {
   [Variant.Primary]: 'bg-gray-700 hover:bg-gray-800 disabled:bg-gray-300',
   [Variant.Secondary]: 'bg-gray-500 hover:bg-gray-600 disabled:bg-gray-300',
-  [Variant.Danger]: 'bg-yellow-500 hover:bg-yellow-700 disabled:bg-yellow-300',
+  [Variant.Danger]: 'bg-yellow-300 hover:bg-yellow-500 disabled:bg-yellow-100',
 }
 
 export default function Button(props: ButtonProps) {
