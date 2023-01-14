@@ -136,7 +136,7 @@ export default function Home() {
 
       <main className="flex w-full flex-1 flex-col items-center justify-center px-4 text-center">
         <h1 className="font-sans text-6xl font-bold">
-          <div className="text-red-600">{formData.page_title}</div>
+          <div className="text-yellow-600">{formData.page_title}</div>
         </h1>
         <QRModal
           show={showQR}
@@ -168,7 +168,7 @@ export default function Home() {
                 Commit
               </button>
               <button
-                className="focus:shadow-outline mx-2 my-6 rounded border border-red-400 bg-white py-2 font-bold text-red-400 hover:bg-red-200 focus:outline-none"
+                className="focus:shadow-outline mx-2 my-6 rounded border border-yellow-400 bg-white py-2 font-bold text-yellow-400 hover:bg-yellow-200 focus:outline-none"
                 type="button"
                 onClick={() => resetSections()}
               >
