@@ -34,7 +34,7 @@ export default function CounterInput(data: CounterInputProps) {
       </button>
       <h2 className="px-4 text-2xl">{data.value}</h2>
       <button
-        className="focus:shadow-outline w-8 rounded bg-gray-500 text-2xl  text-white hover:bg-yellow-700 focus:outline-none"
+        className="focus:shadow-outline w-8 rounded bg-gray-500 text-2xl  text-white hover:bg-yellow-500 focus:outline-none"
         type="button"
         onClick={() => handleChange(data.step || 1)}
       >
