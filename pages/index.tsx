@@ -168,7 +168,7 @@ export default function Home() {
                 Commit
               </button>
               <button
-                className="focus:shadow-outline mx-2 my-6 rounded border border-gray-700 bg-white py-2 font-bold text-gray-700 hover:bg-gray-700 focus:outline-none"
+                className="focus:shadow-outline mx-2 my-6 rounded border border-gray-700 bg-white py-2 font-bold text-gray-700 hover:bg-gray-700 hover:text-white focus:outline-none"
                 type="button"
                 onClick={() => resetSections()}
               >
