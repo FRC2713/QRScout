@@ -208,8 +208,8 @@
           "title": "Driver Skill",
           "type": "select",
           "choices": {
-            "2": "Average",
-            "1": "Poor",
+            "2": "Poor",
+            "1": "Average",
             "3": "Good",
             "4": "Exellent"
           },
@@ -221,8 +221,8 @@
           "title": "Defense Skill",
           "type": "select",
           "choices": {
-            "2": "Average",
-            "1": "Poor",
+            "2": "Poor",
+            "1": "Average",
             "3": "Good",
             "4": "Exellent"
           },
