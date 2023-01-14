@@ -137,10 +137,10 @@
           "title": "Pick up Cargo where",
           "type": "select",
           "choices": {
+            "x": "None",
             "t": "Substations",
             "g": "Ground",
-            "b": "Both",
-            "x": "None"
+            "b": "Both"            
           },
           "defaultValue": "x",
           "required": false
@@ -208,10 +208,10 @@
           "title": "Driver Skill",
           "type": "select",
           "choices": {
-            "1": "Poor",
             "2": "Average",
+            "1": "Poor",
             "3": "Good",
-            "4": "Exelent"
+            "4": "Exellent"
           },
           "defaultValue": false,
           "required": false
@@ -221,10 +221,10 @@
           "title": "Defense Skill",
           "type": "select",
           "choices": {
-            "1": "Poor",
             "2": "Average",
+            "1": "Poor",
             "3": "Good",
-            "4": "Exelent"
+            "4": "Exellent"
           },
           "defaultValue": false,
           "required": false
