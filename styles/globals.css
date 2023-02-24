@@ -5,3 +5,8 @@
 body {
   overscroll-behavior: contain;
 }
+
+@font-face {
+  font-family: 'SF Sports Night';
+  src: url('../public//SFSportsNight.ttf');
+}

@@ -4,7 +4,14 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        rhr: ['"SF Sports Night"'],
+      },
+      colors: {
+        red: { rhr: '#ef3340' },
+      },
+    },
   },
   plugins: [require('@tailwindcss/forms')],
 }

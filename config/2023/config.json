@@ -1,0 +1,319 @@
+{
+    "$schema": "../schema.json",
+    "title": "QRScout",
+    "page_title": "Charged Up",
+    "sections": [
+        {
+            "name": "Prematch",
+            "preserveDataOnReset": true,
+            "fields": [
+                {
+                    "title": "Scouter Initials",
+                    "type": "text",
+                    "required": true,
+                    "code": "scouter"
+                },
+                {
+                    "title": "Match Number",
+                    "type": "number",
+                    "required": true,
+                    "code": "matchNumber"
+                },
+                {
+                    "title": "Robot",
+                    "type": "select",
+                    "required": true,
+                    "code": "robot",
+                    "choices": {
+                        "R1": "Red 1",
+                        "R2": "Red 2",
+                        "R3": "Red 3",
+                        "B1": "Blue 1",
+                        "B2": "Blue 2",
+                        "B3": "Blue 3"
+                    },
+                    "defaultValue": "R1"
+                },
+                {
+                    "title": "Team Number",
+                    "type": "number",
+                    "required": true,
+                    "code": "teamNumber"
+                },
+                {
+                    "title": "No Show",
+                    "type": "boolean",
+                    "defaultValue": false,
+                    "required": false,
+                    "code": "noShow"
+                },
+                {
+                    "title": "Using Human Player",
+                    "type": "boolean",
+                    "required": false,
+                    "defaultValue": false,
+                    "code": "humanPlayer"
+                }
+            ]
+        },
+        {
+            "name": "Autonomous",
+            "fields": [
+                {
+                    "title": "Starting Location",
+                    "type": "select",
+                    "choices": {
+                        "left": "Left",
+                        "middle": "Middle",
+                        "right": "Right"
+                    },
+                    "defaultValue": "left",
+                    "required": false,
+                    "code": "autoStart"
+                },
+                {
+                    "code": "am",
+                    "title": "Mobility?",
+                    "type": "boolean",
+                    "defaultValue": false,
+                    "required": false
+                },
+                {
+                    "code": "auc",
+                    "title": "Upper Cube/Cone Scored",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false
+                },
+                {
+                    "code": "aucm",
+                    "title": "Upper Cube/Cone Missed",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false
+                },
+                {
+                    "code": "amc",
+                    "title": "Middle Cube/Cone Scored",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false
+                },
+                {
+                    "code": "amcm",
+                    "title": "Upper Cube/Cone Missed",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false
+                },
+                {
+                    "code": "alc",
+                    "title": "Lower Cube/Cone Scored",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false
+                },
+                {
+                    "code": "alcm",
+                    "title": "Lower Cube/Cone Missed",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false
+                },
+                {
+                    "code": "ac",
+                    "title": "Picked up more Cube/Cone?",
+                    "type": "boolean",
+                    "defaultValue": false,
+                    "required": false
+                },
+                {
+                    "code": "ad",
+                    "title": "Docked",
+                    "type": "boolean",
+                    "defaultValue": false,
+                    "required": false
+                },
+                {
+                    "code": "ae",
+                    "title": "Engaged",
+                    "type": "boolean",
+                    "defaultValue": false,
+                    "required": false
+                }
+            ]
+        },
+        {
+            "name": "Teleop",
+            "fields": [
+                {
+                    "code": "tu",
+                    "title": "Upper Cube/Cone Scored",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false
+                },
+                {
+                    "code": "tm",
+                    "title": "Upper Cube/Cone Missed",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false
+                },
+                {
+                    "code": "tf",
+                    "title": "Middle Cube/Cone Scored",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false
+                },
+                {
+                    "code": "to",
+                    "title": "Middle Cube/Cone Missed",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false
+                },
+                {
+                    "code": "tl",
+                    "title": "Lower Cube/Cone Scored",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false
+                },
+                {
+                    "code": "tn",
+                    "title": "Lower Cube/Cone Missed",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false
+                },
+                {
+                    "code": "cl",
+                    "title": "Pick up Cube/Cone where",
+                    "type": "select",
+                    "choices": {
+                        "SUBSTATION": "Substation",
+                        "GROUND": "Ground",
+                        "BOTH": "Both",
+                        "X": "Not Attempted"
+                    },
+                    "defaultValue": "X",
+                    "required": false
+                },
+                {
+                    "code": "tv",
+                    "title": "Links",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false
+                }
+            ]
+        },
+        {
+            "name": "Endgame",
+            "fields": [
+                {
+                    "code": "be",
+                    "title": "Attempted before Endgame",
+                    "type": "boolean",
+                    "defaultValue": false,
+                    "required": false
+                },
+                {
+                    "code": "cl",
+                    "title": "Charge Station",
+                    "type": "select",
+                    "choices": {
+                        "DOCK": "Docked",
+                        "DOCK ENGAGE": "Docked and Engaged",
+                        "PARKED": "Parked",
+                        "X": "Not Attempted"
+                    },
+                    "defaultValue": "X",
+                    "required": false
+                },
+                {
+                    "code": "cn",
+                    "title": "# of alliance bots docked",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "required": false
+                }
+            ]
+        },
+        {
+            "name": "Postmatch",
+            "fields": [
+                {
+                    "code": "ds",
+                    "title": "Driver Skill",
+                    "type": "select",
+                    "choices": {
+                        "1": "Not Effective",
+                        "2": "Average",
+                        "3": "Very Effective",
+                        "x": "Not Observed"
+                    },
+                    "defaultValue": "x",
+                    "required": false
+                },
+                {
+                    "code": "dr",
+                    "title": "Defense Rating",
+                    "type": "select",
+                    "choices": {
+                        "1": "Not Effective",
+                        "2": "Average",
+                        "3": "Very Effective",
+                        "x": "Not Observed"
+                    },
+                    "defaultValue": "x",
+                    "required": false
+                },
+                {
+                    "code": "d",
+                    "title": "Died",
+                    "type": "boolean",
+                    "defaultValue": false,
+                    "required": false
+                },
+                {
+                    "code": "to",
+                    "title": "Tipped Over",
+                    "type": "boolean",
+                    "defaultValue": false,
+                    "required": false
+                },
+                {
+                    "code": "cf",
+                    "title": "Yellow/Red Card",
+                    "type": "boolean",
+                    "defaultValue": false,
+                    "required": false
+                },
+                {
+                    "code": "co",
+                    "title": "Comments",
+                    "type": "text",
+                    "min": 0,
+                    "max": 50,
+                    "required": false
+                }
+            ]
+        }
+    ]
+}

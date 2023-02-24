@@ -44,7 +44,7 @@ export default function QRModal(props: QRModalProps) {
                   </svg>
                 </div>
                 <button
-                  className="focus:shadow-outline rounded bg-red-800 py-2 px-4 font-bold text-white hover:bg-red-700 focus:outline-none"
+                  className="focus:shadow-outline rounded bg-red-rhr py-2 px-4 font-bold text-white hover:bg-red-700 focus:outline-none"
                   type="button"
                   onClick={props.onDismiss}
                 >

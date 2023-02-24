@@ -26,7 +26,7 @@ export default function CounterInput(data: CounterInputProps) {
   return (
     <div className="flex flex-row items-center justify-center ">
       <button
-        className="focus:shadow-outline w-8 rounded bg-gray-500 text-2xl text-white hover:bg-red-700 focus:outline-none"
+        className="focus:shadow-outline w-8 rounded bg-gray-500 text-2xl text-white hover:bg-red-rhr focus:outline-none"
         type="button"
         onClick={() => handleChange(-(data.step || 1))}
       >
@@ -34,7 +34,7 @@ export default function CounterInput(data: CounterInputProps) {
       </button>
       <h2 className="px-4 text-2xl">{data.value}</h2>
       <button
-        className="focus:shadow-outline w-8 rounded bg-gray-500 text-2xl  text-white hover:bg-red-700 focus:outline-none"
+        className="focus:shadow-outline w-8 rounded bg-gray-500 text-2xl  text-white hover:bg-red-rhr focus:outline-none"
         type="button"
         onClick={() => handleChange(data.step || 1)}
       >

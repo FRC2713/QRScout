@@ -16,7 +16,7 @@ export default function InputCard(
           {props.title}
         </p>
         {props.required && !props.hasValue && (
-          <p className="mr-1 rounded-full bg-red-300 px-2">!</p>
+          <p className="mr-1 h-4 w-4 font-rhr text-red-rhr">!!</p>
         )}
       </div>
       <div className="p-2">{props.children}</div>

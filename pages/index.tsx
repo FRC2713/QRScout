@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { ChangeEvent, useEffect, useState } from 'react'
-import configJson from '../config/2022/config.json'
+import configJson from '../config/2023/config.json'
 import {
   Config,
   InputProps,
@@ -9,6 +9,7 @@ import {
 import QRModal from '../components/QRModal'
 import Section from '../components/Section'
 import Button, { Variant } from '../components/core/Button'
+import Image from 'next/image'
 
 function buildConfig(c: Config) {
   let config: Config = { ...c }
@@ -136,7 +137,7 @@ export default function Home() {
 
       <main className="flex w-full flex-1 flex-col items-center justify-center px-4 text-center">
         <h1 className="font-sans text-6xl font-bold">
-          <div className="text-red-600">{formData.page_title}</div>
+          <div className={`font-rhr text-red-rhr`}>{formData.page_title}</div>
         </h1>
         <QRModal
           show={showQR}
@@ -168,7 +169,7 @@ export default function Home() {
                 Commit
               </button>
               <button
-                className="focus:shadow-outline mx-2 my-6 rounded border border-red-400 bg-white py-2 font-bold text-red-400 hover:bg-red-200 focus:outline-none"
+                className="focus:shadow-outline mx-2 my-6 rounded border border-red-rhr bg-white py-2 font-bold text-red-400 hover:bg-red-200 focus:outline-none"
                 type="button"
                 onClick={() => resetSections()}
               >
@@ -212,12 +213,17 @@ export default function Home() {
         </form>
       </main>
       <footer>
-        <div className="flex items-center justify-center">
+        <div className="flex h-24 items-center justify-center">
           <a
             href="https://vercel.com/?utm_source=iraiders&utm_campaign=oss"
             target="_blank"
           >
-            <img src="https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg"></img>
+            <Image
+              alt="Powered by Vercel"
+              src="https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg"
+              width={200}
+              height={200}
+            ></Image>
           </a>
         </div>
       </footer>
