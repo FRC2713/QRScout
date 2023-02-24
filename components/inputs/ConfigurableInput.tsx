@@ -60,7 +60,7 @@ export default function ConfigurableInput(props: ConfigurableInputProps) {
             {props.title}
           </label>
           <p
-            className="text-red-800"
+            className="text-red-rhr"
             id={props.title}
           >{`No Renderer for type: ${props.type}`}</p>
         </div>
