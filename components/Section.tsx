@@ -13,7 +13,7 @@ export default function Section(props: SectionProps) {
   return (
     <div className="mb-4 rounded bg-white shadow-md" key={props.name}>
       <div className="mb-2 rounded-t bg-red-rhr p-1 shadow-md">
-        <h2 className="text-2xl font-bold uppercase text-white">
+        <h2 className="font-rhr-ns text-2xl uppercase text-white">
           {props.name}
         </h2>
       </div>
