@@ -1,55 +1,22 @@
 import Head from 'next/head'
-import { ChangeEvent, useEffect, useState } from 'react'
-import configJson from '../config/2023/config.json'
-import {
-  Config,
-  InputProps,
-  SectionProps,
-} from '../components/inputs/BaseInputProps'
+import Image from 'next/image'
+import { useMemo, useState } from 'react'
+import Button, { Variant } from '../components/core/Button'
 import QRModal from '../components/QRModal'
 import Section from '../components/Section'
-import Button, { Variant } from '../components/core/Button'
-import Image from 'next/image'
-
-function buildConfig(c: Config) {
-  let config: Config = { ...c }
-  config.sections
-    .map((s) => s.fields)
-    .flat()
-    .forEach((f) => (f.value = f.defaultValue))
-  return config
-}
-
-function getDefaultConfig(): Config {
-  return buildConfig(configJson as Config)
-}
+import {
+  getQRCodeData,
+  resetSections,
+  uploadConfig,
+  useQRScoutState,
+} from '../components/store/store'
 
 export default function Home() {
-  const [formData, setFormData] = useState<Config>(getDefaultConfig)
+  const formData = useQRScoutState((state) => state.formData)
+
   const [showQR, setShowQR] = useState(false)
 
-  useEffect(() => {
-    let userConfig = localStorage.getItem('QRScoutUserConfig')
-    if (userConfig) {
-      setFormData(buildConfig(JSON.parse(userConfig) as Config))
-    } else {
-      setFormData(getDefaultConfig())
-    }
-  }, [])
-
-  function updateValue(sectionName: string, code: string, data: any) {
-    const currentData = { ...formData }
-    let section = currentData.sections.find((s) => s.name === sectionName)
-    if (section) {
-      let field = section.fields.find((f) => f.code === code)
-      if (field) {
-        field.value = data
-      }
-    }
-    setFormData(currentData)
-  }
-
-  function getMissingRequiredFields(): InputProps[] {
+  const missingRequiredFields = useMemo(() => {
     return formData.sections
       .map((s) => s.fields)
       .flat()
@@ -58,36 +25,13 @@ export default function Home() {
           f.required &&
           (f.value === null || f.value === undefined || f.value === ``)
       )
-  }
+  }, [formData])
 
   function getFieldValue(code: string): any {
     return formData.sections
       .map((s) => s.fields)
       .flat()
       .find((f) => f.code === code)?.value
-  }
-
-  function resetSections() {
-    const currentData = { ...formData }
-
-    currentData.sections
-      .filter((s) => !s.preserveDataOnReset)
-      .map((s) => s.fields)
-      .flat()
-      .forEach((f) => {
-        console.log(`resetting ${f.title} from ${f.value} to ${f.defaultValue}`)
-        f.value = f.defaultValue
-      })
-
-    setFormData(currentData)
-  }
-
-  function getQRCodeData(): string {
-    return formData.sections
-      .map((s) => s.fields)
-      .flat()
-      .map((v) => `${v.value}`)
-      .join('\t')
   }
 
   function download(filename: string, text: string) {
@@ -115,21 +59,8 @@ export default function Home() {
     download('QRScout_config.json', JSON.stringify(configDownload))
   }
 
-  function handleFileChange(evt: ChangeEvent<HTMLInputElement>) {
-    var reader = new FileReader()
-    reader.onload = function (e) {
-      const configText = e.target?.result as string
-      localStorage.setItem('QRScoutUserConfig', configText)
-      const jsonData = JSON.parse(configText)
-      setFormData(buildConfig(jsonData as Config))
-    }
-    if (evt.target.files && evt.target.files.length > 0) {
-      reader.readAsText(evt.target.files[0])
-    }
-  }
-
   return (
-    <div className="min-h-screen py-2">
+    <div className="min-h-screen py-2 dark:bg-gray-700">
       <Head>
         <title>{formData.title}</title>
         <link rel="icon" href="/favicon.ico" />
@@ -146,37 +77,30 @@ export default function Home() {
           onDismiss={() => setShowQR(false)}
         />
 
-        <form>
+        <form className="w-full px-4">
           <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {formData.sections.map((section) => {
-              return (
-                <Section
-                  key={section.name}
-                  name={section.name}
-                  inputs={section.fields}
-                  onValueChanged={updateValue}
-                />
-              )
+              return <Section key={section.name} name={section.name} />
             })}
 
-            <div className="mb-4 flex flex-col justify-center rounded bg-white shadow-md">
+            <div className="mb-4 flex flex-col justify-center rounded bg-white py-2 shadow-md dark:bg-gray-600">
               <button
-                className="focus:shadow-outline mx-2 rounded bg-gray-700 py-6 px-6 font-bold uppercase text-white hover:bg-gray-700 focus:shadow-lg focus:outline-none disabled:bg-gray-300"
+                className="focus:shadow-outline mx-2 rounded bg-gray-700 py-6 px-6 font-bold uppercase text-white hover:bg-gray-700 focus:shadow-lg focus:outline-none disabled:bg-gray-300 dark:bg-red-rhr"
                 type="button"
                 onClick={() => setShowQR(true)}
-                disabled={getMissingRequiredFields().length > 0}
+                disabled={missingRequiredFields.length > 0}
               >
                 Commit
               </button>
               <button
-                className="focus:shadow-outline mx-2 my-6 rounded border border-red-rhr bg-white py-2 font-bold text-red-400 hover:bg-red-200 focus:outline-none"
+                className="focus:shadow-outline mx-2 my-6 rounded border border-red-rhr bg-white py-2 font-bold uppercase text-red-rhr hover:bg-red-200 focus:outline-none dark:bg-gray-500 dark:text-white dark:hover:bg-gray-700"
                 type="button"
                 onClick={() => resetSections()}
               >
                 Reset
               </button>
             </div>
-            <div className="mb-4 flex flex-col justify-center rounded bg-white shadow-md">
+            <div className="mb-4 flex flex-col justify-center rounded bg-white shadow-md dark:bg-gray-600">
               <Button
                 variant={Variant.Secondary}
                 className="m-2"
@@ -199,13 +123,13 @@ export default function Home() {
               >
                 Download Config
               </Button>
-              <label className="m-2 flex cursor-pointer flex-row justify-center rounded border bg-gray-500 py-2 text-center font-bold text-white hover:bg-gray-600">
+              <label className="m-2 flex cursor-pointer flex-row justify-center rounded bg-gray-500 py-2 text-center font-bold text-white shadow-sm hover:bg-gray-600">
                 <span className="text-base leading-normal">Upload Config</span>
                 <input
                   type="file"
                   className="hidden"
                   accept=".json"
-                  onChange={(e) => handleFileChange(e)}
+                  onChange={(e) => uploadConfig(e)}
                 />
               </label>
             </div>
