@@ -15,7 +15,7 @@ export default function NumberInput(data: NumberInputProps) {
 
   return (
     <input
-      className="rounded py-2 px-1"
+      className="rounded py-2 dark:bg-gray-700 dark:text-white"
       type="number"
       min={data.min}
       max={data.max}

@@ -1,5 +1,6 @@
 import React from 'react'
-import BaseInputProps from './BaseInputProps'
+import { inputSelector, updateValue, useQRScoutState } from '../store/store'
+import BaseInputProps, { InputProps } from './BaseInputProps'
 import Checkbox from './CheckboxInput'
 import CounterInput from './CounterInput'
 import NumberInput from './NumberInput'
@@ -7,62 +8,97 @@ import RangeInput from './RangeInput'
 import SelectInput from './SelectInput'
 import StringInput from './StringInput'
 
-export interface ConfigurableInputProps extends BaseInputProps {}
+export interface ConfigurableInputProps {
+  section: string
+  code: string
+}
 
 export default function ConfigurableInput(props: ConfigurableInputProps) {
+  const input = useQRScoutState(inputSelector(props.section, props.code))
+
   function handleChange(data: any) {
-    props.onChange(data)
+    updateValue(props.section, props.code, data)
   }
 
-  switch (props.type) {
+  if (!input) {
+    return (
+      <div>{`INPUT ${props.code} not found in section ${props.section}`} </div>
+    )
+  }
+
+  switch (input.type) {
     case 'text':
       return (
-        <StringInput key={props.title} {...props} onChange={handleChange} />
+        <StringInput
+          key={input.title}
+          {...input}
+          onChange={handleChange}
+          section={props.section}
+        />
       )
     case 'select':
       return (
         <SelectInput
-          key={props.title}
-          {...props}
-          options={props.choices || { fail: 'no choices provided' }}
-          defaultValue={props.defaultValue}
+          key={input.title}
+          {...input}
+          options={input.choices || { fail: 'no choices provided' }}
+          defaultValue={input.defaultValue}
           onChange={handleChange}
+          section={props.section}
         />
       )
     case 'number':
       return (
-        <NumberInput key={props.title} {...props} onChange={handleChange} />
+        <NumberInput
+          key={input.title}
+          {...input}
+          onChange={handleChange}
+          section={props.section}
+        />
       )
     case 'boolean':
-      return <Checkbox key={props.title} {...props} onChange={handleChange} />
+      return (
+        <Checkbox
+          key={input.title}
+          {...input}
+          onChange={handleChange}
+          section={props.section}
+        />
+      )
     case 'counter':
       return (
-        <CounterInput key={props.title} {...props} onChange={handleChange} />
+        <CounterInput
+          key={input.title}
+          {...input}
+          onChange={handleChange}
+          section={props.section}
+        />
       )
     case 'range':
       return (
         <RangeInput
-          key={props.title}
-          {...props}
-          min={props.min}
-          max={props.max}
-          defaultValue={props.defaultValue as number}
+          key={input.title}
+          {...input}
+          min={input.min}
+          max={input.max}
+          defaultValue={input.defaultValue as number}
           onChange={handleChange}
+          section={props.section}
         />
       )
     default:
       return (
         <div className="py-2 px-1">
           <label
-            htmlFor={props.title}
+            htmlFor={input.title}
             className="mb-2 block text-sm font-bold text-gray-700"
           >
-            {props.title}
+            {input.title}
           </label>
           <p
             className="text-red-rhr"
-            id={props.title}
-          >{`No Renderer for type: ${props.type}`}</p>
+            id={input.title}
+          >{`No Renderer for type: ${input.type}`}</p>
         </div>
       )
   }

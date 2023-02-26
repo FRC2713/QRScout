@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default interface BaseInputProps extends InputProps {
+  section: string
   onChange: (value: any) => void
 }
 export interface Config {
