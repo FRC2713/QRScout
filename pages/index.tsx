@@ -10,9 +10,11 @@ import {
   uploadConfig,
   useQRScoutState,
 } from '../components/store/store'
+import { useTheme } from 'next-themes'
 
 export default function Home() {
   const formData = useQRScoutState((state) => state.formData)
+  const { theme, setTheme } = useTheme()
 
   const [showQR, setShowQR] = useState(false)
 
@@ -132,12 +134,40 @@ export default function Home() {
                   onChange={(e) => uploadConfig(e)}
                 />
               </label>
+              <div className="m-2 flex flex-col justify-start bg-gray-500 p-2">
+                <div className="rounded-t pb-2 text-left font-bold text-white">
+                  Theme
+                </div>
+                <select
+                  className="rounded bg-white px-4 py-2 dark:bg-gray-700 dark:text-white"
+                  name="Theme"
+                  id="theme"
+                  onChange={(v) => setTheme(v.target.value)}
+                  value={theme}
+                >
+                  <option key={'system'} value={'system'}>
+                    System
+                  </option>
+                  <option key={'dark'} value={'dark'}>
+                    Dark
+                  </option>
+                  <option key={'light'} value={'light'}>
+                    Light
+                  </option>
+                </select>
+              </div>
             </div>
           </div>
         </form>
       </main>
       <footer>
-        <div className="flex h-24 items-center justify-center">
+        <div className="mt-8 flex h-24 flex-col items-center justify-center gap-4">
+          <Image
+            alt="Red Hawk Robotics"
+            src="/RedHawkRobotics-logo.svg"
+            width={400}
+            height={200}
+          />
           <a
             href="https://vercel.com/?utm_source=iraiders&utm_campaign=oss"
             target="_blank"
