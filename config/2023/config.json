@@ -80,7 +80,7 @@
         },
         {
           "code": "auc",
-          "title": "Upper Cube/Cone Scored",
+          "title": "Upper Cone Scored",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -88,7 +88,7 @@
         },
         {
           "code": "aucm",
-          "title": "Upper Cube/Cone Missed",
+          "title": "Middle Cone Scored",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -96,7 +96,7 @@
         },
         {
           "code": "amc",
-          "title": "Middle Cube/Cone Scored",
+          "title": "Lower Cone Scored",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -104,7 +104,7 @@
         },
         {
           "code": "amcm",
-          "title": "Middle Cube/Cone Missed",
+          "title": "Upper Cube Scored",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -112,7 +112,7 @@
         },
         {
           "code": "alc",
-          "title": "Lower Cube/Cone Scored",
+          "title": "Middle Cube Scored",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -120,7 +120,7 @@
         },
         {
           "code": "alcm",
-          "title": "Lower Cube/Cone Missed",
+          "title": "Lower Cube Scored",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -154,7 +154,7 @@
       "fields": [
         {
           "code": "tu",
-          "title": "Upper Cube/Cone Scored",
+          "title": "Upper Cone Scored",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -162,7 +162,7 @@
         },
         {
           "code": "tm",
-          "title": "Upper Cube/Cone Missed",
+          "title": "Middle Cone Scored",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -170,7 +170,7 @@
         },
         {
           "code": "tf",
-          "title": "Middle Cube/Cone Scored",
+          "title": "Lower Cone Scored",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -178,7 +178,7 @@
         },
         {
           "code": "to",
-          "title": "Middle Cube/Cone Missed",
+          "title": "Upper Cube Scored",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -186,7 +186,7 @@
         },
         {
           "code": "tl",
-          "title": "Lower Cube/Cone Scored",
+          "title": "Middle Cube Scored",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -194,7 +194,7 @@
         },
         {
           "code": "tn",
-          "title": "Lower Cube/Cone Missed",
+          "title": "Lower Cube Scored",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -311,8 +311,7 @@
           "type": "text",
           "min": 0,
           "max": 50,
-          "required": false,
-          "defaultValue": ""
+          "required": false
         }
       ]
     }
