@@ -2,7 +2,7 @@ import React from 'react'
 import { classNames } from '../../util/classNames'
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  extends React.HTMLAttributes<HTMLButtonElement> {
   variant: Variant
 }
 
@@ -25,8 +25,7 @@ export default function Button(props: ButtonProps) {
       onClick={props.onClick}
       className={classNames(
         'focus:shadow-outline mx-2 rounded  py-2 px-4 font-bold text-white focus:outline-none',
-        VARIANT_MAPS[props.variant],
-        props.className
+        VARIANT_MAPS[props.variant]
       )}
       disabled={props.disabled}
     >

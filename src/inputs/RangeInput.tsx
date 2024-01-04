@@ -1,10 +1,10 @@
-import React from 'react'
-import BaseInputProps from './BaseInputProps'
+import React from 'react';
+import BaseInputProps from './BaseInputProps';
 
 export default function RangeInput(data: BaseInputProps) {
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    data.onChange(e.target.value)
-    e.preventDefault()
+    data.onChange(e.currentTarget.value);
+    e.preventDefault();
   }
 
   return (
@@ -17,5 +17,5 @@ export default function RangeInput(data: BaseInputProps) {
       id={data.title}
       onChange={handleChange}
     />
-  )
+  );
 }

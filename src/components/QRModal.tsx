@@ -1,11 +1,10 @@
-import React from 'react'
-import QRCode from 'qrcode.react'
+import QRCode from 'qrcode.react';
 
 export interface QRModalProps {
-  show: boolean
-  title: string
-  data: string
-  onDismiss: () => void
+  show: boolean;
+  title: string;
+  data: string;
+  onDismiss: () => void;
 }
 
 export default function QRModal(props: QRModalProps) {
@@ -56,5 +55,5 @@ export default function QRModal(props: QRModalProps) {
         </>
       )}
     </>
-  )
+  );
 }

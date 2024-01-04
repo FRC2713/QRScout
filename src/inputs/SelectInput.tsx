@@ -1,15 +1,15 @@
-import React from 'react'
-import BaseInputProps from './BaseInputProps'
+import React from 'react';
+import BaseInputProps from './BaseInputProps';
 
 export interface SelectInputProps extends BaseInputProps {
-  options: Record<string, string>
-  defaultValue: string
+  options: Record<string, string>;
+  defaultValue: string;
 }
 
 export default function SelectInput(data: SelectInputProps) {
   function handleSelect(evt: React.ChangeEvent<HTMLSelectElement>) {
-    data.onChange(evt.target.value)
-    evt.preventDefault()
+    data.onChange(evt.currentTarget.value);
+    evt.preventDefault();
   }
   return (
     <select
@@ -19,13 +19,13 @@ export default function SelectInput(data: SelectInputProps) {
       onChange={handleSelect}
       value={data.value}
     >
-      {Object.keys(data.options).map((o) => {
+      {Object.keys(data.options).map(o => {
         return (
           <option key={o} value={o}>
             {data.options[o]}
           </option>
-        )
+        );
       })}
     </select>
-  )
+  );
 }

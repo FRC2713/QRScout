@@ -2,16 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+
 body {
   overscroll-behavior: contain;
 }
 
 @font-face {
   font-family: 'SF Sports Night';
-  src: url('../public/fonts/SF Sports Night.ttf');
+  src: url('/fonts/SF Sports Night.ttf');
 }
 
 @font-face {
   font-family: 'SF Sports Night NS';
-  src: url('../public/fonts/SF Sports Night NS.ttf');
+  src: url('/fonts/SF Sports Night NS.ttf');
 }
