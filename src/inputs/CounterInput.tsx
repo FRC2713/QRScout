@@ -1,26 +1,25 @@
-import React from 'react'
-import BaseInputProps from './BaseInputProps'
+import BaseInputProps from './BaseInputProps';
 
 export interface CounterInputProps extends BaseInputProps {
-  min?: number
-  max?: number
-  step?: number
-  defaultValue?: number
+  min?: number;
+  max?: number;
+  step?: number;
+  defaultValue?: number;
 }
 
 export default function CounterInput(data: CounterInputProps) {
   function handleChange(increment: number) {
-    const newVal = data.value + increment
+    const newVal = data.value + increment;
     if (data.max !== undefined && newVal > data.max) {
       // Don't fire the event if the new value would be greater than the max
-      return
+      return;
     }
     if (data.min !== undefined && newVal < data.min) {
       // Don't fire the event if the new value would be less than the min
-      return
+      return;
     }
 
-    data.onChange(newVal)
+    data.onChange(newVal);
   }
 
   return (
@@ -41,5 +40,5 @@ export default function CounterInput(data: CounterInputProps) {
         +
       </button>
     </div>
-  )
+  );
 }

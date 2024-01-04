@@ -1,29 +1,27 @@
-import React from 'react'
-import { inputSelector, updateValue, useQRScoutState } from '../store/store'
-import BaseInputProps, { InputProps } from './BaseInputProps'
-import Checkbox from './CheckboxInput'
-import CounterInput from './CounterInput'
-import NumberInput from './NumberInput'
-import RangeInput from './RangeInput'
-import SelectInput from './SelectInput'
-import StringInput from './StringInput'
+import { inputSelector, updateValue, useQRScoutState } from '../store/store';
+import Checkbox from './CheckboxInput';
+import CounterInput from './CounterInput';
+import NumberInput from './NumberInput';
+import RangeInput from './RangeInput';
+import SelectInput from './SelectInput';
+import StringInput from './StringInput';
 
 export interface ConfigurableInputProps {
-  section: string
-  code: string
+  section: string;
+  code: string;
 }
 
 export default function ConfigurableInput(props: ConfigurableInputProps) {
-  const input = useQRScoutState(inputSelector(props.section, props.code))
+  const input = useQRScoutState(inputSelector(props.section, props.code));
 
   function handleChange(data: any) {
-    updateValue(props.section, props.code, data)
+    updateValue(props.section, props.code, data);
   }
 
   if (!input) {
     return (
       <div>{`INPUT ${props.code} not found in section ${props.section}`} </div>
-    )
+    );
   }
 
   switch (input.type) {
@@ -35,7 +33,7 @@ export default function ConfigurableInput(props: ConfigurableInputProps) {
           onChange={handleChange}
           section={props.section}
         />
-      )
+      );
     case 'select':
       return (
         <SelectInput
@@ -46,7 +44,7 @@ export default function ConfigurableInput(props: ConfigurableInputProps) {
           onChange={handleChange}
           section={props.section}
         />
-      )
+      );
     case 'number':
       return (
         <NumberInput
@@ -55,7 +53,7 @@ export default function ConfigurableInput(props: ConfigurableInputProps) {
           onChange={handleChange}
           section={props.section}
         />
-      )
+      );
     case 'boolean':
       return (
         <Checkbox
@@ -64,7 +62,7 @@ export default function ConfigurableInput(props: ConfigurableInputProps) {
           onChange={handleChange}
           section={props.section}
         />
-      )
+      );
     case 'counter':
       return (
         <CounterInput
@@ -73,7 +71,7 @@ export default function ConfigurableInput(props: ConfigurableInputProps) {
           onChange={handleChange}
           section={props.section}
         />
-      )
+      );
     case 'range':
       return (
         <RangeInput
@@ -85,7 +83,7 @@ export default function ConfigurableInput(props: ConfigurableInputProps) {
           onChange={handleChange}
           section={props.section}
         />
-      )
+      );
     default:
       return (
         <div className="py-2 px-1">
@@ -100,6 +98,6 @@ export default function ConfigurableInput(props: ConfigurableInputProps) {
             id={input.title}
           >{`No Renderer for type: ${input.type}`}</p>
         </div>
-      )
+      );
   }
 }

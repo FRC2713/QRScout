@@ -1,9 +1,8 @@
-import create from 'zustand'
 import { Config } from '../inputs/BaseInputProps'
 import configJson from '../../config/2023/config.json'
 import { createStore } from './createStore'
 import { ChangeEvent } from 'react'
-import produce from 'immer'
+import {produce} from 'immer'
 
 function buildConfig(c: Config) {
   let config: Config = { ...c }
@@ -75,8 +74,8 @@ export function uploadConfig(evt: ChangeEvent<HTMLInputElement>) {
     const jsonData = JSON.parse(configText)
     setFormData(jsonData as Config)
   }
-  if (evt.target.files && evt.target.files.length > 0) {
-    reader.readAsText(evt.target.files[0])
+  if (evt.currentTarget.files && evt.currentTarget.files.length > 0) {
+    reader.readAsText(evt.currentTarget.files[0])
   }
 }
 

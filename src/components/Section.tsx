@@ -1,16 +1,15 @@
-import React from 'react'
-import { InputProps } from './inputs/BaseInputProps'
-import ConfigurableInput from './inputs/ConfigurableInput'
-import InputCard from './inputs/InputCard'
-import { useQRScoutState } from './store/store'
+import { InputProps } from '../inputs/BaseInputProps';
+import ConfigurableInput from '../inputs/ConfigurableInput';
+import InputCard from '../inputs/InputCard';
+import { useQRScoutState } from '../store/store';
 
 interface SectionProps {
-  name: string
+  name: string;
 }
 
 export default function Section(props: SectionProps) {
-  const formData = useQRScoutState((state) => state.formData)
-  const inputs = formData.sections.find((s) => s.name === props.name)?.fields
+  const formData = useQRScoutState(state => state.formData);
+  const inputs = formData.sections.find(s => s.name === props.name)?.fields;
   return (
     <div
       className="mb-4 rounded bg-gray-100 shadow-md dark:bg-gray-600"
@@ -36,5 +35,5 @@ export default function Section(props: SectionProps) {
         ))}
       </div>
     </div>
-  )
+  );
 }

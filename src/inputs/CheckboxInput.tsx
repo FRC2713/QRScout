@@ -7,7 +7,7 @@ export interface BoolInputProps extends BaseInputProps {
 
 export default function Checkbox(data: BoolInputProps) {
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    data.onChange(e.target.checked)
+    data.onChange(e.currentTarget.checked)
   }
 
   return (
@@ -17,7 +17,7 @@ export default function Checkbox(data: BoolInputProps) {
         type="checkbox"
         role="switch"
         id={data.title}
-        onChange={handleChange}
+        onInput={handleChange}
         checked={data.value}
       />
     </div>
