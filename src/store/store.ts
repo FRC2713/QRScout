@@ -35,6 +35,10 @@ export const useQRScoutState = createStore<QRScoutState>(
   },
 );
 
+export function resetToDefaultConfig() {
+  useQRScoutState.setState(initialState);
+}
+
 export function updateValue(sectionName: string, code: string, data: any) {
   useQRScoutState.setState(
     produce((state: QRScoutState) => {
