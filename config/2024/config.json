@@ -1,0 +1,278 @@
+{
+  "$schema": "../schema.json",
+  "title": "QRScout",
+  "page_title": "Crescendo",
+  "sections": [
+    {
+      "name": "Prematch",
+      "preserveDataOnReset": true,
+      "fields": [
+        {
+          "title": "Scouter Initials",
+          "type": "text",
+          "required": true,
+          "code": "scouter"
+        },
+        {
+          "title": "Match Number",
+          "type": "number",
+          "required": true,
+          "code": "matchNumber"
+        },
+        {
+          "title": "Robot",
+          "type": "select",
+          "required": true,
+          "code": "robot",
+          "choices": {
+            "R1": "Red 1",
+            "R2": "Red 2",
+            "R3": "Red 3",
+            "B1": "Blue 1",
+            "B2": "Blue 2",
+            "B3": "Blue 3"
+          },
+          "defaultValue": "R1"
+        },
+        {
+          "title": "Team Number",
+          "type": "number",
+          "required": true,
+          "code": "teamNumber"
+        },
+        {
+          "title": "Human Player at Amp",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "code": "humanPlayer"
+        },
+        {
+          "title": "No Show",
+          "type": "boolean",
+          "defaultValue": false,
+          "required": false,
+          "code": "noShow"
+        }
+      ]
+    },
+    {
+      "name": "Autonomous",
+      "fields": [
+        {
+          "code": "auamp",
+          "title": "Amp Scored",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
+          "code": "auampm",
+          "title": "Amp Missed",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
+          "code": "ausc",
+          "title": "Speaker Scored",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
+          "code": "auln",
+          "title": "Loaded More Notes?",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
+          "code": "auf",
+          "title": "Auto Foul",
+          "type": "boolean",
+          "defaultValue": false,
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Teleop",
+      "fields": [
+        {
+          "code": "tcoop",
+          "title": "Coopertition",
+          "type": "boolean",
+          "defaultValue": false,
+          "required": false
+        },
+        {
+          "code": "tamps",
+          "title": "Amp Scored",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
+          "code": "tampm",
+          "title": "Amp Missed",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
+          "code": "tsc",
+          "title": "Speaker Scored",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
+          "code": "tsm",
+          "title": "Speaker Missed",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
+          "title": "Note Pickup Location",
+          "type": "select",
+          "required": true,
+          "code": "Npl",
+          "choices": {
+            "N": "None",
+            "G": "Ground",
+            "MS": "Manually Set",
+            "B": "Both"
+          },
+          "defaultValue": "None"
+        }
+      ]
+    },
+    {
+      "name": "Endgame",
+      "fields": [
+        {
+          "title": "End Position",
+          "type": "select",
+          "required": true,
+          "code": "epo",
+          "choices": {
+            "No": "No Climb",
+            "P": "Parked",
+            "Os": "Onstage",
+            "Sl": "Spotlight"
+          },
+          "defaultValue": "No Climb"
+        },
+        {
+          "code": "cn",
+          "title": "Note in Trap?",
+          "type": "boolean",
+          "defaultValue": 0,
+          "required": false
+        },
+        {
+          "title": "Harmony",
+          "type": "select",
+          "required": true,
+          "code": "harm",
+          "choices": {
+            "Not": "Not Completed",
+            "Fir": "First on Chain",
+            "Sec": "Second on Chain",
+            "Thir": "Third on Chain"
+          },
+          "defaultValue": "Not Completed"
+        },
+        {
+          "title": "High Note",
+          "type": "select",
+          "required": true,
+          "code": "harm",
+          "choices": {
+            "Noo": "None",
+            "hupl": "Human Player",
+            "ro": "Robot"
+          },
+          "defaultValue": "None"
+        }
+      ]
+    },
+    {
+      "name": "Postmatch",
+      "fields": [
+        {
+          "code": "or",
+          "title": "Offense Skill",
+          "type": "select",
+          "choices": {
+            "1": "Not Effective",
+            "2": "Average",
+            "3": "Very Effective",
+            "x": "Not Observed"
+          },
+          "required": false
+        },
+        {
+          "code": "dr",
+          "title": "Defense Skill",
+          "type": "select",
+          "choices": {
+            "1": "Not Effective",
+            "2": "Average",
+            "3": "Very Effective",
+            "x": "Not Observed"
+          },
+          "defaultValue": "x",
+          "required": false
+        },
+        {
+          "code": "Fou/Tech",
+          "title": "Foul",
+          "type": "counter",
+          "defaultValue": 0,
+          "required": false
+        },
+        {
+          "code": "d",
+          "title": "Died",
+          "type": "boolean",
+          "defaultValue": false,
+          "required": false
+        },
+        {
+          "code": "to",
+          "title": "Tipped Over",
+          "type": "boolean",
+          "defaultValue": false,
+          "required": false
+        },
+        {
+          "code": "yc",
+          "title": "Yellow/Red Card",
+          "type": "boolean",
+          "defaultValue": false,
+          "required": false
+        },
+
+        {
+          "code": "co",
+          "title": "Comments",
+          "type": "text",
+          "min": 0,
+          "max": 50,
+          "required": false
+        }
+      ]
+    }
+  ]
+}
