@@ -5,6 +5,9 @@
     "Config": {
       "type": "object",
       "properties": {
+        "$schema": {
+          "type": "string"
+        },
         "title": {
           "type": "string"
         },
