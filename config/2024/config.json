@@ -60,6 +60,13 @@
       "name": "Autonomous",
       "fields": [
         {
+          "title": "Mobility?",
+          "type": "boolean",
+          "defaultValue": false,
+          "required": false,
+          "code": "Mved"
+        },
+        {
           "code": "auamp",
           "title": "Amp Scored",
           "type": "counter",
@@ -84,8 +91,8 @@
           "required": false
         },
         {
-          "code": "auln",
-          "title": "Loaded More Notes?",
+          "code": "auskpm",
+          "title": "Speaker Missed",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -94,8 +101,9 @@
         {
           "code": "auf",
           "title": "Auto Foul",
-          "type": "boolean",
-          "defaultValue": false,
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
           "required": false
         }
       ]
@@ -143,17 +151,19 @@
           "required": false
         },
         {
-          "title": "Note Pickup Location",
-          "type": "select",
-          "required": true,
-          "code": "Npl",
-          "choices": {
-            "N": "None",
-            "G": "Ground",
-            "MS": "Manually Set",
-            "B": "Both"
-          },
-          "defaultValue": "None"
+          "code": "cn",
+          "title": "Note in Trap?",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
+          "code": "Fou/Tech",
+          "title": "Teleop Foul",
+          "type": "counter",
+          "defaultValue": 0,
+          "required": false
         }
       ]
     },
@@ -167,18 +177,12 @@
           "code": "epo",
           "choices": {
             "No": "No Climb",
+            "Fc": "Failed Climb",
             "P": "Parked",
             "Os": "Onstage",
             "Sl": "Spotlight"
           },
           "defaultValue": "No Climb"
-        },
-        {
-          "code": "cn",
-          "title": "Note in Trap?",
-          "type": "boolean",
-          "defaultValue": 0,
-          "required": false
         },
         {
           "title": "Harmony",
@@ -192,18 +196,6 @@
             "Thir": "Third on Chain"
           },
           "defaultValue": "Not Completed"
-        },
-        {
-          "title": "High Note",
-          "type": "select",
-          "required": true,
-          "code": "harm",
-          "choices": {
-            "Noo": "None",
-            "hupl": "Human Player",
-            "ro": "Robot"
-          },
-          "defaultValue": "None"
         }
       ]
     },
@@ -236,13 +228,6 @@
           "required": false
         },
         {
-          "code": "Fou/Tech",
-          "title": "Foul",
-          "type": "counter",
-          "defaultValue": 0,
-          "required": false
-        },
-        {
           "code": "d",
           "title": "Died",
           "type": "boolean",
@@ -259,9 +244,14 @@
         {
           "code": "yc",
           "title": "Yellow/Red Card",
-          "type": "boolean",
-          "defaultValue": false,
-          "required": false
+          "type": "select",
+          "defaultValue": "No Card",
+          "required": true,
+          "choices": {
+            "No Card": "No Card",
+            "Yellow": "Yellow Card",
+            "Red": "Red Card"
+          }
         },
 
         {
