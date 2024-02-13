@@ -69,7 +69,7 @@ export function App() {
         <link rel="icon" href="/favicon.ico" />
       </head>
 
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-4 text-center">
+      <main className="flex flex-1 flex-col items-center justify-center px-4 text-center">
         <h1 className="font-sans text-6xl font-bold">
           <div className={`font-rhr text-red-rhr`}>{formData.page_title}</div>
         </h1>
@@ -167,7 +167,7 @@ export function App() {
         </form>
       </main>
       <footer>
-        <div className="mt-8 flex h-24 flex-col items-center justify-center gap-4">
+        <div className="mt-8 flex h-24 flex-col items-center justify-center p-2">
           <Logo />
         </div>
       </footer>
