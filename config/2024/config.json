@@ -60,13 +60,6 @@
       "name": "Autonomous",
       "fields": [
         {
-          "title": "Mobility?",
-          "type": "boolean",
-          "defaultValue": false,
-          "required": false,
-          "code": "Mved"
-        },
-        {
           "code": "auamp",
           "title": "Amp Scored",
           "type": "counter",
@@ -97,14 +90,6 @@
           "defaultValue": 0,
           "min": 0,
           "required": false
-        },
-        {
-          "code": "auf",
-          "title": "Auto Foul",
-          "type": "counter",
-          "defaultValue": 0,
-          "min": 0,
-          "required": false
         }
       ]
     },
@@ -112,10 +97,10 @@
       "name": "Teleop",
       "fields": [
         {
-          "code": "tcoop",
-          "title": "Coopertition",
+          "code": "canDoGround",
+          "title": "Can Do Ground Pickup?",
           "type": "boolean",
-          "defaultValue": false,
+          "defaultValue": 0,
           "required": false
         },
         {
@@ -157,13 +142,6 @@
           "defaultValue": 0,
           "min": 0,
           "required": false
-        },
-        {
-          "code": "Fou/Tech",
-          "title": "Teleop Foul",
-          "type": "counter",
-          "defaultValue": 0,
-          "required": false
         }
       ]
     },
@@ -191,9 +169,9 @@
           "code": "harm",
           "choices": {
             "Not": "Not Completed",
-            "Fir": "First on Chain",
-            "Sec": "Second on Chain",
-            "Thir": "Third on Chain"
+            "noRob": "On Chain Alone",
+            "oneRob": "On Chain With 1 Other Robot",
+            "twoRob": "On Chain With 2 Other Robots"
           },
           "defaultValue": "Not Completed"
         }
@@ -202,31 +180,6 @@
     {
       "name": "Postmatch",
       "fields": [
-        {
-          "code": "or",
-          "title": "Offense Skill",
-          "type": "select",
-          "choices": {
-            "1": "Not Effective",
-            "2": "Average",
-            "3": "Very Effective",
-            "x": "Not Observed"
-          },
-          "required": false
-        },
-        {
-          "code": "dr",
-          "title": "Defense Skill",
-          "type": "select",
-          "choices": {
-            "1": "Not Effective",
-            "2": "Average",
-            "3": "Very Effective",
-            "x": "Not Observed"
-          },
-          "defaultValue": "x",
-          "required": false
-        },
         {
           "code": "d",
           "title": "Died",
@@ -241,19 +194,6 @@
           "defaultValue": false,
           "required": false
         },
-        {
-          "code": "yc",
-          "title": "Yellow/Red Card",
-          "type": "select",
-          "defaultValue": "No Card",
-          "required": true,
-          "choices": {
-            "No Card": "No Card",
-            "Yellow": "Yellow Card",
-            "Red": "Red Card"
-          }
-        },
-
         {
           "code": "co",
           "title": "Comments",
