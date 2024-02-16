@@ -2,7 +2,7 @@
   "name": "QR Scout",
   "short_name": "QR Scout",
   "theme_color": "#ffffff",
-  "background_color": "#f03d41",
+  "background_color": "#FF5733",
   "display": "fullscreen",
   "orientation": "portrait",
   "scope": "/QRScout/",
