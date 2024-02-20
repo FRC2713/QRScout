@@ -4,6 +4,7 @@
 
 body {
   overscroll-behavior: contain;
+  user-select: none;
 }
 
 @font-face {
