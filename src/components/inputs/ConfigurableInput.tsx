@@ -51,6 +51,7 @@ export default function ConfigurableInput(props: ConfigurableInputProps) {
           key={input.title}
           {...input}
           onChange={handleChange}
+          defaultValue={input.defaultValue}
           section={props.section}
         />
       );
