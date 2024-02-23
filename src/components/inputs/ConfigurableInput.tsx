@@ -1,4 +1,4 @@
-import { inputSelector, updateValue, useQRScoutState } from '../store/store';
+import { inputSelector, updateValue, useQRScoutState } from '../../store/store';
 import Checkbox from './CheckboxInput';
 import CounterInput from './CounterInput';
 import NumberInput from './NumberInput';

@@ -1,7 +1,7 @@
-import { InputProps } from '../inputs/BaseInputProps';
-import ConfigurableInput from '../inputs/ConfigurableInput';
-import InputCard from '../inputs/InputCard';
 import { useQRScoutState } from '../store/store';
+import { InputProps } from './inputs/BaseInputProps';
+import ConfigurableInput from './inputs/ConfigurableInput';
+import InputCard from './inputs/InputCard';
 
 interface SectionProps {
   name: string;

@@ -1,22 +1,69 @@
 import { useTheme } from 'next-themes';
 import { useMemo, useState } from 'preact/hooks';
+import { CommitButton } from './components/CommitButton';
 import { Logo } from './components/Logo';
 import QRModal from './components/QRModal';
+import { ResetButton } from './components/ResetButton';
 import Section from './components/Section';
 import Button, { Variant } from './components/core/Button';
+import { Config } from './components/inputs/BaseInputProps';
 import {
   getQRCodeData,
-  resetSections,
   resetToDefaultConfig,
   uploadConfig,
   useQRScoutState,
 } from './store/store';
 
+/**
+ *  Get the value of a field from the form data
+ * @param code The code of the field to get the value of
+ * @param formData The form data to get the value from
+ * @returns The value of the field
+ */
+function getFieldValue(code: string, formData: Config): any {
+  return formData.sections
+    .map(s => s.fields)
+    .flat()
+    .find(f => f.code === code)?.value;
+}
+
+/**
+ * Download a text file
+ * @param filename The name of the file
+ * @param text The text to put in the file
+ */
+function download(filename: string, text: string) {
+  var element = document.createElement('a');
+  element.setAttribute(
+    'href',
+    'data:text/plain;charset=utf-8,' + encodeURIComponent(text),
+  );
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+
+/**
+ * Download the current form data as a json file
+ * @param formData The form data to download
+ */
+function downloadConfig(formData: Config) {
+  const configDownload = { ...formData };
+
+  configDownload.sections.forEach(s =>
+    s.fields.forEach(f => (f.value = undefined)),
+  );
+  download('QRScout_config.json', JSON.stringify(configDownload));
+}
+
 export function App() {
   const { theme, setTheme } = useTheme();
-
   const formData = useQRScoutState(state => state.formData);
-
   const [showQR, setShowQR] = useState(false);
 
   const missingRequiredFields = useMemo(() => {
@@ -29,38 +76,6 @@ export function App() {
           (f.value === null || f.value === undefined || f.value === ``),
       );
   }, [formData]);
-
-  function getFieldValue(code: string): any {
-    return formData.sections
-      .map(s => s.fields)
-      .flat()
-      .find(f => f.code === code)?.value;
-  }
-
-  function download(filename: string, text: string) {
-    var element = document.createElement('a');
-    element.setAttribute(
-      'href',
-      'data:text/plain;charset=utf-8,' + encodeURIComponent(text),
-    );
-    element.setAttribute('download', filename);
-
-    element.style.display = 'none';
-    document.body.appendChild(element);
-
-    element.click();
-
-    document.body.removeChild(element);
-  }
-
-  function downloadConfig() {
-    const configDownload = { ...formData };
-
-    configDownload.sections.forEach(s =>
-      s.fields.forEach(f => (f.value = undefined)),
-    );
-    download('QRScout_config.json', JSON.stringify(configDownload));
-  }
 
   return (
     <div className="min-h-screen py-2 dark:bg-gray-700">
@@ -75,7 +90,10 @@ export function App() {
         </h1>
         <QRModal
           show={showQR}
-          title={`${getFieldValue('robot')} - ${getFieldValue('matchNumber')}`}
+          title={`${getFieldValue('robot', formData)} - ${getFieldValue(
+            'matchNumber',
+            formData,
+          )}`}
           data={getQRCodeData()}
           onDismiss={() => setShowQR(false)}
         />
@@ -87,21 +105,11 @@ export function App() {
             })}
 
             <div className="mb-4 flex flex-col justify-center rounded bg-white py-2 shadow-md dark:bg-gray-600">
-              <button
-                className="focus:shadow-outline mx-2 rounded bg-gray-700 py-6 px-6 font-bold uppercase text-white hover:bg-gray-700 focus:shadow-lg focus:outline-none disabled:bg-gray-300 dark:bg-red-rhr"
-                type="button"
-                onClick={() => setShowQR(true)}
+              <CommitButton
                 disabled={missingRequiredFields.length > 0}
-              >
-                Commit
-              </button>
-              <button
-                className="focus:shadow-outline mx-2 my-6 rounded border border-red-rhr bg-white py-2 font-bold uppercase text-red-rhr hover:bg-red-200 focus:outline-none dark:bg-gray-500 dark:text-white dark:hover:bg-gray-700"
-                type="button"
-                onClick={() => resetSections()}
-              >
-                Reset
-              </button>
+                onClick={() => setShowQR(true)}
+              />
+              <ResetButton />
             </div>
             <div className="mb-4 flex flex-col justify-center rounded bg-white shadow-md dark:bg-gray-600 gap-2 p-2">
               <Button
@@ -120,7 +128,7 @@ export function App() {
               </Button>
               <Button
                 variant={Variant.Secondary}
-                onClick={() => downloadConfig()}
+                onClick={() => downloadConfig(formData)}
               >
                 Download Config
               </Button>
