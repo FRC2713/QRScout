@@ -1,5 +1,5 @@
 import React from 'react';
-import { inputSelector, useQRScoutState } from '../store/store';
+import { inputSelector, useQRScoutState } from '../../store/store';
 import BaseInputProps from './BaseInputProps';
 
 export interface StringInputProps extends BaseInputProps {

@@ -1,13 +1,13 @@
+import { useQRScoutState } from '../../store/store';
 import { InputProps } from '../inputs/BaseInputProps';
 import ConfigurableInput from '../inputs/ConfigurableInput';
 import InputCard from '../inputs/InputCard';
-import { useQRScoutState } from '../store/store';
 
 interface SectionProps {
   name: string;
 }
 
-export default function Section(props: SectionProps) {
+export default function FormSection(props: SectionProps) {
   const formData = useQRScoutState(state => state.formData);
   const inputs = formData.sections.find(s => s.name === props.name)?.fields;
   return (
