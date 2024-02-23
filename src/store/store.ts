@@ -61,7 +61,9 @@ export function resetSections() {
         .map(s => s.fields)
         .flat()
         .forEach(f => {
-          f.value = f.defaultValue;
+          if (!f.preserveDataOnReset) {
+            f.value = f.defaultValue;
+          }
         }),
     ),
   );

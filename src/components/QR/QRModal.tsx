@@ -39,13 +39,12 @@ export function QRModal(props: QRModalProps) {
           />
           <div
             ref={modalRef}
-            className="fixed top-20 rounded-md bg-white border p-5 shadow-lg w-96"
+            className="fixed top-20 rounded-md bg-white border shadow-lg w-96"
           >
-            <div className="flex flex-col items-center ">
-              <h1 className="text-4xl text-black font-mono ">{title}</h1>
+            <div className="flex flex-col items-center pt-8 ">
               <CloseButton onClick={props.onDismiss} />
               <QRCode className="m-2 mt-4" size={256} value={qrCodeData} />
-              <div className="h-1 w-full border-t border-gray-800 my-2" />
+              <h1 className="text-3xl text-gray-800 font-rhr-ns ">{title}</h1>
               <PreviewText data={qrCodeData} />
             </div>
           </div>

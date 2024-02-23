@@ -5,13 +5,13 @@
   "sections": [
     {
       "name": "Prematch",
-      "preserveDataOnReset": true,
       "fields": [
         {
           "title": "Scouter Initials",
           "type": "text",
           "required": true,
-          "code": "scouter"
+          "code": "scouter",
+          "preserveDataOnReset": true
         },
         {
           "title": "Match Number",
@@ -32,7 +32,8 @@
             "B2": "Blue 2",
             "B3": "Blue 3"
           },
-          "defaultValue": "R1"
+          "defaultValue": "R1",
+          "preserveDataOnReset": true
         },
         {
           "title": "Team Number",

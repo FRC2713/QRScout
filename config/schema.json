@@ -62,6 +62,10 @@
         "disabled": {
           "type": "boolean"
         },
+        "preserveDataOnReset": {
+          "type": "boolean",
+          "description": "If true, field data will not be cleared when the scouting form is reset."
+        },
         "value": {},
         "choices": {
           "type": "object",
