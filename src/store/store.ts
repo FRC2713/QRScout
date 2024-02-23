@@ -99,3 +99,11 @@ export function getQRCodeData(): string {
     .map(v => `${v.value}`.replace(/\n/g, ' '))
     .join('\t');
 }
+
+export function getFieldValue(code: string) {
+  return useQRScoutState
+    .getState()
+    .formData.sections.map(s => s.fields)
+    .flat()
+    .find(f => f.code === code)?.value;
+}

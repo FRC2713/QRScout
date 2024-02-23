@@ -1,13 +1,15 @@
 import QRCode from 'qrcode.react';
+import { getFieldValue, getQRCodeData } from '../store/store';
 
 export interface QRModalProps {
   show: boolean;
-  title: string;
-  data: string;
   onDismiss: () => void;
 }
 
 export default function QRModal(props: QRModalProps) {
+  const title = `${getFieldValue('robot')} - ${getFieldValue(
+    'matchNumber',
+  )}`.toUpperCase();
   return (
     <>
       {props.show && (
@@ -18,12 +20,12 @@ export default function QRModal(props: QRModalProps) {
           />
           <div className="fixed top-20 rounded-md border bg-white p-5 shadow-lg">
             <div className="flex flex-col items-center">
-              <h1 className="text-4xl">{props.title.toUpperCase()}</h1>
-              <QRCode className="m-2 mt-4" size={256} value={props.data} />
+              <h1 className="text-4xl">{title}</h1>
+              <QRCode className="m-2 mt-4" size={256} value={getQRCodeData()} />
               <div className="mt-4 flex w-full flex-row items-center justify-between">
                 <div
                   onClick={() =>
-                    navigator.clipboard.writeText(props.data + '\n')
+                    navigator.clipboard.writeText(getQRCodeData() + '\n')
                   }
                 >
                   <svg
