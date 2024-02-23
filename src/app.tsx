@@ -1,7 +1,7 @@
 import { useState } from 'preact/hooks';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
-import QRModal from './components/QRModal';
+import { QRModal } from './components/QR';
 import { Sections } from './components/Sections';
 import { CommitAndResetSection } from './components/Sections/CommitAndResetSection/CommitAndResetSection';
 import { ConfigSection } from './components/Sections/ConfigSection';

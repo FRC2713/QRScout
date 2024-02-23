@@ -91,15 +91,6 @@ export const inputSelector =
       ?.fields.find(f => f.code === code);
   };
 
-export function getQRCodeData(): string {
-  return useQRScoutState
-    .getState()
-    .formData.sections.map(s => s.fields)
-    .flat()
-    .map(v => `${v.value}`.replace(/\n/g, ' '))
-    .join('\t');
-}
-
 export function getFieldValue(code: string) {
   return useQRScoutState
     .getState()
