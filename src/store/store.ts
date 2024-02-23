@@ -63,8 +63,6 @@ export function resetSections() {
         .forEach(f => {
           if (!f.preserveDataOnReset) {
             f.value = f.defaultValue;
-          } else {
-            console.log(`Preserving ${f.title}: ${f.value}`);
           }
         }),
     ),
