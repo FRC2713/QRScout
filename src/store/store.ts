@@ -1,7 +1,7 @@
 import { produce } from 'immer';
 import { ChangeEvent } from 'react';
 import configJson from '../../config/2024/config.json';
-import { Config } from '../inputs/BaseInputProps';
+import { Config } from '../components/inputs/BaseInputProps';
 import { createStore } from './createStore';
 
 function buildConfig(c: Config) {
