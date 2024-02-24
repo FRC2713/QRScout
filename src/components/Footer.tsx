@@ -1,5 +1,3 @@
-import { Logo } from './Logo';
-
 // import { SLHSLOGO } from './SLHSLOGO.png';
 
 export function Footer() {
