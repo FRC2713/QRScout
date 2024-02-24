@@ -100,3 +100,11 @@ export function getFieldValue(code: string) {
     .flat()
     .find(f => f.code === code)?.value;
 }
+
+export interface ApiUrlState {
+  url?: string;
+  token?: string;
+};
+export const useApiState = createStore<ApiUrlState>({}, 'qrScoutApi', {
+  version: 1
+});

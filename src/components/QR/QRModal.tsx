@@ -5,6 +5,7 @@ import { getFieldValue, useQRScoutState } from '../../store/store';
 import { Config } from '../inputs/BaseInputProps';
 import { CloseButton } from './CloseButton';
 import { PreviewText } from './PreviewText';
+import { UploadHandle } from './UploadHandle';
 
 export interface QRModalProps {
   show: boolean;
