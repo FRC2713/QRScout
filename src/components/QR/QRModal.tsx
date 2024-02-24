@@ -1,11 +1,11 @@
 import { useMemo, useRef } from 'preact/hooks';
 import QRCode from 'qrcode.react';
 import { useOnClickOutside } from '../../hooks/useOnClickOutside';
-import { getFieldValue, useQRScoutState } from '../../store/store';
+import { getFieldValue, useQRScoutState, useApiState, ApiUrlState } from '../../store/store';
 import { Config } from '../inputs/BaseInputProps';
 import { CloseButton } from './CloseButton';
 import { PreviewText } from './PreviewText';
-import { UploadHandle } from './UploadHandle';
+import Button, { Variant } from '../core/Button';
 
 export interface QRModalProps {
   show: boolean;
@@ -20,6 +20,23 @@ export function getQRCodeData(formData: Config): string {
     .join('\t');
 }
 
+function uploadToUrl(data: string, api: ApiUrlState, final: () => void = () => {}) {
+  if (api.url !== undefined) {
+    let opts: RequestInit = {
+      method: 'POST',
+      // mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        data: data,
+        auth: api.auth
+      }),
+    };
+    fetch(api.url, opts).finally(final);
+  }
+}
+
 export function QRModal(props: QRModalProps) {
   const modalRef = useRef(null);
   const formData = useQRScoutState(state => state.formData);
@@ -30,6 +47,7 @@ export function QRModal(props: QRModalProps) {
   )}`.toUpperCase();
 
   const qrCodeData = useMemo(() => getQRCodeData(formData), [formData]);
+  const apiData = useApiState.getState();
   return (
     <>
       {props.show && (
@@ -47,6 +65,7 @@ export function QRModal(props: QRModalProps) {
               <QRCode className="m-2 mt-4" size={256} value={qrCodeData} />
               <h1 className="text-3xl text-gray-800 font-rhr-ns ">{title}</h1>
               <PreviewText data={qrCodeData} />
+              {apiData.url && <Button variant={Variant.Primary} onClick={() => uploadToUrl(qrCodeData, apiData, props.onDismiss)}>Upload</Button>}
             </div>
           </div>
         </>

@@ -1,22 +1,8 @@
 import { CopyButton } from './CopyButton';
-import { UploadButton } from './UploadButton';
 
-export type PreviewTextProps = {
+export interface PreviewTextProps {
   data: string;
-  url?: string;
-  token?: string;
 };
-
-function uploadToUrl(props: PreviewTextProps) {
-  if (props.url !== undefined) {
-    let opts = {
-      method: 'POST',
-      body: props.data,
-      token: props.token,
-    };
-    fetch(props.url, opts);
-  }
-}
 
 export function PreviewText(props: PreviewTextProps) {
   const chunks = props.data.split('\t');
@@ -37,7 +23,6 @@ export function PreviewText(props: PreviewTextProps) {
       </div>
 
       <CopyButton onCopy={() => navigator.clipboard.writeText(props.data)} />
-      {props.url !== undefined && <UploadButton onUpload={() => uploadToUrl(props)} />}
     </div>
   );
 }

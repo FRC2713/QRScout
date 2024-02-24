@@ -5,6 +5,7 @@ import { QRModal } from './components/QR';
 import { Sections } from './components/Sections';
 import { CommitAndResetSection } from './components/Sections/CommitAndResetSection/CommitAndResetSection';
 import { ConfigSection } from './components/Sections/ConfigSection';
+import { ApiConfigSection } from './components/Sections/ApiConfigSection';
 import { useQRScoutState } from './store/store';
 
 export function App() {
@@ -25,6 +26,7 @@ export function App() {
             <Sections />
             <CommitAndResetSection onCommit={() => setShowQR(true)} />
             <ConfigSection />
+            <ApiConfigSection />
           </div>
         </form>
       </main>

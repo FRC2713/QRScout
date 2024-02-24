@@ -103,7 +103,7 @@ export function getFieldValue(code: string) {
 
 export interface ApiUrlState {
   url?: string;
-  token?: string;
+  auth?: string;
 };
 export const useApiState = createStore<ApiUrlState>({}, 'qrScoutApi', {
   version: 1
