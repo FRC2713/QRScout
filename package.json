@@ -23,5 +23,9 @@
     "tailwindcss": "^3.4.0",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
-  }
+  },
+  "description": "We changed to github pages. Please use https://frc2713.github.io/QRScout/ until we redirect http://scout.redhawkrobotics.org",
+  "main": "postcss.config.js",
+  "author": "",
+  "license": "ISC"
 }

@@ -71,6 +71,7 @@ export function resetSections() {
 
 export function setFormData(config: Config) {
   useQRScoutState.setState({ formData: buildConfig(config) });
+  console.log(useQRScoutState.getState());
 }
 
 export function uploadConfig(evt: ChangeEvent<HTMLInputElement>) {

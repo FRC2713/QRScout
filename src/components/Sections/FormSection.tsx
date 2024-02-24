@@ -9,7 +9,9 @@ interface SectionProps {
 
 export default function FormSection(props: SectionProps) {
   const formData = useQRScoutState(state => state.formData);
+  console.log(formData)
   const inputs = formData.sections.find(s => s.name === props.name)?.fields;
+  console.log(inputs)
   return (
     <div
       className="mb-4 rounded bg-gray-100 shadow-md dark:bg-gray-600"
@@ -37,3 +39,8 @@ export default function FormSection(props: SectionProps) {
     </div>
   );
 }
+
+
+// TODO
+// ranking points
+

@@ -20,6 +20,7 @@ export function createStore<T extends object>(
   localStorageOptions?: WithRequired<Omit<PersistOptions<T>, 'name'>, 'version'>
 ) {
   if (localStorageOptions) {
+    console.log(initialState)
     return create<T>()(
       devtools(
         persist(() => initialState, { ...localStorageOptions, name }),

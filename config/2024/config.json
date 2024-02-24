@@ -42,13 +42,6 @@
           "code": "teamNumber"
         },
         {
-          "title": "Human Player at Amp",
-          "type": "boolean",
-          "required": false,
-          "defaultValue": false,
-          "code": "humanPlayer"
-        },
-        {
           "title": "No Show",
           "type": "boolean",
           "defaultValue": false,
@@ -101,7 +94,7 @@
         },
         {
           "code": "auf",
-          "title": "Auto Foul",
+          "title": "Number of Auto Foul",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -186,17 +179,17 @@
           "defaultValue": "No Climb"
         },
         {
-          "title": "Harmony",
+          "title": "Total Robots Climbed On One Chain",
           "type": "select",
           "required": true,
-          "code": "harm",
+          "code": "climb",
           "choices": {
-            "Not": "Not Completed",
-            "Fir": "First on Chain",
-            "Sec": "Second on Chain",
-            "Thir": "Third on Chain"
+            "0": "Didn't Climb",
+            "1": "One (Just This Team)",
+            "2": "Two (This and One Other)",
+            "3": "Three (Full Alliance)"
           },
-          "defaultValue": "Not Completed"
+          "defaultValue": "0"
         }
       ]
     },
