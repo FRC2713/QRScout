@@ -24,7 +24,7 @@ function uploadToUrl(data: string, api: ApiUrlState, final: () => void = () => {
   if (api.url !== undefined) {
     let opts: RequestInit = {
       method: 'POST',
-      // mode: 'no-cors',
+      mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json',
       },
