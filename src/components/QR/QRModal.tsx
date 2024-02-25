@@ -36,9 +36,9 @@ function uploadToUrl(elem: any, data: string, api: ApiUrlState, final: () => voi
         auth: api.auth
       }),
     };
-    if (t) t.disabled = true;
+    elem.disabled = true;
     fetch(api.url, opts).then(r => console.log(r)).finally(() => {
-      if (t) t.disabled = false;
+      elem.disabled = false;
       final();
     });
   }
