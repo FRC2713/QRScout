@@ -1,8 +1,9 @@
 import { CopyButton } from './CopyButton';
 
-export type PreviewTextProps = {
+export interface PreviewTextProps {
   data: string;
 };
+
 export function PreviewText(props: PreviewTextProps) {
   const chunks = props.data.split('\t');
   return (

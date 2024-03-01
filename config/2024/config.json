@@ -183,7 +183,7 @@
             "Os": "Onstage",
             "Sl": "Spotlight"
           },
-          "defaultValue": "No Climb"
+          "defaultValue": "No"
         },
         {
           "title": "Harmony",
@@ -196,7 +196,7 @@
             "Sec": "Second on Chain",
             "Thir": "Third on Chain"
           },
-          "defaultValue": "Not Completed"
+          "defaultValue": "Not"
         }
       ]
     },
@@ -208,11 +208,12 @@
           "title": "Offense Skill",
           "type": "select",
           "choices": {
+            "0": "Not Observed",
             "1": "Not Effective",
             "2": "Average",
-            "3": "Very Effective",
-            "x": "Not Observed"
+            "3": "Very Effective"
           },
+          "defaultValue": "0",
           "required": false
         },
         {
@@ -220,12 +221,12 @@
           "title": "Defense Skill",
           "type": "select",
           "choices": {
+            "0": "Not Observed",
             "1": "Not Effective",
             "2": "Average",
-            "3": "Very Effective",
-            "x": "Not Observed"
+            "3": "Very Effective"
           },
-          "defaultValue": "x",
+          "defaultValue": "0",
           "required": false
         },
         {
@@ -261,6 +262,7 @@
           "type": "text",
           "min": 0,
           "max": 50,
+          "defaultValue": "",
           "required": false
         }
       ]
