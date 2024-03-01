@@ -20,7 +20,7 @@ export function App() {
         </h1>
         <QRModal show={showQR} onDismiss={() => setShowQR(false)} />
 
-        <form className="w-full px-4">
+        <form className="w-full px-4" onSubmit={e => e.preventDefault()}>
           <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             <Sections />
             <CommitAndResetSection onCommit={() => setShowQR(true)} />
