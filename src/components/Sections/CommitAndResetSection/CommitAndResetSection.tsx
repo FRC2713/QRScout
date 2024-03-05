@@ -1,5 +1,6 @@
 import { useMemo } from 'preact/hooks';
 import { useQRScoutState } from '../../../store/store';
+import { Section } from '../../core/Section';
 import { CommitButton } from './CommitButton';
 import { ResetButton } from './ResetButton';
 
@@ -23,12 +24,12 @@ export function CommitAndResetSection({
   }, [formData]);
 
   return (
-    <div className="mb-4 flex flex-col justify-center rounded bg-white py-2 shadow-md dark:bg-gray-600">
+    <Section>
       <CommitButton
         disabled={missingRequiredFields.length > 0}
         onClick={onCommit}
       />
       <ResetButton />
-    </div>
+    </Section>
   );
 }

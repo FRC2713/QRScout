@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@heroicons/react": "^2.1.1",
     "immer": "^10.0.3",
     "next-themes": "^0.2.1",
     "preact": "^10.19.3",
