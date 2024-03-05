@@ -3,6 +3,7 @@ import {
   uploadConfig,
   useQRScoutState,
 } from '../../../store/store';
+import { ConfigEditor } from '../../ConfigEditor';
 import Button, { Variant } from '../../core/Button';
 import { Modal } from '../../core/Modal';
 import { Config } from '../../inputs/BaseInputProps';
@@ -86,6 +87,7 @@ export function SettingsModal(props: ModalProps) {
         <Button variant={Variant.Danger} onClick={() => resetToDefaultConfig()}>
           Reset Config to Default
         </Button>
+        <ConfigEditor />
       </div>
     </Modal>
   );
