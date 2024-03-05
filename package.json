@@ -9,7 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.1.1",
     "immer": "^10.0.3",
     "next-themes": "^0.2.1",
