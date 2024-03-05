@@ -1,9 +1,8 @@
-import { useMemo, useRef } from 'preact/hooks';
+import { useMemo } from 'preact/hooks';
 import QRCode from 'qrcode.react';
-import { useOnClickOutside } from '../../hooks/useOnClickOutside';
 import { getFieldValue, useQRScoutState } from '../../store/store';
+import { Modal } from '../core/Modal';
 import { Config } from '../inputs/BaseInputProps';
-import { CloseButton } from './CloseButton';
 import { PreviewText } from './PreviewText';
 
 export interface QRModalProps {
@@ -20,9 +19,7 @@ export function getQRCodeData(formData: Config): string {
 }
 
 export function QRModal(props: QRModalProps) {
-  const modalRef = useRef(null);
   const formData = useQRScoutState(state => state.formData);
-  useOnClickOutside(modalRef, props.onDismiss);
 
   const title = `${getFieldValue('robot')} - M${getFieldValue(
     'matchNumber',
@@ -30,26 +27,12 @@ export function QRModal(props: QRModalProps) {
 
   const qrCodeData = useMemo(() => getQRCodeData(formData), [formData]);
   return (
-    <>
-      {props.show && (
-        <>
-          <div
-            className="fixed inset-0 h-full w-full overflow-y-auto bg-gray-600 bg-opacity-50 dark:bg-opacity-70 backdrop-blur-sm "
-            id="my-modal"
-          />
-          <div
-            ref={modalRef}
-            className="fixed top-20 rounded-md bg-white border shadow-lg w-96"
-          >
-            <div className="flex flex-col items-center pt-8 ">
-              <CloseButton onClick={props.onDismiss} />
-              <QRCode className="m-2 mt-4" size={256} value={qrCodeData} />
-              <h1 className="text-3xl text-gray-800 font-rhr-ns ">{title}</h1>
-              <PreviewText data={qrCodeData} />
-            </div>
-          </div>
-        </>
-      )}
-    </>
+    <Modal show={props.show} onDismiss={props.onDismiss}>
+      <div className="flex flex-col items-center pt-8 px-4 bg-white rounded-md">
+        <QRCode className="m-2 mt-4" size={256} value={qrCodeData} />
+        <h1 className="text-3xl text-gray-800 font-rhr-ns ">{title}</h1>
+        <PreviewText data={qrCodeData} />
+      </div>
+    </Modal>
   );
 }
