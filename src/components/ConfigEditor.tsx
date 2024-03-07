@@ -50,7 +50,7 @@ export function ConfigEditor(props: ConfigEditorProps) {
           >
             Save
           </Button>
-          <Button variant={Variant.Secondary} onClick={props.onCancel}>
+          <Button variant={Variant.Primary} onClick={props.onCancel}>
             Cancel
           </Button>
         </div>
