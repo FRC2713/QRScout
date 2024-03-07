@@ -1,5 +1,8 @@
+import { Transition } from '@headlessui/react';
+import { useState } from 'preact/hooks';
 import {
   resetToDefaultConfig,
+  setConfig,
   uploadConfig,
   useQRScoutState,
 } from '../../../store/store';
@@ -50,45 +53,74 @@ function downloadConfig(formData: Config) {
 
 export function SettingsModal(props: ModalProps) {
   const formData = useQRScoutState(state => state.formData);
+  const [showEditor, setShowEditor] = useState(false);
   return (
-    <Modal show={props.show} onDismiss={props.onDismiss}>
-      <div className="flex flex-col justify-start rounded bg-white dark:bg-gray-600 gap-2 p-2">
-        <Button
-          variant={Variant.Secondary}
-          onClick={() =>
-            navigator.clipboard.writeText(
-              formData.sections
-                .map(s => s.fields)
-                .flat()
-                .map(f => f.title)
-                .join('\t'),
-            )
-          }
-        >
-          Copy Column Names
-        </Button>
-        <Button
-          variant={Variant.Secondary}
-          onClick={() => downloadConfig(formData)}
-        >
-          Download Config
-        </Button>
-        <label className="mx-2 flex cursor-pointer flex-row justify-center rounded bg-gray-500 py-2 text-center font-bold text-white shadow-sm hover:bg-gray-600">
-          <span className="text-base leading-normal">Upload Config</span>
-          <input
-            type="file"
-            className="hidden"
-            accept=".json"
-            onChange={e => uploadConfig(e)}
-          />
-        </label>
+    <>
+      <Modal show={props.show} onDismiss={props.onDismiss}>
+        <div className="flex flex-col justify-start rounded bg-white dark:bg-gray-600 gap-2 p-2">
+          <Button
+            variant={Variant.Secondary}
+            onClick={() =>
+              navigator.clipboard.writeText(
+                formData.sections
+                  .map(s => s.fields)
+                  .flat()
+                  .map(f => f.title)
+                  .join('\t'),
+              )
+            }
+          >
+            Copy Column Names
+          </Button>
+          <Button
+            variant={Variant.Secondary}
+            onClick={() => setShowEditor(true)}
+          >
+            Edit Config
+          </Button>
+          <Button
+            variant={Variant.Secondary}
+            onClick={() => downloadConfig(formData)}
+          >
+            Download Config
+          </Button>
+          <label className="mx-2 flex cursor-pointer flex-row justify-center rounded bg-gray-500 py-2 text-center font-bold text-white shadow-sm hover:bg-gray-600">
+            <span className="text-base leading-normal">Upload Config</span>
+            <input
+              type="file"
+              className="hidden"
+              accept=".json"
+              onChange={e => uploadConfig(e)}
+            />
+          </label>
 
-        <ThemeSelector />
-        <Button variant={Variant.Danger} onClick={() => resetToDefaultConfig()}>
-          Reset Config to Default
-        </Button>
-        <ConfigEditor />
-      </div>
-    </Modal>
+          <ThemeSelector />
+          <Button
+            variant={Variant.Danger}
+            onClick={() => resetToDefaultConfig()}
+          >
+            Reset Config to Default
+          </Button>
+        </div>
+      </Modal>
+      <Transition
+        show={showEditor}
+        enter="transition ease-out duration-300 transform"
+        enterFrom="translate-y-full"
+        enterTo="translate-y-0"
+        leave="transition ease-in duration-300 transform"
+        leaveFrom="translate-y-0"
+        leaveTo="translate-y-full"
+        className="z-50 fixed inset-0"
+      >
+        <ConfigEditor
+          onCancel={() => setShowEditor(false)}
+          onSave={configString => {
+            setConfig(configString);
+            setShowEditor(false);
+          }}
+        />
+      </Transition>
+    </>
   );
 }
