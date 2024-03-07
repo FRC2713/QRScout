@@ -17,7 +17,7 @@ export function Modal(props: ModalProps) {
       {props.show && (
         <>
           <div
-            className="fixed inset-0 h-full w-full overflow-y-auto bg-gray-500 bg-opacity-50 dark:bg-opacity-70 backdrop-blur "
+            className="fixed inset-0 h-full w-full overflow-y-auto bg-gray-500 bg-opacity-40 dark:bg-opacity-70 backdrop-blur "
             id="my-modal"
           />
           <div

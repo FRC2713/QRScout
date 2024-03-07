@@ -14,8 +14,6 @@ export default function NumberInput(data: NumberInputProps) {
     data.onChange(e.currentTarget.value);
   }
 
-  console.log(data);
-
   return (
     <input
       className="w-full rounded py-2 dark:bg-gray-700 dark:text-white"

@@ -1,4 +1,5 @@
 import { produce } from 'immer';
+import { cloneDeep } from 'lodash';
 import { ChangeEvent } from 'react';
 import configJson from '../../config/2024/config.json';
 import { Config } from '../components/inputs/BaseInputProps';
@@ -15,6 +16,17 @@ function buildConfig(c: Config) {
 
 function getDefaultConfig(): Config {
   return buildConfig(configJson as Config);
+}
+
+export function getConfig() {
+  const configData = cloneDeep(useQRScoutState.getState().formData);
+
+  configData.sections
+    .map(s => s.fields)
+    .flat()
+    .forEach(f => delete f.value);
+
+  return configData;
 }
 
 export interface QRScoutState {
@@ -73,12 +85,16 @@ export function setFormData(config: Config) {
   useQRScoutState.setState({ formData: buildConfig(config) });
 }
 
+export function setConfig(configText: string) {
+  const jsonData = JSON.parse(configText);
+  setFormData(jsonData as Config);
+}
+
 export function uploadConfig(evt: ChangeEvent<HTMLInputElement>) {
   var reader = new FileReader();
   reader.onload = function (e) {
     const configText = e.target?.result as string;
-    const jsonData = JSON.parse(configText);
-    setFormData(jsonData as Config);
+    setConfig(configText);
   };
   if (evt.currentTarget.files && evt.currentTarget.files.length > 0) {
     reader.readAsText(evt.currentTarget.files[0]);
