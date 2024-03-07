@@ -5,7 +5,7 @@ import configJson from '../../config/2024/config.json';
 import { Config } from '../components/inputs/BaseInputProps';
 import { createStore } from './createStore';
 
-export function buildConfig(c: Config) {
+function buildConfig(c: Config) {
   let config: Config = { ...c };
   config.sections
     .map(s => s.fields)
