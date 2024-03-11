@@ -4,6 +4,7 @@ export interface InputCardProps {
   title: string
   required: boolean
   hasValue: boolean
+  description?: string
 }
 
 export default function InputCard(
@@ -20,6 +21,12 @@ export default function InputCard(
         )}
       </div>
       <div>{props.children}</div>
+      {props.description != null && (
+        <div className="justify-between rounded-t bg-gray-200">
+          <p className="font-bold text-left text-s">Note</p>
+          <p className="text-left text-xs">{props.description}</p>
+        </div>
+      )}
     </div>
   )
 }

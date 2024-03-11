@@ -20,6 +20,7 @@ export interface InputProps {
   required: boolean;
   // A shorthand code for this input
   code: string;
+  description?: string;
   disabled?: boolean;
   preserveDataOnReset?: boolean;
   value?: any;
