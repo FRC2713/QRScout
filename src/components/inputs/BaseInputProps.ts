@@ -6,6 +6,7 @@ export interface Config {
   title: string;
   page_title: string;
   sections: SectionProps[];
+  accent_color?: string;
 }
 
 export interface SectionProps {

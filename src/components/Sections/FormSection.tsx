@@ -12,7 +12,7 @@ export default function FormSection(props: SectionProps) {
   const formData = useQRScoutState(state => state.formData);
   const inputs = formData.sections.find(s => s.name === props.name)?.fields;
   return (
-    <Section title={props.name}>
+    <Section title={props.name} accent_color={formData.accent_color}>
       {inputs?.map((e: InputProps) => (
         <InputCard
           title={e.title}

@@ -10,13 +10,14 @@ import { useQRScoutState } from './store/store';
 export function App() {
   const formData = useQRScoutState(state => state.formData);
   const [showQR, setShowQR] = useState(false);
+  const titleClassName = `font-rhr text-${formData.accent_color != null ? formData.accent_color : "grey"}-600`
 
   return (
     <div className="min-h-screen py-2 dark:bg-gray-700">
       <Header />
       <main className="flex flex-1 flex-col items-center justify-center px-4 text-center">
         <h1 className="font-sans text-6xl font-bold">
-          <div className={`font-rhr text-red-rhr`}>{formData.page_title}</div>
+          <div className={titleClassName}>{formData.page_title}</div>
         </h1>
         <QRModal show={showQR} onDismiss={() => setShowQR(false)} />
 
