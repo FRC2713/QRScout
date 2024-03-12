@@ -1,6 +1,7 @@
 {
   "title": "QRScout",
   "page_title": "Crescendo",
+  "accent_color": "red",
   "sections": [
     {
       "name": "Prematch",
@@ -64,7 +65,8 @@
           "type": "boolean",
           "defaultValue": false,
           "required": false,
-          "code": "Mved"
+          "code": "Mved",
+          "description": "True only if they fully crossed the line"
         },
         {
           "code": "auamp",
@@ -195,7 +197,8 @@
             "Sec": "Second on Chain",
             "Thir": "Third on Chain"
           },
-          "defaultValue": "Not Completed"
+          "defaultValue": "Not Completed",
+          "description": "Only marked if multiple robots climb on the same chain"
         }
       ]
     },
