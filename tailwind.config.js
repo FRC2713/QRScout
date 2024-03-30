@@ -10,7 +10,7 @@ module.exports = {
         'rhr-ns': ['"SF Sports Night NS"'],
       },
       colors: {
-        red: { rhr: '#ef3340' },
+        yellow: { rhr: '#fff200' },
       },
     },
   },
