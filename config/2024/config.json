@@ -35,7 +35,7 @@
                     "code": "matchNumber"
                 },
                 {
-                    "title": "Robot",
+                    "title": "Robot _ L",
                     "type": "select",
                     "required": true,
                     "code": "robot",
