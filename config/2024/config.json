@@ -275,7 +275,7 @@
                     "title": "Red/Green Flag",
                     "type": "select",
                     "defaultValue": "No Flag",
-                    "required": true,
+                    "required": false,
                     "choices": {
                         "No FLag": "No Flag",
                         "Green Flag": "Green Flag",
@@ -287,7 +287,7 @@
                     "title": "Comments",
                     "type": "text",
                     "min": 0,
-                    "max": 500,
+                    "max": 750,
                     "required": false
                 }
             ]
