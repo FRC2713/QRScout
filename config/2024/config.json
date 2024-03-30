@@ -35,7 +35,7 @@
                     "code": "matchNumber"
                 },
                 {
-                    "title": "Robot _ L",
+                    "title": "Robot",
                     "type": "select",
                     "required": true,
                     "code": "robot",
@@ -167,14 +167,6 @@
                     "required": false
                 },
                 {
-                    "code": "cn",
-                    "title": "Note in Trap?",
-                    "type": "counter",
-                    "defaultValue": 0,
-                    "min": 0,
-                    "required": false
-                },
-                {
                     "code": "Fou/Tech",
                     "title": "Teleop Foul",
                     "type": "counter",
@@ -187,16 +179,14 @@
             "name": "Endgame",
             "fields": [
                 {
-                    "title": "End Position",
+                    "title": "Hang",
                     "type": "select",
                     "required": true,
                     "code": "epo",
                     "choices": {
-                        "No": "No Climb",
-                        "Fc": "Failed Climb",
-                        "P": "Parked",
-                        "Os": "Onstage",
-                        "Sl": "Spotlight"
+                        "0": "No Climb",
+                        "1": "Parked",
+                        "2": "Onstage"
                     },
                     "defaultValue": "No Climb"
                 },
@@ -212,6 +202,17 @@
                         "Thir": "Third on Chain"
                     },
                     "defaultValue": "Not Completed"
+                },
+                {
+                    "code": "cn",
+                    "title": "Note in Trap",
+                    "type": "select",
+                    "defaultValue": "No trap",
+                    "choices": {
+                        "0": "No trap",
+                        "1": "Trap"
+                    },
+                    "required": false
                 }
             ]
         },
@@ -271,7 +272,15 @@
                 },
                 {
                     "code": "GR",
-                    "title": "Red/Green Flag"
+                    "title": "Red/Green Flag",
+                    "type": "select",
+                    "defaultValue": "No Flag",
+                    "required": true,
+                    "choices": {
+                        "No FLag": "No Flag",
+                        "Green Flag": "Green Flag",
+                        "Red Flag": "Red Flag"
+                    }
                 },
                 {
                     "code": "co",
