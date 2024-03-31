@@ -6,7 +6,7 @@ type SectionProps = {
 export function Section(props: SectionProps) {
   return (
     <div
-      className="mb-4 rounded bg-gray-100 shadow-md dark:bg-gray-600"
+      className="mb-4 rounded bg-yellow-100 shadow-md dark:bg-yellow-600"
       key={props.title}
     >
       {props.title && (

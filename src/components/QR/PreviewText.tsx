@@ -6,8 +6,8 @@ export type PreviewTextProps = {
 export function PreviewText(props: PreviewTextProps) {
   const chunks = props.data.split('\t');
   return (
-    <div className="flex flex-col items-center gap-2 shadow-md bg-gray-600 m-2 p-2 rounded-md">
-      <div className="text-justify p-2 rounded bg-gray-600 ">
+    <div className="flex flex-col items-center gap-2 shadow-md bg-yellow-600 m-2 p-2 rounded-md">
+      <div className="text-justify p-2 rounded bg-yellow-600 ">
         <p className=" font-mono text-wrap break-all text-gray-200 ">
           {chunks.map((c, i) => (
             <>
