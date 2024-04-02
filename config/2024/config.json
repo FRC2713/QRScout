@@ -18,6 +18,7 @@
           "type": "number",
           "required": true,
           "code": "matchNumber",
+          "preserveDataOnReset": true,
           "autoIncrementOnReset": true
         },
         {
@@ -189,6 +190,7 @@
             "3": "Very Effective",
             "x": "Not Observed"
           },
+          "defaultValue": "x",
           "required": false
         },
         {
