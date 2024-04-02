@@ -16,7 +16,9 @@
           "title": "Match Number",
           "type": "number",
           "required": true,
-          "code": "matchNumber"
+          "code": "matchNumber",
+          "preserveDataOnReset": true,
+          "autoIncrementOnReset": true
         },
         {
           "title": "Robot",
@@ -60,29 +62,6 @@
       "name": "Autonomous",
       "fields": [
         {
-          "title": "Mobility?",
-          "type": "boolean",
-          "defaultValue": false,
-          "required": false,
-          "code": "Mved"
-        },
-        {
-          "code": "auamp",
-          "title": "Amp Scored",
-          "type": "counter",
-          "defaultValue": 0,
-          "min": 0,
-          "required": false
-        },
-        {
-          "code": "auampm",
-          "title": "Amp Missed",
-          "type": "counter",
-          "defaultValue": 0,
-          "min": 0,
-          "required": false
-        },
-        {
           "code": "ausc",
           "title": "Speaker Scored",
           "type": "counter",
@@ -99,12 +78,20 @@
           "required": false
         },
         {
-          "code": "auf",
-          "title": "Auto Foul",
-          "type": "counter",
-          "defaultValue": 0,
-          "min": 0,
-          "required": false
+          "code": "a_gp_collect",
+          "title": "Game Pieces Collected",
+          "type": "select",
+          "multiSelect": true,
+          "choices": {
+            "1": "Preload",
+            "2": "Floor 1",
+            "3": "Floor 2",
+            "4": "Floor 3",
+            "5": "Floor 4",
+            "6": "Floor 5",
+            "7": "Floor 6",
+            "8": "Floor 7"
+          }
         }
       ]
     },

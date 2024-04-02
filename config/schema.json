@@ -79,6 +79,12 @@
         },
         "max": {
           "type": "number"
+        },
+        "multiSelect": {
+          "type": "boolean"
+        },
+        "autoIncrementOnReset": {
+          "type": "boolean"
         }
       },
       "required": ["title", "type", "required", "code"],

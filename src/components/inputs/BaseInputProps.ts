@@ -27,6 +27,7 @@ export interface InputProps {
   defaultValue?: any;
   min?: number;
   max?: number;
+  autoIncrementOnReset?: boolean;
 }
 
 export type InputTypes =

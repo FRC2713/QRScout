@@ -75,6 +75,11 @@ export function resetSections() {
         .forEach(f => {
           if (!f.preserveDataOnReset) {
             f.value = f.defaultValue;
+          } else if (
+            (f.type === 'number' || f.type === 'counter') &&
+            f.autoIncrementOnReset
+          ) {
+            f.value = f.value + 1;
           }
         }),
     ),
