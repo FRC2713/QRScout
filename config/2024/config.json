@@ -1,23 +1,23 @@
 {
+  "$schema": "../schema.json",
   "title": "QRScout",
   "page_title": "Crescendo",
   "sections": [
     {
       "name": "Prematch",
+      "preserveDataOnReset": true,
       "fields": [
         {
           "title": "Scouter Initials",
           "type": "text",
           "required": true,
-          "code": "scouter",
-          "preserveDataOnReset": true
+          "code": "scouter"
         },
         {
           "title": "Match Number",
           "type": "number",
           "required": true,
           "code": "matchNumber",
-          "preserveDataOnReset": true,
           "autoIncrementOnReset": true
         },
         {
@@ -33,8 +33,7 @@
             "B2": "Blue 2",
             "B3": "Blue 3"
           },
-          "defaultValue": "R1",
-          "preserveDataOnReset": true
+          "defaultValue": "R1"
         },
         {
           "title": "Team Number",
@@ -43,11 +42,16 @@
           "code": "teamNumber"
         },
         {
-          "title": "Human Player at Amp",
-          "type": "boolean",
-          "required": false,
-          "defaultValue": false,
-          "code": "humanPlayer"
+          "title": "Starting Position",
+          "type": "select",
+          "required": true,
+          "code": "Prsp",
+          "choices": {
+            "R1": "Source",
+            "R2": "Middle",
+            "R3": "Amp"
+          },
+          "defaultValue": ""
         },
         {
           "title": "No Show",
@@ -61,6 +65,13 @@
     {
       "name": "Autonomous",
       "fields": [
+        {
+          "title": "Moved?",
+          "type": "boolean",
+          "defaultValue": false,
+          "required": false,
+          "code": "Mved"
+        },
         {
           "code": "ausc",
           "title": "Speaker Scored",
@@ -78,20 +89,28 @@
           "required": false
         },
         {
-          "code": "a_gp_collect",
-          "title": "Game Pieces Collected",
+          "code": "a_gp_Path",
+          "title": "Auto Game Piece Path",
           "type": "select",
           "multiSelect": true,
           "choices": {
-            "1": "Preload",
-            "2": "Floor 1",
-            "3": "Floor 2",
-            "4": "Floor 3",
-            "5": "Floor 4",
-            "6": "Floor 5",
-            "7": "Floor 6",
-            "8": "Floor 7"
+            "1": "Speaker 3 (Source Side)",
+            "2": "Speaker 2 (Middle)",
+            "3": "Speaker 1 (Amp Side)",
+            "4": "Midline 5 (Source Edge)",
+            "5": "Midline 4",
+            "6": "Midline 3 (Middle)",
+            "7": "Midline 2",
+            "8": "Midline 1 (Amp Edge)"
           }
+        },
+        {
+          "code": "auf",
+          "title": "Auto Foul",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
         }
       ]
     },
@@ -99,23 +118,8 @@
       "name": "Teleop",
       "fields": [
         {
-          "code": "tcoop",
-          "title": "Coopertition",
-          "type": "boolean",
-          "defaultValue": false,
-          "required": false
-        },
-        {
           "code": "tamps",
           "title": "Amp Scored",
-          "type": "counter",
-          "defaultValue": 0,
-          "min": 0,
-          "required": false
-        },
-        {
-          "code": "tampm",
-          "title": "Amp Missed",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -130,8 +134,8 @@
           "required": false
         },
         {
-          "code": "tsm",
-          "title": "Speaker Missed",
+          "code": "tfs",
+          "title": "Feeder Shots",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -164,25 +168,11 @@
           "code": "epo",
           "choices": {
             "No": "No Climb",
-            "Fc": "Failed Climb",
             "P": "Parked",
             "Os": "Onstage",
-            "Sl": "Spotlight"
+            "Hm": "Harmony"
           },
-          "defaultValue": "No Climb"
-        },
-        {
-          "title": "Harmony",
-          "type": "select",
-          "required": true,
-          "code": "harm",
-          "choices": {
-            "Not": "Not Completed",
-            "Fir": "First on Chain",
-            "Sec": "Second on Chain",
-            "Thir": "Third on Chain"
-          },
-          "defaultValue": "Not Completed"
+          "defaultValue": "No"
         }
       ]
     },
@@ -215,15 +205,8 @@
           "required": false
         },
         {
-          "code": "d",
-          "title": "Died",
-          "type": "boolean",
-          "defaultValue": false,
-          "required": false
-        },
-        {
-          "code": "to",
-          "title": "Tipped Over",
+          "code": "dto",
+          "title": "Died/Tipped Over",
           "type": "boolean",
           "defaultValue": false,
           "required": false
@@ -240,7 +223,6 @@
             "Red": "Red Card"
           }
         },
-
         {
           "code": "co",
           "title": "Comments",
