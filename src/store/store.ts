@@ -76,6 +76,10 @@ export function resetSections() {
           if (!f.preserveDataOnReset) {
             f.value = f.defaultValue;
           }
+          /* 
+          else if (f.type === 'number' || f.type === 'counter') {
+            f.value = f.value + 1;
+          }*/
         }),
     ),
   );
