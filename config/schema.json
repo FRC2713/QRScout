@@ -83,7 +83,7 @@
         "multiSelect": {
           "type": "boolean"
         },
-        "autoIncrement": {
+        "autoIncrementOnReset": {
           "type": "boolean"
         }
       },

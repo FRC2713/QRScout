@@ -18,7 +18,7 @@
           "required": true,
           "code": "matchNumber",
           "preserveDataOnReset": true,
-          "autoIncrement": true
+          "autoIncrementOnReset": true
         },
         {
           "title": "Robot",
