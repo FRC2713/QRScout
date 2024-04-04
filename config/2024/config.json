@@ -152,7 +152,7 @@
                 },
                 {
                     "code": "tasc",
-                    "title": "Amplified Speaker Scored",
+                    "title": "Amplified Speaker",
                     "type": "counter",
                     "defaultValue": 0,
                     "min": 0,
