@@ -151,7 +151,7 @@
                     "required": false
                 },
                 {
-                    "code": "tasc",
+                    "code": "tascp",
                     "title": "Amplified Speaker",
                     "type": "counter",
                     "defaultValue": 0,
