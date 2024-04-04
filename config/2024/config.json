@@ -151,16 +151,16 @@
                     "required": false
                 },
                 {
-                    "code": "tascp",
-                    "title": "Amplified Speaker",
+                    "code": "tsc",
+                    "title": "Speaker Scored",
                     "type": "counter",
                     "defaultValue": 0,
                     "min": 0,
                     "required": false
                 },
                 {
-                    "code": "tsc",
-                    "title": "Speaker Scored",
+                    "code": "tascp",
+                    "title": "Amplified Speaker",
                     "type": "counter",
                     "defaultValue": 0,
                     "min": 0,
