@@ -171,7 +171,8 @@
             "No": "No Climb",
             "P": "Parked",
             "Os": "Onstage",
-            "Hm": "Harmony"
+            "Hm": "Harmony",
+            "Fh": "Failed Harmony"
           },
           "defaultValue": "No"
         }
