@@ -148,6 +148,7 @@
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
+          "max": 3,
           "required": false
         },
         {
