@@ -28,6 +28,7 @@ export function ConfigEditor(props: ConfigEditorProps) {
       ],
     });
   }, [monaco]);
+  console.log("Errors", errorCount);
   return (
     <div className="h-screen w-screen bg-gray-500 bg-opacity-50 dark:bg-opacity-70 backdrop-blur p-4 ">
       <div className="flex flex-col gap-2 h-full shadow-md p-2 rounded-lg bg-gray-50 bg-opacity-20">
