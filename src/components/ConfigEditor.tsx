@@ -37,7 +37,8 @@ export function ConfigEditor(props: ConfigEditorProps) {
             defaultValue={JSON.stringify(config, null, 2)}
             theme="vs-dark"
             onValidate={markers => {
-              setErrorCount(markers.length);
+              const severeErrors = markers.filter(m => m.severity > 4);
+              setErrorCount(severeErrors.length);
             }}
             onChange={value => value && setCurrentConfigText(value)}
           />
