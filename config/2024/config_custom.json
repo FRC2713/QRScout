@@ -103,7 +103,6 @@
           "defaultValue": 0,
           "min": 0,
           "required": false
-        }
         },
         {
           "code": "auf",
