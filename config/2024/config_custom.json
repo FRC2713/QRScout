@@ -17,6 +17,7 @@
           "title": "Match Number",
           "type": "number",
           "required": true,
+          "min": 0,
           "code": "matchNumber",
           "preserveDataOnReset": true,
           "autoIncrementOnReset": true
@@ -34,7 +35,7 @@
             "B2": "Blue 2",
             "B3": "Blue 3"
           },
-          "defaultValue": "R1"
+          "defaultValue": ""
         },
         {
           "title": "Team Number",
@@ -67,7 +68,7 @@
       "name": "Autonomous",
       "fields": [
         {
-          "title": "Moved?",
+          "title": "Leave?",
           "type": "boolean",
           "defaultValue": false,
           "required": false,
@@ -75,7 +76,7 @@
         },
         {
           "code": "ausc",
-          "title": "Speaker Scored",
+          "title": "Speaker Scores",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -83,31 +84,30 @@
         },
         {
           "code": "auskpm",
-          "title": "Speaker Missed",
+          "title": "Speaker Misses",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
           "required": false
         },
         {
-          "code": "a_gp_Path",
-          "title": "Auto Game Piece Path",
-          "type": "select",
-          "multiSelect": true,
-          "choices": {
-            "1": "Speaker 3 (Source Side)",
-            "2": "Speaker 2 (Middle)",
-            "3": "Speaker 1 (Amp Side)",
-            "4": "Midline 5 (Source Edge)",
-            "5": "Midline 4",
-            "6": "Midline 3 (Middle)",
-            "7": "Midline 2",
-            "8": "Midline 1 (Amp Edge)"
-          }
+          "title": "Amp Scores",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
+          "title": "Amp Misses",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        }
         },
         {
           "code": "auf",
-          "title": "Auto Foul",
+          "title": "Auto Fouls",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -120,7 +120,14 @@
       "fields": [
         {
           "code": "tamps",
-          "title": "Amp Scored",
+          "title": "Amp Scores",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
+          "title": "Amp Misses",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -128,7 +135,14 @@
         },
         {
           "code": "tsc",
-          "title": "Speaker Scored",
+          "title": "Speaker Scores",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
+          "title": "Speaker Misses",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -143,16 +157,8 @@
           "required": false
         },
         {
-          "code": "cn",
-          "title": "Note in Trap?",
-          "type": "counter",
-          "defaultValue": 0,
-          "min": 0,
-          "required": false
-        },
-        {
           "code": "Fou/Tech",
-          "title": "Teleop Foul",
+          "title": "Teleop Fouls",
           "type": "counter",
           "defaultValue": 0,
           "required": false
@@ -162,6 +168,15 @@
     {
       "name": "Endgame",
       "fields": [
+        {
+          "code": "cn",
+          "title": "Notes in Trap",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "max": 3,
+          "required": false
+        },
         {
           "title": "End Position",
           "type": "select",
@@ -186,26 +201,30 @@
           "title": "Offense Skill",
           "type": "select",
           "choices": {
-            "1": "Not Effective",
-            "2": "Average",
-            "3": "Very Effective",
+            "1": "Ineffective",
+            "2": "Below Average",
+            "3": "Average",
+            "4": "Above Average",
+            "5": "Exceptional",
             "x": "Not Observed"
           },
-          "defaultValue": "x",
-          "required": false
+          "defaultValue": "",
+          "required": true
         },
         {
           "code": "dr",
           "title": "Defense Skill",
           "type": "select",
           "choices": {
-            "1": "Not Effective",
-            "2": "Average",
-            "3": "Very Effective",
+            "1": "Ineffective",
+            "2": "Below Average",
+            "3": "Average",
+            "4": "Above Average",
+            "5": "Exceptional",
             "x": "Not Observed"
           },
-          "defaultValue": "x",
-          "required": false
+          "defaultValue": "",
+          "required": true
         },
         {
           "code": "dto",
