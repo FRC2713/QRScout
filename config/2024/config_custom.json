@@ -250,6 +250,7 @@
           "type": "text",
           "min": 0,
           "max": 50,
+          "defaultValue": "",
           "required": false
         }
       ]
