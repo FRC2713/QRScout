@@ -47,7 +47,7 @@
           "title": "Starting Position",
           "type": "select",
           "required": true,
-          "code": "Prsp",
+          "code": "sPos",
           "choices": {
             "R1": "Source",
             "R2": "Middle",
@@ -72,10 +72,10 @@
           "type": "boolean",
           "defaultValue": false,
           "required": false,
-          "code": "Mved"
+          "code": "Lve"
         },
         {
-          "code": "ausc",
+          "code": "auss",
           "title": "Speaker Scores",
           "type": "counter",
           "defaultValue": 0,
@@ -83,7 +83,7 @@
           "required": false
         },
         {
-          "code": "auskpm",
+          "code": "ausm",
           "title": "Speaker Misses",
           "type": "counter",
           "defaultValue": 0,
@@ -92,6 +92,7 @@
         },
         {
           "title": "Amp Scores",
+          "code": "auas",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -99,6 +100,7 @@
         },
         {
           "title": "Amp Misses",
+          "code": "auam",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -118,7 +120,7 @@
       "name": "Teleop",
       "fields": [
         {
-          "code": "tamps",
+          "code": "tas",
           "title": "Amp Scores",
           "type": "counter",
           "defaultValue": 0,
@@ -127,6 +129,7 @@
         },
         {
           "title": "Amp Misses",
+          "code": "tam",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -142,6 +145,7 @@
         },
         {
           "title": "Speaker Misses",
+          "code": "tsm",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -180,7 +184,7 @@
           "title": "End Position",
           "type": "select",
           "required": true,
-          "code": "epo",
+          "code": "ePos",
           "choices": {
             "No": "No Climb",
             "P": "Parked",
