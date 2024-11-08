@@ -14,6 +14,12 @@
           "preserveDataOnReset": true
         },
         {
+          "title": "Team Number",
+          "type": "number",
+          "required": true,
+          "code": "teamNumber"
+        },
+        {
           "title": "Match Number",
           "type": "number",
           "required": true,
@@ -21,46 +27,6 @@
           "code": "matchNumber",
           "preserveDataOnReset": true,
           "autoIncrementOnReset": true
-        },
-        {
-          "title": "Robot",
-          "type": "select",
-          "required": true,
-          "code": "robot",
-          "choices": {
-            "R1": "Red 1",
-            "R2": "Red 2",
-            "R3": "Red 3",
-            "B1": "Blue 1",
-            "B2": "Blue 2",
-            "B3": "Blue 3"
-          },
-          "defaultValue": ""
-        },
-        {
-          "title": "Team Number",
-          "type": "number",
-          "required": true,
-          "code": "teamNumber"
-        },
-        {
-          "title": "Starting Position",
-          "type": "select",
-          "required": true,
-          "code": "sPos",
-          "choices": {
-            "R1": "Source",
-            "R2": "Middle",
-            "R3": "Amp"
-          },
-          "defaultValue": ""
-        },
-        {
-          "title": "No Show",
-          "type": "boolean",
-          "defaultValue": false,
-          "required": false,
-          "code": "noShow"
         }
       ]
     },
@@ -113,6 +79,14 @@
           "defaultValue": 0,
           "min": 0,
           "required": false
+        },
+        {
+          "code": "autf",
+          "title": "Auto Tech Fouls",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
         }
       ]
     },
@@ -152,8 +126,8 @@
           "required": false
         },
         {
-          "code": "tfs",
-          "title": "Feeder Shots",
+          "code": "tps",
+          "title": "Passing Shots",
           "type": "counter",
           "defaultValue": 0,
           "min": 0,
@@ -164,6 +138,20 @@
           "title": "Teleop Fouls",
           "type": "counter",
           "defaultValue": 0,
+          "required": false
+        },
+        {
+          "code": "ttf",
+          "title": "Teleop Tech Fouls",
+          "type": "counter",
+          "defaultValue": 0,
+          "required": false
+        },
+        {
+          "code": "def",
+          "title": "Defense Performed?",
+          "type": "boolean",
+          "defaultValue": "false",
           "required": false
         }
       ]
@@ -186,19 +174,31 @@
           "required": true,
           "code": "ePos",
           "choices": {
-            "No": "No Climb",
-            "P": "Parked",
-            "Os": "Onstage",
-            "Hm": "Harmony",
-            "Fh": "Failed Harmony"
+            "0": "No Climb",
+            "1": "Parked",
+            "3": "Onstage",
+            "5": "Harmony"
           },
-          "defaultValue": "No"
+          "defaultValue": "0"
         }
       ]
     },
     {
       "name": "Postmatch",
       "fields": [
+        {
+          "code": "dt",
+          "title": "Time inactive (broken)",
+          "type": "select",
+          "choices": {
+            "0": "<15 Seconds",
+            "30": "~30 Seconds",
+            "60": "~60 Seconds",
+            "150": "Whole Match"
+          },
+          "defaultValue": "0",
+          "required": true
+        },
         {
           "code": "or",
           "title": "Offense Skill",
@@ -228,13 +228,6 @@
           },
           "defaultValue": "",
           "required": true
-        },
-        {
-          "code": "dto",
-          "title": "Died/Tipped Over",
-          "type": "boolean",
-          "defaultValue": false,
-          "required": false
         },
         {
           "code": "yc",
