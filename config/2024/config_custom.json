@@ -151,7 +151,7 @@
           "code": "def",
           "title": "Defense Performed?",
           "type": "boolean",
-          "defaultValue": "false",
+          "defaultValue": false,
           "required": false
         }
       ]
