@@ -14,7 +14,17 @@ export function getQRCodeData(formData: Config): string {
   return formData.sections
     .map(s => s.fields)
     .flat()
-    .map(v => `${v.value}`.replace(/\n/g, ' '))
+    .map(function(obj) {
+      if (obj.value === true) {
+        return "1";
+      }
+      else if (obj.value === false) {
+        return "0";
+      }
+      else {
+        return `${obj.value}`.replace(/\n/g, ' ');
+      }
+    })
     .join('\t');
 }
 
