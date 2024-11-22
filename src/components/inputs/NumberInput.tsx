@@ -1,4 +1,5 @@
 import React from 'react';
+import { Input } from '../ui/input';
 import BaseInputProps from './BaseInputProps';
 
 export interface NumberInputProps extends BaseInputProps {
@@ -14,12 +15,12 @@ export default function NumberInput(data: NumberInputProps) {
     data.onChange(Number(e.currentTarget.value));
   }
 
+  // TODO: Add min and max validation
+
   return (
-    <input
+    <Input
       className="w-full rounded py-2 dark:bg-gray-700 dark:text-white"
       type="number"
-      min={data.min}
-      max={data.max}
       value={data.value || data.defaultValue || ''}
       id={data.title}
       onChange={handleChange}

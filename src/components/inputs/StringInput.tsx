@@ -1,5 +1,6 @@
 import React from 'react';
 import { inputSelector, useQRScoutState } from '../../store/store';
+import { Textarea } from '../ui/textarea';
 import BaseInputProps from './BaseInputProps';
 
 export interface StringInputProps extends BaseInputProps {
@@ -15,7 +16,7 @@ export default function StringInput(props: StringInputProps) {
   }
 
   return (
-    <textarea
+    <Textarea
       className="focus:shadow-outline w-full appearance-none break-words break-all rounded border leading-tight text-gray-700 shadow focus:outline-none dark:bg-gray-700 dark:text-white"
       disabled={data?.disabled}
       name={`${data?.title}_input`}

@@ -9,10 +9,70 @@ body {
 
 @font-face {
   font-family: 'SF Sports Night';
-  src: url('/fonts/SF Sports Night.ttf');
+  src: url('./fonts/SF Sports Night.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
   font-family: 'SF Sports Night NS';
-  src: url('/fonts/SF Sports Night NS.ttf');
+  src: url('./fonts/SF Sports Night NS.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@layer base {
+  :root {
+    --background: 356 100% 95%;
+    --foreground: 356 5% 0%;
+    --card: 356 50% 90%;
+    --card-foreground: 356 5% 10%;
+    --popover: 356 100% 95%;
+    --popover-foreground: 356 100% 0%;
+    --primary: 356 85.5% 56.9%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 356 30% 70%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 318 30% 85%;
+    --muted-foreground: 356 5% 35%;
+    --accent: 318 30% 80%;
+    --accent-foreground: 356 5% 10%;
+    --destructive: 0 100% 30%;
+    --destructive-foreground: 356 5% 90%;
+    --border: 356 30% 50%;
+    --input: 356 30% 18%;
+    --ring: 356 85.5% 56.9%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 356 50% 5%;
+    --foreground: 356 5% 90%;
+    --card: 356 50% 0%;
+    --card-foreground: 356 5% 90%;
+    --popover: 356 50% 5%;
+    --popover-foreground: 356 5% 90%;
+    --primary: 356 85.5% 56.9%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 356 30% 10%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 318 30% 15%;
+    --muted-foreground: 356 5% 60%;
+    --accent: 318 30% 15%;
+    --accent-foreground: 356 5% 90%;
+    --destructive: 0 100% 30%;
+    --destructive-foreground: 356 5% 90%;
+    --border: 356 30% 18%;
+    --input: 356 30% 18%;
+    --ring: 356 85.5% 56.9%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
