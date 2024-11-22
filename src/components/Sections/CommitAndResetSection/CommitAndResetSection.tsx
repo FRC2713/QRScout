@@ -1,16 +1,10 @@
+import { QRModal } from '@/components/QR';
 import { useMemo } from 'preact/hooks';
 import { useQRScoutState } from '../../../store/store';
 import { Section } from '../../core/Section';
-import { CommitButton } from './CommitButton';
 import { ResetButton } from './ResetButton';
 
-export type CommitAndResetSectionProps = {
-  onCommit: () => void;
-};
-
-export function CommitAndResetSection({
-  onCommit,
-}: CommitAndResetSectionProps) {
+export function CommitAndResetSection() {
   const formData = useQRScoutState(state => state.formData);
   const missingRequiredFields = useMemo(() => {
     return formData.sections
@@ -25,10 +19,7 @@ export function CommitAndResetSection({
 
   return (
     <Section>
-      <CommitButton
-        disabled={missingRequiredFields.length > 0}
-        onClick={onCommit}
-      />
+      <QRModal disabled={missingRequiredFields.length > 0} />
       <ResetButton />
     </Section>
   );

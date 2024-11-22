@@ -1,25 +1,25 @@
-import React from 'react'
-import BaseInputProps from './BaseInputProps'
+import React, { useEffect } from 'react';
+import { Switch } from '../ui/switch';
+import BaseInputProps from './BaseInputProps';
 
 export interface BoolInputProps extends BaseInputProps {
-  defaultValue?: boolean
+  onChange: (value: boolean) => void;
+  defaultValue?: boolean;
 }
 
-export default function Checkbox(data: BoolInputProps) {
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    data.onChange(e.currentTarget.checked)
-  }
+export default function CheckboxInput(data: BoolInputProps) {
+  const [checked, setChecked] = React.useState(data.value);
+
+  useEffect(() => {
+    data.onChange(checked);
+  }, [checked]);
 
   return (
-    <div className="form-check form-switch">
-      <input
-        className="form-check-input m-2 h-5 w-9 cursor-pointer appearance-none rounded-full bg-gray-300 bg-contain bg-no-repeat align-top shadow-sm focus:outline-none"
-        type="checkbox"
-        role="switch"
-        id={data.title}
-        onInput={handleChange}
-        checked={data.value}
-      />
-    </div>
-  )
+    <Switch
+      checked={data.value}
+      onClick={e => setChecked(!checked)}
+      id={data.title}
+      className="m-2"
+    />
+  );
 }
