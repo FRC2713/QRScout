@@ -13,7 +13,7 @@ export default function InputCard(
 ) {
   return (
     <Card>
-      <div className="flex gap-2 bg-secondary px-1 items-center rounded-t-sm">
+      <div className="flex gap-2 bg-secondary px-1 items-center">
         {props.required && !props.hasValue && (
           <TriangleAlert className="text-destructive animate-pulse size-4" />
         )}
