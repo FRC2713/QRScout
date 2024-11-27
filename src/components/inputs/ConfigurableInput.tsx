@@ -5,6 +5,7 @@ import NumberInput from './NumberInput';
 import RangeInput from './RangeInput';
 import SelectInput from './SelectInput';
 import StringInput from './StringInput';
+import TimerInput from './TimerInput';
 
 export interface ConfigurableInputProps {
   section: string;
@@ -85,6 +86,18 @@ export default function ConfigurableInput(props: ConfigurableInputProps) {
           section={props.section}
         />
       );
+    case 'timer':
+      return (
+        <TimerInput
+        key={input.title}
+        {...input}
+        min={input.min}
+        max={input.max}
+        defaultValue={input.defaultValue as number}
+        onChange={handleChange}
+        section={props.section}
+        />
+      )
     default:
       return (
         <div className="py-2 px-1">

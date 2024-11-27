@@ -74,6 +74,14 @@
           "code": "Mved"
         },
         {
+          "code": "timer",
+          "title": "Timer",
+          "type": "timer",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
           "code": "ausc",
           "title": "Speaker Scored",
           "type": "counter",

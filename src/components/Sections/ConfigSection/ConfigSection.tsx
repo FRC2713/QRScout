@@ -6,7 +6,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
-import { Cog6ToothIcon } from '@heroicons/react/20/solid';
 import { Section } from '../../core/Section';
 import { ThemeSelector } from './ThemeSelector';
 import { useState } from 'preact/hooks';

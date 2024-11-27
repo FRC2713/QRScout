@@ -23,7 +23,7 @@
     "clsx": "^2.1.1",
     "immer": "^10.1.1",
     "lodash": "^4.17.21",
-    "lucide-react": "^0.454.0",
+    "lucide-react": "^0.456.0",
     "next-themes": "^0.2.1",
     "preact": "^10.24.3",
     "qrcode.react": "^3.2.0",

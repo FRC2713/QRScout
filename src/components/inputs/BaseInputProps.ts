@@ -37,4 +37,5 @@ export type InputTypes =
   | 'range'
   | 'select'
   | 'counter'
-  | 'image';
+  | 'image'
+  | 'timer';
