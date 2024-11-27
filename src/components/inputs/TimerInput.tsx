@@ -1,6 +1,6 @@
 import { Pause, Play, TimerReset, Undo } from 'lucide-react';
 import BaseInputProps from './BaseInputProps';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 export interface TimerInputProps extends BaseInputProps {
   min?: number;
   max?: number;
