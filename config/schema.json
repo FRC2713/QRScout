@@ -99,7 +99,8 @@
         "range",
         "select",
         "counter",
-        "image"
+        "image",
+        "timer"
       ]
     }
   }
