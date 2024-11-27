@@ -1,6 +1,7 @@
 import { Pause, Play, TimerReset, Undo } from 'lucide-react';
 import BaseInputProps from './BaseInputProps';
 import { useState, useEffect } from 'react';
+import { Button } from '../ui/button';
 export interface TimerInputProps extends BaseInputProps {
   min?: number;
   max?: number;
@@ -47,7 +48,7 @@ export default function TimerInput(data: TimerInputProps) {
   }
 
   useEffect(() => {
-    let intervalId: number;
+    let intervalId: NodeJS.Timeout;
     if (isRunning) {
       intervalId = setInterval(() => setTime(time + (data.step || 1)), 10);
     }
@@ -60,27 +61,24 @@ export default function TimerInput(data: TimerInputProps) {
       <p className='font-bold'>{`${data.value.toFixed(3)} (${times.length})`}</p>
       <h2 className="px-4 text-2xl dark:text-white">{(time / 100).toFixed(2)}</h2>
       <div className="my-2 flex flex-row items-center justify-center gap-4">
-        <button
-          className="focus:shadow-outline rounded bg-gray-500 text-white hover:bg-red-700 focus:outline-none dark:bg-gray-700 p-2"
-          type="button"
+        <Button
+          variant="outline"
           onClick={() => startStop()}
         >
           {isRunning ? <Pause className="size-4" /> : <Play className="size-4" />}
-        </button>
-        <button
-          className="focus:shadow-outline rounded bg-gray-500 text-white hover:bg-red-700 focus:outline-none dark:bg-gray-700 p-2"
-          type="button"
+        </Button>
+        <Button
+          variant="outline"
           onClick={() => clearTimer(true)}
         >
           <TimerReset className="size-4" />
-        </button>
-        <button
-          className="focus:shadow-outline rounded bg-gray-500 text-white hover:bg-red-700 focus:outline-none dark:bg-gray-700 p-2"
-          type="button"
+        </Button>
+        <Button
+          variant="outline"
           onClick={() => clearTimer(false)}
         >
           <Undo className="size-4" />
-        </button>
+        </Button>
       </div>
     </div>
   );

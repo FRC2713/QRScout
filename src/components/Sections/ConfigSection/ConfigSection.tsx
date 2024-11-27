@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/drawer';
 import { Cog6ToothIcon } from '@heroicons/react/20/solid';
 import { Section } from '../../core/Section';
-import { Settings } from './SettingsModal';
+import { Settings } from './Settings';
 import { ThemeSelector } from './ThemeSelector';
 
 export function ConfigSection() {
