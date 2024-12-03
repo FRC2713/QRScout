@@ -14,6 +14,9 @@
         "page_title": {
           "type": "string"
         },
+        "newline_character": {
+          "type": "string"
+        },
         "sections": {
           "type": "array",
           "items": {
@@ -21,7 +24,11 @@
           }
         }
       },
-      "required": ["title", "page_title", "sections"],
+      "required": [
+        "title",
+        "page_title",
+        "sections"
+      ],
       "additionalProperties": false
     },
     "Section": {
@@ -41,7 +48,10 @@
           }
         }
       },
-      "required": ["name", "fields"],
+      "required": [
+        "name",
+        "fields"
+      ],
       "additionalProperties": false
     },
     "InputProps": {
@@ -87,7 +97,12 @@
           "type": "boolean"
         }
       },
-      "required": ["title", "type", "required", "code"],
+      "required": [
+        "title",
+        "type",
+        "required",
+        "code"
+      ],
       "additionalProperties": false
     },
     "InputTypes": {

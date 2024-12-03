@@ -15,7 +15,7 @@ export function getQRCodeData(formData: Config): string {
     .map(s => s.fields)
     .flat()
     .map(v => `${v.value}`.replace(/\n/g, ' '))
-    .join('\t');
+    .join(formData.newline_character);
 }
 
 export function QRModal(props: QRModalProps) {
