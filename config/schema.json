@@ -14,7 +14,7 @@
         "page_title": {
           "type": "string"
         },
-        "newline_character": {
+        "delimiter": {
           "type": "string"
         },
         "sections": {

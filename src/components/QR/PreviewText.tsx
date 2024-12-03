@@ -6,7 +6,7 @@ export type PreviewTextProps = {
 };
 export function PreviewText(props: PreviewTextProps) {
   const formData = useQRScoutState(state => state.formData);
-  const chunks = props.data.split(formData.newline_character);
+  const chunks = props.data.split(formData.delimiter);
   return (
     <div className="flex flex-col items-center gap-2 shadow-md bg-gray-600 m-2 p-2 rounded-md">
       <div className="text-justify p-2 rounded bg-gray-600 ">

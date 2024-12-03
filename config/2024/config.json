@@ -2,7 +2,7 @@
   "$schema": "../schema.json",
   "title": "QRScout",
   "page_title": "Crescendo",
-  "newline_character": "\t",
+  "delimiter": "\t",
   "sections": [
     {
       "name": "Prematch",

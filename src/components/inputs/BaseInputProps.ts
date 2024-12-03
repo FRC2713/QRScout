@@ -5,7 +5,7 @@ export default interface BaseInputProps extends InputProps {
 export interface Config {
   title: string;
   page_title: string;
-  newline_character: string;
+  delimiter: string;
   sections: SectionProps[];
 }
 
