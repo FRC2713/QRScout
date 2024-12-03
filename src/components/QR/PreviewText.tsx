@@ -1,10 +1,12 @@
+import { useQRScoutState } from '../../store/store';
 import { CopyButton } from './CopyButton';
 
 export type PreviewTextProps = {
   data: string;
 };
 export function PreviewText(props: PreviewTextProps) {
-  const chunks = props.data.split('\t');
+  const formData = useQRScoutState(state => state.formData);
+  const chunks = props.data.split(formData.newline_character);
   return (
     <div className="flex flex-col items-center gap-2 shadow-md bg-gray-600 m-2 p-2 rounded-md">
       <div className="text-justify p-2 rounded bg-gray-600 ">
