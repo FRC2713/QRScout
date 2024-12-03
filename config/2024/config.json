@@ -2,6 +2,7 @@
   "$schema": "../schema.json",
   "title": "QRScout",
   "page_title": "Crescendo",
+  "delimiter": "\t",
   "sections": [
     {
       "name": "Prematch",
@@ -111,7 +112,8 @@
             "6": "Midline 3 (Middle)",
             "7": "Midline 2",
             "8": "Midline 1 (Amp Edge)"
-          }
+          },
+          "required": false
         },
         {
           "code": "auf",
