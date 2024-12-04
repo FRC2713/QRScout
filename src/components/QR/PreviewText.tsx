@@ -1,5 +1,4 @@
 import { useQRScoutState } from '../../store/store';
-import { CopyButton } from './CopyButton';
 import { Card, CardContent } from '../ui/card';
 
 export type PreviewTextProps = {
