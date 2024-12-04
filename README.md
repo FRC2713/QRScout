@@ -63,4 +63,11 @@ required: a boolean indicating if this must be filled out before the QRCode is g
 code: camelCase string with a unique name indicaing what this field is.
 disabled: Boolean indicating if this field is disabled. If it is, things cannot be inputted into it. This and the requied value are mutually exclusive if you want people to be able to submit this form.
 preserveDataOnReset: If the data in this field is preserved when the Reset Form button is pressed.
+choices: An object containng numbered keys mapping to values that this can hold. For example:
+```json
+"choices": {
+    "1": "First option",
+    "2": "Second option"
+}
+```
 defaultValue: The default value of this field.
