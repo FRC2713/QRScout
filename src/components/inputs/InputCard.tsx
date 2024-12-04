@@ -1,25 +1,27 @@
-import React from 'react'
+import { TriangleAlert } from 'lucide-react';
+import React from 'react';
+import { Card, CardContent } from '../ui/card';
 
 export interface InputCardProps {
-  title: string
-  required: boolean
-  hasValue: boolean
+  title: string;
+  required: boolean;
+  hasValue: boolean;
 }
 
 export default function InputCard(
-  props: React.PropsWithChildren<InputCardProps>
+  props: React.PropsWithChildren<InputCardProps>,
 ) {
   return (
-    <div className="mx-1 rounded bg-white leading-tight shadow-sm dark:bg-gray-500">
-      <div className="flex flex-row justify-between rounded-t bg-gray-300">
-        <p className="pl-2 text-left text-xs font-bold uppercase dark:text-black">
-          {props.title}
-        </p>
+    <Card>
+      <div className="flex gap-2 bg-secondary px-1 items-center">
         {props.required && !props.hasValue && (
-          <p className="mr-1 h-4 w-4 font-rhr text-red-rhr">!!</p>
+          <TriangleAlert className="text-destructive animate-pulse size-4" />
         )}
+        <h1 className="capitalize text-secondary-foreground text-sm">
+          {props.title.toUpperCase()}
+        </h1>
       </div>
-      <div>{props.children}</div>
-    </div>
-  )
+      <CardContent className="p-0">{props.children}</CardContent>
+    </Card>
+  );
 }
