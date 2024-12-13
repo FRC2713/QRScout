@@ -21,7 +21,7 @@ export function ConfigEditor(props: ConfigEditorProps) {
       validate: true,
       schemas: [
         {
-          uri: '../../config/schema.json',
+          uri: 'https://frc2713.github.io/QRScout/schema.json',
           fileMatch: ['*'],
           schema,
         },
@@ -29,7 +29,7 @@ export function ConfigEditor(props: ConfigEditorProps) {
     });
   }, [monaco]);
   return (
-    <div className="flex flex-col gap-2 h-full ">
+    <div className="flex flex-col gap-2 h-full pb-2 ">
       <div className="flex-grow rounded-lg overflow-clip ">
         <Editor
           defaultLanguage="json"
