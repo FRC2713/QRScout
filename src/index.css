@@ -9,14 +9,14 @@ body {
 
 @font-face {
   font-family: 'SF Sports Night';
-  src: url('./fonts/SF Sports Night.ttf') format('truetype');
+  src: url('./assets/fonts/SF Sports Night.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'SF Sports Night NS';
-  src: url('./fonts/SF Sports Night NS.ttf') format('truetype');
+  src: url('./assets/fonts/SF Sports Night NS.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
