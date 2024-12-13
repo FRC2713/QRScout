@@ -21,10 +21,10 @@ export default function StringInput(props: StringInputProps) {
       name={`${data?.title}_input`}
       id={`${data?.title}_input`}
       onChange={handleChange}
-      defaultValue={data?.defaultValue || ''}
-      value={data?.value || ''}
-      maxlength={props.max}
-      minlength={props.min}
+      defaultValue={data?.defaultValue}
+      value={data?.value}
+      maxLength={props.max}
+      minLength={props.min}
     />
   );
 }

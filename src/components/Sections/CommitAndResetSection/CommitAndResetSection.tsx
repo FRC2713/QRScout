@@ -1,5 +1,5 @@
 import { QRModal } from '@/components/QR';
-import { useMemo } from 'preact/hooks';
+import { useMemo } from 'react';
 import { useQRScoutState } from '../../../store/store';
 import { Section } from '../../core/Section';
 import { ResetButton } from './ResetButton';

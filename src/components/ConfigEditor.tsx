@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import Editor, { useMonaco } from '@monaco-editor/react';
-import { useEffect, useMemo, useState } from 'preact/hooks';
+import { useEffect, useMemo, useState } from 'react';
 import schema from '../../config/schema.json';
 import { getConfig, useQRScoutState } from '../store/store';
 

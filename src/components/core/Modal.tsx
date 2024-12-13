@@ -1,4 +1,4 @@
-import { useRef } from 'preact/hooks';
+import { useRef } from 'react';
 import { useOnClickOutside } from '../../hooks/useOnClickOutside';
 import { CloseButton } from './CloseButton';
 
