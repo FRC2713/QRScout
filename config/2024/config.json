@@ -1,5 +1,5 @@
 {
-  "$schema": "src/assets/schema.json",
+  "$schema": "https://frc2713.github.io/QRScout/schema.json",
   "title": "QRScout",
   "page_title": "Crescendo",
   "delimiter": "\t",
