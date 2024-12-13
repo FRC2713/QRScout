@@ -1,6 +1,16 @@
+import { ConfigEditor } from '@/components/ConfigEditor';
 import { Button } from '@/components/ui/button';
 import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
+import { useState } from 'react';
+import {
   resetToDefaultConfig,
+  setConfig,
   uploadConfig,
   useQRScoutState,
 } from '../../../store/store';
@@ -40,12 +50,9 @@ function downloadConfig(formData: Config) {
   download('QRScout_config.json', JSON.stringify(configDownload));
 }
 
-type SettingsProps = {
-  setShowEditor: (showEditor: boolean) => void;
-};
-
-export function Settings({ setShowEditor }: SettingsProps) {
+export function Settings() {
   const formData = useQRScoutState(state => state.formData);
+  const [showEditor, setShowEditor] = useState(false);
   return (
     <div className="flex flex-col gap-4 px-6">
       <Button
@@ -62,9 +69,24 @@ export function Settings({ setShowEditor }: SettingsProps) {
       >
         Copy Column Names
       </Button>
-      <Button variant="secondary" onClick={() => setShowEditor(true)}>
-        Edit Config
-      </Button>
+      <Sheet open={showEditor} onOpenChange={setShowEditor}>
+        <SheetTrigger asChild>
+          <Button variant="secondary">Edit Config</Button>
+        </SheetTrigger>
+        <SheetContent side="bottom" className="w-full h-full">
+          <SheetHeader>
+            <SheetTitle>Edit Config</SheetTitle>
+          </SheetHeader>
+          <ConfigEditor
+            onCancel={() => setShowEditor(false)}
+            onSave={configString => {
+              setConfig(configString);
+              setShowEditor(false);
+            }}
+          />
+        </SheetContent>
+      </Sheet>
+
       <Button variant="secondary" onClick={() => downloadConfig(formData)}>
         Download Config
       </Button>

@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import Editor, { useMonaco } from '@monaco-editor/react';
 import { useEffect, useMemo, useState } from 'react';
-import schema from '../../config/schema.json';
+import schema from '../../public/schema.json';
 import { getConfig, useQRScoutState } from '../store/store';
 
 type ConfigEditorProps = {
@@ -29,30 +29,28 @@ export function ConfigEditor(props: ConfigEditorProps) {
     });
   }, [monaco]);
   return (
-    <div className="h-screen w-screen bg-gray-500 bg-opacity-50 dark:bg-opacity-70 backdrop-blur p-4 ">
-      <div className="flex flex-col gap-2 h-full shadow-md p-2 rounded-lg bg-gray-50 bg-opacity-20">
-        <div className="flex-grow rounded-lg overflow-clip ">
-          <Editor
-            defaultLanguage="json"
-            defaultValue={JSON.stringify(config, null, 2)}
-            theme="vs-dark"
-            onValidate={markers => {
-              const severeErrors = markers.filter(m => m.severity > 4);
-              setErrorCount(severeErrors.length);
-            }}
-            onChange={value => value && setCurrentConfigText(value)}
-          />
-        </div>
-        <div className="flex flex-grow-0 justify-end gap-2">
-          <Button
-            variant="destructive"
-            onClick={() => props.onSave && props.onSave(currentConfigText)}
-            disabled={currentConfigText.length === 0 || errorCount > 0}
-          >
-            Save
-          </Button>
-          <Button onClick={props.onCancel}>Cancel</Button>
-        </div>
+    <div className="flex flex-col gap-2 h-full ">
+      <div className="flex-grow rounded-lg overflow-clip ">
+        <Editor
+          defaultLanguage="json"
+          defaultValue={JSON.stringify(config, null, 2)}
+          theme="vs-dark"
+          onValidate={markers => {
+            const severeErrors = markers.filter(m => m.severity > 4);
+            setErrorCount(severeErrors.length);
+          }}
+          onChange={value => value && setCurrentConfigText(value)}
+        />
+      </div>
+      <div className="flex flex-grow-0 justify-center gap-4">
+        <Button
+          variant="destructive"
+          onClick={() => props.onSave && props.onSave(currentConfigText)}
+          disabled={currentConfigText.length === 0 || errorCount > 0}
+        >
+          Save
+        </Button>
+        <Button onClick={props.onCancel}>Cancel</Button>
       </div>
     </div>
   );

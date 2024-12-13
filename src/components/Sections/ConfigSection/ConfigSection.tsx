@@ -1,4 +1,3 @@
-import { ConfigEditor } from '@/components/ConfigEditor';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -15,8 +14,6 @@ import {
   DrawerTrigger,
 } from '@/components/ui/drawer';
 import { useMediaQuery } from '@/hooks';
-import { setConfig } from '@/store/store';
-import { Transition } from '@headlessui/react';
 import { Cog6ToothIcon } from '@heroicons/react/20/solid';
 import { useMemo, useState } from 'react';
 import { Section } from '../../core/Section';
@@ -25,15 +22,7 @@ import { ThemeSelector } from './ThemeSelector';
 
 export function ConfigSection() {
   const [open, setOpen] = useState(false);
-  const [showEditor, setShowEditor] = useState(false);
   const isDesktop = useMediaQuery('(min-width: 768px)');
-
-  const handleShowEditor = (show: boolean) => {
-    if (show) {
-      setOpen(false);
-    }
-    setShowEditor(show);
-  };
 
   const dialogOrDrawer = useMemo(() => {
     if (isDesktop) {
@@ -49,7 +38,7 @@ export function ConfigSection() {
             <DialogHeader>
               <DialogTitle>Settings</DialogTitle>
             </DialogHeader>
-            <Settings setShowEditor={handleShowEditor} />
+            <Settings />
           </DialogContent>
         </Dialog>
       );
@@ -66,38 +55,18 @@ export function ConfigSection() {
           <DrawerHeader>
             <DrawerTitle>Settings</DrawerTitle>
           </DrawerHeader>
-          <Settings setShowEditor={handleShowEditor} />
+          <Settings />
         </DrawerContent>
       </Drawer>
     );
-  }, [isDesktop, open, setShowEditor]);
+  }, [isDesktop, open]);
 
   return (
     <Section>
       <div className="flex flex-col justify-center items-center gap-4">
         {dialogOrDrawer}
-
         <ThemeSelector />
       </div>
-
-      <Transition
-        show={showEditor}
-        enter="transition ease-out duration-300 transform"
-        enterFrom="translate-y-full"
-        enterTo="translate-y-0"
-        leave="transition ease-in duration-300 transform"
-        leaveFrom="translate-y-0"
-        leaveTo="translate-y-full"
-        className="z-50 fixed inset-0"
-      >
-        <ConfigEditor
-          onCancel={() => setShowEditor(false)}
-          onSave={configString => {
-            setConfig(configString);
-            setShowEditor(false);
-          }}
-        />
-      </Transition>
     </Section>
   );
 }
