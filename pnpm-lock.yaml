@@ -51,8 +51,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       lucide-react:
-        specifier: ^0.454.0
-        version: 0.454.0(react@18.2.0)
+        specifier: ^0.456.0
+        version: 0.456.0(react@18.2.0)
       next-themes:
         specifier: ^0.2.1
         version: 0.2.1(next@15.0.2(@babel/core@7.26.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -93,9 +93,6 @@ importers:
       postcss:
         specifier: ^8.4.47
         version: 8.4.47
-      shadcn-theme-editor:
-        specifier: ^1.4.1
-        version: 1.4.1(class-variance-authority@0.7.0)(clsx@2.1.1)(next-themes@0.2.1(next@15.0.2(@babel/core@7.26.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       tailwindcss:
         specifier: ^3.4.14
         version: 3.4.14
@@ -1175,9 +1172,6 @@ packages:
     resolution: {integrity: sha512-1rXeuUUiGGrykh+CeBdu5Ie7OJwinCgQY0bc7GCRxy5xVHy+moaqkpL/jqQq0MtQOeYcrqEz4abc5f0KtU7W4A==}
     engines: {node: '>=12.5.0'}
 
-  colord@2.9.3:
-    resolution: {integrity: sha512-jeC1axXpnb0/2nn/Y1LPuLdgXBLH7aDcHu4KEKfqw3CUhX7ZpfBSlPKyqXE6btIgEzfWtrX3/tyBCaCvXvMkOw==}
-
   commander@4.1.1:
     resolution: {integrity: sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==}
     engines: {node: '>= 6'}
@@ -1241,9 +1235,6 @@ packages:
 
   electron-to-chromium@1.5.52:
     resolution: {integrity: sha512-xtoijJTZ+qeucLBDNztDOuQBE1ksqjvNjvqFoST3nGC7fSpqJ+X6BdTBaY5BHG+IhWWmpc6b/KfpeuEDupEPOQ==}
-
-  emittor@0.1.0:
-    resolution: {integrity: sha512-+VP1/JIBNjQvH829slenIUfb9Sc/P7QjgK0zwqMW6hwKDD1HrDIlVFqD6kJZX1T2lOfeJpdcwM5lbMEyBqIPtQ==}
 
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -1395,9 +1386,6 @@ packages:
   lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
 
-  lodash.debounce@4.0.8:
-    resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
-
   lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
 
@@ -1411,8 +1399,8 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
-  lucide-react@0.454.0:
-    resolution: {integrity: sha512-hw7zMDwykCLnEzgncEEjHeA6+45aeEzRYuKHuyRSOPkhko+J3ySGjGIzu+mmMfDFG1vazHepMaYFYHbTFAZAAQ==}
+  lucide-react@0.456.0:
+    resolution: {integrity: sha512-DIIGJqTT5X05sbAsQ+OhA8OtJYyD4NsEMCA/HQW/Y6ToPQ7gwbtujIoeAaup4HpHzV35SQOarKAWH8LYglB6eA==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0-rc
 
@@ -1666,15 +1654,6 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  shadcn-theme-editor@1.4.1:
-    resolution: {integrity: sha512-7S/X2h9WL1o8xVUP5qangq4YLTiK2m6tpZicI4A3mFU7roEU6lhDF3I4NcA8TRkYwk76RIAdlDJmJNIIh2/nbA==}
-    peerDependencies:
-      class-variance-authority: '*'
-      clsx: '*'
-      next-themes: '*'
-      react: '*'
-      react-dom: '*'
-
   sharp@0.33.5:
     resolution: {integrity: sha512-haPVm1EkS9pgvHrQ/F3Xy+hgcuMV0Wm9vfIBSiwZ05k+xgb0PkBQpGsAA/oWdDobNaZTH5ppvHtzCFbnSEwHVw==}
     engines: {node: ^18.17.0 || ^20.3.0 || >=21.0.0}
@@ -1880,9 +1859,6 @@ packages:
     resolution: {integrity: sha512-a6ae//JvKDEra2kdi1qzCyrJW/WZCgFi8ydDV+eXExl95t+5R+ijnqHJbz9tmMh8FUjx3iv2fCQ4dclAQlO2UQ==}
     engines: {node: '>= 14'}
     hasBin: true
-
-  zod@3.23.8:
-    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
 
   zustand@4.5.5:
     resolution: {integrity: sha512-+0PALYNJNgK6hldkgDq2vLrw5f6g/jCInz52n9RTpropGgeAf/ioFUCdtsjCqu4gNhW9D01rUQBROoRjdzyn2Q==}
@@ -2769,8 +2745,6 @@ snapshots:
       color-string: 1.9.1
     optional: true
 
-  colord@2.9.3: {}
-
   commander@4.1.1: {}
 
   convert-source-map@2.0.0: {}
@@ -2827,8 +2801,6 @@ snapshots:
   eastasianwidth@0.2.0: {}
 
   electron-to-chromium@1.5.52: {}
-
-  emittor@0.1.0: {}
 
   emoji-regex@8.0.0: {}
 
@@ -2974,8 +2946,6 @@ snapshots:
 
   lines-and-columns@1.2.4: {}
 
-  lodash.debounce@4.0.8: {}
-
   lodash@4.17.21: {}
 
   loose-envify@1.4.0:
@@ -2988,7 +2958,7 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-react@0.454.0(react@18.2.0):
+  lucide-react@0.456.0(react@18.2.0):
     dependencies:
       react: 18.2.0
 
@@ -3228,21 +3198,6 @@ snapshots:
   semver@7.6.3:
     optional: true
 
-  shadcn-theme-editor@1.4.1(class-variance-authority@0.7.0)(clsx@2.1.1)(next-themes@0.2.1(next@15.0.2(@babel/core@7.26.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
-    dependencies:
-      '@radix-ui/react-slot': 1.1.0(react@18.2.0)
-      class-variance-authority: 0.7.0
-      clsx: 2.1.1
-      colord: 2.9.3
-      emittor: 0.1.0
-      lodash.debounce: 4.0.8
-      next-themes: 0.2.1(next@15.0.2(@babel/core@7.26.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      zod: 3.23.8
-    transitivePeerDependencies:
-      - '@types/react'
-
   sharp@0.33.5:
     dependencies:
       color: 4.2.3
@@ -3445,8 +3400,6 @@ snapshots:
   yallist@3.1.1: {}
 
   yaml@2.6.0: {}
-
-  zod@3.23.8: {}
 
   zustand@4.5.5(immer@10.1.1)(react@18.2.0):
     dependencies:
