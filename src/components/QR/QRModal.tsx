@@ -1,6 +1,6 @@
 import { Copy } from 'lucide-react';
-import { useMemo } from 'preact/hooks';
 import { QRCodeSVG } from 'qrcode.react';
+import { useMemo } from 'react';
 import { getFieldValue, useQRScoutState } from '../../store/store';
 import { Config } from '../inputs/BaseInputProps';
 import { Button } from '../ui/button';

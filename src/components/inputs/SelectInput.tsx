@@ -27,11 +27,11 @@ export default function SelectInput(data: SelectInputProps) {
     // }
   }
   return (
-    <Select name={data.title} onValueChange={handleSelect}>
+    <Select name={data.title} onValueChange={handleSelect} value={data.value}>
       <SelectTrigger>
-        <SelectValue value={data.value} />
+        <SelectValue />
       </SelectTrigger>
-      <SelectContent value={data.value} multiple={data.multiSelect}>
+      <SelectContent>
         {Object.keys(data.options).map(o => {
           return (
             <SelectItem key={o} value={o}>

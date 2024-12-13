@@ -17,7 +17,7 @@ export default function CheckboxInput(data: BoolInputProps) {
   return (
     <Switch
       checked={data.value}
-      onClick={e => setChecked(!checked)}
+      onCheckedChange={setChecked}
       id={data.title}
       className="m-2"
     />

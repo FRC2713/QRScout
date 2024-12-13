@@ -1,11 +1,12 @@
+import { Helmet } from 'react-helmet';
 import { useQRScoutState } from '../store/store';
 
 export function Header() {
-  const title = useQRScoutState(state => state.formData.title);
+  const page_title = useQRScoutState(state => state.formData.page_title);
   return (
-    <head>
-      <title>QRScout|{title}</title>
+    <Helmet>
+      <title>QRScout | {page_title}</title>
       <link rel="icon" href="/favicon.ico" />
-    </head>
+    </Helmet>
   );
 }

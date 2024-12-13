@@ -20,7 +20,7 @@ import { useMediaQuery } from '@/hooks';
 import { setConfig } from '@/store/store';
 import { Transition } from '@headlessui/react';
 import { Cog6ToothIcon } from '@heroicons/react/20/solid';
-import { useMemo, useState } from 'preact/hooks';
+import { useMemo, useState } from 'react';
 import { Section } from '../../core/Section';
 import { Settings } from './Settings';
 import { ThemeSelector } from './ThemeSelector';
