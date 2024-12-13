@@ -1,8 +1,8 @@
+import { Button } from '@/components/ui/button';
 import Editor, { useMonaco } from '@monaco-editor/react';
 import { useEffect, useMemo, useState } from 'preact/hooks';
 import schema from '../../config/schema.json';
 import { getConfig, useQRScoutState } from '../store/store';
-import Button, { Variant } from './core/Button';
 
 type ConfigEditorProps = {
   onCancel?: () => void;
@@ -45,15 +45,13 @@ export function ConfigEditor(props: ConfigEditorProps) {
         </div>
         <div className="flex flex-grow-0 justify-end gap-2">
           <Button
-            variant={Variant.Danger}
+            variant="destructive"
             onClick={() => props.onSave && props.onSave(currentConfigText)}
             disabled={currentConfigText.length === 0 || errorCount > 0}
           >
             Save
           </Button>
-          <Button variant={Variant.Primary} onClick={props.onCancel}>
-            Cancel
-          </Button>
+          <Button onClick={props.onCancel}>Cancel</Button>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { inputSelector, updateValue, useQRScoutState } from '../../store/store';
-import Checkbox from './CheckboxInput';
+import CheckboxInput from './CheckboxInput';
 import CounterInput from './CounterInput';
 import NumberInput from './NumberInput';
 import RangeInput from './RangeInput';
@@ -58,7 +58,7 @@ export default function ConfigurableInput(props: ConfigurableInputProps) {
       );
     case 'boolean':
       return (
-        <Checkbox
+        <CheckboxInput
           key={input.title}
           {...input}
           onChange={handleChange}
