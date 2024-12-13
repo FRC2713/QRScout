@@ -1,6 +1,6 @@
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { useTheme } from '@/hooks';
 import { Computer, Moon, Sun } from 'lucide-react';
-import { useTheme } from 'next-themes';
 
 export function ThemeSelector() {
   const { theme, setTheme } = useTheme();
