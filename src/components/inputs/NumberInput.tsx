@@ -19,7 +19,6 @@ export default function NumberInput(data: NumberInputProps) {
 
   return (
     <Input
-      className="w-full rounded py-2 dark:bg-gray-700 dark:text-white"
       type="number"
       value={data.value || data.defaultValue || ''}
       id={data.title}

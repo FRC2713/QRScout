@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -11,7 +10,6 @@ import {
 import {
   Drawer,
   DrawerContent,
-  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
@@ -52,9 +50,6 @@ export function ConfigSection() {
               <DialogTitle>Settings</DialogTitle>
             </DialogHeader>
             <Settings setShowEditor={handleShowEditor} />
-            <DialogFooter>
-              <ThemeSelector />
-            </DialogFooter>
           </DialogContent>
         </Dialog>
       );
@@ -72,9 +67,6 @@ export function ConfigSection() {
             <DrawerTitle>Settings</DrawerTitle>
           </DrawerHeader>
           <Settings setShowEditor={handleShowEditor} />
-          <DrawerFooter>
-            <ThemeSelector />
-          </DrawerFooter>
         </DrawerContent>
       </Drawer>
     );
@@ -82,7 +74,11 @@ export function ConfigSection() {
 
   return (
     <Section>
-      {dialogOrDrawer}
+      <div className="flex flex-col justify-center items-center gap-4">
+        {dialogOrDrawer}
+
+        <ThemeSelector />
+      </div>
 
       <Transition
         show={showEditor}

@@ -13,9 +13,9 @@ export default function InputCard(
 ) {
   return (
     <Card>
-      <div className="flex gap-2 bg-secondary px-1 items-center">
+      <div className="flex gap-2 bg-secondary px-1 items-center rounded-t-lg">
         {props.required && !props.hasValue && (
-          <TriangleAlert className="text-destructive animate-pulse size-4" />
+          <TriangleAlert className="text-primary animate-pulse size-4" />
         )}
         <h1 className="capitalize text-secondary-foreground text-sm">
           {props.title.toUpperCase()}
