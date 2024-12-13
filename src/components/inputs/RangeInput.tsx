@@ -1,4 +1,5 @@
 import React from 'react';
+import { Input } from '../ui/input';
 import BaseInputProps from './BaseInputProps';
 
 export default function RangeInput(data: BaseInputProps) {
@@ -8,7 +9,7 @@ export default function RangeInput(data: BaseInputProps) {
   }
 
   return (
-    <input
+    <Input
       className="w-full py-2 px-1"
       type="range"
       min={data.min}
