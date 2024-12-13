@@ -1,7 +1,7 @@
 import { Pause, Play, TimerReset, Undo } from 'lucide-react';
-import BaseInputProps from './BaseInputProps';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
+import BaseInputProps from './BaseInputProps';
 export interface TimerInputProps extends BaseInputProps {
   min?: number;
   max?: number;
@@ -13,7 +13,7 @@ function getAvg(array: any[]) {
     return 0;
   }
   let avg = 0;
-  array.forEach((num) => {
+  array.forEach(num => {
     avg += num;
   });
   return avg / array.length;
@@ -43,8 +43,8 @@ export default function TimerInput(data: TimerInputProps) {
   }
 
   function updateTimes(newValue: number) {
-    data.onChange(getAvg([...times, newValue]))
-    setTimes((old) => ([...old, newValue]));
+    data.onChange(getAvg([...times, newValue]));
+    setTimes(old => [...old, newValue]);
   }
 
   useEffect(() => {
@@ -55,28 +55,26 @@ export default function TimerInput(data: TimerInputProps) {
     return () => clearInterval(intervalId);
   }, [isRunning, time]);
 
-
   return (
     <div className="my-2 flex flex-col items-center justify-center">
-      <p className='font-bold'>{`${data.value.toFixed(3)} (${times.length})`}</p>
-      <h2 className="px-4 text-2xl dark:text-white">{(time / 100).toFixed(2)}</h2>
+      <p className="font-bold">{`${data.value.toFixed(3)} (${
+        times.length
+      })`}</p>
+      <h2 className="px-4 text-2xl dark:text-white">
+        {(time / 100).toFixed(2)}
+      </h2>
       <div className="my-2 flex flex-row items-center justify-center gap-4">
-        <Button
-          variant="outline"
-          onClick={() => startStop()}
-        >
-          {isRunning ? <Pause className="size-4" /> : <Play className="size-4" />}
+        <Button variant="outline" onClick={() => startStop()}>
+          {isRunning ? (
+            <Pause className="size-4" />
+          ) : (
+            <Play className="size-4" />
+          )}
         </Button>
-        <Button
-          variant="outline"
-          onClick={() => clearTimer(true)}
-        >
+        <Button variant="outline" onClick={() => clearTimer(true)}>
           <TimerReset className="size-4" />
         </Button>
-        <Button
-          variant="outline"
-          onClick={() => clearTimer(false)}
-        >
+        <Button variant="outline" onClick={() => clearTimer(false)}>
           <Undo className="size-4" />
         </Button>
       </div>

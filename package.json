@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build": "tsc && npm run schema && vite build ",
+    "preview": "vite preview",
+    "schema": "npx tsx src/scripts/generateJsonSchema.ts > src/assets/schema.json && npx tsx src/scripts/generateJsonSchema.ts > public/schema.json"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.19",
@@ -32,6 +33,8 @@
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^1.1.1",
+    "zod": "^3.24.1",
+    "zod-to-json-schema": "^3.24.1",
     "zustand": "^4.5.5"
   },
   "devDependencies": {
@@ -44,6 +47,7 @@
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.16",
+    "ts-node": "^10.9.2",
     "typescript": "^5.7.2",
     "vite": "^5.4.11"
   }
