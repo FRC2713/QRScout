@@ -1,12 +1,19 @@
+import { useEffect } from 'react';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { Sections } from './components/Sections';
 import { CommitAndResetSection } from './components/Sections/CommitAndResetSection/CommitAndResetSection';
 import { ConfigSection } from './components/Sections/ConfigSection';
+import { useTheme } from './hooks';
 import { useQRScoutState } from './store/store';
 
 export function App() {
   const formData = useQRScoutState(state => state.formData);
+  const { setTheme } = useTheme();
+
+  useEffect(() => {
+    setTheme('system');
+  }, [setTheme]);
 
   return (
     <div className="min-h-screen py-2 dark:bg-gray-700">
