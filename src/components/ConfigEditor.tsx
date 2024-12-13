@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import Editor, { useMonaco } from '@monaco-editor/react';
 import { useEffect, useMemo, useState } from 'react';
-import schema from '../../public/schema.json';
+import schema from '../assets/schema.json';
 import { getConfig, useQRScoutState } from '../store/store';
 
 type ConfigEditorProps = {

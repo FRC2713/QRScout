@@ -2,7 +2,7 @@ import { produce } from 'immer';
 import { cloneDeep } from 'lodash';
 import { ChangeEvent } from 'react';
 import configJson from '../../config/2024/config.json';
-import { Config } from '../components/inputs/BaseInputProps';
+import { Config, configSchema } from '../components/inputs/BaseInputProps';
 import { createStore } from './createStore';
 
 function buildConfig(c: Config) {
@@ -15,7 +15,12 @@ function buildConfig(c: Config) {
 }
 
 function getDefaultConfig(): Config {
-  return buildConfig(configJson as Config);
+  const config = configSchema.safeParse(configJson);
+  if (!config.success) {
+    console.error(config.error);
+    throw new Error('Invalid config schema');
+  }
+  return buildConfig(config.data);
 }
 
 export function getConfig() {
