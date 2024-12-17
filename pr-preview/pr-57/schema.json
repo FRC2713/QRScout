@@ -1,0 +1,429 @@
+{
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "The title of the scouting site. This will be displayed in the header and browser tab."
+    },
+    "page_title": {
+      "type": "string",
+      "description": "The title of the page"
+    },
+    "delimiter": {
+      "type": "string",
+      "description": "The delimiter to use when joining the form data"
+    },
+    "teamNumber": {
+      "type": "number",
+      "description": "The team number of the team using this form.",
+      "default": 2713
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "preserveDataOnReset": {
+            "type": "boolean"
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "description": "The title of the input"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "The description of the input"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "counter"
+                    },
+                    "required": {
+                      "type": "boolean",
+                      "description": "Whether this input is required"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "A unique code for this input"
+                    },
+                    "disabled": {
+                      "type": "boolean",
+                      "description": "Whether this input is disabled"
+                    },
+                    "preserveDataOnReset": {
+                      "type": "boolean",
+                      "description": "Whether this input should be preserved when the scouting form is reset"
+                    },
+                    "defaultValue": {
+                      "type": "number",
+                      "default": 0,
+                      "description": "The default value"
+                    },
+                    "value": {
+                      "type": "number",
+                      "description": "The value of the input"
+                    },
+                    "min": {
+                      "type": "number",
+                      "description": "The minimum value"
+                    },
+                    "max": {
+                      "type": "number",
+                      "description": "The maximum value"
+                    },
+                    "step": {
+                      "type": "number",
+                      "description": "The step value",
+                      "default": 1
+                    },
+                    "autoIncrementOnReset": {
+                      "type": "boolean",
+                      "description": "Whether this input should auto-increment on reset, instead of resetting to the default value"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "text"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "preserveDataOnReset": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/preserveDataOnReset"
+                    },
+                    "defaultValue": {
+                      "type": "string",
+                      "default": "",
+                      "description": "The default value"
+                    },
+                    "value": {
+                      "type": "string",
+                      "description": "The value of the input"
+                    },
+                    "min": {
+                      "type": "number",
+                      "description": "The minimum length of the string"
+                    },
+                    "max": {
+                      "type": "number",
+                      "description": "The maximum length of the string"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "number"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "preserveDataOnReset": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/preserveDataOnReset"
+                    },
+                    "defaultValue": {
+                      "type": "number",
+                      "default": 0,
+                      "description": "The default value"
+                    },
+                    "value": {
+                      "type": "number",
+                      "description": "The value of the input"
+                    },
+                    "min": {
+                      "type": "number",
+                      "description": "The minimum value"
+                    },
+                    "max": {
+                      "type": "number",
+                      "description": "The maximum value"
+                    },
+                    "autoIncrementOnReset": {
+                      "type": "boolean",
+                      "description": "Whether this input should auto-increment on reset, instead of resetting to the default value"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "select"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "preserveDataOnReset": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/preserveDataOnReset"
+                    },
+                    "defaultValue": {
+                      "type": "string",
+                      "description": "The default value. Must be one of the choices"
+                    },
+                    "value": {
+                      "type": "string",
+                      "description": "The value of the input"
+                    },
+                    "choices": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "description": "The choices"
+                    },
+                    "multiSelect": {
+                      "type": "boolean",
+                      "description": "Whether multiple choices can be selected"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code",
+                    "defaultValue"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "range"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "preserveDataOnReset": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/preserveDataOnReset"
+                    },
+                    "defaultValue": {
+                      "type": "number",
+                      "description": "The default value"
+                    },
+                    "value": {
+                      "type": "number",
+                      "description": "The value of the input"
+                    },
+                    "min": {
+                      "type": "number",
+                      "description": "The minimum value"
+                    },
+                    "max": {
+                      "type": "number",
+                      "description": "The maximum value"
+                    },
+                    "step": {
+                      "type": "number",
+                      "description": "The step value",
+                      "default": 1
+                    },
+                    "autoIncrementOnReset": {
+                      "type": "boolean",
+                      "description": "Whether this input should auto-increment on reset, instead of resetting to the default value"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "boolean"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "preserveDataOnReset": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/preserveDataOnReset"
+                    },
+                    "defaultValue": {
+                      "type": "boolean",
+                      "description": "The default value"
+                    },
+                    "value": {
+                      "type": "boolean",
+                      "description": "The value of the input"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "timer"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "preserveDataOnReset": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/preserveDataOnReset"
+                    },
+                    "defaultValue": {
+                      "type": "number",
+                      "description": "The default value"
+                    },
+                    "value": {
+                      "type": "number",
+                      "description": "The value of the input",
+                      "default": 0
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "name",
+          "fields"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "page_title",
+    "delimiter",
+    "sections"
+  ],
+  "additionalProperties": false,
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}
