@@ -190,7 +190,6 @@ export const configSchema = z.object({
   teamNumber: z
     .number()
     .describe('The team number of the team using this form.')
-    .default(2713),
   sections: z.array(sectionSchema),
 });
 
