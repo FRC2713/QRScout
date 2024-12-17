@@ -1,13 +1,8 @@
 import { Pause, Play, TimerReset, Undo } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
-import BaseInputProps from './BaseInputProps';
-export interface TimerInputProps extends BaseInputProps {
-  min?: number;
-  max?: number;
-  step?: number;
-  defaultValue?: number;
-}
+import { TimerInputProps } from './BaseInputProps';
+
 function getAvg(array: any[]) {
   if (array.length === 0) {
     return 0;
@@ -18,17 +13,17 @@ function getAvg(array: any[]) {
   });
   return avg / array.length;
 }
-export default function TimerInput(data: TimerInputProps) {
+export default function TimerInput(props: TimerInputProps) {
   const [time, setTime] = useState(0);
   const [isRunning, toggleTimer] = useState(false);
   const [times, setTimes] = useState<number[]>([]);
 
   useEffect(() => {
-    if (data.value === data.defaultValue && times.length > 0) {
+    if (props.value === props.defaultValue && times.length > 0) {
       clearTimer();
       setTimes([]);
     }
-  }, [data.value, data.defaultValue, times]);
+  }, [props.value, props.defaultValue, times]);
 
   function startStop() {
     toggleTimer(!isRunning);
@@ -43,21 +38,21 @@ export default function TimerInput(data: TimerInputProps) {
   }
 
   function updateTimes(newValue: number) {
-    data.onChange(getAvg([...times, newValue]));
+    props.onChange(getAvg([...times, newValue]));
     setTimes(old => [...old, newValue]);
   }
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
     if (isRunning) {
-      intervalId = setInterval(() => setTime(time + (data.step || 1)), 10);
+      intervalId = setInterval(() => setTime(time + 1), 10);
     }
     return () => clearInterval(intervalId);
   }, [isRunning, time]);
 
   return (
     <div className="my-2 flex flex-col items-center justify-center">
-      <p className="font-bold">{`${data.value.toFixed(3)} (${
+      <p className="font-bold">{`${props.value?.toFixed(3)} (${
         times.length
       })`}</p>
       <h2 className="px-4 text-2xl dark:text-white">

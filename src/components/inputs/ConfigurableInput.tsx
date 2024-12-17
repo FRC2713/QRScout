@@ -40,7 +40,6 @@ export default function ConfigurableInput(props: ConfigurableInputProps) {
         <SelectInput
           key={input.title}
           {...input}
-          options={input.choices || { fail: 'no choices provided' }}
           defaultValue={input.defaultValue}
           onChange={handleChange}
           section={props.section}
@@ -89,29 +88,12 @@ export default function ConfigurableInput(props: ConfigurableInputProps) {
     case 'timer':
       return (
         <TimerInput
-        key={input.title}
-        {...input}
-        min={input.min}
-        max={input.max}
-        defaultValue={input.defaultValue as number}
-        onChange={handleChange}
-        section={props.section}
+          key={input.title}
+          {...input}
+          defaultValue={input.defaultValue as number}
+          onChange={handleChange}
+          section={props.section}
         />
-      )
-    default:
-      return (
-        <div className="py-2 px-1">
-          <label
-            htmlFor={input.title}
-            className="mb-2 block text-sm font-bold text-gray-700"
-          >
-            {input.title}
-          </label>
-          <p
-            className="text-red-rhr"
-            id={input.title}
-          >{`No Renderer for type: ${input.type}`}</p>
-        </div>
       );
   }
 }

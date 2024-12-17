@@ -1,13 +1,6 @@
 import React from 'react';
 import { Input } from '../ui/input';
-import BaseInputProps from './BaseInputProps';
-
-export interface NumberInputProps extends BaseInputProps {
-  value?: number;
-  min?: number;
-  max?: number;
-  defaultValue?: number;
-}
+import { NumberInputProps } from './BaseInputProps';
 
 export default function NumberInput(data: NumberInputProps) {
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {

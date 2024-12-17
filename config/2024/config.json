@@ -79,7 +79,6 @@
           "title": "Timer",
           "type": "timer",
           "defaultValue": 0,
-          "min": 0,
           "required": false
         },
         {
@@ -113,6 +112,7 @@
             "7": "Midline 2",
             "8": "Midline 1 (Amp Edge)"
           },
+          "defaultValue": "",
           "required": false
         },
         {
@@ -194,14 +194,10 @@
         {
           "code": "or",
           "title": "Offense Skill",
-          "type": "select",
-          "choices": {
-            "1": "Not Effective",
-            "2": "Average",
-            "3": "Very Effective",
-            "x": "Not Observed"
-          },
-          "defaultValue": "x",
+          "type": "range",
+          "defaultValue": 3,
+          "min": 1,
+          "max": 5,
           "required": false
         },
         {

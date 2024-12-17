@@ -1,13 +1,8 @@
 import React, { useEffect } from 'react';
 import { Switch } from '../ui/switch';
-import BaseInputProps from './BaseInputProps';
+import { BooleanInputProps } from './BaseInputProps';
 
-export interface BoolInputProps extends BaseInputProps {
-  onChange: (value: boolean) => void;
-  defaultValue?: boolean;
-}
-
-export default function CheckboxInput(data: BoolInputProps) {
+export default function CheckboxInput(data: BooleanInputProps) {
   const [checked, setChecked] = React.useState(data.value);
 
   useEffect(() => {

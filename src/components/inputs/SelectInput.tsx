@@ -5,17 +5,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
-import BaseInputProps from './BaseInputProps';
+import { SelectInputProps } from './BaseInputProps';
 
-export interface SelectInputProps extends BaseInputProps {
-  options: Record<string, string>;
-  multiSelect?: boolean;
-  defaultValue: string;
-}
-
-export default function SelectInput(data: SelectInputProps) {
+export default function SelectInput(props: SelectInputProps) {
   function handleSelect(value: string) {
-    data.onChange(value);
+    props.onChange(value);
     // TODO support multiselect again
     // if (!data.multiSelect) {
     //   data.onChange(value);
@@ -26,16 +20,19 @@ export default function SelectInput(data: SelectInputProps) {
     //   data.onChange(selectedOptions);
     // }
   }
+  if (!props.choices) {
+    return <div>Invalid input</div>;
+  }
   return (
-    <Select name={data.title} onValueChange={handleSelect} value={data.value}>
+    <Select name={props.title} onValueChange={handleSelect} value={props.value}>
       <SelectTrigger>
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        {Object.keys(data.options).map(o => {
+        {Object.keys(props.choices).map(o => {
           return (
             <SelectItem key={o} value={o}>
-              {data.options[o]}
+              {props.choices?.[o]}
             </SelectItem>
           );
         })}
