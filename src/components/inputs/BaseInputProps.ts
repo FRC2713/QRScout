@@ -189,7 +189,7 @@ export const configSchema = z.object({
     .describe('The delimiter to use when joining the form data'),
   teamNumber: z
     .number()
-    .describe('The team number of the team using this form.')
+    .describe('The team number of the team using this form.'),
   sections: z.array(sectionSchema),
 });
 
