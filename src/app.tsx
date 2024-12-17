@@ -11,11 +11,14 @@ import { StatsigProvider, useClientAsyncInit } from '@statsig/react-bindings';
 import { runStatsigAutoCapture } from '@statsig/web-analytics';
 
 export function App() {
-  const formData = useQRScoutState(state => state.formData);
+  const { teamNumber, pageTitle } = useQRScoutState(state => ({
+    teamNumber: state.formData.teamNumber,
+    pageTitle: state.formData.page_title,
+  }));
   const { client } = useClientAsyncInit(
     import.meta.env.VITE_STATSIG_CLIENT_KEY,
     {
-      userID: `${formData.teamNumber}`,
+      userID: `${teamNumber}`,
     },
   );
 
@@ -30,9 +33,7 @@ export function App() {
           <Header />
           <main className="flex flex-1 flex-col items-center justify-center px-4 text-center">
             <h1 className="font-sans text-6xl font-bold">
-              <div className={`font-rhr text-primary`}>
-                {formData.page_title}
-              </div>
+              <div className={`font-rhr text-primary`}>{pageTitle}</div>
             </h1>
 
             <form className="w-full px-4" onSubmit={e => e.preventDefault()}>
