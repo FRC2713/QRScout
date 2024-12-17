@@ -18,6 +18,7 @@ export default function FormSection(props: SectionProps) {
           title={e.title}
           required={e.required}
           hasValue={e.value !== null && e.value !== undefined && e.value !== ''}
+          description={e.description}
           key={`${props.name}_${e.title}`}
         >
           <ConfigurableInput section={props.name} code={e.code} />

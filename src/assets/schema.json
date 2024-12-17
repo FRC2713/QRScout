@@ -32,6 +32,10 @@
                       "type": "string",
                       "description": "The title of the input"
                     },
+                    "description": {
+                      "type": "string",
+                      "description": "The description of the input"
+                    },
                     "type": {
                       "type": "string",
                       "const": "counter"
@@ -93,6 +97,9 @@
                     "title": {
                       "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
                     },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
                     "type": {
                       "type": "string",
                       "const": "text"
@@ -140,6 +147,9 @@
                   "properties": {
                     "title": {
                       "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
                     },
                     "type": {
                       "type": "string",
@@ -193,6 +203,9 @@
                     "title": {
                       "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
                     },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
                     "type": {
                       "type": "string",
                       "const": "select"
@@ -243,6 +256,9 @@
                   "properties": {
                     "title": {
                       "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
                     },
                     "type": {
                       "type": "string",
@@ -300,6 +316,9 @@
                     "title": {
                       "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
                     },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
                     "type": {
                       "type": "string",
                       "const": "boolean"
@@ -338,6 +357,9 @@
                   "properties": {
                     "title": {
                       "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
                     },
                     "type": {
                       "type": "string",
