@@ -7,6 +7,8 @@ on:
 env:
   VITE_STATSIG_CLIENT_KEY: client-FccOCTznRdYyGr7cx3vJoyoWyO1BTqBzv6S2g1lYPvB
 
+concurrency: preview-${{ github.ref }}
+
 jobs:
   deploy-preview:
     runs-on: ubuntu-latest
