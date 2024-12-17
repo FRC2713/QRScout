@@ -20,6 +20,9 @@ concurrency:
   group: 'pages'
   cancel-in-progress: true
 
+env:
+  VITE_STATSIG_CLIENT_KEY: client-FccOCTznRdYyGr7cx3vJoyoWyO1BTqBzv6S2g1lYPvB
+
 jobs:
   # Single deploy job since we're just deploying
   deploy:
@@ -33,7 +36,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 22
           cache: 'npm'
       - name: Install dependencies
         run: npm install
