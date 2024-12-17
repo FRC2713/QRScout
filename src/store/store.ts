@@ -5,22 +5,13 @@ import configJson from '../../config/2024/config.json';
 import { Config, configSchema } from '../components/inputs/BaseInputProps';
 import { createStore } from './createStore';
 
-function buildConfig(c: Config) {
-  let config: Config = { ...c };
-  config.sections
-    .map(s => s.fields)
-    .flat()
-    .forEach(f => (f.value = f.defaultValue));
-  return config;
-}
-
 function getDefaultConfig(): Config {
   const config = configSchema.safeParse(configJson);
   if (!config.success) {
     console.error(config.error);
     throw new Error('Invalid config schema');
   }
-  return buildConfig(config.data);
+  return config.data;
 }
 
 export function getConfig() {
@@ -92,7 +83,7 @@ export function resetSections() {
 }
 
 export function setFormData(config: Config) {
-  useQRScoutState.setState({ formData: buildConfig(config) });
+  useQRScoutState.setState({ formData: config });
 }
 
 export function setConfig(configText: string) {
