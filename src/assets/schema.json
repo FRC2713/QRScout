@@ -2,13 +2,20 @@
   "type": "object",
   "properties": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "description": "The title of the scouting site. This will be displayed in the header and browser tab."
     },
     "page_title": {
-      "type": "string"
+      "type": "string",
+      "description": "The title of the page"
     },
     "delimiter": {
-      "type": "string"
+      "type": "string",
+      "description": "The delimiter to use when joining the form data"
+    },
+    "teamNumber": {
+      "type": "number",
+      "description": "The team number of the team using this form."
     },
     "sections": {
       "type": "array",
@@ -414,6 +421,7 @@
     "title",
     "page_title",
     "delimiter",
+    "teamNumber",
     "sections"
   ],
   "additionalProperties": false,

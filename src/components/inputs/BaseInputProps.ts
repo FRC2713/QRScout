@@ -178,9 +178,19 @@ export const sectionSchema = z.object({
 });
 
 export const configSchema = z.object({
-  title: z.string(),
-  page_title: z.string(),
-  delimiter: z.string(),
+  title: z
+    .string()
+    .describe(
+      'The title of the scouting site. This will be displayed in the header and browser tab.',
+    ),
+  page_title: z.string().describe('The title of the page'),
+  delimiter: z
+    .string()
+    .describe('The delimiter to use when joining the form data'),
+  teamNumber: z
+    .number()
+    .describe('The team number of the team using this form.')
+    .default(2713),
   sections: z.array(sectionSchema),
 });
 
