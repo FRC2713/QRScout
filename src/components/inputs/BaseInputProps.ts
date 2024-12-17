@@ -6,6 +6,7 @@ export const inputTypeSchema = z
 
 export const inputBaseSchema = z.object({
   title: z.string().describe('The title of the input'),
+  description: z.string().optional().describe('The description of the input'),
   type: inputTypeSchema,
   required: z.boolean().describe('Whether this input is required'),
   code: z.string().describe('A unique code for this input'),
