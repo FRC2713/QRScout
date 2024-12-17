@@ -15,7 +15,8 @@
     },
     "teamNumber": {
       "type": "number",
-      "description": "The team number of the team using this form."
+      "description": "The team number of the team using this form.",
+      "default": 2713
     },
     "sections": {
       "type": "array",
@@ -421,7 +422,6 @@
     "title",
     "page_title",
     "delimiter",
-    "teamNumber",
     "sections"
   ],
   "additionalProperties": false,
