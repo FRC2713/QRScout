@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { resetSections } from '../../../store/store';
+import { resetFields } from '../../../store/store';
 
 export type ResetButtonProps = {
   disabled?: boolean;
@@ -9,7 +9,7 @@ export function ResetButton(props: ResetButtonProps) {
   return (
     <Button
       variant="destructive"
-      onClick={() => resetSections()}
+      onClick={() => resetFields()}
       disabled={props.disabled}
     >
       Reset Form

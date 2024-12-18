@@ -1,3 +1,6 @@
+import { useEvent } from '@/hooks';
+import { inputSelector, updateValue, useQRScoutState } from '@/store/store';
+import { useCallback, useEffect, useState } from 'react';
 import {
   Select,
   SelectContent,
@@ -5,11 +8,35 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
-import { SelectInputProps } from './BaseInputProps';
+import { SelectInputData } from './BaseInputProps';
+import { ConfigurableInputProps } from './ConfigurableInput';
 
-export default function SelectInput(props: SelectInputProps) {
-  function handleSelect(value: string) {
-    props.onChange(value);
+export default function SelectInput(props: ConfigurableInputProps) {
+  const data = useQRScoutState(
+    inputSelector<SelectInputData>(props.section, props.code),
+  );
+
+  if (!data) {
+    return <div>Invalid input</div>;
+  }
+
+  const [value, setValue] = useState(data.defaultValue);
+
+  useEffect(() => {
+    updateValue(props.code, value);
+  }, [value]);
+
+  const resetState = useCallback(() => {
+    if (data.preserveDataOnReset || props.preserveSection) {
+      return;
+    }
+    setValue(data.defaultValue);
+  }, [data.defaultValue]);
+
+  useEvent('resetFields', resetState);
+
+  const handleSelect = useCallback((value: string) => {
+    setValue(value);
     // TODO support multiselect again
     // if (!data.multiSelect) {
     //   data.onChange(value);
@@ -19,20 +46,21 @@ export default function SelectInput(props: SelectInputProps) {
     //   );
     //   data.onChange(selectedOptions);
     // }
-  }
-  if (!props.choices) {
+  }, []);
+
+  if (!data || !data?.choices) {
     return <div>Invalid input</div>;
   }
   return (
-    <Select name={props.title} onValueChange={handleSelect} value={props.value}>
+    <Select name={data.title} onValueChange={handleSelect} value={value}>
       <SelectTrigger>
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        {Object.keys(props.choices).map(o => {
+        {Object.keys(data.choices).map(o => {
           return (
             <SelectItem key={o} value={o}>
-              {props.choices?.[o]}
+              {data.choices?.[o]}
             </SelectItem>
           );
         })}
