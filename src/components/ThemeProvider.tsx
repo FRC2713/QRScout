@@ -36,6 +36,7 @@ export function ThemeProvider({
   const appTheme = useQRScoutState(state => state.formData.theme);
 
   useEffect(() => {
+    if (!appTheme || !appTheme.light || !appTheme.dark) return;
     if (resolvedTheme === 'dark') {
       console.log('Setting dark theme', appTheme.dark);
       setColorScheme(appTheme.dark);
