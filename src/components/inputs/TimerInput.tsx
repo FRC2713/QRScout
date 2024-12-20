@@ -47,12 +47,9 @@ export default function TimerInput(props: ConfigurableInputProps) {
     toggleTimer(!isRunning);
   }
 
-  function clearTimer(update: boolean = false) {
-    if (update) {
-      setTimes(old => [...old, time / 100]);
-    }
+  function lap() {
+    setTimes([...times, time / 100]);
     setTime(0);
-    toggleTimer(false);
   }
 
   useEffect(() => {
@@ -83,10 +80,10 @@ export default function TimerInput(props: ConfigurableInputProps) {
             <Play className="size-4" />
           )}
         </Button>
-        <Button variant="outline" onClick={() => clearTimer(true)}>
+        <Button variant="outline" disabled={time === 0} onClick={() => lap()}>
           <TimerReset className="size-4" />
         </Button>
-        <Button variant="outline" onClick={() => clearTimer(false)}>
+        <Button variant="outline" onClick={() => resetState()}>
           <Undo className="size-4" />
         </Button>
       </div>

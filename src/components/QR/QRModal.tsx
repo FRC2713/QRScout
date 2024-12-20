@@ -1,4 +1,4 @@
-import { Copy } from 'lucide-react';
+import { Copy, QrCode } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { useMemo } from 'react';
 import { getFieldValue, useQRScoutState } from '../../store/store';
@@ -31,7 +31,10 @@ export function QRModal(props: QRModalProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button disabled={props.disabled}>Commit</Button>
+        <Button disabled={props.disabled}>
+          <QrCode className="size-5" />
+          Commit
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogTitle className="text-3xl text-primary text-center font-rhr-ns tracking-wider ">

@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import Editor, { useMonaco } from '@monaco-editor/react';
-import { Upload } from 'lucide-react';
+import { Menu, Save } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import schema from '../assets/schema.json';
 import {
@@ -10,6 +10,12 @@ import {
   useQRScoutState,
 } from '../store/store';
 import { Config } from './inputs/BaseInputProps';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu';
 import { Input } from './ui/input';
 
 /**
@@ -52,13 +58,15 @@ export function ConfigEditor(props: ConfigEditorProps) {
   const monaco = useMonaco();
   const formData = useQRScoutState(state => state.formData);
   const config = useMemo(() => getConfig(), [formData]);
-  const [currentConfigText, setCurrentConfigText] = useState<string>('');
+  const [currentConfigText, setCurrentConfigText] = useState<string>(
+    JSON.stringify(config, null, 2),
+  );
   const [errorCount, setErrorCount] = useState<number>(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleButtonClick = () => {
-    fileInputRef.current?.click();
-  };
+  useEffect(() => {
+    setCurrentConfigText(JSON.stringify(config, null, 2));
+  }, [config]);
 
   useEffect(() => {
     monaco?.languages.json.jsonDefaults.setDiagnosticsOptions({
@@ -72,12 +80,13 @@ export function ConfigEditor(props: ConfigEditorProps) {
       ],
     });
   }, [monaco]);
+
   return (
     <div className="flex flex-col gap-2 h-full pb-2">
       <div className="flex-grow rounded-lg overflow-clip ">
         <Editor
           defaultLanguage="json"
-          defaultValue={JSON.stringify(config, null, 2)}
+          value={currentConfigText}
           theme="vs-dark"
           onValidate={markers => {
             const severeErrors = markers.filter(m => m.severity > 4);
@@ -86,38 +95,42 @@ export function ConfigEditor(props: ConfigEditorProps) {
           onChange={value => value && setCurrentConfigText(value)}
         />
       </div>
-      <div className="flex flex-grow-0 justify-between">
-        <div className="flex gap-4 justify-start">
-          <Button variant="destructive" onClick={() => resetToDefaultConfig()}>
-            Reset Config to Default
-          </Button>
-          <Button variant="secondary" onClick={() => downloadConfig(config)}>
-            Download Config
-          </Button>
-        </div>
-        <div className="flex justify-center items-center">
-          <Button onClick={handleButtonClick} className="w-full max-w-xs">
-            <Upload className="mr-2 h-4 w-4" /> Upload Config
-          </Button>
-          <Input
-            type="file"
-            ref={fileInputRef}
-            onChange={e => uploadConfig(e)}
-            className="hidden"
-            aria-hidden="true"
-          />
-        </div>
+      <div className="flex flex-grow-0 justify-center items-center gap-4">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="secondary">
+              <Menu className="h-5 w-5" />
+              Options
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem onClick={() => resetToDefaultConfig()}>
+              Reset To Default Config
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => downloadConfig(config)}>
+              Download Config
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => fileInputRef.current?.click()}>
+              Upload Config
+            </DropdownMenuItem>
 
-        <div className="flex gap-4 justify-end">
-          <Button onClick={props.onCancel}>Cancel</Button>
-          <Button
-            variant="destructive"
-            onClick={() => props.onSave && props.onSave(currentConfigText)}
-            disabled={currentConfigText.length === 0 || errorCount > 0}
-          >
-            Save
-          </Button>
-        </div>
+            <Input
+              type="file"
+              ref={fileInputRef}
+              onChange={e => uploadConfig(e)}
+              className="hidden"
+              aria-hidden="true"
+            />
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <Button
+          variant="destructive"
+          onClick={() => props.onSave && props.onSave(currentConfigText)}
+          disabled={currentConfigText.length === 0 || errorCount > 0}
+        >
+          <Save className="h-5 w-5" />
+          Save
+        </Button>
       </div>
     </div>
   );
