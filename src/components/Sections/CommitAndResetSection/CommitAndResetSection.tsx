@@ -17,10 +17,6 @@ export function CommitAndResetSection() {
   }, [formData]);
 
   const missingRequiredFields = useMemo(() => {
-    console.log(
-      'missingRequiredFields',
-      fieldValues.filter(f => requiredFields.includes(f.code)),
-    );
     return fieldValues
       .filter(f => requiredFields.includes(f.code))
       .some(f => f.value === undefined || f.value === '' || f.value === null);

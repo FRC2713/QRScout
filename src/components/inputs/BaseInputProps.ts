@@ -107,39 +107,45 @@ export const sectionSchema = z.object({
   ),
 });
 
-const shadcnColorSchema = z.string().regex(/\d+\s+\d+%\s+\d+%/);
+const shadcnColorSchema = z
+  .string()
+  .regex(/^(\d+(?:\.\d+)?)(?: (\d+(?:\.\d+)?)%)?(?: (\d+(?:\.\d+)?)%)?$/gm);
 
 export const colorSchemeSchema = z.object({
-  background: shadcnColorSchema.default('0 0% 100%'),
-  foreground: shadcnColorSchema.default('0 0% 3.9%'),
-  card: shadcnColorSchema.default('0 0% 100%'),
-  card_foreground: shadcnColorSchema.default('0 0% 3.9%'),
-  popover: shadcnColorSchema.default('0 0% 100%'),
-  popover_foreground: shadcnColorSchema.default('0 0% 3.9%'),
-  primary: shadcnColorSchema.default('354.44 71.3% 47.9%'),
-  primary_foreground: shadcnColorSchema.default('0 85.7% 97.3%'),
-  secondary: shadcnColorSchema.default('0 0% 96.1%'),
-  secondary_foreground: shadcnColorSchema.default('0 0% 9%'),
-  muted: shadcnColorSchema.default('0 0% 96.1%'),
-  muted_foreground: shadcnColorSchema.default('0 0% 45.1%'),
-  accent: shadcnColorSchema.default('0 0% 96.1%'),
-  accent_foreground: shadcnColorSchema.default('0 0% 9%'),
-  destructive: shadcnColorSchema.default('0 84.2% 60.2%'),
-  destructive_foreground: shadcnColorSchema.default('0 0% 98%'),
-  border: shadcnColorSchema.default('0 0% 89.8%'),
-  input: shadcnColorSchema.default('0 0% 89.8%'),
-  ring: shadcnColorSchema.default('354.44 71.3% 47.9%'),
-  chart_1: shadcnColorSchema.default('12 76% 61%'),
-  chart_2: shadcnColorSchema.default('173 58% 39%'),
-  chart_3: shadcnColorSchema.default('197 37% 24%'),
-  chart_4: shadcnColorSchema.default('43 74% 66%'),
-  chart_5: shadcnColorSchema.default('27 87% 67%'),
+  background: shadcnColorSchema,
+  foreground: shadcnColorSchema,
+  card: shadcnColorSchema,
+  card_foreground: shadcnColorSchema,
+  popover: shadcnColorSchema,
+  popover_foreground: shadcnColorSchema,
+  primary: shadcnColorSchema,
+  primary_foreground: shadcnColorSchema,
+  secondary: shadcnColorSchema,
+  secondary_foreground: shadcnColorSchema,
+  muted: shadcnColorSchema,
+  muted_foreground: shadcnColorSchema,
+  accent: shadcnColorSchema,
+  accent_foreground: shadcnColorSchema,
+  destructive: shadcnColorSchema,
+  destructive_foreground: shadcnColorSchema,
+  border: shadcnColorSchema,
+  input: shadcnColorSchema,
+  ring: shadcnColorSchema,
+  chart_1: shadcnColorSchema,
+  chart_2: shadcnColorSchema,
+  chart_3: shadcnColorSchema,
+  chart_4: shadcnColorSchema,
+  chart_5: shadcnColorSchema,
 });
+
+export type ColorScheme = z.infer<typeof colorSchemeSchema>;
 
 export const themeSchema = z.object({
   light: colorSchemeSchema,
   dark: colorSchemeSchema,
 });
+
+export type QRScoutTheme = z.infer<typeof themeSchema>;
 
 export const configSchema = z.object({
   title: z
@@ -154,7 +160,60 @@ export const configSchema = z.object({
   teamNumber: z
     .number()
     .describe('The team number of the team using this form.'),
-  theme: themeSchema.optional(),
+  theme: themeSchema.default({
+    light: {
+      background: '0 0% 100%',
+      foreground: '0 0% 3.9%',
+      card: '0 0% 100%',
+      card_foreground: '0 0% 3.9%',
+      popover: '0 0% 100%',
+      popover_foreground: '0 0% 3.9%',
+      primary: '354.44 71.3% 47.9%',
+      primary_foreground: '0 85.7% 97.3%',
+      secondary: '0 0% 96.1%',
+      secondary_foreground: '0 0% 9%',
+      muted: '0 0% 96.1%',
+      muted_foreground: '0 0% 45.1%',
+      accent: '0 0% 96.1%',
+      accent_foreground: '0 0% 9%',
+      destructive: '0 84.2% 60.2%',
+      destructive_foreground: '0 0% 98%',
+      border: '0 0% 89.8%',
+      input: '0 0% 89.8%',
+      ring: '354.44 71.3% 47.9%',
+      chart_1: '12 76% 61%',
+      chart_2: '173 58% 39%',
+      chart_3: '197 37% 24%',
+      chart_4: '43 74% 66%',
+      chart_5: '27 87% 67%',
+    },
+    dark: {
+      background: '0 0% 3.9%',
+      foreground: '0 0% 98%',
+      card: '0 0% 3.9%',
+      card_foreground: '0 0% 98%',
+      popover: '0 0% 3.9%',
+      popover_foreground: '0 0% 98%',
+      primary: '354.44 71.3% 47.9%',
+      primary_foreground: '0 85.7% 97.3%',
+      secondary: '0 0% 14.9%',
+      secondary_foreground: '0 0% 98%',
+      muted: '0 0% 14.9%',
+      muted_foreground: '0 0% 63.9%',
+      accent: '0 0% 14.9%',
+      accent_foreground: '0 0% 98%',
+      destructive: '0 62.8% 30.6%',
+      destructive_foreground: '0 0% 98%',
+      border: '0 0% 14.9%',
+      input: '0 0% 14.9%',
+      ring: '354.44 71.3% 47.9%',
+      chart_1: '220 70% 50%',
+      chart_2: '160 60% 45%',
+      chart_3: '30 80% 55%',
+      chart_4: '280 65% 60%',
+      chart_5: '340 75% 55%',
+    },
+  }),
   sections: z.array(sectionSchema),
 });
 

@@ -49,6 +49,9 @@ export function ConfigSection() {
             <ConfigEditor
               onCancel={() => setShowEditor(false)}
               onSave={configString => {
+                console.log(
+                  document.querySelector(':root')?.computedStyleMap().keys(),
+                );
                 setConfig(configString);
                 setShowEditor(false);
               }}
