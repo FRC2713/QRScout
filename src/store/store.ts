@@ -50,7 +50,6 @@ export function resetToDefaultConfig() {
 }
 
 export function updateValue(code: string, data: any) {
-  console.log('updateValue', code, data);
   useQRScoutState.setState(
     produce((state: QRScoutState) => {
       const field = state.fieldValues.find(f => f.code === code);

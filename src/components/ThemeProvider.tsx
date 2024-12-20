@@ -1,3 +1,5 @@
+import { useQRScoutState } from '@/store/store';
+import { setColorScheme } from '@/util/theme';
 import { createContext, useContext, useEffect, useState } from 'react';
 
 type Theme = 'dark' | 'light' | 'system';
@@ -29,6 +31,19 @@ export function ThemeProvider({
   const [theme, setTheme] = useState<Theme>(
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme,
   );
+  const [resolvedTheme, setResolvedTheme] = useState<Theme>(theme);
+
+  const appTheme = useQRScoutState(state => state.formData.theme);
+
+  useEffect(() => {
+    if (resolvedTheme === 'dark') {
+      console.log('Setting dark theme', appTheme.dark);
+      setColorScheme(appTheme.dark);
+    } else {
+      console.log('Setting light theme', appTheme.light);
+      setColorScheme(appTheme.light);
+    }
+  }, [resolvedTheme, appTheme]);
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -40,11 +55,11 @@ export function ThemeProvider({
         .matches
         ? 'dark'
         : 'light';
-
+      setResolvedTheme(systemTheme);
       root.classList.add(systemTheme);
       return;
     }
-
+    setResolvedTheme(theme);
     root.classList.add(theme);
   }, [theme]);
 
