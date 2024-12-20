@@ -1,8 +1,7 @@
-import { Copy } from 'lucide-react';
+import { Copy, QrCode } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { useMemo } from 'react';
 import { getFieldValue, useQRScoutState } from '../../store/store';
-import { Config } from '../inputs/BaseInputProps';
 import { Button } from '../ui/button';
 import {
   Dialog,
@@ -17,27 +16,25 @@ export interface QRModalProps {
   disabled?: boolean;
 }
 
-export function getQRCodeData(formData: Config): string {
-  return formData.sections
-    .map(s => s.fields)
-    .flat()
-    .map(v => `${v.value}`.replace(/\n/g, ' '))
-    .join(formData.delimiter);
-}
-
 export function QRModal(props: QRModalProps) {
-  const formData = useQRScoutState(state => state.formData);
+  const fieldValues = useQRScoutState(state => state.fieldValues);
 
   const title = `${getFieldValue('robot')} - M${getFieldValue(
     'matchNumber',
   )}`.toUpperCase();
 
-  const qrCodeData = useMemo(() => getQRCodeData(formData), [formData]);
+  const qrCodeData = useMemo(
+    () => fieldValues.map(f => f.value).join(','),
+    [fieldValues],
+  );
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button disabled={props.disabled}>Commit</Button>
+        <Button disabled={props.disabled}>
+          <QrCode className="size-5" />
+          Commit
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogTitle className="text-3xl text-primary text-center font-rhr-ns tracking-wider ">

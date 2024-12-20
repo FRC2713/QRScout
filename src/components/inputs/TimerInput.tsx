@@ -1,7 +1,10 @@
+import { useEvent } from '@/hooks';
+import { inputSelector, updateValue, useQRScoutState } from '@/store/store';
 import { Pause, Play, TimerReset, Undo } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Button } from '../ui/button';
-import { TimerInputProps } from './BaseInputProps';
+import { TimerInputData } from './BaseInputProps';
+import { ConfigurableInputProps } from './ConfigurableInput';
 
 function getAvg(array: any[]) {
   if (array.length === 0) {
@@ -13,34 +16,48 @@ function getAvg(array: any[]) {
   });
   return avg / array.length;
 }
-export default function TimerInput(props: TimerInputProps) {
-  const [time, setTime] = useState(0);
+export default function TimerInput(props: ConfigurableInputProps) {
+  const data = useQRScoutState(
+    inputSelector<TimerInputData>(props.section, props.code),
+  );
+
+  if (!data) {
+    return <div>Invalid input</div>;
+  }
+
+  const [time, setTime] = useState(data.defaultValue);
   const [isRunning, toggleTimer] = useState(false);
   const [times, setTimes] = useState<number[]>([]);
 
-  useEffect(() => {
-    if (props.value === props.defaultValue && times.length > 0) {
-      clearTimer();
-      setTimes([]);
+  const average = useMemo(() => getAvg(times), [times]);
+
+  const resetState = useCallback(() => {
+    if (data.preserveDataOnReset || props.preserveSection) {
+      return;
     }
-  }, [props.value, props.defaultValue, times]);
+
+    setTime(data.defaultValue);
+    toggleTimer(false);
+    setTimes([]);
+    updateValue(props.code, data.defaultValue);
+  }, []);
+
+  useEvent('resetFields', resetState);
 
   function startStop() {
     toggleTimer(!isRunning);
   }
 
-  function clearTimer(update: boolean = false) {
-    if (update) {
-      updateTimes(time / 100);
-    }
+  function lap() {
+    setTimes([...times, time / 100]);
     setTime(0);
-    toggleTimer(false);
   }
 
-  function updateTimes(newValue: number) {
-    props.onChange(getAvg([...times, newValue]));
-    setTimes(old => [...old, newValue]);
-  }
+  useEffect(() => {
+    if (times.length > 0) {
+      updateValue(props.code, getAvg(times));
+    }
+  }, [times]);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
@@ -52,9 +69,7 @@ export default function TimerInput(props: TimerInputProps) {
 
   return (
     <div className="my-2 flex flex-col items-center justify-center">
-      <p className="font-bold">{`${props.value?.toFixed(3)} (${
-        times.length
-      })`}</p>
+      <p className="font-bold">{`${average.toFixed(3)} (${times.length})`}</p>
       <h2 className="px-4 text-2xl dark:text-white">
         {(time / 100).toFixed(2)}
       </h2>
@@ -66,10 +81,10 @@ export default function TimerInput(props: TimerInputProps) {
             <Play className="size-4" />
           )}
         </Button>
-        <Button variant="outline" onClick={() => clearTimer(true)}>
+        <Button variant="outline" disabled={time === 0} onClick={() => lap()}>
           <TimerReset className="size-4" />
         </Button>
-        <Button variant="outline" onClick={() => clearTimer(false)}>
+        <Button variant="outline" onClick={() => resetState()}>
           <Undo className="size-4" />
         </Button>
       </div>

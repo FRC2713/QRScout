@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
-import { resetSections } from '../../../store/store';
+import { ListRestart } from 'lucide-react';
+import { resetFields } from '../../../store/store';
 
 export type ResetButtonProps = {
   disabled?: boolean;
@@ -9,9 +10,10 @@ export function ResetButton(props: ResetButtonProps) {
   return (
     <Button
       variant="destructive"
-      onClick={() => resetSections()}
+      onClick={() => resetFields()}
       disabled={props.disabled}
     >
+      <ListRestart className="h-5 w-5" />
       Reset Form
     </Button>
   );

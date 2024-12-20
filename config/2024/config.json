@@ -22,8 +22,8 @@
           "type": "number",
           "required": true,
           "code": "matchNumber",
-          "preserveDataOnReset": true,
-          "autoIncrementOnReset": true
+          "autoIncrementOnReset": true,
+          "defaultValue": 1
         },
         {
           "title": "Robot",
@@ -46,7 +46,9 @@
           "description": "The team number of the robot you're scouting.",
           "type": "number",
           "required": true,
-          "code": "teamNumber"
+          "code": "teamNumber",
+          "min": 0,
+          "max": 19999
         },
         {
           "title": "Starting Position",

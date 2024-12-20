@@ -1,70 +1,60 @@
+import { ConfigEditor } from '@/components/ConfigEditor';
 import { Button } from '@/components/ui/button';
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from '@/components/ui/drawer';
-import { useMediaQuery } from '@/hooks';
-import { Cog6ToothIcon } from '@heroicons/react/20/solid';
-import { useMemo, useState } from 'react';
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
+import { setConfig, useQRScoutState } from '@/store/store';
+import { Copy, Edit2 } from 'lucide-react';
+import { useState } from 'react';
 import { Section } from '../../core/Section';
-import { Settings } from './Settings';
 import { ThemeSelector } from './ThemeSelector';
 
 export function ConfigSection() {
-  const [open, setOpen] = useState(false);
-  const isDesktop = useMediaQuery('(min-width: 768px)');
-
-  const dialogOrDrawer = useMemo(() => {
-    if (isDesktop) {
-      return (
-        <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger asChild>
-            <Button variant="outline">
-              <Cog6ToothIcon className="h-5 w-5" />
-              Settings
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>
-              <DialogTitle>Settings</DialogTitle>
-            </DialogHeader>
-            <Settings />
-          </DialogContent>
-        </Dialog>
-      );
-    }
-    return (
-      <Drawer open={open} onOpenChange={setOpen}>
-        <DrawerTrigger asChild>
-          <Button variant="outline">
-            <Cog6ToothIcon className="h-5 w-5" />
-            Settings
-          </Button>
-        </DrawerTrigger>
-        <DrawerContent>
-          <DrawerHeader>
-            <DrawerTitle>Settings</DrawerTitle>
-          </DrawerHeader>
-          <Settings />
-        </DrawerContent>
-      </Drawer>
-    );
-  }, [isDesktop, open]);
+  const [showEditor, setShowEditor] = useState(false);
+  const formData = useQRScoutState(state => state.formData);
 
   return (
     <Section>
       <div className="flex flex-col justify-center items-center gap-4">
-        {dialogOrDrawer}
+        <Button
+          variant="secondary"
+          onClick={() =>
+            navigator.clipboard.writeText(
+              formData.sections
+                .map(s => s.fields)
+                .flat()
+                .map(f => f.title)
+                .join('\t'),
+            )
+          }
+        >
+          <Copy className="h-5 w-5" />
+          Copy Column Names
+        </Button>
+        <Sheet open={showEditor} onOpenChange={setShowEditor}>
+          <SheetTrigger asChild>
+            <Button variant="secondary">
+              <Edit2 className="h-5 w-5" />
+              Edit Config
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="bottom" className="w-full h-full">
+            <SheetHeader>
+              <SheetTitle>Edit Config</SheetTitle>
+            </SheetHeader>
+            <ConfigEditor
+              onCancel={() => setShowEditor(false)}
+              onSave={configString => {
+                setConfig(configString);
+                setShowEditor(false);
+              }}
+            />
+          </SheetContent>
+        </Sheet>
         <ThemeSelector />
       </div>
     </Section>
