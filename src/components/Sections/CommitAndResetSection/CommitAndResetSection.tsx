@@ -17,10 +17,14 @@ export function CommitAndResetSection() {
   }, [formData]);
 
   const missingRequiredFields = useMemo(() => {
-    return requiredFields.some(
-      rf => !fieldValues.find(fv => fv.code === rf)?.value,
+    console.log(
+      'missingRequiredFields',
+      fieldValues.filter(f => requiredFields.includes(f.code)),
     );
-  }, [formData]);
+    return fieldValues
+      .filter(f => requiredFields.includes(f.code))
+      .some(f => f.value === undefined || f.value === '' || f.value === null);
+  }, [formData, fieldValues]);
 
   return (
     <Section>

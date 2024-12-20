@@ -5,6 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../ui/accordion';
+import { Badge } from '../ui/badge';
 
 export type PreviewTextProps = {
   data: string;
@@ -34,7 +35,9 @@ export function PreviewText(props: PreviewTextProps) {
             {fieldValues.map(fv => (
               <div key={fv.code} className="flex gap-2">
                 <span className="text-gray-500">{fv.code}</span>
-                <span className="text-gray-200 font-mono">{fv.value}</span>
+                <Badge variant="secondary" className="font-mono">
+                  {JSON.stringify(fv.value)}
+                </Badge>
               </div>
             ))}
           </div>

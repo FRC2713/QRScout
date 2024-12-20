@@ -36,9 +36,10 @@ export default function TimerInput(props: ConfigurableInputProps) {
       return;
     }
 
-    setTime(0);
+    setTime(data.defaultValue);
     toggleTimer(false);
     setTimes([]);
+    updateValue(props.code, data.defaultValue);
   }, []);
 
   useEvent('resetFields', resetState);
