@@ -1,7 +1,7 @@
 {
   "$schema": "../schema.json",
   "title": "QRScout",
-  "page_title": "reefscape",
+  "page_title": "Reefscape",
   "sections": [
     {
       "name": "Prematch",
