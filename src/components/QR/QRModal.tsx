@@ -18,15 +18,20 @@ export interface QRModalProps {
 
 export function QRModal(props: QRModalProps) {
   const fieldValues = useQRScoutState(state => state.fieldValues);
-
+  const formData = useQRScoutState(state => state.formData);
   const title = `${getFieldValue('robot')} - M${getFieldValue(
     'matchNumber',
   )}`.toUpperCase();
 
-  const qrCodeData = useMemo(
+  const qrCodePreview = useMemo(
     () => fieldValues.map(f => f.value).join(','),
     [fieldValues],
   );
+  const qrCodeData = useMemo(
+    () => fieldValues.map(f => f.value).join(formData.delimiter),
+    [fieldValues],
+  );
+  //Two seperate values are required- qrCodePreview is what is shown to the user beneath the QR code, qrCodeData is the actual data.
 
   return (
     <Dialog>
@@ -44,7 +49,7 @@ export function QRModal(props: QRModalProps) {
           <div className="bg-white p-4 rounded-md">
             <QRCodeSVG className="m-2 mt-4" size={256} value={qrCodeData} />
           </div>
-          <PreviewText data={qrCodeData} />
+          <PreviewText data={qrCodePreview} />
         </div>
         <DialogFooter>
           <Button
