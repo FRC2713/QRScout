@@ -38,10 +38,8 @@ export function ThemeProvider({
   useEffect(() => {
     if (!appTheme || !appTheme.light || !appTheme.dark) return;
     if (resolvedTheme === 'dark') {
-      console.log('Setting dark theme', appTheme.dark);
       setColorScheme(appTheme.dark);
     } else {
-      console.log('Setting light theme', appTheme.light);
       setColorScheme(appTheme.light);
     }
   }, [resolvedTheme, appTheme]);

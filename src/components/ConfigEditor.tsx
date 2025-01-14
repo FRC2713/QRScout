@@ -1,12 +1,12 @@
 import { Button } from '@/components/ui/button';
 import Editor, { useMonaco } from '@monaco-editor/react';
 import { Menu, Save } from 'lucide-react';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import schema from '../assets/schema.json';
 import {
   getConfig,
   resetToDefaultConfig,
-  uploadConfig,
+  setConfig,
   useQRScoutState,
 } from '../store/store';
 import { Config } from './inputs/BaseInputProps';
@@ -63,6 +63,7 @@ export function ConfigEditor(props: ConfigEditorProps) {
   );
   const [errorCount, setErrorCount] = useState<number>(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     setCurrentConfigText(JSON.stringify(config, null, 2));
@@ -81,9 +82,35 @@ export function ConfigEditor(props: ConfigEditorProps) {
     });
   }, [monaco]);
 
+  const handleUploadClick = useCallback(() => {
+    fileInputRef.current?.click();
+  }, [fileInputRef]);
+
+  const handleUploadChange = useCallback(
+    (evt: React.ChangeEvent<HTMLInputElement>) => {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        const configText = e.target?.result as string;
+        const result = setConfig(configText);
+        if (!result.success) {
+          setError(result.error.message);
+        } else {
+          setError(null);
+        }
+      };
+      if (evt.currentTarget.files && evt.currentTarget.files.length > 0) {
+        reader.readAsText(evt.currentTarget.files[0]);
+      }
+    },
+    [],
+  );
+
   return (
     <div className="flex flex-col gap-2 h-full pb-2">
       <div className="flex-grow rounded-lg overflow-clip ">
+        {error && (
+          <div className="bg-red-100 text-red-800 p-2 rounded-lg">{error}</div>
+        )}
         <Editor
           defaultLanguage="json"
           value={currentConfigText}
@@ -110,17 +137,9 @@ export function ConfigEditor(props: ConfigEditorProps) {
             <DropdownMenuItem onClick={() => downloadConfig(config)}>
               Download Config
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => fileInputRef.current?.click()}>
+            <DropdownMenuItem onClick={handleUploadClick}>
               Upload Config
             </DropdownMenuItem>
-
-            <Input
-              type="file"
-              ref={fileInputRef}
-              onChange={e => uploadConfig(e)}
-              className="hidden"
-              aria-hidden="true"
-            />
           </DropdownMenuContent>
         </DropdownMenu>
         <Button
@@ -131,6 +150,15 @@ export function ConfigEditor(props: ConfigEditorProps) {
           <Save className="h-5 w-5" />
           Save
         </Button>
+
+        <Input
+          type="file"
+          ref={fileInputRef}
+          onChange={handleUploadChange}
+          className="hidden"
+          aria-hidden="true"
+          accept=".json,application/json"
+        />
       </div>
     </div>
   );

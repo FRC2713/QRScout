@@ -1,6 +1,5 @@
 import { produce } from 'immer';
 import { cloneDeep } from 'lodash';
-import { ChangeEvent } from 'react';
 import configJson from '../../config/2024/config.json';
 import {
   Config,
@@ -8,6 +7,8 @@ import {
   InputBase,
 } from '../components/inputs/BaseInputProps';
 import { createStore } from './createStore';
+
+type Result<T> = { success: true; data: T } | { success: false; error: Error };
 
 function getDefaultConfig(): Config {
   const config = configSchema.safeParse(configJson);
@@ -70,23 +71,25 @@ export function resetFields() {
 }
 
 export function setFormData(config: Config) {
-  useQRScoutState.setState({ formData: config });
+  const oldState = useQRScoutState.getState();
+
+  useQRScoutState.setState({ ...oldState, formData: config });
 }
 
-export function setConfig(configText: string) {
-  const jsonData = JSON.parse(configText);
-  setFormData(jsonData as Config);
-}
-
-export function uploadConfig(evt: ChangeEvent<HTMLInputElement>) {
-  var reader = new FileReader();
-  reader.onload = function (e) {
-    const configText = e.target?.result as string;
-    setConfig(configText);
-  };
-  if (evt.currentTarget.files && evt.currentTarget.files.length > 0) {
-    reader.readAsText(evt.currentTarget.files[0]);
+export function setConfig(configText: string): Result<void> {
+  let jsonData: any;
+  try {
+    jsonData = JSON.parse(configText);
+  } catch (e: any) {
+    return { success: false, error: e.message };
   }
+  const c = configSchema.safeParse(jsonData);
+  if (!c.success) {
+    console.error(c.error);
+    return { success: false, error: c.error };
+  }
+  setFormData(c.data);
+  return { success: true, data: undefined };
 }
 
 export function inputSelector<T extends InputBase>(
