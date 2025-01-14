@@ -21,7 +21,7 @@ export default function InputCard(
 ) {
   return (
     <Card>
-      <div className="flex justify-between bg-secondary px-1 items-center rounded-t-lg">
+      <div className="flex justify-between bg-secondary px-1 items-center rounded-t-xl">
         <div className="flex gap-2 ">
           {props.required && !props.hasValue && (
             <TriangleAlert className="text-primary animate-pulse size-4" />
