@@ -16,11 +16,11 @@ export default function NumberInput(props: ConfigurableInputProps) {
 
   const [value, setValue] = React.useState<number | ''>(data.defaultValue);
 
-  const resetState = useCallback(() => {
-    if (data.preserveDataOnReset || props.preserveSection) {
+  const resetState = useCallback((force = false) => {
+    if (!force && (data.preserveDataOnReset || props.preserveSection)) {
       return;
     }
-    if (data.autoIncrementOnReset) {
+    if (!force && data.autoIncrementOnReset) {
       setValue(value ?? 0 + 1);
     } else {
       setValue(data.defaultValue);
@@ -28,6 +28,7 @@ export default function NumberInput(props: ConfigurableInputProps) {
   }, [data.defaultValue]);
 
   useEvent('resetFields', resetState);
+  useEvent('forceResetFields', () => resetState(true) );
 
   useEffect(() => {
     updateValue(props.code, value);

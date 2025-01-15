@@ -70,10 +70,17 @@ export function resetFields() {
   window.dispatchEvent(new CustomEvent('resetFields', { detail: 'reset' }));
 }
 
+export function forceResetFields() {
+  window.dispatchEvent(new CustomEvent('forceResetFields', { detail: 'forceReset' }));
+}
+
 export function setFormData(config: Config) {
   const oldState = useQRScoutState.getState();
-
-  useQRScoutState.setState({ ...oldState, formData: config });
+  forceResetFields();
+  const newFieldValues = config.sections.flatMap(s =>
+    s.fields.map(f => ({ code: f.code, value: f.defaultValue })),
+  );
+  useQRScoutState.setState({ ...oldState, fieldValues: newFieldValues, formData: config });
 }
 
 export function setConfig(configText: string): Result<void> {

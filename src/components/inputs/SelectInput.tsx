@@ -26,14 +26,15 @@ export default function SelectInput(props: ConfigurableInputProps) {
     updateValue(props.code, value);
   }, [value]);
 
-  const resetState = useCallback(() => {
-    if (data.preserveDataOnReset || props.preserveSection) {
+  const resetState = useCallback((force = false) => {
+    if (!force && (data.preserveDataOnReset || props.preserveSection)) {
       return;
     }
     setValue(data.defaultValue);
   }, [data.defaultValue]);
 
   useEvent('resetFields', resetState);
+  useEvent('forceResetFields', () => resetState(true) );
 
   const handleSelect = useCallback((value: string) => {
     setValue(value);
