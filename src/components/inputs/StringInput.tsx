@@ -16,14 +16,15 @@ export default function StringInput(props: ConfigurableInputProps) {
 
   const [value, setValue] = React.useState(data.defaultValue);
 
-  const resetState = useCallback(() => {
-    if (data.preserveDataOnReset || props.preserveSection) {
+  const resetState = useCallback((force = false) => {
+    if (!force && (data.preserveDataOnReset || props.preserveSection)) {
       return;
     }
     setValue(data.defaultValue);
   }, [data.defaultValue]);
 
   useEvent('resetFields', resetState);
+  useEvent('forceResetFields', () => resetState(true) );
 
   useEffect(() => {
     updateValue(props.code, value);

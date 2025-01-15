@@ -16,14 +16,15 @@ export default function CheckboxInput(props: ConfigurableInputProps) {
 
   const [checked, setChecked] = React.useState(data.defaultValue);
 
-  const resetState = React.useCallback(() => {
-    if (data.preserveDataOnReset || props.preserveSection) {
+  const resetState = React.useCallback((force = false) => {
+    if (!force && (data.preserveDataOnReset || props.preserveSection)) {
       return;
     }
     setChecked(data.defaultValue);
   }, [data.defaultValue]);
 
   useEvent('resetFields', resetState);
+  useEvent('forceResetFields', () => resetState(true) );
 
   useEffect(() => {
     updateValue(props.code, checked);
