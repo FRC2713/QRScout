@@ -6,31 +6,38 @@ import { NumberInputData } from './BaseInputProps';
 import { ConfigurableInputProps } from './ConfigurableInput';
 
 export default function NumberInput(props: ConfigurableInputProps) {
-  const data = useQRScoutState(
+  const fieldConfig = useQRScoutState(
     inputSelector<NumberInputData>(props.section, props.code),
   );
 
-  if (!data) {
+  const fieldValue = useQRScoutState(state => state.fieldValues.find(f => f.code === fieldConfig?.code)?.value as number)
+
+  if (!fieldConfig) {
     return <div>Invalid input</div>;
   }
 
-  const [value, setValue] = React.useState<number | ''>(data.defaultValue);
+  const [value, setValue] = React.useState<number | ''>(fieldValue);
 
-  const resetState = useCallback((force = false) => {
-    if (!force && (data.preserveDataOnReset || props.preserveSection)) {
+  const resetState = useCallback(({force}: {force: boolean}) => {
+    console.log('Reseting state', force);
+    if (!force && (fieldConfig.preserveDataOnReset || props.preserveSection)) {
+      console.log('autoIncrementOnReset:', fieldConfig.autoIncrementOnReset);
+      if (fieldConfig.autoIncrementOnReset) {
+        if(value !== undefined) {
+          console.log(value);
+          setValue((Number(value) + 1));
+        };
+      };
       return;
-    }
-    if (!force && data.autoIncrementOnReset) {
-      setValue(value ?? 0 + 1);
     } else {
-      setValue(data.defaultValue);
+      setValue(fieldConfig.defaultValue);
     }
-  }, [data.defaultValue]);
+  }, [fieldConfig.defaultValue]);
 
   useEvent('resetFields', resetState);
-  useEvent('forceResetFields', () => resetState(true) );
 
   useEffect(() => {
+    console.log('value changed', value);
     updateValue(props.code, value);
   }, [value]);
 
@@ -44,25 +51,25 @@ export default function NumberInput(props: ConfigurableInputProps) {
       if (isNaN(parsed)) {
         return;
       }
-      if (data?.min && parsed < data.min) {
+      if (fieldConfig?.min && parsed < fieldConfig.min) {
         return;
       }
-      if (data?.max && parsed > data.max) {
+      if (fieldConfig?.max && parsed > fieldConfig.max) {
         return;
       }
       setValue(parsed);
       e.preventDefault();
     },
-    [data],
+    [fieldConfig],
   );
 
   return (
     <Input
       type="number"
       value={value}
-      id={data.title}
-      min={data.min}
-      max={data.max}
+      id={fieldConfig.title}
+      min={fieldConfig.min}
+      max={fieldConfig.max}
       onChange={handleChange}
     />
   );

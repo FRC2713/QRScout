@@ -19,8 +19,11 @@ export default function CounterInput(props: ConfigurableInputProps) {
 
   const resetState = useCallback((force = false) => {
     if(!force && (data.preserveDataOnReset || props.preserveSection)) {
+      if(data.autoIncrementOnReset) {
+        handleChange(data.step || 1);
+      }
       return;
-    };
+    }
     setValue(data.defaultValue);
   }, []);
 

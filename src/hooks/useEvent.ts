@@ -6,8 +6,7 @@ interface AppEvent<PayloadType = unknown> extends Event {
 
 export interface CustomWindowEventMap extends WindowEventMap {
   /* Custom Event */
-  resetFields: AppEvent<string>;
-  forceResetFields: AppEvent<string>;
+  resetFields: AppEvent<{force: boolean}>;
 }
 
 export const useEvent = <PayloadType = unknown>(
