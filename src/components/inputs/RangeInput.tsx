@@ -16,15 +16,18 @@ export default function RangeInput(props: ConfigurableInputProps) {
 
   const [value, setValue] = useState(data.defaultValue);
 
-  const resetState = useCallback((force = false) => {
+  const resetState = useCallback(({force}: {force: boolean}) => {
     if (!force && (data.preserveDataOnReset || props.preserveSection)) {
+      if (data.autoIncrementOnReset) {
+        const newVal = typeof value === 'number' ? value + data.step : 1;
+        setValue(newVal);
+      }
       return;
     }
     setValue(data.defaultValue);
   }, [data.defaultValue]);
 
   useEvent('resetFields', resetState);
-  useEvent('forceResetFields', () => resetState(true) );
 
   const handleChange = useCallback((value: number[]) => {
     setValue(value[0]);

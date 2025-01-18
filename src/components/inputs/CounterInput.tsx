@@ -17,15 +17,18 @@ export default function CounterInput(props: ConfigurableInputProps) {
 
   const [value, setValue] = useState(data.defaultValue);
 
-  const resetState = useCallback((force = false) => {
+  const resetState = useCallback(({force}: {force: boolean}) => {
     if(!force && (data.preserveDataOnReset || props.preserveSection)) {
+      if (data.autoIncrementOnReset) {
+        const newVal = typeof value === 'number' ? value + data.step : 1;
+        setValue(newVal);
+      }
       return;
     };
     setValue(data.defaultValue);
-  }, []);
+  }, [value]);
 
   useEvent('resetFields', resetState);
-  useEvent('forceResetFields', () => resetState(true) );
 
   const handleChange = useCallback(
     (increment: number) => {

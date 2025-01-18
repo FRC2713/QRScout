@@ -31,7 +31,7 @@ export default function TimerInput(props: ConfigurableInputProps) {
 
   const average = useMemo(() => getAvg(times), [times]);
 
-  const resetState = useCallback((force = false) => {
+  const resetState = useCallback(({force}: {force: boolean}) => {
     if (!force && (data.preserveDataOnReset || props.preserveSection)) {
       return;
     }
@@ -43,7 +43,6 @@ export default function TimerInput(props: ConfigurableInputProps) {
   }, []);
 
   useEvent('resetFields', resetState);
-  useEvent('forceResetFields', () => resetState(true) );
   
   function startStop() {
     toggleTimer(!isRunning);
@@ -85,7 +84,7 @@ export default function TimerInput(props: ConfigurableInputProps) {
         <Button variant="outline" disabled={time === 0} onClick={() => lap()}>
           <TimerReset className="size-4" />
         </Button>
-        <Button variant="outline" onClick={() => resetState()}>
+        <Button variant="outline" onClick={() => resetState({force: false})}>
           <Undo className="size-4" />
         </Button>
       </div>
