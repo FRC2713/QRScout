@@ -2,7 +2,7 @@ import { useQRScoutState } from '@/store/store';
 import { setColorScheme } from '@/util/theme';
 import { createContext, useContext, useEffect, useState } from 'react';
 
-type Theme = 'dark' | 'light' | 'system';
+type Theme = 'dark' | 'light' | 'system' | '';
 
 type ThemeProviderProps = {
   children: React.ReactNode;
@@ -46,7 +46,6 @@ export function ThemeProvider({
 
   useEffect(() => {
     const root = window.document.documentElement;
-
     root.classList.remove('light', 'dark');
 
     if (theme === 'system') {
@@ -58,8 +57,13 @@ export function ThemeProvider({
       root.classList.add(systemTheme);
       return;
     }
-    setResolvedTheme(theme);
-    root.classList.add(theme);
+    
+    if(theme !== '') {
+      setResolvedTheme(theme);
+      root.classList.add(theme);
+    }
+    
+    
   }, [theme]);
 
   const value = {
