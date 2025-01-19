@@ -47,26 +47,43 @@ The config.json can be edited to change most parts of QRScout, and change the li
 
 The basic structure of the config.json file is as follows:
 
-Root:
-$schema: A refrence to the schema used by the config.json file. This shouldn't be changed from the default "../schema.json".
-title: The title of the page. This is what appears in the tab bar.
-page_title: The title that appears at the top of the QRScout page.
-delimiter: The line delimiter used by the QR code
-sections: An array of sections/columns that hold and organize form inputs
+### Root:
 
-Induvidual sections:
-name: The name of the section/column
-preserveDataOnReset: If the data in this section is preserved when the Reset Form button is pressed.
-fields: An array of fields, which describe form inputs.
+`$schema`: A refrence to the schema used by the config.json file. This shouldn't be changed from the default "../schema.json".
 
-Induvidual fields:
-title: The name of this field
-type: One of "text", "number", "boolean", "range", "select", "counter", "image" or "timer". Describes the type of input this is.
-required: a boolean indicating if this must be filled out before the QRCode is generated. If any field with this set to true is not filled out, QRScout will not generate a QRCode when the commit button is pressed.
-code: camelCase string with a unique name indicaing what this field is.
-disabled: Boolean indicating if this field is disabled. If it is, things cannot be inputted into it. This and the requied value are mutually exclusive if you want people to be able to submit this form.
-preserveDataOnReset: If the data in this field is preserved when the Reset Form button is pressed.
-choices: An object containng numbered keys mapping to values that this can hold. For example:
+`title`: The title of the page. This is what appears in the tab bar.
+
+`page_title`: The title that appears at the top of the QRScout page.
+
+`delimiter`: The line delimiter used by the QR code
+
+`sections`: An array of sections/columns that hold and organize form inputs
+
+### Individual sections:
+
+`name`: The name of the section/column
+
+`fields`: An array of fields, which describe form inputs.
+
+### Individual fields:
+
+`title`: The name of this field
+
+`type`: One of "text", "number", "boolean", "range", "select", "counter", "image" or "timer". Describes the type of input this is.
+
+`required`: a boolean indicating if this must be filled out before the QRCode is generated. If any field with this set to true is not filled out, QRScout will not generate a QRCode when the commit button is pressed.
+
+`code`: camelCase string with a unique name indicaing what this field is.
+
+`disabled`: Boolean indicating if this field is disabled. If it is, things cannot be inputted into it. This and the requied value are mutually exclusive if you want people to be able to submit this form.
+
+`formResetBehavior`: One of "reset", "preserve", or "increment".
+
+- `reset` will reset the field whenver the form resets
+- `preserve` will retain the current value
+- `increment` will increment the value based on the field's settings
+
+`choices`: An object containng numbered keys mapping to values that this can hold. For example:
 
 ```json
 "choices": {
@@ -75,4 +92,4 @@ choices: An object containng numbered keys mapping to values that this can hold.
 }
 ```
 
-defaultValue: The default value of this field.
+`defaultValue`: The default value of this field.
