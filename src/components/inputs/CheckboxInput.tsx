@@ -22,7 +22,7 @@ export default function CheckboxInput(props: ConfigurableInputProps) {
         setChecked(data.defaultValue);
         return;
       }
-      if (data.formResetBehavior === 'preserve' || props.preserveSection) {
+      if (data.formResetBehavior === 'preserve') {
         return;
       }
       setChecked(data.defaultValue);

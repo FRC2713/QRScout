@@ -39,7 +39,7 @@ export default function TimerInput(props: ConfigurableInputProps) {
       updateValue(props.code, data.defaultValue);
       return;
     }
-    if (data.formResetBehavior === 'preserve' || props.preserveSection) {
+    if (data.formResetBehavior === 'preserve') {
       return;
     }
 

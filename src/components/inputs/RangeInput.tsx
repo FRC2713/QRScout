@@ -22,11 +22,6 @@ export default function RangeInput(props: ConfigurableInputProps) {
         setValue(data.defaultValue);
         return;
       }
-
-      if (props.preserveSection) {
-        return;
-      }
-
       switch (data.formResetBehavior) {
         case 'reset':
           setValue(data.defaultValue);

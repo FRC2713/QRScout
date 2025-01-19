@@ -11,7 +11,6 @@ export interface ConfigurableInputProps {
   section: string;
   code: string;
   type: InputTypes;
-  preserveSection?: boolean;
 }
 
 export default function ConfigurableInput(props: ConfigurableInputProps) {

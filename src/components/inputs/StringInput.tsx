@@ -27,7 +27,7 @@ export default function StringInput(props: ConfigurableInputProps) {
         setValue(data.defaultValue);
         return;
       }
-      if (data.formResetBehavior === 'preserve' || props.preserveSection) {
+      if (data.formResetBehavior === 'preserve') {
         return;
       }
       setValue(data.defaultValue);
