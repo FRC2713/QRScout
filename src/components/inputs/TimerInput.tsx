@@ -31,8 +31,15 @@ export default function TimerInput(props: ConfigurableInputProps) {
 
   const average = useMemo(() => getAvg(times), [times]);
 
-  const resetState = useCallback(({force}: {force: boolean}) => {
-    if (!force && (data.preserveDataOnReset || props.preserveSection)) {
+  const resetState = useCallback(({ force }: { force: boolean }) => {
+    if (force) {
+      setTime(data.defaultValue);
+      toggleTimer(false);
+      setTimes([]);
+      updateValue(props.code, data.defaultValue);
+      return;
+    }
+    if (data.formResetBehavior === 'preserve' || props.preserveSection) {
       return;
     }
 
@@ -43,7 +50,7 @@ export default function TimerInput(props: ConfigurableInputProps) {
   }, []);
 
   useEvent('resetFields', resetState);
-  
+
   function startStop() {
     toggleTimer(!isRunning);
   }
@@ -84,7 +91,7 @@ export default function TimerInput(props: ConfigurableInputProps) {
         <Button variant="outline" disabled={time === 0} onClick={() => lap()}>
           <TimerReset className="size-4" />
         </Button>
-        <Button variant="outline" onClick={() => resetState({force: false})}>
+        <Button variant="outline" onClick={() => resetState({ force: false })}>
           <Undo className="size-4" />
         </Button>
       </div>

@@ -35,7 +35,7 @@ export default function FormSection(props: SectionProps) {
             section={props.name}
             code={input.code}
             type={input.type}
-            preserveSection={section?.preserveDataOnReset}
+            preserveSection={section?.formResetBehavior === 'preserve'}
           />
         </InputCard>
       ))}

@@ -16,16 +16,32 @@ export default function RangeInput(props: ConfigurableInputProps) {
 
   const [value, setValue] = useState(data.defaultValue);
 
-  const resetState = useCallback(({force}: {force: boolean}) => {
-    if (!force && (data.preserveDataOnReset || props.preserveSection)) {
-      if (data.autoIncrementOnReset) {
-        const newVal = typeof value === 'number' ? value + data.step : 1;
-        setValue(newVal);
+  const resetState = useCallback(
+    ({ force }: { force: boolean }) => {
+      if (force) {
+        setValue(data.defaultValue);
+        return;
       }
-      return;
-    }
-    setValue(data.defaultValue);
-  }, [data.defaultValue]);
+
+      if (props.preserveSection) {
+        return;
+      }
+
+      switch (data.formResetBehavior) {
+        case 'reset':
+          setValue(data.defaultValue);
+          return;
+        case 'increment':
+          setValue(prev => (typeof prev === 'number' ? prev + data.step : 1));
+          return;
+        case 'preserve':
+          return;
+        default:
+          return;
+      }
+    },
+    [data.defaultValue],
+  );
 
   useEvent('resetFields', resetState);
 

@@ -16,17 +16,32 @@ export default function NumberInput(props: ConfigurableInputProps) {
 
   const [value, setValue] = React.useState<number | ''>(data.defaultValue);
 
-  const resetState = useCallback(({force}: {force: boolean}) => {
-    if (!force && (data.preserveDataOnReset || props.preserveSection)) {
-      if (data.autoIncrementOnReset) {
-        const newVal = typeof value === 'number' ? value + 1 : 1;
-        setValue(newVal);
+  const resetState = useCallback(
+    ({ force }: { force: boolean }) => {
+      console.log(
+        `resetState ${data.code}`,
+        `force: ${force}`,
+        `behavior: ${data.formResetBehavior}`,
+      );
+      if (force) {
+        setValue(data.defaultValue);
+        return;
       }
-      return;
-    } else {
-      setValue(data.defaultValue);
-    }
-  }, [data.defaultValue, value]);
+      switch (data.formResetBehavior) {
+        case 'reset':
+          setValue(data.defaultValue);
+          return;
+        case 'increment':
+          setValue(prev => (typeof prev === 'number' ? prev + 1 : 1));
+          return;
+        case 'preserve':
+          return;
+        default:
+          return;
+      }
+    },
+    [data.defaultValue, value],
+  );
 
   useEvent('resetFields', resetState);
 
