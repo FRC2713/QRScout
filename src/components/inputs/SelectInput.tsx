@@ -26,12 +26,24 @@ export default function SelectInput(props: ConfigurableInputProps) {
     updateValue(props.code, value);
   }, [value]);
 
-  const resetState = useCallback(({force}: {force: boolean}) => {
-    if (!force && (data.preserveDataOnReset || props.preserveSection)) {
-      return;
-    }
-    setValue(data.defaultValue);
-  }, [data.defaultValue]);
+  const resetState = useCallback(
+    ({ force }: { force: boolean }) => {
+      console.log(
+        `resetState ${data.code}`,
+        `force: ${force}`,
+        `behavior: ${data.formResetBehavior}`,
+      );
+      if (force) {
+        setValue(data.defaultValue);
+        return;
+      }
+      if (data.formResetBehavior === 'preserve') {
+        return;
+      }
+      setValue(data.defaultValue);
+    },
+    [data.defaultValue],
+  );
 
   useEvent('resetFields', resetState);
 

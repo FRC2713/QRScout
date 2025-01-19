@@ -11,12 +11,10 @@ export const inputBaseSchema = z.object({
   required: z.boolean().describe('Whether this input is required'),
   code: z.string().describe('A unique code for this input'),
   disabled: z.boolean().optional().describe('Whether this input is disabled'),
-  preserveDataOnReset: z
-    .boolean()
-    .optional()
-    .describe(
-      'Whether this input should be preserved when the scouting form is reset',
-    ),
+  formResetBehavior: z
+    .enum(['reset', 'preserve', 'increment'])
+    .default('reset')
+    .describe('The behavior of this input when the form is reset'),
   defaultValue: z.unknown().describe('The default value'),
 });
 
@@ -32,12 +30,6 @@ export const numberInputSchema = inputBaseSchema.extend({
   min: z.number().optional().describe('The minimum value'),
   max: z.number().optional().describe('The maximum value'),
   defaultValue: z.number().default(0).describe('The default value'),
-  autoIncrementOnReset: z
-    .boolean()
-    .optional()
-    .describe(
-      'Whether this input should auto-increment on reset, instead of resetting to the default value',
-    ),
 });
 
 export const selectInputSchema = inputBaseSchema.extend({
@@ -59,12 +51,6 @@ export const counterInputSchema = inputBaseSchema.extend({
   max: z.number().optional().describe('The maximum value'),
   step: z.number().optional().describe('The step value').default(1),
   defaultValue: z.number().default(0).describe('The default value'),
-  autoIncrementOnReset: z
-    .boolean()
-    .optional()
-    .describe(
-      'Whether this input should auto-increment on reset, instead of resetting to the default value',
-    ),
 });
 
 export const rangeInputSchema = inputBaseSchema.extend({
@@ -73,12 +59,6 @@ export const rangeInputSchema = inputBaseSchema.extend({
   max: z.number().optional().describe('The maximum value'),
   step: z.number().optional().describe('The step value').default(1),
   defaultValue: z.number().default(0).describe('The default value'),
-  autoIncrementOnReset: z
-    .boolean()
-    .optional()
-    .describe(
-      'Whether this input should auto-increment on reset, instead of resetting to the default value',
-    ),
 });
 
 export const booleanInputSchema = inputBaseSchema.extend({
@@ -93,7 +73,6 @@ export const timerInputSchema = inputBaseSchema.extend({
 
 export const sectionSchema = z.object({
   name: z.string(),
-  preserveDataOnReset: z.boolean().optional(),
   fields: z.array(
     z.discriminatedUnion('type', [
       counterInputSchema,
