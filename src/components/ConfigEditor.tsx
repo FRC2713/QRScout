@@ -133,52 +133,70 @@ export function ConfigEditor(props: ConfigEditorProps) {
           onChange={value => value && setCurrentConfigText(value)}
         />
       </div>
-      <div className="flex flex-grow-0 justify-center items-center gap-4">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="secondary">
-              <Menu className="h-5 w-5" />
-              Options
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem onClick={() => resetToDefaultConfig()}>
-              Reset To Default Config
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => downloadConfig(config)}>
-              Download Config
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleUploadClick}>
-              Upload Config
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-        <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-4">
+        {/* Mobile view (<640px): URL input and button appear in a full-width row above other controls */}
+        <div className="flex flex-col sm:hidden gap-2 w-full">
           <Input
             type="url"
             placeholder="Enter config URL"
             value={url}
             onChange={e => setUrl(e.target.value)}
+            className="w-full"
           />
-          <Button onClick={handleLoadFromURL}>Load from URL</Button>
+          <Button onClick={handleLoadFromURL} className="w-full">Load from URL</Button>
         </div>
-        <Button
-          variant="destructive"
-          onClick={() => props.onSave && props.onSave(currentConfigText)}
-          disabled={currentConfigText.length === 0 || errorCount > 0}
-        >
-          <Save className="h-5 w-5" />
-          Save
-        </Button>
 
-        <Input
-          type="file"
-          ref={fileInputRef}
-          onChange={handleUploadChange}
-          className="hidden"
-          aria-hidden="true"
-          accept=".json,application/json"
-        />
+        {/* Desktop view (≥640px): URL input and button appear inline with other controls */}
+        <div className="flex flex-row items-center gap-4 flex-wrap">
+          <div className="hidden sm:flex flex-row items-center gap-2 flex-1">
+            <Input
+              type="url"
+              placeholder="Enter config URL"
+              value={url}
+              onChange={e => setUrl(e.target.value)}
+              className="flex-1 min-w-0"
+            />
+            <Button onClick={handleLoadFromURL}>Load from URL</Button>
+          </div>
+          
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="secondary">
+                <Menu className="h-5 w-5" />
+                Options
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem onClick={() => resetToDefaultConfig()}>
+                Reset To Default Config
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => downloadConfig(config)}>
+                Download Config
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={handleUploadClick}>
+                Upload Config
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          
+          <Button
+            variant="destructive"
+            onClick={() => props.onSave && props.onSave(currentConfigText)}
+            disabled={currentConfigText.length === 0 || errorCount > 0}
+          >
+            <Save className="h-5 w-5" />
+            Save
+          </Button>
+
+          <Input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleUploadChange}
+            className="hidden"
+            aria-hidden="true"
+            accept=".json,application/json"
+          />
+        </div>
       </div>
     </div>
   );
