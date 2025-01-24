@@ -4,6 +4,7 @@ import { Menu, Save } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import schema from '../assets/schema.json';
 import {
+  fetchConfigFromURL,
   getConfig,
   resetToDefaultConfig,
   setConfig,
@@ -64,6 +65,7 @@ export function ConfigEditor(props: ConfigEditorProps) {
   const [errorCount, setErrorCount] = useState<number>(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string | null>(null);
+  const [url, setUrl] = useState<string>('');
 
   useEffect(() => {
     setCurrentConfigText(JSON.stringify(config, null, 2));
@@ -105,6 +107,15 @@ export function ConfigEditor(props: ConfigEditorProps) {
     [],
   );
 
+  const handleLoadFromURL = useCallback(async () => {
+    const result = await fetchConfigFromURL(url);
+    if (!result.success) {
+      setError(result.error.message);
+    } else {
+      setError(null);
+    }
+  }, [url]);
+
   return (
     <div className="flex flex-col gap-2 h-full pb-2">
       <div className="flex-grow rounded-lg overflow-clip ">
@@ -142,6 +153,15 @@ export function ConfigEditor(props: ConfigEditorProps) {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+        <div className="flex flex-col gap-2">
+          <Input
+            type="url"
+            placeholder="Enter config URL"
+            value={url}
+            onChange={e => setUrl(e.target.value)}
+          />
+          <Button onClick={handleLoadFromURL}>Load from URL</Button>
+        </div>
         <Button
           variant="destructive"
           onClick={() => props.onSave && props.onSave(currentConfigText)}

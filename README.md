@@ -93,3 +93,31 @@ The basic structure of the config.json file is as follows:
 ```
 
 `defaultValue`: The default value of this field.
+
+## Loading JSON config from a URL
+
+QRScout now supports loading JSON config from a URL. This allows teams to host their config in a GitHub repository and then load the config directly from the URL.
+
+### Steps to load JSON config from a URL
+
+1. Open QRScout.
+2. Click on the "Settings" button at the bottom of the page.
+3. In the "Settings" menu, enter the URL of the JSON config in the input field labeled "Enter config URL".
+4. Click the "Load from URL" button.
+
+If the URL is valid and the JSON config is correctly formatted, QRScout will load the config and update the form fields accordingly.
+
+### Hosting JSON config in a GitHub repository
+
+To host your JSON config in a GitHub repository and make it available publicly via GitHub Pages, follow these steps:
+
+1. Create a new repository on GitHub or use an existing one.
+2. Add your JSON config file to the repository.
+3. Enable GitHub Pages for the repository:
+   - Go to the repository's "Settings" tab.
+   - Scroll down to the "GitHub Pages" section.
+   - Select the branch you want to use for GitHub Pages (e.g., `main` or `gh-pages`).
+   - Click "Save".
+4. After enabling GitHub Pages, your JSON config file will be available at a URL like `https://<username>.github.io/<repository>/<path-to-config>.json`.
+
+You can now use this URL to load the JSON config in QRScout.

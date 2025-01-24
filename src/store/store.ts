@@ -50,6 +50,19 @@ export function resetToDefaultConfig() {
   useQRScoutState.setState(initialState);
 }
 
+export async function fetchConfigFromURL(url: string): Promise<Result<void>> {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch config from URL: ${response.statusText}`);
+    }
+    const configText = await response.text();
+    return setConfig(configText);
+  } catch (error) {
+    return { success: false, error: error as Error };
+  }
+}
+
 export function updateValue(code: string, data: any) {
   useQRScoutState.setState(
     produce((state: QRScoutState) => {
