@@ -6,6 +6,7 @@ import {
   configSchema,
   InputBase,
 } from '../components/inputs/BaseInputProps';
+import { MatchData } from '../types/matchData';
 import { createStore } from './createStore';
 
 type Result<T> = { success: true; data: T } | { success: false; error: Error };
@@ -127,4 +128,45 @@ export function inputSelector<T extends InputBase>(
     }
     return field as T;
   };
+}
+
+export async function fetchMatchData(teamNumber: number, year: number): Promise<Result<any>> {
+  const teamKey = `frc${teamNumber}`;
+  const url = `https://www.thebluealliance.com/api/v3/team/${teamKey}/matches/${year}`;
+  try {
+    const response = await fetch(url, {
+      headers: {
+        'X-TBA-Auth-Key': 'YOUR_AUTH_KEY_HERE', // Replace with your actual auth key
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to fetch match data: ${response.statusText}`);
+    }
+    const matchData = await response.json();
+    return { success: true, data: matchData };
+  } catch (error) {
+    return { success: false, error: error as Error };
+  }
+}
+
+export function setConfigWithMatchData(configText: string, matchData: MatchData): Result<void> {
+  let jsonData: any;
+  try {
+    jsonData = JSON.parse(configText);
+  } catch (e: any) {
+    return { success: false, error: e.message };
+  }
+  const c = configSchema.safeParse(jsonData);
+  if (!c.success) {
+    console.error(c.error);
+    return { success: false, error: c.error };
+  }
+
+  // TODO: Set the match data in the config
+  // Ensure there's no duplicate keys
+  console.log(matchData);
+
+
+  setFormData(c.data);
+  return { success: true, data: undefined };
 }

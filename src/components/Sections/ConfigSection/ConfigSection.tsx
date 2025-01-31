@@ -7,7 +7,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { setConfig, useQRScoutState } from '@/store/store';
+import { fetchMatchData, setConfig, setConfigWithMatchData, useQRScoutState } from '@/store/store';
+import { MatchData } from '@/types/matchData';
 import { Copy, Edit2 } from 'lucide-react';
 import { useState } from 'react';
 import { Section } from '../../core/Section';
@@ -63,6 +64,29 @@ export function ConfigSection() {
             />
           </SheetContent>
         </Sheet>
+        <Button
+          variant="secondary"
+          onClick={() => {
+            const teamNumber = formData.teamNumber;
+            const year = new Date().getFullYear();
+            fetchMatchData(teamNumber, year).then(result => {
+              if (result.success) {
+                const matchData = result.data as MatchData;
+                const configResult = setConfigWithMatchData(
+                  JSON.stringify(formData),
+                  matchData,
+                );
+                if (!configResult.success) {
+                  console.error(configResult.error.message);
+                }
+              } else {
+                console.error(result.error.message);
+              }
+            });
+          }}
+        >
+          Fetch Match Data
+        </Button>
         <ThemeSelector />
       </div>
     </Section>

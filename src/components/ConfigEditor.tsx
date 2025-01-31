@@ -9,6 +9,8 @@ import {
   resetToDefaultConfig,
   setConfig,
   useQRScoutState,
+  fetchMatchData,
+  setConfigWithMatchData,
 } from '../store/store';
 import { Config } from './inputs/BaseInputProps';
 import {
@@ -18,6 +20,7 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
 import { Input } from './ui/input';
+import { MatchData } from '../types/matchData';
 
 /**
  * Download a text file
@@ -117,6 +120,23 @@ export function ConfigEditor(props: ConfigEditorProps) {
     }
   }, [url]);
 
+  const handleFetchMatchData = useCallback(async () => {
+    const teamNumber = formData.teamNumber;
+    const year = new Date().getFullYear();
+    const result = await fetchMatchData(teamNumber, year);
+    if (!result.success) {
+      setError(result.error.message);
+    } else {
+      const matchData = result.data as MatchData;
+      const configResult = setConfigWithMatchData(currentConfigText, matchData);
+      if (!configResult.success) {
+        setError(configResult.error.message);
+      } else {
+        setError(null);
+      }
+    }
+  }, [formData, currentConfigText]);
+
   return (
     <div className="flex flex-col gap-2 h-full pb-2">
       <div className="flex-grow rounded-lg overflow-clip ">
@@ -179,6 +199,9 @@ export function ConfigEditor(props: ConfigEditorProps) {
               </DropdownMenuItem>
               <DropdownMenuItem onClick={handleUploadClick}>
                 Upload Config
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={handleFetchMatchData}>
+                Fetch Match Data
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
