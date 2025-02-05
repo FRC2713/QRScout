@@ -8,41 +8,35 @@ A QR Code-based scouting system for FRC
 
 ## Getting started
 
-QRScout is a web app. To open it, all you have to do is visit https://frc2713.github.io/QRScout/
+QRScout is a web app. To open it, all 3you have to do is visit https://frc2713.github.io/QRScout/
 
 QRScout takes in form data inputed durring a FRC match about the robots playing it, and outputs a QR code with all of that data, in a list seperated by default by tabs. The QR code generated can then be scanned and inputted into something like a Microsoft Excel or Google Sheets spreadsheet, and analyzed.
 
 ## Using QRScout
 
 When you visit QRScout, you're shown a screen that looks something like
-![The QRScout homepage](src/assets/images/QRScout_home.png)
+![The QRScout homepage](src/assets/images/main_screen.png)
 At the top, and taking up most of the page, are form fields. These are the input for the data that will later be made into a QRCode.
 
 Some of these fields are required, and others aren't. QRScout will refuse to let you submit the form until all of the required fields are filled out.
 
-![The bottom of the QRScout homepage](src/assets/images/QRScout_bottom.png)
-Down at the bottom of the page, there is the Commit, Reset Form, and Settings buttons. The Commit button will generate a QR code of the form data that you filled out above, and display this onscreen to be scanned, alongside the text that is encoded in the QR code. The Reset Form button resets most of the form fields, so that it can be used again without havng to reload the page. It does not reset the Prematch column, as most of this data can be reused from match to match.
+![The bottom of the QRScout homepage](src/assets/images/main_screen_bottom.png)
+Down at the bottom of the page, there are the Commit and Reset Form buttons. The Commit button will generate a QR code of the form data that you filled out above, and display this onscreen to be scanned, alongside the text that is encoded in the QR code. The Reset Form button resets most of the form fields, so that it can be used again without havng to reload the page. It does not reset most of the Prematch column, as most of this data can be reused from match to match.
 
-> ![NOTE]
-> The line delimiter in the text alongside the QRCode is always a pipe, regardless of what it set to. In the QRCode, however, it will be what you have set it to.
+There are also the Copy Column Names and Edit Config buttons. Clicking Copy Column Names will do what it suggests, and copy the names of each column to your clipboard. The Edit Config button leads you to the `config.json` editor. The three buttons beneath this are used to change from light to dark mode, and set the page to your system theme (the default).
 
-The Settings button brings up the Settings menu at the bottom of your screen:
-![The QRScout settings menu](src/assets/images/QRScout_settings.png)
+> The line delimiter in the text alongside the QRCode is always a comma, regardless of what it set to. In the data in the QRCode and is optionally copied to your clipboard, it will be what you have set it to.
 
-This has a number of buttons on it:
-
-- Copy Column Names: Copies the names of the columns to your clipboard
-- Edit Config: Edit the config.json file
-- Download Config: Download the config.json file
-- Upload Config: Upload a config.json file
-- Reset Config to Default: Resets the config.json file to the default
-- Load from URL: Load a config.json file from a URL
-
-Beneath these, there are three buttons that control if QRScout is in light mode, dark mode, or your system's dark/light mode setting. By default, this is set to your system.
+Clicking on Edit Config leads you to the following screen:
+![The config editor](src/assets/images/editor_screen.png)
+The text editor allows you to edit the `config.json` file (see below). Click the Save button to save any changes you make.
 
 Once you create a custom `config.json` file for your team, there are 2 ways to leverage it in competition:
-1. Download the custom `config.json` file to each tablet / device for your scouts and upload it to QRScout using the "Upload Config" button in the settings menu.
+1. Download the custom `config.json` file to each tablet / device for your scouts and upload it to QRScout using the "Upload Config" button in the options menu.
 2. Host the custom `config.json` file in a public GitHub repository and load it into QRScout using the "Load from URL" button in the settings menu.
+
+You can also download the config.json file to your device and reset the config.json to the default.
+![Editor options menu](src/assets/images/editor_options.png)
 
 ### Hosting a custom JSON config for your team
 
