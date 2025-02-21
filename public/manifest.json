@@ -1,12 +1,12 @@
 {
-  "name": "QR Scout",
-  "short_name": "QR Scout",
+  "name": "ComboScout",
+  "short_name": "ComboScout",
   "theme_color": "#ffffff",
   "background_color": "#f03d41",
   "display": "fullscreen",
   "orientation": "portrait",
-  "scope": "/QRScout/",
-  "start_url": "/QRScout/",
+  "scope": "/",
+  "start_url": "/",
   "icons": [
     {
       "src": "icons/icon-36x36.png",

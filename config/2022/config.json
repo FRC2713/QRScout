@@ -1,5 +1,5 @@
 {
-  "$schema": "https://frc2713.github.io/QRScout/schema.json",
+  "$schema": "https://comboscout.poteshman.com/schema.json",
   "title": "QRScout",
   "page_title": "Rapid React",
   "sections": [
