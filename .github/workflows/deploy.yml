@@ -24,11 +24,8 @@ env:
   VITE_STATSIG_CLIENT_KEY: client-FccOCTznRdYyGr7cx3vJoyoWyO1BTqBzv6S2g1lYPvB
 
 jobs:
-  # Single deploy job since we're just deploying
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  # two jobs by githubs recommendation
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -46,9 +43,17 @@ jobs:
         uses: actions/configure-pages@v3
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
+        id: deployment
         with:
           # Upload dist repository
           path: './dist'
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
