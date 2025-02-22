@@ -234,7 +234,7 @@
           "required": false,
           "code": "Preload",
           "formResetBehavior": "reset",
-          "defaultValue": false
+          "defaultValue": true
         }
       ]
     },
