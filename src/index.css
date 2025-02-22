@@ -21,6 +21,11 @@ body {
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Inter';
+  src: url('./assets/fonts/Inter Variable.ttf') format('truetype');
+}
+
 @layer base {
   @layer base {
     :root {

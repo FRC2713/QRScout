@@ -4,14 +4,7 @@ module.exports = {
   theme: {
   	extend: {
   		fontFamily: {
-  			rhr: [
-  				'SF Sports Night',
-  				'sans-serif'
-  			],
-  			'rhr-ns': [
-  				'SF Sports Night NS',
-  				'sans-serif'
-  			]
+  			sans: ["Inter"]
   		},
   		colors: {
   			red: {

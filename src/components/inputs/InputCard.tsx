@@ -26,7 +26,7 @@ export default function InputCard(
           {props.required && !props.hasValue && (
             <TriangleAlert className="text-primary animate-pulse size-4" />
           )}
-          <h1 className="capitalize text-secondary-foreground text-sm">
+          <h1 className="capitalize text-secondary-foreground text-sm font-bold">
             {props.title.toUpperCase()}
           </h1>
         </div>
