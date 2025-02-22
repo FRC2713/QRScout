@@ -11,8 +11,8 @@ import { useQRScoutState } from './store/store';
 // import { runStatsigAutoCapture } from '@statsig/web-analytics';
 
 export function App() {
-  const { teamNumber, pageTitle } = useQRScoutState(state => ({
-    teamNumber: state.formData.teamNumber,
+  const { pageTitle } = useQRScoutState(state => ({
+    // teamNumber: state.formData.teamNumber,
     pageTitle: state.formData.page_title,
   }));
   // const { client } = useClientAsyncInit(
