@@ -95,6 +95,10 @@
             },
             "chart_5": {
               "$ref": "#/properties/theme/properties/light/properties/background"
+            },
+            "radius": {
+              "type": "string",
+              "pattern": "[0-9]*.[0-9]+rem"
             }
           },
           "required": [
