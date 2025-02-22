@@ -1,6 +1,6 @@
 # NOTE
 
-We changed to github pages. Please use https:///2491-nomythic.github.io/QRScout/ until we redirect http://scout.2491nomythic.org
+We changed to github pages. Please use https://2491-nomythic.github.io/QRScout/ until we redirect http://scout.2491nomythic.org
 
 # QRScout
 
@@ -8,7 +8,7 @@ A QR Code-based scouting system for FRC
 
 ## Getting started
 
-QRScout is a web app. To open it, all 3you have to do is visit https:///2491-nomythic.github.io/QRScout/
+QRScout is a web app. To open it, all 3you have to do is visit https://2491-nomythic.github.io/QRScout/
 
 QRScout takes in form data inputed durring a FRC match about the robots playing it, and outputs a QR code with all of that data, in a list seperated by default by tabs. The QR code generated can then be scanned and inputted into something like a Microsoft Excel or Google Sheets spreadsheet, and analyzed.
 
