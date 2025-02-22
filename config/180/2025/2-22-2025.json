@@ -1,0 +1,318 @@
+{
+    "$schema": "../../../public/schema.json",
+    "title": "ComboScout",
+    "page_title": "Reefscape",
+    "teamNumber": 4096,
+    "delimiter": "\t",
+    "theme": {
+        "light": {
+            "background": "209 100% 95%",
+            "foreground": "209 5% 0%",
+            "card": "209 50% 90%",
+            "card_foreground": "209 5% 10%",
+            "popover": "209 100% 95%",
+            "popover_foreground": "209 100% 0%",
+            "primary": "209 100% 33%",
+            "primary_foreground": "0 0% 100%",
+            "secondary": "209 30% 70%",
+            "secondary_foreground": "0 0% 0%",
+            "muted": "171 30% 85%",
+            "muted_foreground": "209 5% 35%",
+            "accent": "171 30% 80%",
+            "accent_foreground": "209 5% 10%",
+            "destructive": "0 100% 30%",
+            "destructive_foreground": "209 5% 90%",
+            "border": "209 30% 50%",
+            "input": "209 30% 18%",
+            "ring": "209 100% 33%",
+            "chart_1": "12 76% 61%",
+            "chart_2": "173 58% 39%",
+            "chart_3": "197 37% 24%",
+            "chart_4": "43 74% 66%",
+            "chart_5": "27 87% 67%"
+        },
+        "dark": {
+            "background": "209 50% 5%",
+            "foreground": "209 5% 90%",
+            "card": "209 50% 0%",
+            "card_foreground": "209 5% 90%",
+            "popover": "209 50% 5%",
+            "popover_foreground": "209 5% 90%",
+            "primary": "209 100% 33%",
+            "primary_foreground": "0 0% 100%",
+            "secondary": "209 30% 10%",
+            "secondary_foreground": "0 0% 100%",
+            "muted": "171 30% 15%",
+            "muted_foreground": "209 5% 60%",
+            "accent": "171 30% 15%",
+            "accent_foreground": "209 5% 90%",
+            "destructive": "0 100% 30%",
+            "destructive_foreground": "209 5% 90%",
+            "border": "209 30% 18%",
+            "input": "209 30% 18%",
+            "ring": "209 100% 33%",
+            "chart_1": "220 70% 50%",
+            "chart_2": "160 60% 45%",
+            "chart_3": "30 80% 55%",
+            "chart_4": "280 65% 60%",
+            "chart_5": "340 75% 55%"
+        }
+    },
+    "sections": [
+        {
+            "name": "Prematch",
+            "fields": [
+                {
+                    "title": "Scouter Name",
+                    "description": "Enter the name of the scouter.",
+                    "type": "text",
+                    "required": true,
+                    "code": "scouter",
+                    "defaultValue": "",
+                    "formResetBehavior": "preserve"
+                },
+                {
+                    "title": "Match Number",
+                    "description": "Enter the match number.",
+                    "type": "number",
+                    "required": true,
+                    "code": "matchNumber",
+                    "defaultValue": 1,
+                    "formResetBehavior": "increment"
+                },
+                {
+                    "title": "Drive Team Location",
+                    "description": "The location of the drive team for the robot you are scouting.",
+                    "type": "select",
+                    "required": true,
+                    "code": "robot",
+                    "defaultValue": "R1",
+                    "choices": {
+                        "R1": "Red 1 (Amp Side)",
+                        "R2": "Red 2 (Middle)",
+                        "R3": "Red 3 (Open Side)",
+                        "B1": "Blue 1 (Amp Side)",
+                        "B2": "Blue 2 (Middle)",
+                        "B3": "Blue 3 (Open Side)"
+                    },
+                    "formResetBehavior": "preserve"
+                },
+                {
+                    "title": "Team Number",
+                    "description": "The team number of the robot you're scouting.",
+                    "type": "number",
+                    "required": true,
+                    "code": "teamNumber",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "max": 19999,
+                    "formResetBehavior": "reset"
+                },
+                {
+                    "title": "Robot Starting Location",
+                    "description": "The starting location of the robot on the field.",
+                    "type": "select",
+                    "required": true,
+                    "code": "startingLocation",
+                    "choices": {
+                        "1": "No Show",
+                        "2": "Centered",
+                        "3": "Edge"
+                    },
+                    "defaultValue": "0",
+                    "formResetBehavior": "reset"
+                }
+            ]
+        },
+        {
+            "name": "Autonomous",
+            "fields": [
+                {
+                    "code": "aucl1",
+                    "title": "L1 Coral",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false,
+                    "formResetBehavior": "reset"
+                },
+                {
+                    "code": "aucl23",
+                    "title": "L2 and L3 Coral",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false,
+                    "formResetBehavior": "reset"
+                },
+                {
+                    "code": "aucl4",
+                    "title": "L4 Coral",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false,
+                    "formResetBehavior": "reset"
+                },
+                {
+                    "code": "aucu",
+                    "title": "Unclear Coral",
+                    "description": "Count Coral here if it's unclear which level it went into",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false,
+                    "formResetBehavior": "reset"
+                },
+                {
+                    "code": "auanet",
+                    "title": "Net Algae",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false,
+                    "formResetBehavior": "reset"
+                },
+                {
+                    "code": "auapro",
+                    "title": "Processor Algae",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false,
+                    "formResetBehavior": "reset"
+                }
+            ]
+        },
+        {
+            "name": "Teleop",
+            "fields": [
+                {
+                    "code": "tcl1",
+                    "title": "L1 Coral",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false,
+                    "formResetBehavior": "reset"
+                },
+                {
+                    "code": "tcl23",
+                    "title": "L2 and L3 Coral",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false,
+                    "formResetBehavior": "reset"
+                },
+                {
+                    "code": "tcl4",
+                    "title": "L4 Coral",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false,
+                    "formResetBehavior": "reset"
+                },
+                {
+                    "code": "tcu",
+                    "title": "Unclear Coral",
+                    "description": "Count Coral here if it's unclear which level it went into",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false,
+                    "formResetBehavior": "reset"
+                },
+                {
+                    "code": "tanet",
+                    "title": "Net Algae",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false,
+                    "formResetBehavior": "reset"
+                },
+                {
+                    "code": "tapro",
+                    "title": "Processor Algae",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false,
+                    "formResetBehavior": "reset"
+                },
+                {
+                    "code": "defense",
+                    "title": "Performed Defense",
+                    "description": "Each instance when defense is performed without attempting to score.",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false,
+                    "formResetBehavior": "reset"
+                }
+            ]
+        },
+        {
+            "name": "Endgame",
+            "fields": [
+                {
+                    "title": "Barge",
+                    "type": "select",
+                    "required": true,
+                    "code": "ebarge",
+                    "choices": {
+                        "0": "No Climb",
+                        "1": "Parked",
+                        "2": "Shallow",
+                        "3": "Deep"
+                    },
+                    "defaultValue": "-1",
+                    "formResetBehavior": "reset"
+                },
+                {
+                    "code": "minf",
+                    "title": "Minor Fouls (Whole Match)",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false,
+                    "formResetBehavior": "reset"
+                },
+                {
+                    "code": "majf",
+                    "title": "Major Fouls (Whole Match)",
+                    "type": "counter",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "required": false,
+                    "formResetBehavior": "reset"
+                },
+                {
+                    "title": "Overall Performance",
+                    "type": "select",
+                    "required": true,
+                    "code": "perf",
+                    "choices": {
+                        "0": "0 - Poor",
+                        "1": "1 - Average",
+                        "2": "2 - Good"
+                    },
+                    "defaultValue": "-1",
+                    "formResetBehavior": "reset"
+                },
+                {
+                    "code": "co",
+                    "title": "Additional Observations",
+                    "type": "text",
+                    "min": 0,
+                    "max": 50,
+                    "defaultValue": "",
+                    "required": true,
+                    "formResetBehavior": "reset"
+                }
+            ]
+        }
+    ]
+}
