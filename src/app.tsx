@@ -8,7 +8,7 @@ import { ThemeProvider } from './components/ThemeProvider';
 import { useQRScoutState } from './store/store';
 
 import { StatsigProvider, useClientAsyncInit } from '@statsig/react-bindings';
-import { runStatsigAutoCapture } from '@statsig/web-analytics';
+// import { runStatsigAutoCapture } from '@statsig/web-analytics';
 
 export function App() {
   const { teamNumber, pageTitle } = useQRScoutState(state => ({
@@ -22,9 +22,9 @@ export function App() {
     },
   );
 
-  useEffect(() => {
-    runStatsigAutoCapture(client);
-  }, [client]);
+  // useEffect(() => {
+  //   runStatsigAutoCapture(client);
+  // }, [client]);
 
   return (
     <StatsigProvider client={client} loadingComponent={<div>Loading...</div>}>
