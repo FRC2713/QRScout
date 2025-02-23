@@ -9,7 +9,7 @@ module.exports = {
   				'sans-serif'
   			],
   			'rhr-ns': [
-  				'SF Sports Night NS',
+  				'Helvetica',
   				'sans-serif'
   			]
   		},
