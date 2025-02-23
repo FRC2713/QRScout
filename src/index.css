@@ -21,6 +21,20 @@ body {
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Helvetica';
+  src: url('./assets/fonts/Helvetica.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica Bold';
+  src: url('./assets/fonts/Helvetica-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @layer base {
   @layer base {
     :root {
