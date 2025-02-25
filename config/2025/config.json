@@ -2,7 +2,7 @@
   "title": "QRScout",
   "page_title": "Reefscape",
   "delimiter": "\t",
-  "teamNumber": 2713,
+  "teamNumber": 9496,
   "theme": {
     "light": {
       "background": "0 0% 100%",
@@ -11,7 +11,7 @@
       "card_foreground": "0 0% 3.9%",
       "popover": "0 0% 100%",
       "popover_foreground": "0 0% 3.9%",
-      "primary": "354.44 71.3% 47.9%",
+      "primary": "27 100% 37%",
       "primary_foreground": "0 85.7% 97.3%",
       "secondary": "0 0% 96.1%",
       "secondary_foreground": "0 0% 9%",
@@ -23,7 +23,7 @@
       "destructive_foreground": "0 0% 98%",
       "border": "0 0% 89.8%",
       "input": "0 0% 89.8%",
-      "ring": "354.44 71.3% 47.9%",
+      "ring": "27 100% 37%",
       "chart_1": "12 76% 61%",
       "chart_2": "173 58% 39%",
       "chart_3": "197 37% 24%",
@@ -37,7 +37,7 @@
       "card_foreground": "0 0% 98%",
       "popover": "0 0% 3.9%",
       "popover_foreground": "0 0% 98%",
-      "primary": "354.44 71.3% 47.9%",
+      "primary": "27 100% 37%",
       "primary_foreground": "0 85.7% 97.3%",
       "secondary": "0 0% 14.9%",
       "secondary_foreground": "0 0% 98%",
@@ -49,7 +49,7 @@
       "destructive_foreground": "0 0% 98%",
       "border": "0 0% 14.9%",
       "input": "0 0% 14.9%",
-      "ring": "354.44 71.3% 47.9%",
+      "ring": "27 100% 37%",
       "chart_1": "220 70% 50%",
       "chart_2": "160 60% 45%",
       "chart_3": "30 80% 55%",
@@ -59,7 +59,7 @@
   },
   "sections": [
     {
-      "name": "Prematch",
+      "name": "Before Match",
       "fields": [
         {
           "title": "Scouter Initials",
@@ -67,8 +67,8 @@
           "type": "text",
           "required": true,
           "code": "scouter",
-          "defaultValue": "",
-          "formResetBehavior": "preserve"
+          "formResetBehavior": "preserve",
+          "defaultValue": ""
         },
         {
           "title": "Match Number",
@@ -76,8 +76,8 @@
           "type": "number",
           "required": true,
           "code": "matchNumber",
-          "defaultValue": 1,
-          "formResetBehavior": "increment"
+          "formResetBehavior": "increment",
+          "defaultValue": 1
         },
         {
           "title": "Robot",
@@ -85,6 +85,7 @@
           "type": "select",
           "required": true,
           "code": "robot",
+          "formResetBehavior": "preserve",
           "defaultValue": "R1",
           "choices": {
             "R1": "Red 1",
@@ -93,8 +94,7 @@
             "B1": "Blue 1",
             "B2": "Blue 2",
             "B3": "Blue 3"
-          },
-          "formResetBehavior": "preserve"
+          }
         },
         {
           "title": "Team Number",
@@ -102,136 +102,113 @@
           "type": "number",
           "required": true,
           "code": "teamNumber",
+          "formResetBehavior": "reset",
           "defaultValue": 0,
           "min": 0,
-          "max": 19999
+          "max": 11999
         },
         {
           "title": "Starting Position",
           "description": "The starting position of the robot.",
           "type": "select",
           "required": true,
-          "code": "Prsp",
+          "code": "StPo",
+          "formResetBehavior": "reset",
           "defaultValue": "",
           "choices": {
             "R1": "Left",
             "R2": "Middle",
-            "R3": "Right"
-          }
-        },
-        {
-          "title": "No Show",
-          "description": "Check if the robot did not show up for the match.",
-          "type": "boolean",
-          "required": false,
-          "code": "noShow",
-          "defaultValue": false
-        },
-        {
-          "title": "Cage Position",
-          "description": "The starting level of the cage",
-          "type": "select",
-          "required": true,
-          "code": "CPos",
-          "defaultValue": "",
-          "choices": {
-            "SP1": "Deep",
-            "SP2": "Shallow"
+            "R3": "Right",
+            "R4": "Not Present"
           }
         }
       ]
     },
     {
-      "name": "Autonomous",
+      "name": "During Match",
       "fields": [
         {
-          "title": "Moved?",
+          "title": "Moved in Auto?",
           "description": "Check if the robot moved during autonomous.",
           "type": "boolean",
           "required": false,
           "code": "Mved",
+          "formResetBehavior": "reset",
           "defaultValue": false
         },
         {
-          "title": "Timer",
-          "description": "The time it took for the robot to finish autonomous.",
-          "type": "timer",
-          "required": false,
-          "code": "timer",
-          "defaultValue": 0
-        },
-        {
           "title": "Coral L1 Scored",
-          "description": "The number of level 1 coral scored during autonomous.",
+          "description": "The number of level 1 coral scored.",
           "type": "counter",
           "required": false,
-          "code": "CLOA",
+          "code": "CLO",
+          "formResetBehavior": "reset",
           "defaultValue": 0,
           "min": 0,
           "step": 1
         },
         {
           "title": "Coral L2 Scored",
-          "description": "The number of level 2 coral scored during autonomous.",
+          "description": "The number of level 2 coral scored.",
           "type": "counter",
           "required": false,
-          "code": "CLTA",
+          "code": "CLT",
+          "formResetBehavior": "reset",
           "defaultValue": 0,
           "min": 0,
           "step": 1
         },
         {
           "title": "Coral L3 Scored",
-          "description": "The number of level 3 coral scored during autonomous.",
+          "description": "The number of level 3 coral scored.",
           "type": "counter",
           "required": false,
-          "code": "CLThA",
+          "code": "CLTh",
+          "formResetBehavior": "reset",
           "defaultValue": 0,
           "min": 0,
           "step": 1
         },
         {
           "title": "Coral L4 Scored",
-          "description": "The number of level 4 coral scored during autonomous.",
+          "description": "The number of level 4 coral scored.",
           "type": "counter",
           "required": false,
-          "code": "CLFA",
+          "code": "CLF",
+          "formResetBehavior": "reset",
           "defaultValue": 0,
           "min": 0,
           "step": 1
         },
         {
           "title": "Barge Algae Scored",
-          "description": "The number of Algae scored in the barge during autonomous.",
+          "description": "The number of Algae scored in the barge directly by the robot.",
           "type": "counter",
           "required": false,
-          "code": "BASA",
+          "code": "BAS",
+          "formResetBehavior": "reset",
           "defaultValue": 0,
           "min": 0,
           "step": 1
         },
         {
           "title": "Processor Algae Scored",
-          "description": "The number of Algae scored in the processor during autonomous.",
+          "description": "The number of Algae scored in the processor.",
           "type": "counter",
           "required": false,
-          "code": "PASA",
+          "code": "PAS",
+          "formResetBehavior": "reset",
           "defaultValue": 0,
           "min": 0,
           "step": 1
         },
         {
-          "title": "Dislodged Algae?",
-          "type": "boolean",
-          "required": false,
-          "code": "dto",
-          "defaultValue": false
-        },
-        {
-          "title": "Auto Foul",
+          "title": "Algae Dislodged",
+          "description": "The number of Algae dislodged and not immediately scored.",
           "type": "counter",
           "required": false,
-          "code": "auf",
+          "code": "AlDl",
+          "formResetBehavior": "reset",
           "defaultValue": 0,
           "min": 0,
           "step": 1
@@ -239,189 +216,62 @@
       ]
     },
     {
-      "name": "Teleop",
+      "name": "After Match",
       "fields": [
         {
-          "title": "Dislodged Algae?",
-          "type": "boolean",
-          "required": false,
-          "code": "daT",
-          "defaultValue": false
-        },
-        {
-          "title": "Pickup Location",
-          "type": "select",
-          "required": false,
-          "code": "TGPL",
-          "defaultValue": "",
-          "choices": {
-            "1": "None",
-            "2": "Ground",
-            "3": "Human Player",
-            "4": "Both"
-          },
-          "multiSelect": true
-        },
-        {
-          "title": "Coral L1 Scored",
-          "description": "The number of level 1 coral scored during autonomous.",
-          "type": "counter",
-          "required": false,
-          "code": "CLOT",
-          "defaultValue": 0,
-          "min": 0,
-          "step": 1
-        },
-        {
-          "title": "Coral L2 Scored",
-          "description": "The number of level 2 coral scored during autonomous.",
-          "type": "counter",
-          "required": false,
-          "code": "CLTT",
-          "defaultValue": 0,
-          "min": 0,
-          "step": 1
-        },
-        {
-          "title": "Coral L3 Scored",
-          "description": "The number of level 3 coral scored during autonomous.",
-          "type": "counter",
-          "required": false,
-          "code": "CLThT",
-          "defaultValue": 0,
-          "min": 0,
-          "step": 1
-        },
-        {
-          "title": "Coral L4 Scored",
-          "description": "The number of level 4 coral scored during autonomous.",
-          "type": "counter",
-          "required": false,
-          "code": "CLFT",
-          "defaultValue": 0,
-          "min": 0,
-          "step": 1
-        },
-        {
-          "title": "Barge Algae Scored",
-          "description": "The number of Algae scored in the barge during autonomous.",
-          "type": "counter",
-          "required": false,
-          "code": "BAST",
-          "defaultValue": 0,
-          "min": 0,
-          "step": 1
-        },
-        {
-          "title": "Processor Algae Scored",
-          "description": "The number of Algae scored in the processor during autonomous.",
-          "type": "counter",
-          "required": false,
-          "code": "PAST",
-          "defaultValue": 0,
-          "min": 0,
-          "step": 1
-        },
-        {
-          "title": "Crossed Feild/Played Defense?",
-          "type": "boolean",
-          "required": false,
-          "code": "CFPDT",
-          "defaultValue": false
-        },
-        {
-          "title": "Tipped/Fell Over?",
-          "type": "boolean",
-          "required": false,
-          "code": "TFOT",
-          "defaultValue": false
-        },
-        {
-          "title": "Touched Opposing Cage?",
-          "type": "counter",
-          "required": false,
-          "code": "Fou/Tech",
-          "defaultValue": 0,
-          "step": 1
-        },
-        {
-          "title": "Died?",
-          "type": "boolean",
-          "required": false,
-          "code": "DEg",
-          "defaultValue": false
-        }
-      ]
-    },
-    {
-      "name": "Endgame",
-      "fields": [
-        {
-          "title": "End Position",
+          "title": "End Game Result",
           "type": "select",
           "required": true,
-          "code": "epo",
+          "code": "ega",
+          "formResetBehavior": "reset",
           "defaultValue": "No",
           "choices": {
-            "No": "Not Parked",
+            "No": "None",
             "P": "Parked",
             "Sc": "Shallow Climb",
+            "ScF": "Shallow Climb Failed",
             "Dc": "Deep Climb",
-            "Fc": "Failed Climb"
+            "DcF": "Deep Climb Failed"
           }
         },
         {
-          "title": "Defended?",
+          "title": "Played defense?",
           "type": "boolean",
           "required": false,
-          "code": "DEFEg",
+          "code": "DfPl",
+          "formResetBehavior": "reset",
           "defaultValue": false
-        }
-      ]
-    },
-    {
-      "name": "Postmatch",
-      "fields": [
-        {
-          "title": "Offense Skill",
-          "type": "range",
-          "required": false,
-          "code": "or",
-          "defaultValue": 3,
-          "min": 1,
-          "max": 5,
-          "step": 1
         },
         {
           "title": "Defensive Skill",
           "type": "range",
           "required": false,
-          "code": "dr",
-          "defaultValue": 3,
+          "code": "DfSk",
+          "formResetBehavior": "reset",
+          "defaultValue": 2,
           "min": 1,
-          "max": 5,
+          "max": 3,
           "step": 1
         },
         {
-          "title": "Yellow/Red Card",
-          "type": "select",
-          "required": true,
-          "code": "yc",
-          "defaultValue": "No Card",
-          "choices": {
-            "No Card": "No Card",
-            "Yellow": "Yellow Card",
-            "Red": "Red Card"
-          }
+          "title": "Finished match?",
+          "description": "Set to false if robots tips over, is disabled, etc.",
+          "type": "boolean",
+          "required": false,
+          "code": "Fin",
+          "formResetBehavior": "reset",
+          "defaultValue": true
         },
         {
-          "title": "Comments",
+          "title": "Notes",
+          "description": "Fouls committed, HP notes, etc.",
           "type": "text",
           "required": false,
-          "code": "co",
+          "code": "notes",
+          "formResetBehavior": "reset",
           "defaultValue": "",
           "min": 0,
-          "max": 50
+          "max": 300
         }
       ]
     }
