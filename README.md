@@ -1,10 +1,6 @@
-# NOTE
-
-We changed to github pages. Please use https://frc2713.github.io/QRScout/ until we redirect http://scout.redhawkrobotics.org
-
 # QRScout
 
-A QR Code-based scouting system for FRC
+A QR Code-based scouting system for FRC, forked from https://github.com/frc2713/QRScout.
 
 ## Getting started
 
