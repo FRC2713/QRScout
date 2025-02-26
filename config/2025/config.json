@@ -224,7 +224,7 @@
           "required": true,
           "code": "ega",
           "formResetBehavior": "reset",
-          "defaultValue": "No",
+          "defaultValue": "",
           "choices": {
             "No": "None",
             "P": "Parked",
