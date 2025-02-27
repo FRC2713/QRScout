@@ -116,10 +116,10 @@
           "formResetBehavior": "reset",
           "defaultValue": "",
           "choices": {
-            "R1": "Left",
-            "R2": "Middle",
-            "R3": "Right",
-            "R4": "Not Present"
+            "L": "Left",
+            "M": "Middle",
+            "R": "Right",
+            "X": "Not Present"
           }
         }
       ]
