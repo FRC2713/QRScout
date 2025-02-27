@@ -11,8 +11,12 @@ module.exports = {
   			'rhr-ns': [
   				'SF Sports Night NS',
   				'sans-serif'
-  			]
-  		},
+  			],
+  			lynk: [
+				'Glacial Indifference',
+				'sans-serif'
+			],
+		},
   		colors: {
   			red: {
   				rhr: '#ef3340'

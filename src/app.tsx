@@ -33,7 +33,7 @@ export function App() {
           <Header />
           <main className="flex flex-1 flex-col items-center justify-center px-4 text-center">
             <h1 className="font-sans text-6xl font-bold">
-              <div className={`font-rhr text-primary`}>{pageTitle}</div>
+              <div className={`font-lynk text-primary`}>{pageTitle}</div>
             </h1>
 
             <form className="w-full px-4" onSubmit={e => e.preventDefault()}>
