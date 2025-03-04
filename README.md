@@ -32,6 +32,7 @@ Clicking on Edit Config leads you to the following screen:
 The text editor allows you to edit the `config.json` file (see below). Click the Save button to save any changes you make.
 
 Once you create a custom `config.json` file for your team, there are 2 ways to leverage it in competition:
+
 1. Download the custom `config.json` file to each tablet / device for your scouts and upload it to QRScout using the "Upload Config" button in the options menu.
 2. Host the custom `config.json` file in a public GitHub repository and load it into QRScout using the "Load from URL" button in the settings menu.
 
@@ -83,7 +84,7 @@ The basic structure of the config.json file is as follows:
 
 `title`: The name of this field
 
-`type`: One of "text", "number", "boolean", "range", "select", "counter", "image" or "timer". Describes the type of input this is.
+`type`: One of "text", "number", "boolean", "range", "select", "counter", "image", "timer", or "multiselect". Describes the type of input this is.
 
 `required`: a boolean indicating if this must be filled out before the QRCode is generated. If any field with this set to true is not filled out, QRScout will not generate a QRCode when the commit button is pressed.
 
@@ -106,4 +107,88 @@ The basic structure of the config.json file is as follows:
 }
 ```
 
+For "multiselect" type fields, these choices represent the available options that can be selected.
+
 `defaultValue`: The default value of this field.
+
+### Using Multi-Select Input
+
+The multi-select input type allows users to select multiple options from a predefined list. This is useful for scenarios where multiple attributes or capabilities need to be recorded simultaneously.
+
+#### Configuration in config.json
+
+To configure a multi-select field in your `config.json`:
+
+```json
+{
+  "title": "Robot Capabilities",
+  "type": "multiselect",
+  "required": false,
+  "code": "robotCapabilities",
+  "choices": {
+    "1": "Shooting",
+    "2": "Climbing",
+    "3": "Intake",
+    "4": "Defense",
+    "5": "Autonomous"
+  },
+  "formResetBehavior": "reset",
+  "defaultValue": ["1", "3"]
+}
+```
+
+#### Using Multi-Select in the Form
+
+When using a multi-select input:
+
+1. Click on any option to select it (it will be highlighted)
+2. Click on a selected option to deselect it
+3. You can select as many options as needed
+4. The QR code will include all selected values, separated by a special character
+
+#### Data Format
+
+In the generated QR code, multi-select values are stored as a comma-separated list of the selected choice keys. For example, if "Shooting" (1) and "Climbing" (2) are selected, the QR code will contain `1,2` for that field.
+
+For multi-select fields, the `defaultValue` should be an array of strings representing the keys of the choices you want pre-selected when the form loads.
+
+#### Processing Multi-Select Data
+
+When analyzing the data in spreadsheets:
+
+1. You may want to create separate columns for each possible choice to make analysis easier
+2. Use spreadsheet functions to check if a specific value exists in the comma-separated list
+3. For example, in Google Sheets, you can use: `=REGEXMATCH(A2, "1")` to check if option "1" was selected in cell A2
+
+This allows for more detailed filtering and statistical analysis of which capabilities or attributes were most common across matches.
+
+#### FRC Scouting Example
+
+Multi-select is particularly useful for FRC scouting in scenarios like:
+
+- **Game Piece Handling**: Track which game pieces a robot can manipulate
+- **Scoring Locations**: Record all the places a robot can score (low goal, high goal, etc.)
+- **Robot Subsystems**: Document the subsystems observed on a robot
+- **Failure Modes**: Track multiple types of failures that might occur during a match
+- **Defense Capabilities**: Record specific defensive actions a robot can perform
+
+For example, in a game where robots can score in multiple locations, you might configure:
+
+```json
+{
+  "title": "Scoring Locations",
+  "type": "multiselect",
+  "required": true,
+  "code": "scoringLocations",
+  "choices": {
+    "1": "Low Goal",
+    "2": "Mid Goal",
+    "3": "High Goal",
+    "4": "Terminal",
+    "5": "Charging Station"
+  },
+  "formResetBehavior": "reset"
+}
+```
+
+This allows scouts to quickly record all locations where a robot successfully scored during a match.

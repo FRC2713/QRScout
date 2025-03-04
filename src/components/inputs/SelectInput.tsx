@@ -63,6 +63,7 @@ export default function SelectInput(props: ConfigurableInputProps) {
   if (!data || !data?.choices) {
     return <div>Invalid input</div>;
   }
+
   return (
     <Select name={data.title} onValueChange={handleSelect} value={value}>
       <SelectTrigger>
