@@ -138,6 +138,18 @@
             "SP1": "Deep",
             "SP2": "Shallow"
           }
+        },
+        {
+          "title": "Field Layout",
+          "description": "Reference diagram of the field",
+          "type": "image",
+          "required": false,
+          "code": "fieldLayout",
+          "defaultValue": "https://firstfrc.blob.core.windows.net/frc2025/Manual/HTML/2025GameManual_files/image008.png",
+          "width": 400,
+          "height": 300,
+          "alt": "2025 FRC Field Layout Diagram",
+          "formResetBehavior": "preserve"
         }
       ]
     },

@@ -1,6 +1,7 @@
 import { InputTypes } from './BaseInputProps';
 import CheckboxInput from './CheckboxInput';
 import CounterInput from './CounterInput';
+import ImageInput from './ImageInput';
 import NumberInput from './NumberInput';
 import RangeInput from './RangeInput';
 import SelectInput from './SelectInput';
@@ -17,6 +18,8 @@ export default function ConfigurableInput(props: ConfigurableInputProps) {
   switch (props.type) {
     case 'text':
       return <StringInput {...props} key={props.code} />;
+    case 'image':
+      return <ImageInput {...props} key={props.code} />;
     case 'select':
       return <SelectInput {...props} key={props.code} />;
     case 'number':
