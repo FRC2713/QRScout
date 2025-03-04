@@ -84,7 +84,7 @@ The basic structure of the config.json file is as follows:
 
 `title`: The name of this field
 
-`type`: One of "text", "number", "boolean", "range", "select", "counter", "image", "timer", or "multiselect". Describes the type of input this is.
+`type`: One of "text", "number", "boolean", "range", "select", "counter", "timer", "multi-select", or "image". Describes the type of input this is.
 
 `required`: a boolean indicating if this must be filled out before the QRCode is generated. If any field with this set to true is not filled out, QRScout will not generate a QRCode when the commit button is pressed.
 
@@ -192,3 +192,72 @@ For example, in a game where robots can score in multiple locations, you might c
 ```
 
 This allows scouts to quickly record all locations where a robot successfully scored during a match.
+
+### Using Image Input
+
+The image input type allows you to display static images in your scouting form. This is useful for showing field layouts, robot diagrams, game piece locations, or any visual reference that helps scouts accurately record data.
+
+#### Configuration in config.json
+
+To configure an image field in your `config.json`:
+
+```json
+{
+  "title": "Field Layout",
+  "type": "image",
+  "required": false,
+  "code": "fieldLayout",
+  "description": "Reference diagram of the field",
+  "defaultValue": "https://example.com/path/to/field-layout.jpg",
+  "width": 400,
+  "height": 300,
+  "alt": "2024 FRC Field Layout Diagram",
+  "formResetBehavior": "preserve"
+}
+```
+
+#### Image Input Properties
+
+- **defaultValue**: The URL to the statically hosted image. This should be a publicly accessible URL.
+- **width** (optional): The width of the image in pixels. If not specified, the image will use responsive sizing.
+- **height** (optional): The height of the image in pixels. If not specified, the image will maintain its aspect ratio.
+- **alt** (optional): Alternative text for the image for accessibility. If not provided, it will use the title.
+
+#### Interactive Features
+
+- **Click to Enlarge**: Users can click on any image to open a full-size version in a dialog. This is particularly useful for detailed diagrams or when images need to be examined more closely.
+
+#### Best Practices for Image Input
+
+1. **Host Images Reliably**: Ensure your images are hosted on a reliable service that will be accessible during competition, even with limited internet connectivity.
+2. **Optimize Image Size**: Use appropriately sized and compressed images to ensure fast loading times, especially on tablets or devices with slower connections.
+3. **Consider Offline Use**: For critical reference images, consider embedding them directly in your application or providing a local fallback.
+4. **Use Descriptive Alt Text**: Provide meaningful alternative text to ensure accessibility for all users.
+5. **Provide Context**: Let users know they can click on images to view them in full size, especially for detailed diagrams or maps.
+
+#### FRC Scouting Examples
+
+Image inputs are particularly useful for FRC scouting in scenarios like:
+
+- **Field Layout Reference**: Show the competition field with labeled zones for more accurate position reporting
+- **Robot Diagram**: Display a diagram of a robot with numbered components for reference
+- **Scoring Locations**: Visualize different scoring positions or game elements
+- **Strategy Diagrams**: Show predefined strategies or paths that scouts should watch for
+- **Game Piece Identification**: Display images of the current season's game pieces for reference
+
+For example, to include a field diagram in your scouting form:
+
+```json
+{
+  "title": "Field Reference",
+  "type": "image",
+  "required": false,
+  "code": "fieldReference",
+  "description": "Use this diagram to identify field positions",
+  "defaultValue": "https://yourteam.org/resources/field-diagram-2024.jpg",
+  "width": 500,
+  "formResetBehavior": "preserve"
+}
+```
+
+This allows scouts to reference the field layout while recording robot positions or movements during a match.
