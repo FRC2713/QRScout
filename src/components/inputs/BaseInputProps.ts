@@ -90,6 +90,11 @@ const shadcnColorSchema = z
   .string()
   .regex(/^(\d+(?:\.\d+)?)(?: (\d+(?:\.\d+)?)%)?(?: (\d+(?:\.\d+)?)%)?$/gm);
 
+const shadcnRadiusSchema = z
+  .string()
+  .regex(/([0-9]*.[0-9]+rem)/)
+  .optional()
+
 export const colorSchemeSchema = z.object({
   background: shadcnColorSchema,
   foreground: shadcnColorSchema,
@@ -110,6 +115,7 @@ export const colorSchemeSchema = z.object({
   border: shadcnColorSchema,
   input: shadcnColorSchema,
   ring: shadcnColorSchema,
+  radius: shadcnRadiusSchema,
   chart_1: shadcnColorSchema,
   chart_2: shadcnColorSchema,
   chart_3: shadcnColorSchema,
@@ -160,6 +166,7 @@ export const configSchema = z.object({
       border: '0 0% 89.8%',
       input: '0 0% 89.8%',
       ring: '354.44 71.3% 47.9%',
+      radius: '0.5rem',
       chart_1: '12 76% 61%',
       chart_2: '173 58% 39%',
       chart_3: '197 37% 24%',
@@ -186,6 +193,7 @@ export const configSchema = z.object({
       border: '0 0% 14.9%',
       input: '0 0% 14.9%',
       ring: '354.44 71.3% 47.9%',
+      radius: '0.5rem',
       chart_1: '220 70% 50%',
       chart_2: '160 60% 45%',
       chart_3: '30 80% 55%',
