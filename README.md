@@ -177,7 +177,7 @@ For example, in a game where robots can score in multiple locations, you might c
 ```json
 {
   "title": "Scoring Locations",
-  "type": "multiselect",
+  "type": "multi-select",
   "required": true,
   "code": "scoringLocations",
   "choices": {
