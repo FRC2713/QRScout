@@ -6,7 +6,7 @@ import RangeInput from './RangeInput';
 import SelectInput from './SelectInput';
 import StringInput from './StringInput';
 import TimerInput from './TimerInput';
-
+import MultiSelectInput from './MultiSelectInput';
 export interface ConfigurableInputProps {
   section: string;
   code: string;
@@ -29,5 +29,7 @@ export default function ConfigurableInput(props: ConfigurableInputProps) {
       return <RangeInput {...props} key={props.code} />;
     case 'timer':
       return <TimerInput {...props} key={props.code} />;
+    case 'multi-select':
+      return <MultiSelectInput {...props} key={props.code} />;
   }
 }

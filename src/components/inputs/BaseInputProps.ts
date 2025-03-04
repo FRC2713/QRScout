@@ -1,7 +1,16 @@
 import { z } from 'zod';
 
 export const inputTypeSchema = z
-  .enum(['text', 'number', 'boolean', 'range', 'select', 'counter', 'timer'])
+  .enum([
+    'text',
+    'number',
+    'boolean',
+    'range',
+    'select',
+    'counter',
+    'timer',
+    'multi-select',
+  ])
   .describe('The type of input');
 
 export const inputBaseSchema = z.object({
@@ -35,14 +44,16 @@ export const numberInputSchema = inputBaseSchema.extend({
 export const selectInputSchema = inputBaseSchema.extend({
   type: z.literal('select'),
   choices: z.record(z.string()).optional().describe('The choices'),
-  multiSelect: z
-    .boolean()
-    .optional()
-    .describe('Whether multiple choices can be selected'),
   defaultValue: z
     .string()
     .default('')
     .describe('The default value. Must be one of the choices'),
+});
+
+export const multiSelectInputSchema = inputBaseSchema.extend({
+  type: z.literal('multi-select'),
+  choices: z.record(z.string()).optional().describe('The choices'),
+  defaultValue: z.array(z.string()).optional().describe('The default value'),
 });
 
 export const counterInputSchema = inputBaseSchema.extend({
@@ -79,6 +90,7 @@ export const sectionSchema = z.object({
       stringInputSchema,
       numberInputSchema,
       selectInputSchema,
+      multiSelectInputSchema,
       rangeInputSchema,
       booleanInputSchema,
       timerInputSchema,
@@ -200,6 +212,7 @@ export type InputTypes = z.infer<typeof inputTypeSchema>;
 
 export type InputBase = z.infer<typeof inputBaseSchema>;
 export type SelectInputData = z.infer<typeof selectInputSchema>;
+export type MultiSelectInputData = z.infer<typeof multiSelectInputSchema>;
 export type StringInputData = z.infer<typeof stringInputSchema>;
 export type NumberInputData = z.infer<typeof numberInputSchema>;
 export type CounterInputData = z.infer<typeof counterInputSchema>;
@@ -213,6 +226,7 @@ export type InputPropsMap = {
   boolean: BooleanInputData;
   range: RangeInputData;
   select: SelectInputData;
+  'multi-select': MultiSelectInputData;
   counter: CounterInputData;
   timer: TimerInputData;
 };
