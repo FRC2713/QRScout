@@ -81,6 +81,10 @@
             "ring": {
               "$ref": "#/properties/theme/properties/light/properties/background"
             },
+            "radius": {
+              "type": "string",
+              "pattern": "([0-9]*.[0-9]+rem)"
+            },
             "chart_1": {
               "$ref": "#/properties/theme/properties/light/properties/background"
             },
@@ -155,6 +159,7 @@
           "border": "0 0% 89.8%",
           "input": "0 0% 89.8%",
           "ring": "354.44 71.3% 47.9%",
+          "radius": "0.5rem",
           "chart_1": "12 76% 61%",
           "chart_2": "173 58% 39%",
           "chart_3": "197 37% 24%",
@@ -181,6 +186,7 @@
           "border": "0 0% 14.9%",
           "input": "0 0% 14.9%",
           "ring": "354.44 71.3% 47.9%",
+          "radius": "0.5rem",
           "chart_1": "220 70% 50%",
           "chart_2": "160 60% 45%",
           "chart_3": "30 80% 55%",
