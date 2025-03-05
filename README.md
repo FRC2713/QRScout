@@ -6,6 +6,19 @@ We changed to github pages. Please use https://frc2713.github.io/QRScout/ until 
 
 A QR Code-based scouting system for FRC
 
+## Table of Contents
+
+- [Getting Started](#getting-started)
+- [Using QRScout](#using-qrscout)
+  - [Hosting a Custom JSON Config](#hosting-a-custom-json-config-for-your-team)
+- [config.json](#configjson)
+  - [Root](#root)
+  - [Individual Sections](#individual-sections)
+  - [Individual Fields](#individual-fields)
+  - [Using Multi-Select Input](#using-multi-select-input)
+  - [Using Image Input](#using-image-input)
+  - [Using Timer Input](#using-timer-input)
+
 ## Getting started
 
 QRScout is a web app. To open it, all 3you have to do is visit https://frc2713.github.io/QRScout/
@@ -261,3 +274,96 @@ For example, to include a field diagram in your scouting form:
 ```
 
 This allows scouts to reference the field layout while recording robot positions or movements during a match.
+
+### Using Timer Input
+
+The timer input type allows users to measure and record time durations during a match. This is particularly useful for tracking how long robots take to perform specific actions or measuring cycle times for repeated tasks.
+
+#### Configuration in config.json
+
+To configure a timer field in your `config.json`:
+
+```json
+{
+  "title": "Climb Time",
+  "type": "timer",
+  "required": false,
+  "code": "climbTime",
+  "description": "Time taken to complete climb",
+  "formResetBehavior": "reset",
+  "defaultValue": 0,
+  "outputType": "average"
+}
+```
+
+#### Timer Input Properties
+
+- **defaultValue**: The initial value of the timer in seconds (typically 0).
+- **description** (optional): A brief explanation of what the timer is measuring.
+- **outputType**: Determines how multiple timer values are processed. Can be either:
+  - `"average"` (default): Records the average of all timer values.
+  - `"list"`: Records all timer values as a list.
+
+#### Using Timer in the Form
+
+The timer input provides a simple interface with the following controls:
+
+1. **Start/Stop Button**: Toggles the timer on and off
+2. **Reset Button**: Sets the timer back to 0 and records the current time as a lap
+3. **Undo Button**: Resets the timer without recording a lap
+4. **Time Display**: Shows the current elapsed time in seconds
+5. **Average Display**: Shows the average time and number of recorded laps when `outputType` is `"average"`
+6. **List Display**: Shows a list of lap times when `outputType` is `"list"`
+
+To use the timer during scouting:
+
+1. Click "Start" when the robot begins the action you want to time
+2. Click "Stop" when the action is completed
+3. Click "Reset" to record the time and prepare for another measurement
+4. The final time(s) will be recorded in the QR code data according to the outputType setting
+5. Use "Undo" if you need to restart without recording the current time
+
+#### Data Format
+
+In the generated QR code, timer values are stored differently based on the outputType:
+
+- With `outputType: "average"`: A single numeric value representing the average of all recorded times in seconds.
+- With `outputType: "list"`: A comma-separated list of all recorded times in seconds.
+
+For example, if a robot completed three climbs in 12.5, 10.2, and 11.8 seconds:
+
+- With `outputType: "average"`, the QR code will contain `11.5` (the average)
+- With `outputType: "list"`, the QR code will contain `12.5,10.2,11.8` (all values)
+
+#### FRC Scouting Examples
+
+Timer inputs are particularly useful for FRC scouting in scenarios like:
+
+- **Climb Time**: Measure how long it takes for a robot to complete a climbing action
+- **Cycle Time**: Track the time between scoring actions to calculate scoring rate
+- **Defense Recovery**: Measure how quickly a robot recovers after being defended
+- **Auto Completion**: Time how long it takes to complete autonomous routines
+- **Intake Speed**: Measure how quickly a robot can intake game pieces
+
+For example, to track cycle times for scoring game pieces:
+
+```json
+{
+  "title": "Scoring Cycle Time",
+  "type": "timer",
+  "required": false,
+  "code": "scoringCycleTime",
+  "description": "Time between consecutive scoring actions",
+  "formResetBehavior": "reset"
+}
+```
+
+This allows scouts to accurately measure and compare the efficiency of different robots' scoring mechanisms and strategies.
+
+#### Best Practices for Timer Input
+
+1. **Clear Instructions**: Ensure scouts know exactly when to start and stop the timer
+2. **Consistent Measurement**: Define clear start and end points for timed actions
+3. **Multiple Timers**: Consider using separate timers for different phases or actions
+4. **Backup Method**: Have a secondary way to record time in case of user error
+5. **Practice Before Competition**: Make sure scouts are comfortable using the timer function before actual matches

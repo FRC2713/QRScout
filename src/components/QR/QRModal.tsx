@@ -23,10 +23,6 @@ export function QRModal(props: QRModalProps) {
     'matchNumber',
   )}`.toUpperCase();
 
-  const qrCodePreview = useMemo(
-    () => fieldValues.map(f => f.value).join(','),
-    [fieldValues],
-  );
   const qrCodeData = useMemo(
     () => fieldValues.map(f => f.value).join(formData.delimiter),
     [fieldValues],
@@ -49,7 +45,7 @@ export function QRModal(props: QRModalProps) {
           <div className="bg-white p-4 rounded-md">
             <QRCodeSVG className="m-2 mt-4" size={256} value={qrCodeData} />
           </div>
-          <PreviewText data={qrCodePreview} />
+          <PreviewText data={qrCodeData} />
         </div>
         <DialogFooter>
           <Button
