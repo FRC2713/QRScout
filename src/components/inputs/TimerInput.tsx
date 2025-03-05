@@ -1,7 +1,7 @@
 import { useEvent } from '@/hooks';
 import { inputSelector, updateValue, useQRScoutState } from '@/store/store';
 import { Pause, Play, TimerReset, Undo } from 'lucide-react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from '../ui/button';
 import { TimerInputData } from './BaseInputProps';
 import { ConfigurableInputProps } from './ConfigurableInput';
@@ -26,75 +26,129 @@ export default function TimerInput(props: ConfigurableInputProps) {
   }
 
   const [time, setTime] = useState(data.defaultValue);
-  const [isRunning, toggleTimer] = useState(false);
+  const [isRunning, setIsRunning] = useState(false);
   const [times, setTimes] = useState<number[]>([]);
+
+  // Refs for accurate time tracking
+  const startTimeRef = useRef<number>(0);
+  const timeAccumulatorRef = useRef<number>(0);
+  const requestAnimationFrameIdRef = useRef<number | null>(null);
 
   const average = useMemo(() => getAvg(times), [times]);
 
-  const resetState = useCallback(({ force }: { force: boolean }) => {
-    if (force) {
-      setTime(data.defaultValue);
-      toggleTimer(false);
-      setTimes([]);
-      updateValue(props.code, data.defaultValue);
-      return;
-    }
-    if (data.formResetBehavior === 'preserve') {
-      return;
-    }
+  const resetState = useCallback(
+    ({ force }: { force: boolean }) => {
+      if (force) {
+        setTime(data.defaultValue);
+        setIsRunning(false);
+        setTimes([]);
+        timeAccumulatorRef.current = 0;
+        if (requestAnimationFrameIdRef.current !== null) {
+          cancelAnimationFrame(requestAnimationFrameIdRef.current);
+          requestAnimationFrameIdRef.current = null;
+        }
+        updateValue(props.code, data.defaultValue);
+        return;
+      }
+      if (data.formResetBehavior === 'preserve') {
+        return;
+      }
 
-    setTime(data.defaultValue);
-    toggleTimer(false);
-    setTimes([]);
-    updateValue(props.code, data.defaultValue);
-  }, []);
+      setTime(data.defaultValue);
+      setIsRunning(false);
+      setTimes([]);
+      timeAccumulatorRef.current = 0;
+      if (requestAnimationFrameIdRef.current !== null) {
+        cancelAnimationFrame(requestAnimationFrameIdRef.current);
+        requestAnimationFrameIdRef.current = null;
+      }
+      updateValue(props.code, data.defaultValue);
+    },
+    [data.defaultValue, data.formResetBehavior, props.code],
+  );
 
   useEvent('resetFields', resetState);
 
+  // Accurate timer using requestAnimationFrame
+  const updateTimer = useCallback(() => {
+    const now = performance.now();
+    const elapsed = now - startTimeRef.current;
+    startTimeRef.current = now;
+
+    timeAccumulatorRef.current += elapsed;
+    setTime(timeAccumulatorRef.current);
+
+    requestAnimationFrameIdRef.current = requestAnimationFrame(updateTimer);
+  }, []);
+
+  // Effect to handle starting and stopping the timer
+  useEffect(() => {
+    if (isRunning) {
+      startTimeRef.current = performance.now();
+      requestAnimationFrameIdRef.current = requestAnimationFrame(updateTimer);
+    } else if (requestAnimationFrameIdRef.current !== null) {
+      cancelAnimationFrame(requestAnimationFrameIdRef.current);
+      requestAnimationFrameIdRef.current = null;
+    }
+
+    return () => {
+      if (requestAnimationFrameIdRef.current !== null) {
+        cancelAnimationFrame(requestAnimationFrameIdRef.current);
+        requestAnimationFrameIdRef.current = null;
+      }
+    };
+  }, [isRunning, updateTimer]);
+
   function startStop() {
-    toggleTimer(!isRunning);
+    setIsRunning(!isRunning);
   }
 
   function lap() {
-    setTimes([...times, time / 100]);
+    // Convert milliseconds to seconds with 2 decimal places
+    const currentTimeInSeconds = Number(
+      (timeAccumulatorRef.current / 1000).toFixed(3),
+    );
+    setTimes([...times, currentTimeInSeconds]);
+    timeAccumulatorRef.current = 0;
     setTime(0);
   }
 
   useEffect(() => {
     if (times.length > 0) {
-      updateValue(props.code, getAvg(times));
+      if (data.outputType === 'average') {
+        updateValue(props.code, getAvg(times));
+      } else {
+        updateValue(props.code, times);
+      }
     }
-  }, [times]);
+  }, [times, props.code]);
 
-  useEffect(() => {
-    let intervalId: NodeJS.Timeout;
-    if (isRunning) {
-      intervalId = setInterval(() => setTime(time + 1), 10);
-    }
-    return () => clearInterval(intervalId);
-  }, [isRunning, time]);
+  // Format time display (milliseconds to seconds with 2 decimal places)
+  const formattedTime = (time / 1000).toFixed(2);
 
   return (
     <div className="my-2 flex flex-col items-center justify-center">
-      <p className="font-bold">{`${average.toFixed(3)} (${times.length})`}</p>
-      <h2 className="px-4 text-2xl dark:text-white">
-        {(time / 100).toFixed(2)}
-      </h2>
+      <h2 className="px-4 text-2xl dark:text-white">{formattedTime}</h2>
       <div className="my-2 flex flex-row items-center justify-center gap-4">
-        <Button variant="outline" onClick={() => startStop()}>
+        <Button variant="outline" onClick={startStop}>
           {isRunning ? (
             <Pause className="size-4" />
           ) : (
             <Play className="size-4" />
           )}
         </Button>
-        <Button variant="outline" disabled={time === 0} onClick={() => lap()}>
+        <Button variant="outline" disabled={time === 0} onClick={lap}>
           <TimerReset className="size-4" />
         </Button>
         <Button variant="outline" onClick={() => resetState({ force: false })}>
           <Undo className="size-4" />
         </Button>
       </div>
+      {data.outputType === 'average' ? (
+        <p className="font-bold">{`${average.toFixed(3)} (${times.length})`}</p>
+      ) : (
+        <p className="font-bold">{times.map(t => t.toFixed(3)).join(', ')}</p>
+      )}
     </div>
   );
 }

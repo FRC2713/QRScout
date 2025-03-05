@@ -81,6 +81,10 @@ export const booleanInputSchema = inputBaseSchema.extend({
 export const timerInputSchema = inputBaseSchema.extend({
   type: z.literal('timer'),
   defaultValue: z.number().default(0).describe('The default value'),
+  outputType: z
+    .enum(['average', 'list'])
+    .default('average')
+    .describe('The type of output to display in the scouting form'),
 });
 
 export const imageInputSchema = inputBaseSchema.extend({

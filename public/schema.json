@@ -25,7 +25,7 @@
           "properties": {
             "background": {
               "type": "string",
-              "pattern": "\\d+\\s+\\d+%\\s+\\d+%"
+              "pattern": "^(\\d+(?:\\.\\d+)?)(?: (\\d+(?:\\.\\d+)?)%)?(?: (\\d+(?:\\.\\d+)?)%)?$"
             },
             "foreground": {
               "$ref": "#/properties/theme/properties/light/properties/background"
@@ -81,6 +81,10 @@
             "ring": {
               "$ref": "#/properties/theme/properties/light/properties/background"
             },
+            "radius": {
+              "type": "string",
+              "pattern": "([0-9]*.[0-9]+rem)"
+            },
             "chart_1": {
               "$ref": "#/properties/theme/properties/light/properties/background"
             },
@@ -95,10 +99,6 @@
             },
             "chart_5": {
               "$ref": "#/properties/theme/properties/light/properties/background"
-            },
-            "radius": {
-              "type": "string",
-              "pattern": "[0-9]*.[0-9]+rem"
             }
           },
           "required": [
@@ -159,6 +159,7 @@
           "border": "0 0% 89.8%",
           "input": "0 0% 89.8%",
           "ring": "354.44 71.3% 47.9%",
+          "radius": "0.5rem",
           "chart_1": "12 76% 61%",
           "chart_2": "173 58% 39%",
           "chart_3": "197 37% 24%",
@@ -185,6 +186,7 @@
           "border": "0 0% 14.9%",
           "input": "0 0% 14.9%",
           "ring": "354.44 71.3% 47.9%",
+          "radius": "0.5rem",
           "chart_1": "220 70% 50%",
           "chart_2": "160 60% 45%",
           "chart_3": "30 80% 55%",
@@ -200,9 +202,6 @@
         "properties": {
           "name": {
             "type": "string"
-          },
-          "preserveDataOnReset": {
-            "type": "boolean"
           },
           "fields": {
             "type": "array",
@@ -235,9 +234,15 @@
                       "type": "boolean",
                       "description": "Whether this input is disabled"
                     },
-                    "preserveDataOnReset": {
-                      "type": "boolean",
-                      "description": "Whether this input should be preserved when the scouting form is reset"
+                    "formResetBehavior": {
+                      "type": "string",
+                      "enum": [
+                        "reset",
+                        "preserve",
+                        "increment"
+                      ],
+                      "default": "reset",
+                      "description": "The behavior of this input when the form is reset"
                     },
                     "defaultValue": {
                       "type": "number",
@@ -256,10 +261,6 @@
                       "type": "number",
                       "description": "The step value",
                       "default": 1
-                    },
-                    "autoIncrementOnReset": {
-                      "type": "boolean",
-                      "description": "Whether this input should auto-increment on reset, instead of resetting to the default value"
                     }
                   },
                   "required": [
@@ -292,8 +293,8 @@
                     "disabled": {
                       "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
                     },
-                    "preserveDataOnReset": {
-                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/preserveDataOnReset"
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
                     },
                     "defaultValue": {
                       "type": "string",
@@ -339,8 +340,8 @@
                     "disabled": {
                       "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
                     },
-                    "preserveDataOnReset": {
-                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/preserveDataOnReset"
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
                     },
                     "defaultValue": {
                       "type": "number",
@@ -354,10 +355,6 @@
                     "max": {
                       "type": "number",
                       "description": "The maximum value"
-                    },
-                    "autoIncrementOnReset": {
-                      "type": "boolean",
-                      "description": "Whether this input should auto-increment on reset, instead of resetting to the default value"
                     }
                   },
                   "required": [
@@ -390,8 +387,8 @@
                     "disabled": {
                       "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
                     },
-                    "preserveDataOnReset": {
-                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/preserveDataOnReset"
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
                     },
                     "defaultValue": {
                       "type": "string",
@@ -404,10 +401,54 @@
                         "type": "string"
                       },
                       "description": "The choices"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
                     },
-                    "multiSelect": {
-                      "type": "boolean",
-                      "description": "Whether multiple choices can be selected"
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "multi-select"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
+                    },
+                    "defaultValue": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "The default value"
+                    },
+                    "choices": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "description": "The choices"
                     }
                   },
                   "required": [
@@ -440,8 +481,8 @@
                     "disabled": {
                       "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
                     },
-                    "preserveDataOnReset": {
-                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/preserveDataOnReset"
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
                     },
                     "defaultValue": {
                       "type": "number",
@@ -460,10 +501,6 @@
                       "type": "number",
                       "description": "The step value",
                       "default": 1
-                    },
-                    "autoIncrementOnReset": {
-                      "type": "boolean",
-                      "description": "Whether this input should auto-increment on reset, instead of resetting to the default value"
                     }
                   },
                   "required": [
@@ -496,8 +533,8 @@
                     "disabled": {
                       "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
                     },
-                    "preserveDataOnReset": {
-                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/preserveDataOnReset"
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
                     },
                     "defaultValue": {
                       "type": "boolean",
@@ -535,13 +572,73 @@
                     "disabled": {
                       "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
                     },
-                    "preserveDataOnReset": {
-                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/preserveDataOnReset"
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
                     },
                     "defaultValue": {
                       "type": "number",
                       "default": 0,
                       "description": "The default value"
+                    },
+                    "outputType": {
+                      "type": "string",
+                      "enum": [
+                        "average",
+                        "list"
+                      ],
+                      "default": "average",
+                      "description": "The type of output to display in the scouting form"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "image"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
+                    },
+                    "defaultValue": {
+                      "type": "string",
+                      "default": "",
+                      "description": "The URL to a statically hosted image"
+                    },
+                    "width": {
+                      "type": "number",
+                      "description": "The width of the image in pixels"
+                    },
+                    "height": {
+                      "type": "number",
+                      "description": "The height of the image in pixels"
+                    },
+                    "alt": {
+                      "type": "string",
+                      "description": "The alt text for the image"
                     }
                   },
                   "required": [
@@ -572,7 +669,6 @@
     "page_title",
     "delimiter",
     "teamNumber",
-    "theme",
     "sections"
   ],
   "additionalProperties": false,
