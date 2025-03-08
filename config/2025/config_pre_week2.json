@@ -67,8 +67,8 @@
           "type": "text",
           "required": true,
           "code": "scouter",
-          "formResetBehavior": "preserve",
-          "defaultValue": ""
+          "defaultValue": "",
+          "formResetBehavior": "preserve"
         },
         {
           "title": "Match Number",
@@ -76,8 +76,8 @@
           "type": "number",
           "required": true,
           "code": "matchNumber",
-          "formResetBehavior": "increment",
-          "defaultValue": 1
+          "defaultValue": 1,
+          "formResetBehavior": "increment"
         },
         {
           "title": "Robot",
@@ -85,7 +85,6 @@
           "type": "select",
           "required": true,
           "code": "robot",
-          "formResetBehavior": "preserve",
           "defaultValue": "R1",
           "choices": {
             "R1": "Red 1",
@@ -94,7 +93,8 @@
             "B1": "Blue 1",
             "B2": "Blue 2",
             "B3": "Blue 3"
-          }
+          },
+          "formResetBehavior": "preserve"
         },
         {
           "title": "Team Number",
@@ -102,7 +102,6 @@
           "type": "number",
           "required": true,
           "code": "teamNumber",
-          "formResetBehavior": "reset",
           "defaultValue": 0,
           "min": 0,
           "max": 19999
@@ -113,12 +112,11 @@
           "type": "select",
           "required": true,
           "code": "Prsp",
-          "formResetBehavior": "reset",
           "defaultValue": "",
           "choices": {
-            "R1": "Processor Side",
+            "R1": "Left",
             "R2": "Middle",
-            "R3": "Non-Processor Side"
+            "R3": "Right"
           }
         },
         {
@@ -127,7 +125,6 @@
           "type": "boolean",
           "required": false,
           "code": "noShow",
-          "formResetBehavior": "reset",
           "defaultValue": false
         },
         {
@@ -136,9 +133,23 @@
           "type": "select",
           "required": true,
           "code": "CPos",
-          "formResetBehavior": "reset",
           "defaultValue": "",
-          "choices": { "SP1": "High", "SP2": "Low" }
+          "choices": {
+            "SP1": "Deep",
+            "SP2": "Shallow"
+          }
+        },
+        {
+          "title": "Field Layout",
+          "description": "Reference diagram of the field",
+          "type": "image",
+          "required": false,
+          "code": "fieldLayout",
+          "defaultValue": "https://firstfrc.blob.core.windows.net/frc2025/Manual/HTML/2025GameManual_files/image008.png",
+          "width": 400,
+          "height": 300,
+          "alt": "2025 FRC Field Layout Diagram",
+          "formResetBehavior": "preserve"
         }
       ]
     },
@@ -151,7 +162,6 @@
           "type": "boolean",
           "required": false,
           "code": "Mved",
-          "formResetBehavior": "reset",
           "defaultValue": false
         },
         {
@@ -160,7 +170,6 @@
           "type": "timer",
           "required": false,
           "code": "timer",
-          "formResetBehavior": "reset",
           "defaultValue": 0
         },
         {
@@ -169,7 +178,6 @@
           "type": "counter",
           "required": false,
           "code": "CLOA",
-          "formResetBehavior": "reset",
           "defaultValue": 0,
           "min": 0,
           "step": 1
@@ -180,7 +188,6 @@
           "type": "counter",
           "required": false,
           "code": "CLTA",
-          "formResetBehavior": "reset",
           "defaultValue": 0,
           "min": 0,
           "step": 1
@@ -191,7 +198,6 @@
           "type": "counter",
           "required": false,
           "code": "CLThA",
-          "formResetBehavior": "reset",
           "defaultValue": 0,
           "min": 0,
           "step": 1
@@ -202,7 +208,6 @@
           "type": "counter",
           "required": false,
           "code": "CLFA",
-          "formResetBehavior": "reset",
           "defaultValue": 0,
           "min": 0,
           "step": 1
@@ -213,7 +218,6 @@
           "type": "counter",
           "required": false,
           "code": "BASA",
-          "formResetBehavior": "reset",
           "defaultValue": 0,
           "min": 0,
           "step": 1
@@ -224,17 +228,15 @@
           "type": "counter",
           "required": false,
           "code": "PASA",
-          "formResetBehavior": "reset",
           "defaultValue": 0,
           "min": 0,
           "step": 1
         },
         {
-          "title": "Intentionally Removed Algae?",
+          "title": "Dislodged Algae?",
           "type": "boolean",
           "required": false,
           "code": "dto",
-          "formResetBehavior": "reset",
           "defaultValue": false
         },
         {
@@ -242,7 +244,6 @@
           "type": "counter",
           "required": false,
           "code": "auf",
-          "formResetBehavior": "reset",
           "defaultValue": 0,
           "min": 0,
           "step": 1
@@ -253,11 +254,10 @@
       "name": "Teleop",
       "fields": [
         {
-          "title": "Intentionally Removed Algae?",
+          "title": "Dislodged Algae?",
           "type": "boolean",
           "required": false,
           "code": "daT",
-          "formResetBehavior": "reset",
           "defaultValue": false
         },
         {
@@ -265,7 +265,6 @@
           "type": "select",
           "required": false,
           "code": "TGPL",
-          "formResetBehavior": "reset",
           "defaultValue": "",
           "choices": {
             "1": "None",
@@ -281,7 +280,6 @@
           "type": "counter",
           "required": false,
           "code": "CLOT",
-          "formResetBehavior": "reset",
           "defaultValue": 0,
           "min": 0,
           "step": 1
@@ -292,7 +290,6 @@
           "type": "counter",
           "required": false,
           "code": "CLTT",
-          "formResetBehavior": "reset",
           "defaultValue": 0,
           "min": 0,
           "step": 1
@@ -303,7 +300,6 @@
           "type": "counter",
           "required": false,
           "code": "CLThT",
-          "formResetBehavior": "reset",
           "defaultValue": 0,
           "min": 0,
           "step": 1
@@ -314,7 +310,6 @@
           "type": "counter",
           "required": false,
           "code": "CLFT",
-          "formResetBehavior": "reset",
           "defaultValue": 0,
           "min": 0,
           "step": 1
@@ -325,7 +320,6 @@
           "type": "counter",
           "required": false,
           "code": "BAST",
-          "formResetBehavior": "reset",
           "defaultValue": 0,
           "min": 0,
           "step": 1
@@ -336,25 +330,22 @@
           "type": "counter",
           "required": false,
           "code": "PAST",
-          "formResetBehavior": "reset",
           "defaultValue": 0,
           "min": 0,
           "step": 1
         },
         {
-          "title": "Crossed Field/Played Defense?",
+          "title": "Crossed Feild/Played Defense?",
           "type": "boolean",
           "required": false,
           "code": "CFPDT",
-          "formResetBehavior": "reset",
           "defaultValue": false
         },
         {
-          "title": "Was Robot Defended by Other Alliance?",
+          "title": "Tipped/Fell Over?",
           "type": "boolean",
           "required": false,
-          "code": "DEFEg",
-          "formResetBehavior": "reset",
+          "code": "TFOT",
           "defaultValue": false
         },
         {
@@ -362,9 +353,15 @@
           "type": "counter",
           "required": false,
           "code": "Fou/Tech",
-          "formResetBehavior": "reset",
           "defaultValue": 0,
           "step": 1
+        },
+        {
+          "title": "Died?",
+          "type": "boolean",
+          "required": false,
+          "code": "DEg",
+          "defaultValue": false
         }
       ]
     },
@@ -376,30 +373,20 @@
           "type": "select",
           "required": true,
           "code": "epo",
-          "formResetBehavior": "reset",
           "defaultValue": "No",
           "choices": {
             "No": "Not Parked",
             "P": "Parked",
-            "Sc": "High Hang",
-            "Dc": "Low Hang",
-            "Fc": "Failed Hang"
+            "Sc": "Shallow Climb",
+            "Dc": "Deep Climb",
+            "Fc": "Failed Climb"
           }
         },
         {
-          "title": "Died?",
+          "title": "Defended?",
           "type": "boolean",
           "required": false,
-          "code": "DEg",
-          "formResetBehavior": "reset",
-          "defaultValue": false
-        },
-        {
-          "title": "Tipped/Fell Over?",
-          "type": "boolean",
-          "required": false,
-          "code": "TFOT",
-          "formResetBehavior": "reset",
+          "code": "DEFEg",
           "defaultValue": false
         }
       ]
@@ -412,7 +399,6 @@
           "type": "range",
           "required": false,
           "code": "or",
-          "formResetBehavior": "reset",
           "defaultValue": 3,
           "min": 1,
           "max": 5,
@@ -423,9 +409,8 @@
           "type": "range",
           "required": false,
           "code": "dr",
-          "formResetBehavior": "reset",
-          "defaultValue": 0,
-          "min": 0,
+          "defaultValue": 3,
+          "min": 1,
           "max": 5,
           "step": 1
         },
@@ -434,7 +419,6 @@
           "type": "select",
           "required": true,
           "code": "yc",
-          "formResetBehavior": "reset",
           "defaultValue": "No Card",
           "choices": {
             "No Card": "No Card",
@@ -447,10 +431,9 @@
           "type": "text",
           "required": false,
           "code": "co",
-          "formResetBehavior": "reset",
           "defaultValue": "",
           "min": 0,
-          "max": 100
+          "max": 50
         }
       ]
     }
