@@ -1,8 +1,13 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import { z } from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 import { configSchema } from '../components/inputs/BaseInputProps.ts';
+
+// Get the current file's directory
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Get the output file path from command line arguments
 const outputFilePath = process.argv[2];
