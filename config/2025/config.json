@@ -1,1 +1,750 @@
-{"title":"QRScout","page_title":"REEFSCAPE","delimiter":"\t","teamNumber":2491,"theme":{"light":{"background":"0 0% 100%","foreground":"0 0% 3.9%","card":"0 0% 100%","card_foreground":"0 0% 3.9%","popover":"0 0% 100%","popover_foreground":"0 0% 3.9%","primary":"280 100% 30%","primary_foreground":"280 55.7% 97.3%","secondary":"0 0% 96.1%","secondary_foreground":"0 0% 9%","muted":"0 0% 96.1%","muted_foreground":"0 0% 45.1%","accent":"0 0% 96.1%","accent_foreground":"0 0% 9%","destructive":"0 100% 33.9%","destructive_foreground":"280 0% 98%","border":"0 0% 89.8%","input":"270 80% 46.9%","ring":"280 100% 30%","chart_1":"12 76% 61%","chart_2":"173 58% 39%","chart_3":"197 37% 24%","chart_4":"43 74% 66%","chart_5":"27 87% 67%"},"dark":{"background":"0 0% 3.9%","foreground":"0 0% 98%","card":"0 0% 3.9%","card_foreground":"0 0% 98%","popover":"0 0% 3.9%","popover_foreground":"0 0% 98%","primary":"270 100% 80.2%","primary_foreground":"240 1.4% 13.9%","secondary":"0 0% 14.9%","secondary_foreground":"0 0% 98%","muted":"0 0% 14.9%","muted_foreground":"0 0% 63.9%","accent":"0 0% 14.9%","accent_foreground":"0 0% 98%","destructive":"0.6 96.4% 78.4%","destructive_foreground":"240 1.4% 13.9%","border":"0 0% 14.9%","input":"270 100% 80.2%","ring":"280 100% 30%","chart_1":"220 70% 50%","chart_2":"160 60% 45%","chart_3":"30 80% 55%","chart_4":"280 65% 60%","chart_5":"340 75% 55%"}},"sections":[{"name":"Prematch-1","fields":[{"title":"Scouter Name","description":"Enter the name of the scouter.","type":"text","required":true,"code":"scouter","formResetBehavior":"preserve","defaultValue":""},{"title":"Team of Scouter","description":"Enter the team of the scouter.","type":"select","required":true,"code":"scouter team","formResetBehavior":"preserve","defaultValue":"","choices":{"NoMythic":"NoMythic","Wind Chill":"Wind Chill","MPArors":"MPArors","Open Circuits":"Open Circuits","Nautilus":"Nautilus"}},{"title":"Type of Match","description":"The type of match it is.","type":"select","required":true,"code":"MatchType","formResetBehavior":"preserve","defaultValue":"","choices":{"Practice":"Practice","Qualifications":"Qualification","Playoff":"Playoff"}}]},{"name":"Prematch-2","fields":[{"title":"Match Number","description":"Enter the match number.","type":"number","required":true,"code":"matchNumber","formResetBehavior":"increment","defaultValue":1},{"title":"Driver Station","description":"The robot you are scouting this match, based on driver station position.","type":"select","required":true,"code":"robot","formResetBehavior":"preserve","defaultValue":"R1","choices":{"R1":"Red 1","R2":"Red 2","R3":"Red 3","B1":"Blue 1","B2":"Blue 2","B3":"Blue 3"}}]},{"name":"Prematch-3","fields":[{"title":"Team Number","description":"The team number of the robot you're scouting.","type":"select","required":true,"code":"teamNumber","formResetBehavior":"reset","defaultValue":"","choices":{"2181":"2181 - GEARS","2207":"2207 - Bright Bears","2220":"2220 - Blue Twilight","2227":"2227 - Tigers","2264":"2264 - Trojan Robotics","2450":"2450 - Wind Chill","2472":"2472 - Centurions","2491":"2491 - NoMythic","2498":"2498 - BearBotics","2502":"2502 - Talon Robotics","2511":"2511 - Cougars","2513":"2513 - T.E.R.T.O.L.A.","2538":"2538 - The Plaid Pillagers","2549":"2549 - Millerbots","2667":"2667 - Knights of the Valley","2823":"2823 - The Automatons","2846":"2846 - FireBears","2847":"2847 - The MegaHertz","2855":"2855 - BEASTBOT","3018":"3018 - Nordic Storm","3038":"3038 - ICE","3082":"3082 - Chicken Bot Pie","3297":"3297 - Full Metal Jackets","3454":"3454 - Z Bots","3630":"3630 - Stampede","3745":"3745 - Governors","3755":"3755 - Dragon Robotics","3792":"3792 - Army Ants","3883":"3883 - Data Bits","3891":"3891 - Rodeo Robotics","3926":"3926 - MPArors","4174":"4174 - Mustang Robotics","4225":"4225 - RoboCats","4229":"4229 - Magnetech","4663":"4663 - Cyber Tigers","4664":"4664 - Butler Bots","4687":"4687 - Spartobots","4778":"4778 - Stormbots","5271":"5271 - Open Circuits","5464":"5464 - Bluejacket Robotics","5541":"5541 - Shakopee Sabers","5996":"5996 - R.U.R.","6045":"6045 - Sabre Robotics","6217":"6217 - Bomb-Botz","6909":"6909 - SAKURA Tempesta","7068":"7068 - Mechanical Masterminds","7594":"7594 - Nautilus","7849":"7849 - Da Vinci's Creation","7850":"7850 - C.A.R.D.S.","8234":"8234 - Panthinators","8570":"8570 - Binary-Bolts"}},{"title":"No Show","description":"Check if the robot did not show up for the match.","type":"boolean","required":false,"code":"noShow","formResetBehavior":"reset","defaultValue":false}]},{"name":"Prematch-4","fields":[{"title":"Starting Position","description":"The starting position of the robot.","type":"select","required":false,"code":"Start","formResetBehavior":"reset","defaultValue":"","choices":{"Red Barge":"Red Barge","Middle":"Middle","Blue Barge":"Blue Barge"}},{"title":"Pre-Loaded Coral","description":"Check if the robot is preloaded with Coral.","type":"boolean","required":false,"code":"Preload","formResetBehavior":"reset","defaultValue":true}]},{"name":"CORAL Auto-1","fields":[{"title":"Leave the Starting Line?","description":"Check if the robot is no longer on the starting line.","type":"boolean","required":false,"code":"Leave","formResetBehavior":"reset","defaultValue":false},{"title":"Coral Pick Up | Pro-Side Feeder Station (Auto)","description":"Number of Coral picked up from the Feeder on the Processor side of the field.","type":"counter","required":false,"code":"AutoFeeder1","formResetBehavior":"reset","defaultValue":0,"min":0,"step":1},{"title":"Coral Pick Up | Brg-Side Feeder Station (Auto)","description":"Number of Coral picked up from the Feeder on the Barge side of the field.","type":"counter","required":false,"code":"AutoFeeder3","formResetBehavior":"reset","defaultValue":0,"min":0,"step":1},{"title":"Coral Pick Up | Floor (Auto)","type":"counter","required":false,"code":"AutoFloor","formResetBehavior":"reset","defaultValue":0,"min":0,"step":1}]},{"name":"CORAL Auto-2","fields":[{"title":"Coral Scored - L4","description":"The number of Coral scored in L4 during autonomous.","type":"counter","required":false,"code":"AutoL4","formResetBehavior":"reset","defaultValue":0,"min":0,"step":1},{"title":"Coral Scored - L3","description":"The number of Coral scored in L3 during autonomous.","type":"counter","required":false,"code":"AutoL3","formResetBehavior":"reset","defaultValue":0,"min":0,"step":1},{"title":"Coral Scored - L2","description":"The number of Coral scored in L2 during autonomous.","type":"counter","required":false,"code":"AutoL2","formResetBehavior":"reset","defaultValue":0,"min":0,"step":1},{"title":"Coral Scored - L1","description":"The number of Coral scored in L1 during autonomous.","type":"counter","required":false,"code":"AutoL1","formResetBehavior":"reset","defaultValue":0,"min":0,"step":1},{"title":"Coral Missed","description":"The number of Coral attempted to be scored but missed.","type":"counter","required":false,"code":"AutoCoralMiss","formResetBehavior":"reset","defaultValue":0,"min":0,"step":1}]},{"name":"ALGAE Auto-1","fields":[{"title":"Algae Placed in Processor (Auto)","description":"The number of algae placed in processor during Autonomous.","type":"counter","required":false,"code":"AutoProcessor","formResetBehavior":"reset","defaultValue":0,"min":0,"step":1},{"title":"Algae in Net: Scored (Auto)","description":"The number of algae scored in net during Autonomous.","type":"counter","required":false,"code":"AutoNet","formResetBehavior":"reset","defaultValue":0,"min":0,"step":1},{"title":"Algae in Net: Missed (Auto)","description":"The number of algae missed in net during Autonomous.","type":"counter","required":false,"code":"AutoNetMiss","formResetBehavior":"reset","defaultValue":0,"min":0,"step":1}]},{"name":"ALGAE Auto-2","fields":[{"title":"Algae Picked Off Reef (Auto)","description":"The number of algae Picked Off the Reef during Autonomous.","type":"counter","required":false,"code":"AutoAlgaeReef","formResetBehavior":"reset","defaultValue":0,"min":0,"max":6,"step":1},{"title":"Algae Picked Off Floor (Auto)","description":"The number of algae Picked Up from the floor during Autonomous.","type":"counter","required":false,"code":"AutoFloorPickup","formResetBehavior":"reset","defaultValue":0,"min":0,"max":3,"step":1}]},{"name":"CORAL Tele-1","fields":[{"title":"Coral Pick Up | Human Player Station (Tele)","description":"Did the team pick up Coral from the Human Player Station(s)?","type":"boolean","required":false,"code":"TeleFeeder","formResetBehavior":"reset","defaultValue":false},{"title":"Coral Pick Up | Floor (Tele)","description":"Did the team pick up Coral from the floor?","type":"boolean","required":false,"code":"TeleFloor","formResetBehavior":"reset","defaultValue":false},{"title":"Coral Missed (Tele)","description":"The number of Coral attempted to be scored but missed.","type":"counter","required":false,"code":"TeleCoralMiss","formResetBehavior":"reset","defaultValue":0,"min":0,"step":1}]},{"name":"CORAL Tele-2","fields":[{"title":"Coral Scored - L4","description":"The number of Coral scored in L4 during TeleOp.","type":"counter","required":false,"code":"TeleL4","formResetBehavior":"reset","defaultValue":0,"min":0,"step":1},{"title":"Coral Scored - L3","description":"The number of Coral scored in L3 during TeleOp.","type":"counter","required":false,"code":"TeleL3","formResetBehavior":"reset","defaultValue":0,"min":0,"step":1},{"title":"Coral Scored - L2","description":"The number of Coral scored in L2 during TeleOp.","type":"counter","required":false,"code":"TeleL2","formResetBehavior":"reset","defaultValue":0,"min":0,"step":1},{"title":"Coral Scored - L1","description":"The number of Coral scored in L1 during TeleOp.","type":"counter","required":false,"code":"TeleL1","formResetBehavior":"reset","defaultValue":0,"min":0,"step":1}]},{"name":"ALGAE Tele-1","fields":[{"title":"Algae Placed in Processor (Tele)","description":"The number of algae placed in processor during TeleOp.","type":"counter","required":false,"code":"TeleopProcessor","formResetBehavior":"reset","defaultValue":0,"min":0,"step":1},{"title":"Algae in Net: Scored (Tele)","description":"The number of algae scored in net during Teleop.","type":"counter","required":false,"code":"TeleopNet","formResetBehavior":"reset","defaultValue":0,"min":0,"step":1},{"title":"Algae in Net: Missed (Tele)","description":"The number of algae missed in net during TeleOp.","type":"counter","required":false,"code":"TeleNetMiss","formResetBehavior":"reset","defaultValue":0,"min":0,"step":1}]},{"name":"ALGAE Tele-2","fields":[{"title":"Algae Picked Off Reef: Controlled (Tele)","description":"The number of algae Picked Off the Reef during TeleOp where they keep control of the Algae.","type":"counter","required":false,"code":"TeleAlgaeReefControl","formResetBehavior":"reset","defaultValue":0,"min":0,"max":12,"step":1},{"title":"Algae Picked Off Reef: Uncontrolled (Tele)","description":"The number of algae Picked off the Reef during TeleOp where they loose control of the Algae.","type":"counter","required":false,"code":"TeleAlgaeReefUncontrol","formResetBehavior":"reset","defaultValue":0,"min":0,"max":12,"step":1},{"title":"Algae Picked Up from Floor (Tele)","description":"The number of algae picked up from the floor during TeleOp.","type":"counter","required":false,"code":"TeleAlgaeFloor","formResetBehavior":"reset","defaultValue":0,"min":0,"max":12,"step":1}]},{"name":"Endgame-1","fields":[{"title":"EndGame Strategy","type":"select","required":true,"code":"endstrat","formResetBehavior":"reset","defaultValue":"No","choices":{"No":"No Change","P":"Park","Sc":"Shallow Climb","Dc":"Deep Climb"}}]},{"name":"Endgame-2","fields":[{"title":"Climb Timer","type":"timer","required":false,"code":"ClimbTime","formResetBehavior":"reset","defaultValue":0}]},{"name":"Endgame-3","fields":[{"title":"Cage Swinging?","description":"Check if the cage was swinging a lot before the robot climbed.","type":"boolean","required":false,"code":"CageSwing","formResetBehavior":"reset","defaultValue":false}]},{"name":"Endgame-4","fields":[{"title":"End Position","description":"What is the position of the robt at the end of the match?","type":"select","required":false,"code":"EndPosition","formResetBehavior":"reset","defaultValue":"No","choices":{"No":"No Park","P":"Park","Dc":"Deep Climb","Sc":"Shallow Climb"}},{"title":"Endgame Comments","type":"text","required":false,"code":"endco","formResetBehavior":"reset","defaultValue":"","min":0,"max":100}]},{"name":"Postmatch-1","fields":[{"title":"Defense Skill","type":"select","required":false,"code":"dr","formResetBehavior":"reset","defaultValue":"x","choices":{"1":"Not Effective","2":"Average","3":"Very Effective","x":"Not Observed"}},{"title":"Crossed Center Line","description":"Did the Robot Cross the Centerline into the Other Alliance's Half?","type":"boolean","required":false,"code":"CenterLineCrossed","formResetBehavior":"reset","defaultValue":false}]},{"name":"Postmatch-2","fields":[{"title":"Major Mechanism Broke","description":"Did one of the robot's major mechanism (Scoring, Climbing, Intake) break?","type":"boolean","required":false,"code":"broken","formResetBehavior":"reset","defaultValue":false},{"title":"Robot Disabled? (Solid Orange Light)","type":"boolean","required":false,"code":"dto","formResetBehavior":"reset","defaultValue":false}]},{"name":"Postmatch-3","fields":[{"title":"Tippy Robot?","type":"select","required":false,"code":"Tippy","formResetBehavior":"reset","defaultValue":"x","choices":{"1":"Tippy, but didn't actually Tip","2":"Tipped but righted themselves","3":"Tipped and didn't get back up","x":"Not Observed"}}]},{"name":"Postmatch-4","fields":[{"title":"Yellow/Red Card","type":"select","required":true,"code":"yc","formResetBehavior":"reset","defaultValue":"No Card","choices":{"No Card":"No Card","Yellow":"Yellow Card","Red":"Red Card"}},{"title":"Comments","type":"text","required":false,"code":"co","formResetBehavior":"reset","defaultValue":"","min":0,"max":100}]}]}
+{
+  "title": "QRScout",
+  "page_title": "REEFSCAPE",
+  "delimiter": "\t",
+  "teamNumber": 2491,
+  "theme": {
+    "light": {
+      "background": "0 0% 100%",
+      "foreground": "0 0% 3.9%",
+      "card": "0 0% 100%",
+      "card_foreground": "0 0% 3.9%",
+      "popover": "0 0% 100%",
+      "popover_foreground": "0 0% 3.9%",
+      "primary": "270 100% 60%",
+      "primary_foreground": "280 55.7% 97.3%",
+      "secondary": "0 0% 96.1%",
+      "secondary_foreground": "0 0% 9%",
+      "muted": "0 0% 96.1%",
+      "muted_foreground": "0 0% 45.1%",
+      "accent": "0 0% 96.1%",
+      "accent_foreground": "0 0% 9%",
+      "destructive": "0 100% 33.9%",
+      "destructive_foreground": "280 0% 98%",
+      "border": "0 0% 89.8%",
+      "input": "0 50% 50%",
+      "ring": "280 100% 30%",
+      "chart_1": "12 76% 61%",
+      "chart_2": "173 58% 39%",
+      "chart_3": "197 37% 24%",
+      "chart_4": "0 74% 66%",
+      "chart_5": "27 87% 67%"
+    },
+    "dark": {
+      "background": "0 0% 3.9%",
+      "foreground": "0 0% 98%",
+      "card": "0 0% 3.9%",
+      "card_foreground": "0 0% 98%",
+      "popover": "0 0% 3.9%",
+      "popover_foreground": "0 0% 98%",
+      "primary": "270 100% 80.2%",
+      "primary_foreground": "240 1.4% 13.9%",
+      "secondary": "0 0% 14.9%",
+      "secondary_foreground": "0 0% 98%",
+      "muted": "0 0% 14.9%",
+      "muted_foreground": "0 0% 63.9%",
+      "accent": "0 0% 14.9%",
+      "accent_foreground": "0 0% 98%",
+      "destructive": "0.6 96.4% 78.4%",
+      "destructive_foreground": "240 1.4% 13.9%",
+      "border": "0 0% 14.9%",
+      "input": "0 50% 50%",
+      "ring": "280 100% 30%",
+      "chart_1": "220 70% 50%",
+      "chart_2": "160 60% 45%",
+      "chart_3": "30 80% 55%",
+      "chart_4": "280 65% 60%",
+      "chart_5": "340 75% 55%"
+    }
+  },
+  "sections": [
+    {
+      "name": "Prematch-1",
+      "fields": [
+        {
+          "title": "Scouter Name",
+          "description": "Enter the name of the scouter.",
+          "type": "text",
+          "required": true,
+          "code": "scouter",
+          "formResetBehavior": "preserve",
+          "defaultValue": ""
+        },
+        {
+          "title": "Team of Scouter",
+          "description": "Enter the team of the scouter.",
+          "type": "select",
+          "required": true,
+          "code": "scouter team",
+          "formResetBehavior": "preserve",
+          "defaultValue": "",
+          "choices": {
+            "NoMythic": "NoMythic",
+            "Wind Chill": "Wind Chill",
+            "MPArors": "MPArors",
+            "Open Circuits": "Open Circuits",
+            "Nautilus": "Nautilus",
+            "Bomb Botz": "Bomb Botz"
+          }
+        },
+        {
+          "title": "Type of Match",
+          "description": "The type of match it is.",
+          "type": "select",
+          "required": true,
+          "code": "MatchType",
+          "formResetBehavior": "preserve",
+          "defaultValue": "",
+          "choices": {
+            "Practice": "Practice",
+            "Qualifications": "Qualification",
+            "Playoff": "Playoff"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Prematch-2",
+      "fields": [
+        {
+          "title": "Match Number",
+          "description": "Enter the match number.",
+          "type": "number",
+          "required": true,
+          "code": "matchNumber",
+          "formResetBehavior": "increment",
+          "defaultValue": 1
+        },
+        {
+          "title": "Driver Station",
+          "description": "The robot you are scouting this match, based on driver station position.",
+          "type": "select",
+          "required": true,
+          "code": "robot",
+          "formResetBehavior": "preserve",
+          "defaultValue": "R1",
+          "choices": {
+            "R1": "Red 1",
+            "R2": "Red 2",
+            "R3": "Red 3",
+            "B1": "Blue 1",
+            "B2": "Blue 2",
+            "B3": "Blue 3"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Prematch-3",
+      "fields": [
+        {
+          "title": "Team Number",
+          "description": "The team number of the robot you're scouting.",
+          "type": "select",
+          "required": true,
+          "code": "teamNumber",
+          "formResetBehavior": "reset",
+          "defaultValue": "",
+          "choices": {
+            "2181": "2181 - GEARS",
+            "2207": "2207 - Bright Bears",
+            "2220": "2220 - Blue Twilight",
+            "2227": "2227 - Tigers",
+            "2264": "2264 - Trojan Robotics",
+            "2450": "2450 - Wind Chill",
+            "2472": "2472 - Centurions",
+            "2491": "2491 - NoMythic",
+            "2498": "2498 - BearBotics",
+            "2502": "2502 - Talon Robotics",
+            "2511": "2511 - Cougars",
+            "2513": "2513 - T.E.R.T.O.L.A.",
+            "2538": "2538 - The Plaid Pillagers",
+            "2549": "2549 - Millerbots",
+            "2667": "2667 - Knights of the Valley",
+            "2823": "2823 - The Automatons",
+            "2846": "2846 - FireBears",
+            "2847": "2847 - The MegaHertz",
+            "2855": "2855 - BEASTBOT",
+            "3018": "3018 - Nordic Storm",
+            "3038": "3038 - ICE",
+            "3082": "3082 - Chicken Bot Pie",
+            "3297": "3297 - Full Metal Jackets",
+            "3454": "3454 - Z Bots",
+            "3630": "3630 - Stampede",
+            "3745": "3745 - Governors",
+            "3755": "3755 - Dragon Robotics",
+            "3792": "3792 - Army Ants",
+            "3883": "3883 - Data Bits",
+            "3891": "3891 - Rodeo Robotics",
+            "3926": "3926 - MPArors",
+            "4174": "4174 - Mustang Robotics",
+            "4225": "4225 - RoboCats",
+            "4229": "4229 - Magnetech",
+            "4663": "4663 - Cyber Tigers",
+            "4664": "4664 - Butler Bots",
+            "4687": "4687 - Spartobots",
+            "4778": "4778 - Stormbots",
+            "5271": "5271 - Open Circuits",
+            "5464": "5464 - Bluejacket Robotics",
+            "5541": "5541 - Shakopee Sabers",
+            "5996": "5996 - R.U.R.",
+            "6045": "6045 - Sabre Robotics",
+            "6217": "6217 - Bomb-Botz",
+            "6909": "6909 - SAKURA Tempesta",
+            "7068": "7068 - Mechanical Masterminds",
+            "7594": "7594 - Nautilus",
+            "7849": "7849 - Da Vinci's Creation",
+            "7850": "7850 - C.A.R.D.S.",
+            "8234": "8234 - Panthinators",
+            "8570": "8570 - Binary-Bolts"
+          }
+        },
+        {
+          "title": "No Show",
+          "description": "Check if the robot did not show up for the match.",
+          "type": "boolean",
+          "required": false,
+          "code": "noShow",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        }
+      ]
+    },
+    {
+      "name": "Prematch-4",
+      "fields": [
+        {
+          "title": "Starting Position",
+          "description": "The starting position of the robot.",
+          "type": "select",
+          "required": false,
+          "code": "Start",
+          "formResetBehavior": "reset",
+          "defaultValue": "",
+          "choices": {
+            "Red Barge": "Red Barge",
+            "Middle": "Middle",
+            "Blue Barge": "Blue Barge"
+          }
+        },
+        {
+          "title": "Pre-Loaded Coral",
+          "description": "Check if the robot is preloaded with Coral.",
+          "type": "boolean",
+          "required": false,
+          "code": "Preload",
+          "formResetBehavior": "reset",
+          "defaultValue": true
+        }
+      ]
+    },
+    {
+      "name": "CORAL Auto-1",
+      "fields": [
+        {
+          "title": "Leave the Starting Line?",
+          "description": "Check if the robot is no longer on the starting line.",
+          "type": "boolean",
+          "required": false,
+          "code": "Leave",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        },
+        {
+          "title": "Coral Pick Up | Pro-Side Feeder Station (Auto)",
+          "description": "Number of Coral picked up from the Feeder on the Processor side of the field.",
+          "type": "counter",
+          "required": false,
+          "code": "AutoFeeder1",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "title": "Coral Pick Up | Brg-Side Feeder Station (Auto)",
+          "description": "Number of Coral picked up from the Feeder on the Barge side of the field.",
+          "type": "counter",
+          "required": false,
+          "code": "AutoFeeder3",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "title": "Coral Pick Up | Floor (Auto)",
+          "type": "counter",
+          "required": false,
+          "code": "AutoFloor",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        }
+      ]
+    },
+    {
+      "name": "CORAL Auto-2",
+      "fields": [
+        {
+          "title": "Coral Scored - L4",
+          "description": "The number of Coral scored in L4 during autonomous.",
+          "type": "counter",
+          "required": false,
+          "code": "AutoL4",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "title": "Coral Scored - L3",
+          "description": "The number of Coral scored in L3 during autonomous.",
+          "type": "counter",
+          "required": false,
+          "code": "AutoL3",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "title": "Coral Scored - L2",
+          "description": "The number of Coral scored in L2 during autonomous.",
+          "type": "counter",
+          "required": false,
+          "code": "AutoL2",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "title": "Coral Scored - L1",
+          "description": "The number of Coral scored in L1 during autonomous.",
+          "type": "counter",
+          "required": false,
+          "code": "AutoL1",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "title": "Coral Missed",
+          "description": "The number of Coral attempted to be scored but missed.",
+          "type": "counter",
+          "required": false,
+          "code": "AutoCoralMiss",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        }
+      ]
+    },
+    {
+      "name": "ALGAE Auto-1",
+      "fields": [
+        {
+          "title": "Algae Placed in Processor (Auto)",
+          "description": "The number of algae placed in processor during Autonomous.",
+          "type": "counter",
+          "required": false,
+          "code": "AutoProcessor",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "title": "Algae in Net: Scored (Auto)",
+          "description": "The number of algae scored in net during Autonomous.",
+          "type": "counter",
+          "required": false,
+          "code": "AutoNet",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "title": "Algae in Net: Missed (Auto)",
+          "description": "The number of algae missed in net during Autonomous.",
+          "type": "counter",
+          "required": false,
+          "code": "AutoNetMiss",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        }
+      ]
+    },
+    {
+      "name": "ALGAE Auto-2",
+      "fields": [
+        {
+          "title": "Algae Picked Off Reef (Auto)",
+          "description": "The number of algae Picked Off the Reef during Autonomous.",
+          "type": "counter",
+          "required": false,
+          "code": "AutoAlgaeReef",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "max": 6,
+          "step": 1
+        },
+        {
+          "title": "Algae Picked Off Floor (Auto)",
+          "description": "The number of algae Picked Up from the floor during Autonomous.",
+          "type": "counter",
+          "required": false,
+          "code": "AutoFloorPickup",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "max": 3,
+          "step": 1
+        }
+      ]
+    },
+    {
+      "name": "CORAL Tele-1",
+      "fields": [
+        {
+          "title": "Coral Pick Up | Human Player Station (Tele)",
+          "description": "Did the team pick up Coral from the Human Player Station(s)?",
+          "type": "boolean",
+          "required": false,
+          "code": "TeleFeeder",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        },
+        {
+          "title": "Coral Pick Up | Floor (Tele)",
+          "description": "Did the team pick up Coral from the floor?",
+          "type": "boolean",
+          "required": false,
+          "code": "TeleFloor",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        },
+        {
+          "title": "Coral Missed (Tele)",
+          "description": "The number of Coral attempted to be scored but missed.",
+          "type": "counter",
+          "required": false,
+          "code": "TeleCoralMiss",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        }
+      ]
+    },
+    {
+      "name": "CORAL Tele-2",
+      "fields": [
+        {
+          "title": "Coral Scored - L4",
+          "description": "The number of Coral scored in L4 during TeleOp.",
+          "type": "counter",
+          "required": false,
+          "code": "TeleL4",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "title": "Coral Scored - L3",
+          "description": "The number of Coral scored in L3 during TeleOp.",
+          "type": "counter",
+          "required": false,
+          "code": "TeleL3",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "title": "Coral Scored - L2",
+          "description": "The number of Coral scored in L2 during TeleOp.",
+          "type": "counter",
+          "required": false,
+          "code": "TeleL2",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "title": "Coral Scored - L1",
+          "description": "The number of Coral scored in L1 during TeleOp.",
+          "type": "counter",
+          "required": false,
+          "code": "TeleL1",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        }
+      ]
+    },
+    {
+      "name": "ALGAE Tele-1",
+      "fields": [
+        {
+          "title": "Algae Placed in Processor (Tele)",
+          "description": "The number of algae placed in processor during TeleOp.",
+          "type": "counter",
+          "required": false,
+          "code": "TeleopProcessor",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "title": "Algae in Net: Scored (Tele)",
+          "description": "The number of algae scored in net during Teleop.",
+          "type": "counter",
+          "required": false,
+          "code": "TeleopNet",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "title": "Algae in Net: Missed (Tele)",
+          "description": "The number of algae missed in net during TeleOp.",
+          "type": "counter",
+          "required": false,
+          "code": "TeleNetMiss",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        }
+      ]
+    },
+    {
+      "name": "ALGAE Tele-2",
+      "fields": [
+        {
+          "title": "Algae Picked Off Reef: Controlled (Tele)",
+          "description": "The number of algae Picked Off the Reef during TeleOp where they keep control of the Algae.",
+          "type": "counter",
+          "required": false,
+          "code": "TeleAlgaeReefControl",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "max": 12,
+          "step": 1
+        },
+        {
+          "title": "Algae Picked Off Reef: Uncontrolled (Tele)",
+          "description": "The number of algae Picked off the Reef during TeleOp where they loose control of the Algae.",
+          "type": "counter",
+          "required": false,
+          "code": "TeleAlgaeReefUncontrol",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "max": 12,
+          "step": 1
+        },
+        {
+          "title": "Algae Picked Up from Floor (Tele)",
+          "description": "The number of algae picked up from the floor during TeleOp.",
+          "type": "counter",
+          "required": false,
+          "code": "TeleAlgaeFloor",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "max": 12,
+          "step": 1
+        }
+      ]
+    },
+    {
+      "name": "Endgame-1",
+      "fields": [
+        {
+          "title": "EndGame Strategy",
+          "type": "select",
+          "required": true,
+          "code": "endstrat",
+          "formResetBehavior": "reset",
+          "defaultValue": "No",
+          "choices": {
+            "No": "No Change",
+            "P": "Park",
+            "Sc": "Shallow Climb",
+            "Dc": "Deep Climb"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Endgame-2",
+      "fields": [
+        {
+          "title": "Climb Timer",
+          "type": "timer",
+          "required": false,
+          "code": "ClimbTime",
+          "formResetBehavior": "reset",
+          "defaultValue": 0
+        }
+      ]
+    },
+    {
+      "name": "Endgame-3",
+      "fields": [
+        {
+          "title": "Cage Swinging?",
+          "description": "Check if the cage was swinging a lot before the robot climbed.",
+          "type": "boolean",
+          "required": false,
+          "code": "CageSwing",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        }
+      ]
+    },
+    {
+      "name": "Endgame-4",
+      "fields": [
+        {
+          "title": "End Position",
+          "description": "What is the position of the robt at the end of the match?",
+          "type": "select",
+          "required": false,
+          "code": "EndPosition",
+          "formResetBehavior": "reset",
+          "defaultValue": "No",
+          "choices": {
+            "No": "No Park",
+            "P": "Park",
+            "Dc": "Deep Climb",
+            "Sc": "Shallow Climb"
+          }
+        },
+        {
+          "title": "Endgame Comments",
+          "type": "text",
+          "required": false,
+          "code": "endco",
+          "formResetBehavior": "reset",
+          "defaultValue": "",
+          "min": 0,
+          "max": 100
+        }
+      ]
+    },
+    {
+      "name": "Postmatch-1",
+      "fields": [
+        {
+          "title": "Defense Skill",
+          "type": "select",
+          "required": false,
+          "code": "dr",
+          "formResetBehavior": "reset",
+          "defaultValue": "x",
+          "choices": {
+            "1": "Not Effective",
+            "2": "Average",
+            "3": "Very Effective",
+            "x": "Not Observed"
+          }
+        },
+        {
+          "title": "Crossed Center Line",
+          "description": "Did the Robot Cross the Centerline into the Other Alliance's Half?",
+          "type": "boolean",
+          "required": false,
+          "code": "CenterLineCrossed",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        }
+      ]
+    },
+    {
+      "name": "Postmatch-2",
+      "fields": [
+        {
+          "title": "Major Mechanism Broke",
+          "description": "Did one of the robot's major mechanism (Scoring, Climbing, Intake) break?",
+          "type": "boolean",
+          "required": false,
+          "code": "broken",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        },
+        {
+          "title": "Robot Disabled? (Solid Orange Light)",
+          "type": "boolean",
+          "required": false,
+          "code": "dto",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        }
+      ]
+    },
+    {
+      "name": "Postmatch-3",
+      "fields": [
+        {
+          "title": "Tippy Robot?",
+          "type": "select",
+          "required": false,
+          "code": "Tippy",
+          "formResetBehavior": "reset",
+          "defaultValue": "x",
+          "choices": {
+            "1": "Tippy, but didn't actually Tip",
+            "2": "Tipped but righted themselves",
+            "3": "Tipped and didn't get back up",
+            "x": "Not Observed"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Postmatch-4",
+      "fields": [
+        {
+          "title": "Yellow/Red Card",
+          "type": "select",
+          "required": true,
+          "code": "yc",
+          "formResetBehavior": "reset",
+          "defaultValue": "No Card",
+          "choices": {
+            "No Card": "No Card",
+            "Yellow": "Yellow Card",
+            "Red": "Red Card"
+          }
+        },
+        {
+          "title": "Comments",
+          "type": "text",
+          "required": false,
+          "code": "co",
+          "formResetBehavior": "reset",
+          "defaultValue": "",
+          "min": 0,
+          "max": 100
+        }
+      ]
+    }
+  ]
+}
