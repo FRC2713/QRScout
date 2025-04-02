@@ -2,6 +2,8 @@ import { InputTypes } from './BaseInputProps';
 import CheckboxInput from './CheckboxInput';
 import CounterInput from './CounterInput';
 import ImageInput from './ImageInput';
+import DynamicMatchNumberInput from './DynamicMatchNumberInput';
+import DynamicTeamNumberInput from './DynamicTeamNumberInput';
 import NumberInput from './NumberInput';
 import RangeInput from './RangeInput';
 import SelectInput from './SelectInput';
@@ -15,6 +17,16 @@ export interface ConfigurableInputProps {
 }
 
 export default function ConfigurableInput(props: ConfigurableInputProps) {
+  // Special case handling for matchNumber and teamNumber fields
+  if (props.type === 'number' && props.code === 'matchNumber') {
+    return <DynamicMatchNumberInput {...props} key={props.code} />;
+  }
+
+  if (props.type === 'number' && props.code === 'teamNumber') {
+    return <DynamicTeamNumberInput {...props} key={props.code} />;
+  }
+
+  // Standard input handling
   switch (props.type) {
     case 'text':
       return <StringInput {...props} key={props.code} />;

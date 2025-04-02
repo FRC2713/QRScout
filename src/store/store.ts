@@ -29,6 +29,7 @@ export interface QRScoutState {
   formData: Config;
   fieldValues: { code: string; value: any }[];
   showQR: boolean;
+  matchData?: MatchData[];
 }
 
 const initialState: QRScoutState = {
@@ -130,13 +131,11 @@ export function inputSelector<T extends InputBase>(
   };
 }
 
-export async function fetchMatchData(teamNumber: number, year: number): Promise<Result<any>> {
-  const teamKey = `frc${teamNumber}`;
-  const url = `https://www.thebluealliance.com/api/v3/team/${teamKey}/matches/${year}`;
+export async function fetchTBAData(endpoint: string): Promise<Result<any>> {
   try {
-    const response = await fetch(url, {
+    const response = await fetch(endpoint, {
       headers: {
-        'X-TBA-Auth-Key': 'YOUR_AUTH_KEY_HERE', // Replace with your actual auth key
+        'X-TBA-Auth-Key': 'YOUR_TBA_API_KEY', // Replace with your actual TBA API key
       },
     });
     if (!response.ok) {
@@ -149,7 +148,7 @@ export async function fetchMatchData(teamNumber: number, year: number): Promise<
   }
 }
 
-export function setConfigWithMatchData(configText: string, matchData: MatchData): Result<void> {
+export function setConfigWithMatchData(configText: string, matchData: MatchData[]): Result<void> {
   let jsonData: any;
   try {
     jsonData = JSON.parse(configText);
@@ -162,11 +161,14 @@ export function setConfigWithMatchData(configText: string, matchData: MatchData)
     return { success: false, error: c.error };
   }
 
-  // TODO: Set the match data in the config
-  // Ensure there's no duplicate keys
-  console.log(matchData);
+  // Store match data in state without affecting current config
+  const currentState = useQRScoutState.getState();
+  useQRScoutState.setState({
+    ...currentState,
+    matchData: matchData
+  });
 
-
+  // Set the form data for display
   setFormData(c.data);
   return { success: true, data: undefined };
 }
