@@ -3,13 +3,19 @@ import { useQRScoutState, fetchTBAData, setConfigWithMatchData } from '@/store/s
 import { EventData } from '@/types/eventData';
 import { MatchData } from '@/types/matchData';
 import { EventSelectionDialog } from './EventSelectionDialog';
+import { Button } from '@/components/ui/button';
+import { Database } from 'lucide-react';
 
 type MatchDataFetcherProps = {
   onError: (message: string) => void;
-  children: (props: { fetchEvents: () => Promise<void> }) => React.ReactNode;
+  className?: string;
 };
 
-export function MatchDataFetcher({ onError, children }: MatchDataFetcherProps) {
+/**
+ * A self-contained component for fetching and processing match data from The Blue Alliance,
+ * including its own button and dialog handling.
+ */
+export function MatchDataFetcher({ onError, className }: MatchDataFetcherProps) {
   const [events, setEvents] = useState<EventData[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const formData = useQRScoutState(state => state.formData);
@@ -86,7 +92,14 @@ export function MatchDataFetcher({ onError, children }: MatchDataFetcherProps) {
         onClose={() => setIsDialogOpen(false)}
       />
       
-      {children({ fetchEvents })}
+      <Button
+        variant="secondary"
+        onClick={fetchEvents}
+        className={className}
+      >
+        <Database className="h-5 w-5 flex-shrink-0" />
+        <span className="overflow-hidden text-ellipsis">Prefill Match Data</span>
+      </Button>
     </>
   );
 }

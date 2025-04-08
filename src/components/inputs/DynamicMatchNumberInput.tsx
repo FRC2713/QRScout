@@ -111,7 +111,7 @@ export default function DynamicMatchNumberInput(props: ConfigurableInputProps) {
         <SelectContent>
           {matchNumbers.map(matchNum => (
             <SelectItem key={matchNum} value={matchNum.toString()}>
-              {matchNum}
+              Qualification {matchNum}
             </SelectItem>
           ))}
         </SelectContent>
