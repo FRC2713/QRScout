@@ -81,8 +81,7 @@
           "choices": {
             "NoMythic": "NoMythic",
             "Duluth DNA": "Duluth DNA",
-            "Binary Bolts": "Binary Bolts",
-            "The ERRORs": "The ERRORs"
+            "Ultraviolet": "Ultraviolet"
           }
         },
         {
@@ -144,81 +143,42 @@
           "formResetBehavior": "reset",
           "defaultValue": "",
           "choices": {
-            "33": "33 - Killer Bees",
-            "51": "51 - Wings of Fire",
-            "70": "70 - More Martians",
-            "86": "86 - Team Resistance",
-            "195": "195 - CyberKnights",
-            "230": "230 - Gaelhawks",
-            "467": "467 - Center of Mass",
-            "540": "540 - TALON",
-            "781": "781 - Kinetic Knights",
-            "801": "801 - Horsepower",
-            "888": "888 - Robotiators",
-            "973": "973 - Greybots",
-            "1038": "1038 - Lakota Robotics",
-            "1153": "1153 - Timberwolves",
-            "1241": "1241 - THEORY",
-            "1506": "1506 - Metal Muscle",
-            "1700": "1700 - Gatorbotics",
-            "1768": "1768 - Nashoba Robotics",
-            "1902": "1902 - Exploding Bacon",
-            "2075": "2075 - Enigma Robotics",
-            "2080": "2080 - Torbotics",
-            "2200": "2200 - BCR Blackout",
-            "2383": "2383 - Ninjineers",
-            "2470": "2470 - Team BJORG",
-            "2485": "2485 - Overclocked",
-            "2491": "2491 - NoMythic",
-            "2522": "2522 - Royal Robotics",
-            "2539": "2539 - Krypton Cougars",
-            "2706": "2706 - Merge Robotics",
-            "2767": "2767 - Stryke Force",
-            "2783": "2783 - Engineers of Tomorrow",
-            "2877": "2877 - LigerBots",
-            "2960": "2960 - Automation Nation",
-            "3045": "3045 - Gear Gremlins",
-            "3130": "3130 - The ERRORs",
-            "3197": "3197 - HexHounds",
-            "3339": "3339 - BumbleB",
-            "3473": "3473 - Team Sprocket",
-            "3656": "3656 - Dexter Dreadbots",
-            "3794": "3794 - Prepa Tecmilenio WinT",
-            "3814": "3814 - PiBotics",
-            "3882": "3882 - Lunas",
-            "3928": "3928 - Team Neutrino",
-            "3970": "3970 - Duncan Dynamics",
-            "4009": "4009 - Duluth DNA Robotics",
-            "4145": "4145 - WorBots",
-            "4728": "4728 - ROCORI Ratcheteers",
-            "4907": "4907 - Thunderstamps",
-            "5013": "5013 - Trobots",
-            "5181": "5181 - Explorer Robotics",
-            "5193": "5193 - Pantheon",
-            "5736": "5736 - Kingsmen Robotics",
-            "5817": "5817 - Uni-Rex",
-            "5985": "5985 - Project Bucephalus",
-            "5987": "5987 - Galaxia in memory of David Zohar",
-            "6324": "6324 - The Blue Devils",
-            "6621": "6621 - Artemis",
-            "6647": "6647 - PrepaTec - VOLTEC Robotics",
-            "6652": "6652 - Tigres",
-            "6873": "6873 - The Generals",
-            "7421": "7421 - PrepaTec - OVERTURE",
-            "7632": "7632 - An Kang Robotics Maker",
-            "7902": "7902 - Markham FireBirds",
-            "8177": "8177 - Vector",
-            "8570": "8570 - Binary-Bolts",
-            "8595": "8595 - This Is How We Play",
-            "9134": "9134 - Tecmilenio - DEVOLT",
-            "9245": "9245 - Laker Dreadnoughts",
-            "9450": "9450 - Velocity Raptors",
-            "9496": "9496 - LYNK",
-            "9545": "9545 - Caracal Robotics",
-            "9635": "9635 - Cyber Rabbit",
-            "10157": "10157 - Roman Robotics",
-            "10224": "10224 - MAV MECHANICS",
-            "10479": "10479 - Powerhouse"
+            "2052": "2052 KnightKrawler",
+            "2129": "2129 Ultraviolet",
+            "2225": "2225 Rebel Robotics",
+            "2470": "2470 Team BJORG",
+            "2472": "2472 Centurions",
+            "2480": "2480 Iron Paws",
+            "2491": "2491 NoMythic",
+            "2530": "2530 Inconceivable",
+            "2847": "2847 The MegaHertz",
+            "2883": "2883 F.R.E.D",
+            "2987": "2987 Rogue Robotics",
+            "3058": "3058 ANNDROIDS",
+            "3082": "3082 Chicken Bot Pie",
+            "3100": "3100 Lightning Turtles",
+            "3102": "3102 Tech-No-Tigers",
+            "3130": "3130 the ERRORs",
+            "3276": "3276 TOOLCATS",
+            "3297": "3297 Full Metal Jackets",
+            "3313": "3313 Mechatronics",
+            "3883": "3883 Data Bits",
+            "4009": "4009 Duluth DNA Robotics",
+            "4607": "4607 C.I.S.",
+            "4728": "4728 ROCORI Ratcheteers",
+            "5348": "5348 Charger Robotics",
+            "5653": "5653 Iron Mosquitos",
+            "5913": "5913 Patriotics",
+            "6045": "6045 Sabre Robotics",
+            "6132": "6132 Iron Rangers",
+            "6146": "6146 Blackjacks",
+            "6147": "6147 Tonkabots",
+            "6749": "6749 tERAbytes",
+            "7028": "7028 Binary Battalion",
+            "7257": "7257 Semiconductors",
+            "7530": "7530 Raiders of the Lost Spark",
+            "7541": "7541 Maple River Robotics",
+            "9576": "9576 Loretto Lightning"
           }
         },
         {
@@ -244,9 +204,9 @@
           "formResetBehavior": "reset",
           "defaultValue": "",
           "choices": {
-            "Red Barge": "Red Barge",
+            "Barge": "Barge",
             "Middle": "Middle",
-            "Blue Barge": "Blue Barge"
+            "Processor": "Processor"
           }
         },
         {
@@ -273,22 +233,11 @@
           "defaultValue": false
         },
         {
-          "title": "Coral Pick Up | Pro-Side Feeder Station (Auto)",
-          "description": "Number of Coral picked up from the Feeder on the Processor side of the field.",
+          "title": "Coral Pick Up | HP Station (Auto)",
+          "description": "Number of Coral picked up from the HP Station.",
           "type": "counter",
           "required": false,
-          "code": "AutoFeeder1",
-          "formResetBehavior": "reset",
-          "defaultValue": 0,
-          "min": 0,
-          "step": 1
-        },
-        {
-          "title": "Coral Pick Up | Brg-Side Feeder Station (Auto)",
-          "description": "Number of Coral picked up from the Feeder on the Barge side of the field.",
-          "type": "counter",
-          "required": false,
-          "code": "AutoFeeder3",
+          "code": "AutoHP",
           "formResetBehavior": "reset",
           "defaultValue": 0,
           "min": 0,
@@ -430,6 +379,14 @@
           "min": 0,
           "max": 3,
           "step": 1
+        },
+        {
+          "title": "Auto Comments",
+          "type": "text",
+          "required": false,
+          "code": "AutoComment",
+          "formResetBehavior": "reset",
+          "defaultValue": " "
         }
       ]
     },
@@ -560,38 +517,29 @@
         {
           "title": "Algae Picked Off Reef: Controlled (Tele)",
           "description": "The number of algae Picked Off the Reef during TeleOp where they keep control of the Algae.",
-          "type": "counter",
+          "type": "boolean",
           "required": false,
           "code": "TeleAlgaeReefControl",
           "formResetBehavior": "reset",
-          "defaultValue": 0,
-          "min": 0,
-          "max": 12,
-          "step": 1
+          "defaultValue": false
         },
         {
           "title": "Algae Picked Off Reef: Uncontrolled (Tele)",
           "description": "The number of algae Picked off the Reef during TeleOp where they loose control of the Algae.",
-          "type": "counter",
+          "type": "boolean",
           "required": false,
           "code": "TeleAlgaeReefUncontrol",
           "formResetBehavior": "reset",
-          "defaultValue": 0,
-          "min": 0,
-          "max": 12,
-          "step": 1
+          "defaultValue": false
         },
         {
           "title": "Algae Picked Up from Floor (Tele)",
           "description": "The number of algae picked up from the floor during TeleOp.",
-          "type": "counter",
+          "type": "boolean",
           "required": false,
           "code": "TeleAlgaeFloor",
           "formResetBehavior": "reset",
-          "defaultValue": 0,
-          "min": 0,
-          "max": 12,
-          "step": 1
+          "defaultValue": false
         }
       ]
     },
@@ -618,19 +566,6 @@
       "name": "Endgame-2",
       "fields": [
         {
-          "title": "Climb Timer",
-          "type": "timer",
-          "required": false,
-          "code": "ClimbTime",
-          "formResetBehavior": "reset",
-          "defaultValue": 0
-        }
-      ]
-    },
-    {
-      "name": "Endgame-3",
-      "fields": [
-        {
           "title": "Cage Swinging?",
           "description": "Check if the cage was swinging a lot before the robot climbed.",
           "type": "boolean",
@@ -642,7 +577,7 @@
       ]
     },
     {
-      "name": "Endgame-4",
+      "name": "Endgame-3",
       "fields": [
         {
           "title": "End Position",
@@ -658,7 +593,12 @@
             "Dc": "Deep Climb",
             "Sc": "Shallow Climb"
           }
-        },
+        }
+      ]
+    },
+    {
+      "name": "Endgame-4",
+      "fields": [
         {
           "title": "Endgame Comments",
           "type": "text",
@@ -733,7 +673,7 @@
             "1": "Tippy, but didn't actually Tip",
             "2": "Tipped but righted themselves",
             "3": "Tipped and didn't get back up",
-            "x": "Not Observed"
+            "x": "Not Tippy"
           }
         }
       ]
@@ -771,9 +711,9 @@
           "required": true,
           "code": "VersionID",
           "formResetBehavior": "preserve",
-          "defaultValue": "2",
+          "defaultValue": "5",
           "choices": {
-            "2": "2"
+            "5": "5"
           }
         }
       ]
