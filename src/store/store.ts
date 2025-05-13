@@ -9,7 +9,7 @@ import {
 import { MatchData } from '../types/matchData';
 import { createStore } from './createStore';
 
-type Result<T> = { success: true; data: T } | { success: false; error: Error };
+export type Result<T> = { success: true; data: T } | { success: false; error: Error };
 
 function getDefaultConfig(): Config {
   const config = configSchema.safeParse(configJson);
@@ -56,7 +56,9 @@ export async function fetchConfigFromURL(url: string): Promise<Result<void>> {
   try {
     const response = await fetch(url);
     if (!response.ok) {
-      throw new Error(`Failed to fetch config from URL: ${response.statusText}`);
+      throw new Error(
+        `Failed to fetch config from URL: ${response.statusText}`,
+      );
     }
     const configText = await response.text();
     return setConfig(configText);
@@ -86,7 +88,9 @@ export function resetFields() {
 }
 
 export function forceResetFields() {
-  window.dispatchEvent(new CustomEvent('forceResetFields', { detail: 'forceReset' }));
+  window.dispatchEvent(
+    new CustomEvent('forceResetFields', { detail: 'forceReset' }),
+  );
 }
 
 export function setFormData(config: Config) {
@@ -95,7 +99,11 @@ export function setFormData(config: Config) {
   const newFieldValues = config.sections.flatMap(s =>
     s.fields.map(f => ({ code: f.code, value: f.defaultValue })),
   );
-  useQRScoutState.setState({ ...oldState, fieldValues: newFieldValues, formData: config });
+  useQRScoutState.setState({
+    ...oldState,
+    fieldValues: newFieldValues,
+    formData: config,
+  });
 }
 
 export function setConfig(configText: string): Result<void> {
@@ -131,24 +139,11 @@ export function inputSelector<T extends InputBase>(
   };
 }
 
-export async function fetchTBAData(endpoint: string): Promise<Result<any>> {
-  try {
-    const response = await fetch(endpoint, {
-      headers: {
-        'X-TBA-Auth-Key': 'YOUR_TBA_API_KEY', // Replace with your actual TBA API key
-      },
-    });
-    if (!response.ok) {
-      throw new Error(`Failed to fetch match data: ${response.statusText}`);
-    }
-    const matchData = await response.json();
-    return { success: true, data: matchData };
-  } catch (error) {
-    return { success: false, error: error as Error };
-  }
-}
 
-export function setConfigWithMatchData(configText: string, matchData: MatchData[]): Result<void> {
+export function setConfigWithMatchData(
+  configText: string,
+  matchData: MatchData[],
+): Result<void> {
   let jsonData: any;
   try {
     jsonData = JSON.parse(configText);
@@ -165,7 +160,7 @@ export function setConfigWithMatchData(configText: string, matchData: MatchData[
   const currentState = useQRScoutState.getState();
   useQRScoutState.setState({
     ...currentState,
-    matchData: matchData
+    matchData: matchData,
   });
 
   // Set the form data for display

@@ -10,7 +10,6 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { fetchTBAData } from '@/store/store';
 
 type EventSelectionDialogProps = {
   isOpen: boolean;
