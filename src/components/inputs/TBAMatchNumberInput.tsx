@@ -1,7 +1,7 @@
 import { useEvent } from '@/hooks';
 import { inputSelector, updateValue, useQRScoutState } from '@/store/store';
 import React, { useCallback, useEffect, useMemo } from 'react';
-import { NumberInputData } from './BaseInputProps';
+import { TBAMatchNumberInputData } from './BaseInputProps';
 import { ConfigurableInputProps } from './ConfigurableInput';
 import {
   Select,
@@ -11,11 +11,10 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
-import { MatchData } from '@/types/matchData';
 
-export default function DynamicMatchNumberInput(props: ConfigurableInputProps) {
+export default function TBAMatchNumberInput(props: ConfigurableInputProps) {
   const data = useQRScoutState(
-    inputSelector<NumberInputData>(props.section, props.code),
+    inputSelector<TBAMatchNumberInputData>(props.section, props.code),
   );
   const matchData = useQRScoutState(state => state.matchData);
 
@@ -25,51 +24,44 @@ export default function DynamicMatchNumberInput(props: ConfigurableInputProps) {
 
   const [value, setValue] = React.useState<number | ''>(data.defaultValue);
 
-  // Generate a list of unique match numbers, sorted in ascending order
-  const matchNumbers = useMemo(() => {
-    if (!matchData || matchData.length === 0) return [];
-    
-    return Array.from(
-      new Set(
-        matchData
-          .filter(m => m.comp_level === 'qm') // Only use qualification matches
-          .map(m => m.match_number)
-      )
-    ).sort((a, b) => a - b);
+  // Extract unique match numbers from match data
+  const matchOptions = useMemo(() => {
+    if (!matchData || matchData.length === 0) {
+      return [];
+    }
+
+    const qualificationMatches = matchData.filter(
+      match => match.comp_level === 'qm'
+    );
+
+    const matchNumbers = qualificationMatches
+      .map(match => match.match_number)
+      .filter(num => num !== undefined)
+      .sort((a, b) => a - b);
+
+    // Remove duplicates
+    return [...new Set(matchNumbers)];
   }, [matchData]);
 
   const resetState = useCallback(
     ({ force }: { force: boolean }) => {
-      console.log(
-        `resetState ${data.code}`,
-        `force: ${force}`,
-        `behavior: ${data.formResetBehavior}`,
-      );
       if (force) {
         setValue(data.defaultValue);
         return;
       }
-      switch (data.formResetBehavior) {
-        case 'reset':
-          setValue(data.defaultValue);
-          return;
-        case 'increment':
-          setValue(prev => (typeof prev === 'number' ? prev + 1 : 1));
-          return;
-        case 'preserve':
-          return;
-        default:
-          return;
+      if (data.formResetBehavior === 'preserve') {
+        return;
       }
+      setValue(data.defaultValue);
     },
-    [data.defaultValue, value],
+    [data.defaultValue, data.formResetBehavior],
   );
 
   useEvent('resetFields', resetState);
 
   useEffect(() => {
     updateValue(props.code, value);
-  }, [value]);
+  }, [value, props.code]);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,21 +89,21 @@ export default function DynamicMatchNumberInput(props: ConfigurableInputProps) {
     setValue(Number(value));
   }, []);
 
-  // Use a dropdown select if we have match data, otherwise use a regular number input
-  if (matchData && matchData.length > 0 && matchNumbers.length > 0) {
+  // Use a dropdown select if we have match options, otherwise use a regular number input
+  if (matchOptions.length > 0) {
     return (
-      <Select 
-        name={data.title} 
-        onValueChange={handleSelectChange} 
-        value={value.toString()}
+      <Select
+        name={data.title}
+        onValueChange={handleSelectChange}
+        value={value ? value.toString() : ''}
       >
         <SelectTrigger>
           <SelectValue placeholder="Select a match" />
         </SelectTrigger>
         <SelectContent>
-          {matchNumbers.map(matchNum => (
+          {matchOptions.map(matchNum => (
             <SelectItem key={matchNum} value={matchNum.toString()}>
-              Qualification {matchNum}
+              Match {matchNum}
             </SelectItem>
           ))}
         </SelectContent>
@@ -119,7 +111,7 @@ export default function DynamicMatchNumberInput(props: ConfigurableInputProps) {
     );
   }
 
-  // Fall back to standard number input if no match data is available
+  // Fall back to standard number input if no match options are available
   return (
     <Input
       type="number"
@@ -128,6 +120,7 @@ export default function DynamicMatchNumberInput(props: ConfigurableInputProps) {
       min={data.min}
       max={data.max}
       onChange={handleChange}
+      placeholder="Enter match number"
     />
   );
 }

@@ -11,6 +11,8 @@ export const inputTypeSchema = z
     'timer',
     'multi-select',
     'image',
+    'TBA-team-and-robot',
+    'TBA-match-number',
   ])
   .describe('The type of input');
 
@@ -98,6 +100,25 @@ export const imageInputSchema = inputBaseSchema.extend({
   alt: z.string().optional().describe('The alt text for the image'),
 });
 
+export const teamAndRobotInputSchema = inputBaseSchema.extend({
+  type: z.literal('TBA-team-and-robot'),
+  defaultValue: z
+    .object({
+      teamNumber: z.number(),
+      robotPosition: z.string(),
+    })
+    .nullable()
+    .default(null)
+    .describe('The default team and robot position'),
+});
+
+export const tbaMatchNumberInputSchema = inputBaseSchema.extend({
+  type: z.literal('TBA-match-number'),
+  min: z.number().optional().describe('The minimum value'),
+  max: z.number().optional().describe('The maximum value'),
+  defaultValue: z.number().default(0).describe('The default value'),
+});
+
 export const sectionSchema = z.object({
   name: z.string(),
   fields: z.array(
@@ -111,6 +132,8 @@ export const sectionSchema = z.object({
       booleanInputSchema,
       timerInputSchema,
       imageInputSchema,
+      teamAndRobotInputSchema,
+      tbaMatchNumberInputSchema,
     ]),
   ),
 });
@@ -252,6 +275,8 @@ export type RangeInputData = z.infer<typeof rangeInputSchema>;
 export type BooleanInputData = z.infer<typeof booleanInputSchema>;
 export type TimerInputData = z.infer<typeof timerInputSchema>;
 export type ImageInputData = z.infer<typeof imageInputSchema>;
+export type TeamAndRobotInputData = z.infer<typeof teamAndRobotInputSchema>;
+export type TBAMatchNumberInputData = z.infer<typeof tbaMatchNumberInputSchema>;
 
 export type InputPropsMap = {
   text: StringInputData;
@@ -263,6 +288,8 @@ export type InputPropsMap = {
   counter: CounterInputData;
   timer: TimerInputData;
   image: ImageInputData;
+  'TBA-team-and-robot': TeamAndRobotInputData;
+  'TBA-match-number': TBAMatchNumberInputData;
 };
 
 export type SectionProps = z.infer<typeof sectionSchema>;

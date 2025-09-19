@@ -2,14 +2,14 @@ import { InputTypes } from './BaseInputProps';
 import CheckboxInput from './CheckboxInput';
 import CounterInput from './CounterInput';
 import ImageInput from './ImageInput';
-import DynamicMatchNumberInput from './DynamicMatchNumberInput';
-import DynamicTeamNumberInput from './DynamicTeamNumberInput';
 import NumberInput from './NumberInput';
 import RangeInput from './RangeInput';
 import SelectInput from './SelectInput';
 import StringInput from './StringInput';
 import TimerInput from './TimerInput';
 import MultiSelectInput from './MultiSelectInput';
+import TeamAndRobotInput from './TeamAndRobotInput';
+import TBAMatchNumberInput from './TBAMatchNumberInput';
 export interface ConfigurableInputProps {
   section: string;
   code: string;
@@ -17,16 +17,6 @@ export interface ConfigurableInputProps {
 }
 
 export default function ConfigurableInput(props: ConfigurableInputProps) {
-  // Special case handling for matchNumber and teamNumber fields
-  if (props.type === 'number' && props.code === 'matchNumber') {
-    return <DynamicMatchNumberInput {...props} key={props.code} />;
-  }
-
-  if (props.type === 'number' && props.code === 'teamNumber') {
-    return <DynamicTeamNumberInput {...props} key={props.code} />;
-  }
-
-  // Standard input handling
   switch (props.type) {
     case 'text':
       return <StringInput {...props} key={props.code} />;
@@ -46,5 +36,9 @@ export default function ConfigurableInput(props: ConfigurableInputProps) {
       return <TimerInput {...props} key={props.code} />;
     case 'multi-select':
       return <MultiSelectInput {...props} key={props.code} />;
+    case 'TBA-team-and-robot':
+      return <TeamAndRobotInput {...props} key={props.code} />;
+    case 'TBA-match-number':
+      return <TBAMatchNumberInput {...props} key={props.code} />;
   }
 }
