@@ -63,27 +63,6 @@ export default function TBAMatchNumberInput(props: ConfigurableInputProps) {
     updateValue(props.code, value);
   }, [value, props.code]);
 
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const parsed = Number(e.currentTarget.value);
-      if (e.currentTarget.value === '') {
-        setValue('');
-        return;
-      }
-      if (isNaN(parsed)) {
-        return;
-      }
-      if (data?.min && parsed < data.min) {
-        return;
-      }
-      if (data?.max && parsed > data.max) {
-        return;
-      }
-      setValue(parsed);
-      e.preventDefault();
-    },
-    [data],
-  );
 
   const handleSelectChange = useCallback((value: string) => {
     setValue(Number(value));
@@ -119,7 +98,23 @@ export default function TBAMatchNumberInput(props: ConfigurableInputProps) {
       id={data.title}
       min={data.min}
       max={data.max}
-      onChange={handleChange}
+      onChange={(e) => {
+        const parsed = Number(e.target.value);
+        if (e.target.value === '') {
+          setValue('');
+          return;
+        }
+        if (isNaN(parsed)) {
+          return;
+        }
+        if (data?.min && parsed < data.min) {
+          return;
+        }
+        if (data?.max && parsed > data.max) {
+          return;
+        }
+        setValue(parsed);
+      }}
       placeholder="Enter match number"
     />
   );

@@ -100,7 +100,7 @@ export const imageInputSchema = inputBaseSchema.extend({
   alt: z.string().optional().describe('The alt text for the image'),
 });
 
-export const teamAndRobotInputSchema = inputBaseSchema.extend({
+export const tbaTeamAndRobotInputSchema = inputBaseSchema.extend({
   type: z.literal('TBA-team-and-robot'),
   defaultValue: z
     .object({
@@ -132,7 +132,7 @@ export const sectionSchema = z.object({
       booleanInputSchema,
       timerInputSchema,
       imageInputSchema,
-      teamAndRobotInputSchema,
+      tbaTeamAndRobotInputSchema,
       tbaMatchNumberInputSchema,
     ]),
   ),
@@ -275,7 +275,7 @@ export type RangeInputData = z.infer<typeof rangeInputSchema>;
 export type BooleanInputData = z.infer<typeof booleanInputSchema>;
 export type TimerInputData = z.infer<typeof timerInputSchema>;
 export type ImageInputData = z.infer<typeof imageInputSchema>;
-export type TeamAndRobotInputData = z.infer<typeof teamAndRobotInputSchema>;
+export type TBATeamAndRobotInputData = z.infer<typeof tbaTeamAndRobotInputSchema>;
 export type TBAMatchNumberInputData = z.infer<typeof tbaMatchNumberInputSchema>;
 
 export type InputPropsMap = {
@@ -288,7 +288,7 @@ export type InputPropsMap = {
   counter: CounterInputData;
   timer: TimerInputData;
   image: ImageInputData;
-  'TBA-team-and-robot': TeamAndRobotInputData;
+  'TBA-team-and-robot': TBATeamAndRobotInputData;
   'TBA-match-number': TBAMatchNumberInputData;
 };
 

@@ -1,8 +1,10 @@
 import { useState, useCallback } from 'react';
 import { useQRScoutState, setConfigWithMatchData } from '@/store/store';
 import { fetchTeamEvents, fetchEventMatches } from '@/util/theBlueAlliance';
+import { hasTBAApiKey } from '@/util/tbaApiKeyStorage';
 import { EventData } from '@/types/eventData';
 import { EventSelectionDialog } from './EventSelectionDialog';
+import TBAApiKeyDialog from '@/components/TBAApiKeyDialog';
 import { Button } from '@/components/ui/button';
 import { Database } from 'lucide-react';
 
@@ -20,7 +22,8 @@ export function MatchDataFetcher({
   className,
 }: MatchDataFetcherProps) {
   const [events, setEvents] = useState<EventData[]>([]);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isEventDialogOpen, setIsEventDialogOpen] = useState(false);
+  const [isApiKeyDialogOpen, setIsApiKeyDialogOpen] = useState(false);
   const formData = useQRScoutState(state => state.formData);
   const configText = JSON.stringify(formData, null, 2);
 
@@ -45,13 +48,27 @@ export function MatchDataFetcher({
       }
 
       setEvents(result.data);
-      setIsDialogOpen(true);
+      setIsEventDialogOpen(true);
     } catch (error) {
       onError(
         'Failed to fetch event data. Please check your internet connection.',
       );
     }
   }, [formData, onError]);
+
+  const handlePrefillClick = useCallback(() => {
+    // Check if API key is configured
+    if (!hasTBAApiKey()) {
+      setIsApiKeyDialogOpen(true);
+    } else {
+      fetchEvents();
+    }
+  }, [fetchEvents]);
+
+  const handleApiKeySet = useCallback(() => {
+    // After API key is set, proceed with fetching events
+    fetchEvents();
+  }, [fetchEvents]);
 
   const handleEventSelected = useCallback(
     async (eventKey: string) => {
@@ -74,7 +91,7 @@ export function MatchDataFetcher({
           onError(configResult.error.message);
         }
 
-        setIsDialogOpen(false);
+        setIsEventDialogOpen(false);
       } catch (error) {
         onError(
           'Failed to fetch match data. Please check your internet connection.',
@@ -86,15 +103,21 @@ export function MatchDataFetcher({
 
   return (
     <>
-      <EventSelectionDialog
-        isOpen={isDialogOpen}
-        onOpenChange={setIsDialogOpen}
-        events={events}
-        onEventSelected={handleEventSelected}
-        onClose={() => setIsDialogOpen(false)}
+      <TBAApiKeyDialog
+        open={isApiKeyDialogOpen}
+        onOpenChange={setIsApiKeyDialogOpen}
+        onApiKeySet={handleApiKeySet}
       />
 
-      <Button variant="secondary" onClick={fetchEvents} className={className}>
+      <EventSelectionDialog
+        isOpen={isEventDialogOpen}
+        onOpenChange={setIsEventDialogOpen}
+        events={events}
+        onEventSelected={handleEventSelected}
+        onClose={() => setIsEventDialogOpen(false)}
+      />
+
+      <Button variant="secondary" onClick={handlePrefillClick} className={className}>
         <Database className="h-5 w-5 flex-shrink-0" />
         <span className="overflow-hidden text-ellipsis">
           Prefill Match Data

@@ -1,10 +1,9 @@
 import { MatchData } from '../types/matchData';
 import { EventData } from '../types/eventData';
+import { getTBAApiKey } from './tbaApiKeyStorage';
 
 type Result<T> = { success: true; data: T } | { success: false; error: Error };
 
-const TBA_API_KEY =
-  'uI64oiGePY9oTFFIiwImsng5EMj92CaKg3S4CFiJUrowEZ3Q8emkdt2tswkV5o1Q';
 const TBA_API_BASE_URL = 'https://www.thebluealliance.com/api/v3';
 
 /**
@@ -12,10 +11,8 @@ const TBA_API_BASE_URL = 'https://www.thebluealliance.com/api/v3';
  */
 async function extractErrorMessage(response: Response): Promise<string> {
   try {
-    // Try to read the response body as text
     const bodyText = await response.text();
 
-    // If we have body text, try to parse it as JSON
     if (bodyText) {
       try {
         const bodyJson = JSON.parse(bodyText);
@@ -44,10 +41,8 @@ async function extractErrorMessage(response: Response): Promise<string> {
       return 'Too many requests, please try again later';
     }
 
-    // Fallback status-based message
     return `Server error (${response.status})`;
   } catch (error) {
-    // Complete fallback
     return `Error ${response.status}`;
   }
 }
@@ -55,8 +50,20 @@ async function extractErrorMessage(response: Response): Promise<string> {
 /**
  * Base function to fetch data from The Blue Alliance API
  */
-async function fetchTBAData<T>(endpoint: string): Promise<Result<T>> {
+async function fetchTBAData<T>(
+  endpoint: string,
+  apiKey?: string,
+): Promise<Result<T>> {
   try {
+    // Get API key from parameter or localStorage
+    const tbaApiKey = apiKey || getTBAApiKey();
+
+    if (!tbaApiKey) {
+      throw new Error(
+        'No Blue Alliance API key configured. Please set up your API key first.',
+      );
+    }
+
     // If endpoint is a full URL, use it as is, otherwise prepend the base URL
     const url = endpoint.startsWith('http')
       ? endpoint
@@ -64,7 +71,7 @@ async function fetchTBAData<T>(endpoint: string): Promise<Result<T>> {
 
     const response = await fetch(url, {
       headers: {
-        'X-TBA-Auth-Key': TBA_API_KEY,
+        'X-TBA-Auth-Key': tbaApiKey,
       },
     });
 
@@ -114,9 +121,28 @@ export async function fetchEventMatches(
     const result = await fetchTBAData<MatchData[]>(endpoint);
     return result;
   } catch (error) {
-    // Add context to the error message
     const errorMessage = `Failed fetching matches: ${(error as Error).message}`;
     return { success: false, error: new Error(errorMessage) };
   }
 }
 
+/**
+ * Validates a Blue Alliance API key by making a test request
+ */
+export async function validateTBAApiKey(
+  apiKey: string,
+): Promise<Result<boolean>> {
+  try {
+    // Test the API key by fetching status endpoint
+    const result = await fetchTBAData<any>('/status', apiKey);
+
+    if (result.success) {
+      return { success: true, data: true };
+    } else {
+      return result;
+    }
+  } catch (error) {
+    const errorMessage = `Invalid API key: ${(error as Error).message}`;
+    return { success: false, error: new Error(errorMessage) };
+  }
+}
