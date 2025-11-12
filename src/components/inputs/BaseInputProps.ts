@@ -174,6 +174,9 @@ export const configSchema = z.object({
   teamNumber: z
     .number()
     .describe('The team number of the team using this form.'),
+  showTeamNumber: z
+    .boolean()
+    .describe('Whether or not to always show the selected team number at the top of the screen. May be useful on small screens'),
   theme: themeSchema.default({
     light: {
       background: '0 0% 100%',

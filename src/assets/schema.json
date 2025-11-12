@@ -17,6 +17,10 @@
       "type": "number",
       "description": "The team number of the team using this form."
     },
+    "showTeamNumber": {
+      "type": "boolean",
+      "description": "Whether or not to always show the selected team number at the top of the screen"
+    },
     "theme": {
       "type": "object",
       "properties": {

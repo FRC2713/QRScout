@@ -3,6 +3,7 @@
   "page_title": "Reefscape",
   "delimiter": "\t",
   "teamNumber": 2713,
+  "showTeamNumber": false,
   "theme": {
     "light": {
       "background": "0 0% 100%",
