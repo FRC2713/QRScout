@@ -48,9 +48,17 @@ export function ConfigSection() {
             </SheetHeader>
             <ConfigEditor
               onCancel={() => setShowEditor(false)}
-              onSave={configString => {
-                setConfig(configString);
-                setShowEditor(false);
+              onSave={(configString, warnCount) => {
+                if(warnCount > 0) {
+                  let proceed = window.confirm("Warning: config file has " + warnCount + " warnings. Check for invalid fields, which will not save. Save anyways?");
+                  if(proceed) {
+                    setConfig(configString);
+                    setShowEditor(false);
+                  }
+                } else {
+                  setConfig(configString);
+                  setShowEditor(false);
+                };
               }}
             />
           </SheetContent>
