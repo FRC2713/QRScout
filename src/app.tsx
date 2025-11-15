@@ -9,6 +9,7 @@ import { useQRScoutState } from './store/store';
 
 import { StatsigProvider, useClientAsyncInit } from '@statsig/react-bindings';
 import { runStatsigAutoCapture } from '@statsig/web-analytics';
+import { FloatingFormValue } from './components/FloatingFormValue';
 
 export function App() {
   const { teamNumber, pageTitle } = useQRScoutState(state => ({
@@ -35,7 +36,7 @@ export function App() {
             <h1 className="font-sans text-6xl font-bold">
               <div className={`font-rhr text-primary`}>{pageTitle}</div>
             </h1>
-
+            <FloatingFormValue />
             <form className="w-full px-4" onSubmit={e => e.preventDefault()}>
               <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                 <Sections />

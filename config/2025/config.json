@@ -3,6 +3,10 @@
   "page_title": "Reefscape",
   "delimiter": "\t",
   "teamNumber": 2713,
+  "floatingField": {
+    "show": false,
+    "codeValue": "teamNumber"
+  },
   "theme": {
     "light": {
       "background": "0 0% 100%",

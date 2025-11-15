@@ -17,6 +17,20 @@
       "type": "number",
       "description": "The team number of the team using this form."
     },
+    "floatingField": {
+      "type": "object",
+      "properties": {
+        "show": {
+          "type": "boolean",
+          "description": "Whether or not to always show this value at the top of the screen. May be useful on small screens"
+        },
+        "codeValue": {
+          "type": "string",
+          "description": "Code of the form field to get this value from"
+        }
+      },
+      "description": "Whether or not to always show the selected team number at the top of the screen"
+    },
     "theme": {
       "type": "object",
       "properties": {
