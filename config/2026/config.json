@@ -218,7 +218,7 @@
                     "required": false
                 },
                 {
-                    "title": "Fuel Scored",
+                    "title": "Robot Fuel Scored",
                     "description": "The amount of fuel scored in teleop (by the robot)",
                     "type": "counter",
                     "required": false,
