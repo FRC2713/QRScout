@@ -1,0 +1,690 @@
+{
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "The title of the scouting site. This will be displayed in the header and browser tab."
+    },
+    "page_title": {
+      "type": "string",
+      "description": "The title of the page"
+    },
+    "delimiter": {
+      "type": "string",
+      "description": "The delimiter to use when joining the form data"
+    },
+    "teamNumber": {
+      "type": "number",
+      "description": "The team number of the team using this form."
+    },
+    "floatingField": {
+      "type": "object",
+      "properties": {
+        "show": {
+          "type": "boolean",
+          "description": "Whether or not to always show this value at the top of the screen. May be useful on small screens"
+        },
+        "codeValue": {
+          "type": "string",
+          "description": "Code of the form field to get this value from"
+        }
+      },
+      "description": "Whether or not to always show the selected team number at the top of the screen"
+    },
+    "theme": {
+      "type": "object",
+      "properties": {
+        "light": {
+          "type": "object",
+          "properties": {
+            "background": {
+              "type": "string",
+              "pattern": "^(\\d+(?:\\.\\d+)?)(?: (\\d+(?:\\.\\d+)?)%)?(?: (\\d+(?:\\.\\d+)?)%)?$"
+            },
+            "foreground": {
+              "$ref": "#/properties/theme/properties/light/properties/background"
+            },
+            "card": {
+              "$ref": "#/properties/theme/properties/light/properties/background"
+            },
+            "card_foreground": {
+              "$ref": "#/properties/theme/properties/light/properties/background"
+            },
+            "popover": {
+              "$ref": "#/properties/theme/properties/light/properties/background"
+            },
+            "popover_foreground": {
+              "$ref": "#/properties/theme/properties/light/properties/background"
+            },
+            "primary": {
+              "$ref": "#/properties/theme/properties/light/properties/background"
+            },
+            "primary_foreground": {
+              "$ref": "#/properties/theme/properties/light/properties/background"
+            },
+            "secondary": {
+              "$ref": "#/properties/theme/properties/light/properties/background"
+            },
+            "secondary_foreground": {
+              "$ref": "#/properties/theme/properties/light/properties/background"
+            },
+            "muted": {
+              "$ref": "#/properties/theme/properties/light/properties/background"
+            },
+            "muted_foreground": {
+              "$ref": "#/properties/theme/properties/light/properties/background"
+            },
+            "accent": {
+              "$ref": "#/properties/theme/properties/light/properties/background"
+            },
+            "accent_foreground": {
+              "$ref": "#/properties/theme/properties/light/properties/background"
+            },
+            "destructive": {
+              "$ref": "#/properties/theme/properties/light/properties/background"
+            },
+            "destructive_foreground": {
+              "$ref": "#/properties/theme/properties/light/properties/background"
+            },
+            "border": {
+              "$ref": "#/properties/theme/properties/light/properties/background"
+            },
+            "input": {
+              "$ref": "#/properties/theme/properties/light/properties/background"
+            },
+            "ring": {
+              "$ref": "#/properties/theme/properties/light/properties/background"
+            },
+            "radius": {
+              "type": "string",
+              "pattern": "([0-9]*.[0-9]+rem)"
+            },
+            "chart_1": {
+              "$ref": "#/properties/theme/properties/light/properties/background"
+            },
+            "chart_2": {
+              "$ref": "#/properties/theme/properties/light/properties/background"
+            },
+            "chart_3": {
+              "$ref": "#/properties/theme/properties/light/properties/background"
+            },
+            "chart_4": {
+              "$ref": "#/properties/theme/properties/light/properties/background"
+            },
+            "chart_5": {
+              "$ref": "#/properties/theme/properties/light/properties/background"
+            }
+          },
+          "required": [
+            "background",
+            "foreground",
+            "card",
+            "card_foreground",
+            "popover",
+            "popover_foreground",
+            "primary",
+            "primary_foreground",
+            "secondary",
+            "secondary_foreground",
+            "muted",
+            "muted_foreground",
+            "accent",
+            "accent_foreground",
+            "destructive",
+            "destructive_foreground",
+            "border",
+            "input",
+            "ring",
+            "chart_1",
+            "chart_2",
+            "chart_3",
+            "chart_4",
+            "chart_5"
+          ],
+          "additionalProperties": false
+        },
+        "dark": {
+          "$ref": "#/properties/theme/properties/light"
+        }
+      },
+      "required": [
+        "light",
+        "dark"
+      ],
+      "additionalProperties": false,
+      "default": {
+        "light": {
+          "background": "0 0% 100%",
+          "foreground": "0 0% 3.9%",
+          "card": "0 0% 100%",
+          "card_foreground": "0 0% 3.9%",
+          "popover": "0 0% 100%",
+          "popover_foreground": "0 0% 3.9%",
+          "primary": "354.44 71.3% 47.9%",
+          "primary_foreground": "0 85.7% 97.3%",
+          "secondary": "0 0% 96.1%",
+          "secondary_foreground": "0 0% 9%",
+          "muted": "0 0% 96.1%",
+          "muted_foreground": "0 0% 45.1%",
+          "accent": "0 0% 96.1%",
+          "accent_foreground": "0 0% 9%",
+          "destructive": "0 84.2% 60.2%",
+          "destructive_foreground": "0 0% 98%",
+          "border": "0 0% 89.8%",
+          "input": "0 0% 89.8%",
+          "ring": "354.44 71.3% 47.9%",
+          "radius": "0.5rem",
+          "chart_1": "12 76% 61%",
+          "chart_2": "173 58% 39%",
+          "chart_3": "197 37% 24%",
+          "chart_4": "43 74% 66%",
+          "chart_5": "27 87% 67%"
+        },
+        "dark": {
+          "background": "0 0% 3.9%",
+          "foreground": "0 0% 98%",
+          "card": "0 0% 3.9%",
+          "card_foreground": "0 0% 98%",
+          "popover": "0 0% 3.9%",
+          "popover_foreground": "0 0% 98%",
+          "primary": "354.44 71.3% 47.9%",
+          "primary_foreground": "0 85.7% 97.3%",
+          "secondary": "0 0% 14.9%",
+          "secondary_foreground": "0 0% 98%",
+          "muted": "0 0% 14.9%",
+          "muted_foreground": "0 0% 63.9%",
+          "accent": "0 0% 14.9%",
+          "accent_foreground": "0 0% 98%",
+          "destructive": "0 62.8% 30.6%",
+          "destructive_foreground": "0 0% 98%",
+          "border": "0 0% 14.9%",
+          "input": "0 0% 14.9%",
+          "ring": "354.44 71.3% 47.9%",
+          "radius": "0.5rem",
+          "chart_1": "220 70% 50%",
+          "chart_2": "160 60% 45%",
+          "chart_3": "30 80% 55%",
+          "chart_4": "280 65% 60%",
+          "chart_5": "340 75% 55%"
+        }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "description": "The title of the input"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "The description of the input"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "counter"
+                    },
+                    "required": {
+                      "type": "boolean",
+                      "description": "Whether this input is required"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "A unique code for this input"
+                    },
+                    "disabled": {
+                      "type": "boolean",
+                      "description": "Whether this input is disabled"
+                    },
+                    "formResetBehavior": {
+                      "type": "string",
+                      "enum": [
+                        "reset",
+                        "preserve",
+                        "increment"
+                      ],
+                      "default": "reset",
+                      "description": "The behavior of this input when the form is reset"
+                    },
+                    "defaultValue": {
+                      "type": "number",
+                      "default": 0,
+                      "description": "The default value"
+                    },
+                    "min": {
+                      "type": "number",
+                      "description": "The minimum value"
+                    },
+                    "max": {
+                      "type": "number",
+                      "description": "The maximum value"
+                    },
+                    "step": {
+                      "type": "number",
+                      "description": "The step value",
+                      "default": 1
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "text"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
+                    },
+                    "defaultValue": {
+                      "type": "string",
+                      "default": "",
+                      "description": "The default value"
+                    },
+                    "min": {
+                      "type": "number",
+                      "description": "The minimum length of the string"
+                    },
+                    "max": {
+                      "type": "number",
+                      "description": "The maximum length of the string"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "number"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
+                    },
+                    "defaultValue": {
+                      "type": "number",
+                      "default": 0,
+                      "description": "The default value"
+                    },
+                    "min": {
+                      "type": "number",
+                      "description": "The minimum value"
+                    },
+                    "max": {
+                      "type": "number",
+                      "description": "The maximum value"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "select"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
+                    },
+                    "defaultValue": {
+                      "type": "string",
+                      "default": "",
+                      "description": "The default value. Must be one of the choices"
+                    },
+                    "choices": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "description": "The choices"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "multi-select"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
+                    },
+                    "defaultValue": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "The default value"
+                    },
+                    "choices": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "description": "The choices"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "range"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
+                    },
+                    "defaultValue": {
+                      "type": "number",
+                      "default": 0,
+                      "description": "The default value"
+                    },
+                    "min": {
+                      "type": "number",
+                      "description": "The minimum value"
+                    },
+                    "max": {
+                      "type": "number",
+                      "description": "The maximum value"
+                    },
+                    "step": {
+                      "type": "number",
+                      "description": "The step value",
+                      "default": 1
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "boolean"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
+                    },
+                    "defaultValue": {
+                      "type": "boolean",
+                      "default": false,
+                      "description": "The default value"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "timer"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
+                    },
+                    "defaultValue": {
+                      "type": "number",
+                      "default": 0,
+                      "description": "The default value"
+                    },
+                    "outputType": {
+                      "type": "string",
+                      "enum": [
+                        "average",
+                        "list"
+                      ],
+                      "default": "average",
+                      "description": "The type of output to display in the scouting form"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "image"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
+                    },
+                    "defaultValue": {
+                      "type": "string",
+                      "default": "",
+                      "description": "The URL to a statically hosted image"
+                    },
+                    "width": {
+                      "type": "number",
+                      "description": "The width of the image in pixels"
+                    },
+                    "height": {
+                      "type": "number",
+                      "description": "The height of the image in pixels"
+                    },
+                    "alt": {
+                      "type": "string",
+                      "description": "The alt text for the image"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "name",
+          "fields"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "page_title",
+    "delimiter",
+    "teamNumber",
+    "sections"
+  ],
+  "additionalProperties": false,
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}
