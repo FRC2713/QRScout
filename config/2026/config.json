@@ -230,7 +230,7 @@
                 },
                 {
                     "title": "Human Fuel Scored",
-                    "description": "The amount of fuel scored directtly by the human player",
+                    "description": "The amount of fuel scored directly by the human player",
                     "type": "counter",
                     "required": false,
                     "code": "HFS",
