@@ -50,6 +50,7 @@ Once you create a custom `config.json` file for your team, there are 2 ways to l
 2. Host the custom `config.json` file in a public GitHub repository and load it into QRScout using the "Load from URL" button in the settings menu.
 
 You can also download the config.json file to your device and reset the config.json to the default.
+
 ![Editor options menu](src/assets/images/editor_options.png)
 
 ### Hosting a custom JSON config for your team
