@@ -275,7 +275,7 @@
                     "title": "Climbed Tower",
                     "type": "select",
                     "required": true,
-                    "code": "epo",
+                    "code": "climbed",
                     "formResetBehavior": "reset",
                     "defaultValue": "No",
                     "choices": {
