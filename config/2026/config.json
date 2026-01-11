@@ -249,8 +249,10 @@
                     "type": "counter",
                     "required": false,
                     "code": "Fou/Tech",
+                    "description": "The number of times the opposing tower was touched",
                     "formResetBehavior": "reset",
                     "defaultValue": 0,
+                    "min": 0,
                     "step": 1
                 }
             ]
