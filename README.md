@@ -38,7 +38,7 @@ Down at the bottom of the page, there are the Commit and Reset Form buttons. The
 
 There are also the Copy Column Names and Edit Config buttons. Clicking Copy Column Names will do what it suggests, and copy the names of each column to your clipboard. The Edit Config button leads you to the `config.json` editor. The three buttons beneath this are used to change from light to dark mode, and set the page to your system theme (the default).
 
-> The line delimiter in the text alongside the QRCode is always a comma, regardless of what it set to. In the data in the QRCode and is optionally copied to your clipboard, it will be what you have set it to.
+> The line delimiter in the text alongside the QRCode is always a comma, regardless of what it set to. In the data in the QRCode and optionally copied to your clipboard, it will be what you have set it to.
 
 Clicking on Edit Config leads you to the following screen:
 ![The config editor](src/assets/images/editor_screen.png)
