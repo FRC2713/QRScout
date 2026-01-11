@@ -191,7 +191,7 @@
             "name": "Teleop",
             "fields": [
                 {
-                    "title": "Fuel From Ground",
+                    "title": "Fuel Collected From Ground",
                     "description": "Collected fuel from the ground",
                     "type": "boolean",
                     "defaultValue": false,
@@ -200,7 +200,7 @@
                     "required": false
                 },
                 {
-                    "title": "Fuel From Player",
+                    "title": "Fuel Collected From Player",
                     "description": "Collected fuel from the human player",
                     "type": "boolean",
                     "defaultValue": false,
@@ -209,7 +209,7 @@
                     "required": false
                 },
                 {
-                    "title": "Fuel From Depot",
+                    "title": "Fuel Collected From Depot",
                     "description": "Collected fuel from the depot",
                     "type": "boolean",
                     "defaultValue": false,
@@ -219,10 +219,21 @@
                 },
                 {
                     "title": "Fuel Scored",
-                    "description": "The amount of fuel scored in teleop",
+                    "description": "The amount of fuel scored in teleop (by the robot)",
                     "type": "counter",
                     "required": false,
-                    "code": "CLOT",
+                    "code": "FIT",
+                    "formResetBehavior": "reset",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "step": 1
+                },
+                {
+                    "title": "Human Fuel Scored",
+                    "description": "The amount of fuel scored directtly by the human player",
+                    "type": "counter",
+                    "required": false,
+                    "code": "HFS",
                     "formResetBehavior": "reset",
                     "defaultValue": 0,
                     "min": 0,
