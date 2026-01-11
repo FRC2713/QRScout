@@ -165,7 +165,7 @@
                     "type": "select",
                     "code": "climbedAuto",
                     "required": false,
-                    "defaultValue": "DC",
+                    "defaultValue": "No",
                     "formResetBehavior": "reset",
                     "choices": {
                         "No": "Didn't Climb",
