@@ -145,7 +145,9 @@ export function ConfigEditor(props: ConfigEditorProps) {
             onChange={e => setUrl(e.target.value)}
             className="w-full"
           />
-          <Button onClick={handleLoadFromURL} className="w-full">Load from URL</Button>
+          <Button onClick={handleLoadFromURL} className="w-full">
+            Load from URL
+          </Button>
         </div>
 
         {/* Desktop view (≥640px): URL input and button appear inline with other controls */}
@@ -160,7 +162,7 @@ export function ConfigEditor(props: ConfigEditorProps) {
             />
             <Button onClick={handleLoadFromURL}>Load from URL</Button>
           </div>
-          
+
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary">
@@ -180,10 +182,12 @@ export function ConfigEditor(props: ConfigEditorProps) {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          
+
           <Button
             variant="destructive"
-            onClick={() => props.onSave && props.onSave(currentConfigText, warnCount)}
+            onClick={() =>
+              props.onSave && props.onSave(currentConfigText, warnCount)
+            }
             disabled={currentConfigText.length === 0 || errorCount > 0}
           >
             <Save className="h-5 w-5" />
