@@ -165,7 +165,7 @@
                     "type": "select",
                     "code": "climbedAuto",
                     "required": false,
-                    "defaultValue": "DC",
+                    "defaultValue": "No",
                     "formResetBehavior": "reset",
                     "choices": {
                         "No": "Didn't Climb",
@@ -191,7 +191,7 @@
             "name": "Teleop",
             "fields": [
                 {
-                    "title": "Fuel From Ground",
+                    "title": "Fuel Collected From Ground",
                     "description": "Collected fuel from the ground",
                     "type": "boolean",
                     "defaultValue": false,
@@ -200,7 +200,7 @@
                     "required": false
                 },
                 {
-                    "title": "Fuel From Player",
+                    "title": "Fuel Collected From Player",
                     "description": "Collected fuel from the human player",
                     "type": "boolean",
                     "defaultValue": false,
@@ -209,7 +209,7 @@
                     "required": false
                 },
                 {
-                    "title": "Fuel From Depot",
+                    "title": "Fuel Collected From Depot",
                     "description": "Collected fuel from the depot",
                     "type": "boolean",
                     "defaultValue": false,
@@ -218,11 +218,22 @@
                     "required": false
                 },
                 {
-                    "title": "Fuel Scored",
-                    "description": "The amount of fuel scored in teleop",
+                    "title": "Robot Fuel Scored",
+                    "description": "The amount of fuel scored in teleop (by the robot)",
                     "type": "counter",
                     "required": false,
-                    "code": "CLOT",
+                    "code": "FIT",
+                    "formResetBehavior": "reset",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "step": 1
+                },
+                {
+                    "title": "Human Fuel Scored",
+                    "description": "The amount of fuel scored directly by the human player",
+                    "type": "counter",
+                    "required": false,
+                    "code": "HFS",
                     "formResetBehavior": "reset",
                     "defaultValue": 0,
                     "min": 0,
@@ -249,8 +260,10 @@
                     "type": "counter",
                     "required": false,
                     "code": "Fou/Tech",
+                    "description": "The number of times the opposing tower was touched",
                     "formResetBehavior": "reset",
                     "defaultValue": 0,
+                    "min": 0,
                     "step": 1
                 }
             ]
@@ -262,7 +275,7 @@
                     "title": "Climbed Tower",
                     "type": "select",
                     "required": true,
-                    "code": "epo",
+                    "code": "climbed",
                     "formResetBehavior": "reset",
                     "defaultValue": "No",
                     "choices": {

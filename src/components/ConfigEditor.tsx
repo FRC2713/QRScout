@@ -73,7 +73,7 @@ export function ConfigEditor(props: ConfigEditorProps) {
   }, [config]);
 
   useEffect(() => {
-    monaco?.languages.json.jsonDefaults.setDiagnosticsOptions({
+    monaco?.json.jsonDefaults.setDiagnosticsOptions({
       validate: true,
       schemas: [
         {
