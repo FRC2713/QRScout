@@ -179,6 +179,7 @@ export const configSchema = z.object({
       show: z.boolean().describe('Whether or not to always show this value at the top of the screen. May be useful on small screens'),
       codeValue: z.string().describe('Code of the form field to get this value from')
     })
+    .optional()
     .describe('Optional floating text box at the tob of the screen to show things like the team number. May be useful on small screens'),
   theme: themeSchema.default({
     light: {
