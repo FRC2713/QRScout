@@ -1,10 +1,8 @@
 import { useState, useCallback } from 'react';
 import { useQRScoutState, setConfigWithMatchData } from '@/store/store';
 import { fetchTeamEvents, fetchEventMatches } from '@/util/theBlueAlliance';
-import { hasTBAApiKey } from '@/util/tbaApiKeyStorage';
 import { EventData } from '@/types/eventData';
 import { EventSelectionDialog } from './EventSelectionDialog';
-import TBAApiKeyDialog from '@/components/TBAApiKeyDialog';
 import { Button } from '@/components/ui/button';
 import { Database } from 'lucide-react';
 
@@ -23,7 +21,6 @@ export function MatchDataFetcher({
 }: MatchDataFetcherProps) {
   const [events, setEvents] = useState<EventData[]>([]);
   const [isEventDialogOpen, setIsEventDialogOpen] = useState(false);
-  const [isApiKeyDialogOpen, setIsApiKeyDialogOpen] = useState(false);
   const formData = useQRScoutState(state => state.formData);
   const configText = JSON.stringify(formData, null, 2);
 
@@ -57,16 +54,6 @@ export function MatchDataFetcher({
   }, [formData, onError]);
 
   const handlePrefillClick = useCallback(() => {
-    // Check if API key is configured
-    if (!hasTBAApiKey()) {
-      setIsApiKeyDialogOpen(true);
-    } else {
-      fetchEvents();
-    }
-  }, [fetchEvents]);
-
-  const handleApiKeySet = useCallback(() => {
-    // After API key is set, proceed with fetching events
     fetchEvents();
   }, [fetchEvents]);
 
@@ -103,12 +90,6 @@ export function MatchDataFetcher({
 
   return (
     <>
-      <TBAApiKeyDialog
-        open={isApiKeyDialogOpen}
-        onOpenChange={setIsApiKeyDialogOpen}
-        onApiKeySet={handleApiKeySet}
-      />
-
       <EventSelectionDialog
         isOpen={isEventDialogOpen}
         onOpenChange={setIsEventDialogOpen}

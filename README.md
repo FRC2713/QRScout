@@ -371,9 +371,7 @@ This allows scouts to accurately measure and compare the efficiency of different
 
 ### Using The Blue Alliance (TBA) Integration
 
-QRScout includes specialized input types that integrate with The Blue Alliance API to automatically populate match and team data. These inputs require an API key configuration but provide seamless data prefilling for official FRC events.
-
-For detailed setup instructions, see [The Blue Alliance API Configuration Guide](docs/the-blue-alliance-api-configuration.md).
+QRScout includes specialized input types that integrate with The Blue Alliance API to automatically populate match and team data. This integration provides seamless data prefilling for official FRC events.
 
 #### TBA Match Number Input
 
@@ -453,20 +451,11 @@ Robot positions are formatted as:
 - Red alliance: "R1", "R2", "R3"
 - Blue alliance: "B1", "B2", "B3"
 
-#### Setting Up The Blue Alliance Integration
+#### Using The Blue Alliance Integration
 
-1. **Get an API Key**: Visit [The Blue Alliance](https://www.thebluealliance.com/account) to create an API key
-2. **Configure in QRScout**: Use the "Prefill Match Data" button to enter your API key
-3. **Load Match Data**: Select your team's event to automatically load match schedules
-4. **Enhanced Scouting**: TBA inputs will now show contextual data instead of manual entry
-
-#### Benefits of TBA Integration
-
-- **Reduced Errors**: Eliminates manual team number and match number entry mistakes
-- **Faster Setup**: Automatically populates team and position data from official schedules
-- **Up-to-Date Data**: Always uses the latest match schedules from The Blue Alliance
-- **Offline Fallback**: Still functions as manual inputs when TBA data is unavailable
-- **Team Context**: Shows alliance colors and positions for better scout awareness
+1. **Load Match Data**: Click the "Prefill Match Data" button on the main form
+2. **Select Event**: Choose your team's event from the list
+3. **Enhanced Scouting**: TBA inputs will now show contextual data from the selected event
 
 #### FRC Scouting Examples
 
@@ -476,7 +465,6 @@ TBA integration is particularly valuable for:
 - **Alliance Analysis**: Understand robot positions and alliance compositions
 - **Schedule Management**: Ensure scouts are tracking the correct matches and teams
 - **Data Validation**: Reduce errors from manually entered team numbers or match numbers
-- **Real-Time Updates**: Get the latest schedule changes from The Blue Alliance
 
 For example, a typical scouting form with TBA integration might include:
 

@@ -1,10 +1,16 @@
 import { MatchData } from '../types/matchData';
 import { EventData } from '../types/eventData';
-import { getTBAApiKey } from './tbaApiKeyStorage';
 
 type Result<T> = { success: true; data: T } | { success: false; error: Error };
 
 const TBA_API_BASE_URL = 'https://www.thebluealliance.com/api/v3';
+
+/**
+ * Gets the TBA API key from environment variable
+ */
+function getTBAApiKey(): string | undefined {
+  return import.meta.env.VITE_TBA_API_KEY;
+}
 
 /**
  * Extract a user-friendly error message from an HTTP response
@@ -50,17 +56,16 @@ async function extractErrorMessage(response: Response): Promise<string> {
 /**
  * Base function to fetch data from The Blue Alliance API
  */
-async function fetchTBAData<T>(
-  endpoint: string,
-  apiKey?: string,
-): Promise<Result<T>> {
+async function fetchTBAData<T>(endpoint: string): Promise<Result<T>> {
   try {
-    // Get API key from parameter or localStorage
-    const tbaApiKey = apiKey || getTBAApiKey();
+    // Get API key from environment variable
+    const tbaApiKey = getTBAApiKey();
 
     if (!tbaApiKey) {
       throw new Error(
-        'No Blue Alliance API key configured. Please set up your API key first.',
+        'No Blue Alliance API key configured. ' +
+          'For local development, copy .env.example to .env and add your API key. ' +
+          'See CONTRIBUTING.md for details.',
       );
     }
 
@@ -126,23 +131,3 @@ export async function fetchEventMatches(
   }
 }
 
-/**
- * Validates a Blue Alliance API key by making a test request
- */
-export async function validateTBAApiKey(
-  apiKey: string,
-): Promise<Result<boolean>> {
-  try {
-    // Test the API key by fetching status endpoint
-    const result = await fetchTBAData<any>('/status', apiKey);
-
-    if (result.success) {
-      return { success: true, data: true };
-    } else {
-      return result;
-    }
-  } catch (error) {
-    const errorMessage = `Invalid API key: ${(error as Error).message}`;
-    return { success: false, error: new Error(errorMessage) };
-  }
-}
