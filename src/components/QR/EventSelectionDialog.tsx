@@ -15,7 +15,7 @@ type EventSelectionDialogProps = {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
   events: EventData[];
-  onEventSelected: (eventKey: string) => void;
+  onEventSelected: (eventKey: string) => Promise<void>;
   onClose: () => void;
 };
 
@@ -40,7 +40,7 @@ export function EventSelectionDialog({
     try {
       setIsLoading(true);
       setError(null);
-      onEventSelected(selectedEventKey);
+      await onEventSelected(selectedEventKey);
     } catch (err) {
       setError('Failed to fetch match data. Please try again.');
     } finally {
