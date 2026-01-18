@@ -56,10 +56,6 @@ export function MatchDataFetcher({
     }
   }, [formData, onError]);
 
-  const handlePrefillClick = useCallback(() => {
-    fetchEvents();
-  }, [fetchEvents]);
-
   const handleEventSelected = useCallback(
     async (eventKey: string) => {
       try {
@@ -99,7 +95,7 @@ export function MatchDataFetcher({
 
       <Button
         variant="secondary"
-        onClick={handlePrefillClick}
+        onClick={fetchEvents}
         className={className}
         disabled={isLoading}
       >
