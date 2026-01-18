@@ -4,7 +4,7 @@ import { fetchTeamEvents, fetchEventMatches } from '@/util/theBlueAlliance';
 import { EventData } from '@/types/eventData';
 import { EventSelectionDialog } from './EventSelectionDialog';
 import { Button } from '@/components/ui/button';
-import { Database } from 'lucide-react';
+import { Database, Loader2 } from 'lucide-react';
 
 type MatchDataFetcherProps = {
   onError: (message: string) => void;
@@ -21,11 +21,13 @@ export function MatchDataFetcher({
 }: MatchDataFetcherProps) {
   const [events, setEvents] = useState<EventData[]>([]);
   const [isEventDialogOpen, setIsEventDialogOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const formData = useQRScoutState(state => state.formData);
   const configText = JSON.stringify(formData, null, 2);
 
   const fetchEvents = useCallback(async () => {
     try {
+      setIsLoading(true);
       const teamNumber = formData.teamNumber;
       if (!teamNumber) {
         onError('Team number is required to fetch event data');
@@ -50,6 +52,8 @@ export function MatchDataFetcher({
       onError(
         'Failed to fetch event data. Please check your internet connection.',
       );
+    } finally {
+      setIsLoading(false);
     }
   }, [formData, onError]);
 
@@ -98,10 +102,19 @@ export function MatchDataFetcher({
         onClose={() => setIsEventDialogOpen(false)}
       />
 
-      <Button variant="secondary" onClick={handlePrefillClick} className={className}>
-        <Database className="h-5 w-5 flex-shrink-0" />
+      <Button
+        variant="secondary"
+        onClick={handlePrefillClick}
+        className={className}
+        disabled={isLoading}
+      >
+        {isLoading ? (
+          <Loader2 className="h-5 w-5 flex-shrink-0 animate-spin" />
+        ) : (
+          <Database className="h-5 w-5 flex-shrink-0" />
+        )}
         <span className="overflow-hidden text-ellipsis">
-          Prefill Match Data
+          {isLoading ? 'Loading...' : 'Prefill Match Data'}
         </span>
       </Button>
     </>
