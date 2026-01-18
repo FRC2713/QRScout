@@ -7,9 +7,10 @@ import {
   InputBase,
 } from '../components/inputs/BaseInputProps';
 import { MatchData } from '../types/matchData';
+import { Result } from '../types/result';
 import { createStore } from './createStore';
 
-export type Result<T> = { success: true; data: T } | { success: false; error: Error };
+export type { Result };
 
 function getDefaultConfig(): Config {
   const config = configSchema.safeParse(configJson);

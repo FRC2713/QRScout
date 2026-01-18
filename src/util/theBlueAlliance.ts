@@ -1,7 +1,6 @@
 import { MatchData } from '../types/matchData';
 import { EventData } from '../types/eventData';
-
-type Result<T> = { success: true; data: T } | { success: false; error: Error };
+import { Result } from '../types/result';
 
 const TBA_API_BASE_URL = 'https://www.thebluealliance.com/api/v3';
 
