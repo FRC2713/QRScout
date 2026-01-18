@@ -141,30 +141,6 @@ export function inputSelector<T extends InputBase>(
 }
 
 
-export function setConfigWithMatchData(
-  configText: string,
-  matchData: MatchData[],
-): Result<void> {
-  let jsonData: any;
-  try {
-    jsonData = JSON.parse(configText);
-  } catch (e: any) {
-    return { success: false, error: e.message };
-  }
-  const c = configSchema.safeParse(jsonData);
-  if (!c.success) {
-    console.error(c.error);
-    return { success: false, error: c.error };
-  }
-
-  // Store match data in state without affecting current config
-  const currentState = useQRScoutState.getState();
-  useQRScoutState.setState({
-    ...currentState,
-    matchData: matchData,
-  });
-
-  // Set the form data for display
-  setFormData(c.data);
-  return { success: true, data: undefined };
+export function setMatchData(matchData: MatchData[]) {
+  useQRScoutState.setState({ matchData });
 }

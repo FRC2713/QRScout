@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { useQRScoutState, setConfigWithMatchData } from '@/store/store';
+import { useQRScoutState, setMatchData } from '@/store/store';
 import { fetchTeamEvents, fetchEventMatches } from '@/util/theBlueAlliance';
 import { EventData } from '@/types/eventData';
 import { EventSelectionDialog } from './EventSelectionDialog';
@@ -23,7 +23,6 @@ export function MatchDataFetcher({
   const [isEventDialogOpen, setIsEventDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const formData = useQRScoutState(state => state.formData);
-  const configText = JSON.stringify(formData, null, 2);
 
   const fetchEvents = useCallback(async () => {
     try {
@@ -77,11 +76,7 @@ export function MatchDataFetcher({
         }
 
         // Store match data and close dialog
-        const configResult = setConfigWithMatchData(configText, result.data);
-        if (!configResult.success) {
-          onError(configResult.error.message);
-        }
-
+        setMatchData(result.data);
         setIsEventDialogOpen(false);
       } catch (error) {
         onError(
@@ -89,7 +84,7 @@ export function MatchDataFetcher({
         );
       }
     },
-    [configText, onError],
+    [onError],
   );
 
   return (
