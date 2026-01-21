@@ -42,7 +42,7 @@ export function EventSelectionDialog({
       setError(null);
       await onEventSelected(selectedEventKey);
     } catch (err) {
-      setError('Failed to fetch match data. Please try again.');
+      setError(err instanceof Error ? err.message : 'Failed to fetch match data. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -59,7 +59,7 @@ export function EventSelectionDialog({
         </DialogHeader>
 
         {error && (
-          <div className="bg-red-100 text-red-800 p-2 rounded-lg mb-4">{error}</div>
+          <div className="bg-red-100 text-red-800 p-2 rounded-lg">{error}</div>
         )}
 
         <div className="grid gap-4 max-h-[50vh] overflow-y-auto py-4">

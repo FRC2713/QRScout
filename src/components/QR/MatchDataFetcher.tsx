@@ -58,29 +58,21 @@ export function MatchDataFetcher({
 
   const handleEventSelected = useCallback(
     async (eventKey: string) => {
-      try {
-        const result = await fetchEventMatches(eventKey);
+      const result = await fetchEventMatches(eventKey);
 
-        if (!result.success) {
-          onError(result.error.message);
-          return;
-        }
-
-        if (result.data.length === 0) {
-          onError('No match data available for this event yet');
-          return;
-        }
-
-        // Store match data and close dialog
-        setMatchData(result.data);
-        setIsEventDialogOpen(false);
-      } catch (error) {
-        onError(
-          'Failed to fetch match data. Please check your internet connection.',
-        );
+      if (!result.success) {
+        throw new Error(result.error.message);
       }
+
+      if (result.data.length === 0) {
+        throw new Error('No match data available for this event yet');
+      }
+
+      // Store match data and close dialog
+      setMatchData(result.data);
+      setIsEventDialogOpen(false);
     },
-    [onError],
+    [],
   );
 
   return (
