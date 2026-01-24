@@ -1,4 +1,5 @@
 import { InputTypes } from './BaseInputProps';
+import ActionTrackerInput from './ActionTrackerInput';
 import CheckboxInput from './CheckboxInput';
 import CounterInput from './CounterInput';
 import ImageInput from './ImageInput';
@@ -34,5 +35,7 @@ export default function ConfigurableInput(props: ConfigurableInputProps) {
       return <TimerInput {...props} key={props.code} />;
     case 'multi-select':
       return <MultiSelectInput {...props} key={props.code} />;
+    case 'action-tracker':
+      return <ActionTrackerInput {...props} key={props.code} />;
   }
 }
