@@ -15,7 +15,7 @@ import { ThemeSelector } from './ThemeSelector';
 
 export function ConfigSection() {
   const [showEditor, setShowEditor] = useState(false);
-  const formData = useQRScoutState(state => state.formData);
+  const fieldValues = useQRScoutState(state => state.fieldValues);
 
   return (
     <Section>
@@ -24,11 +24,7 @@ export function ConfigSection() {
           variant="secondary"
           onClick={() =>
             navigator.clipboard.writeText(
-              formData.sections
-                .map(s => s.fields)
-                .flat()
-                .map(f => f.title)
-                .join('\t'),
+              fieldValues.map(f => f.code).join('\t'),
             )
           }
         >

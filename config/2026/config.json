@@ -149,15 +149,19 @@
                     "defaultValue": false
                 },
                 {
-                    "title": "Fuel scored",
-                    "description": "The amount of fuel scored in auto",
-                    "type": "counter",
+                    "title": "Auto Actions",
+                    "description": "Track robot actions during autonomous. Press Start when auto begins, then tap actions as they happen.",
+                    "type": "action-tracker",
                     "required": false,
-                    "code": "FIA",
+                    "code": "autoAct",
                     "formResetBehavior": "reset",
-                    "defaultValue": 0,
-                    "min": 0,
-                    "step": 1
+                    "timerDuration": 15,
+                    "actions": [
+                        { "label": "Fuel Scored", "code": "fuel" },
+                        { "label": "Crossed Bump", "code": "bump" },
+                        { "label": "Through Trench", "code": "trench" },
+                        { "label": "Climb Started", "code": "climbStart" }
+                    ]
                 },
                 {
                     "title": "Climbed Tower",
@@ -191,6 +195,21 @@
             "name": "Teleop",
             "fields": [
                 {
+                    "title": "Teleop Actions",
+                    "description": "Track robot actions during teleop. Press Start when teleop begins, then tap actions as they happen.",
+                    "type": "action-tracker",
+                    "required": false,
+                    "code": "teleopAct",
+                    "formResetBehavior": "reset",
+                    "timerDuration": 135,
+                    "actions": [
+                        { "label": "Fuel Scored", "code": "fuel" },
+                        { "label": "Fuel Passed", "code": "pass" },
+                        { "label": "Defense Start", "code": "defStart" },
+                        { "label": "Defense End", "code": "defEnd" }
+                    ]
+                },
+                {
                     "title": "Fuel Collected From Ground",
                     "description": "Collected fuel from the ground",
                     "type": "boolean",
@@ -216,28 +235,6 @@
                     "code": "FFD",
                     "formResetBehavior": "reset",
                     "required": false
-                },
-                {
-                    "title": "Robot Fuel Scored",
-                    "description": "The amount of fuel scored in teleop (by the robot)",
-                    "type": "counter",
-                    "required": false,
-                    "code": "FIT",
-                    "formResetBehavior": "reset",
-                    "defaultValue": 0,
-                    "min": 0,
-                    "step": 1
-                },
-                {
-                    "title": "Human Fuel Scored",
-                    "description": "The amount of fuel scored directly by the human player",
-                    "type": "counter",
-                    "required": false,
-                    "code": "HFS",
-                    "formResetBehavior": "reset",
-                    "defaultValue": 0,
-                    "min": 0,
-                    "step": 1
                 },
                 {
                     "title": "Crossed Field/Played Defense?",
