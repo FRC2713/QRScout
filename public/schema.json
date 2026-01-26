@@ -710,6 +710,10 @@
                           "code": {
                             "type": "string",
                             "description": "A unique code for this action (used in field names)"
+                          },
+                          "icon": {
+                            "type": "string",
+                            "description": "Optional Lucide icon name (e.g., \"fuel\", \"target\"). See https://lucide.dev/icons"
                           }
                         },
                         "required": [
