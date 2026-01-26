@@ -102,6 +102,10 @@ export const imageInputSchema = inputBaseSchema.extend({
 export const actionSchema = z.object({
   label: z.string().describe('The display label for this action button'),
   code: z.string().describe('A unique code for this action (used in field names)'),
+  icon: z
+    .string()
+    .optional()
+    .describe('Optional Lucide icon name (e.g., "fuel", "target"). See https://lucide.dev/icons'),
 });
 
 export const actionTrackerInputSchema = inputBaseSchema.extend({
