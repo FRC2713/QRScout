@@ -1,4 +1,5 @@
 import { ConfigEditor } from '@/components/ConfigEditor';
+import { ActionTrackerInputData } from '@/components/inputs/BaseInputProps';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -13,9 +14,45 @@ import { useState } from 'react';
 import { Section } from '../../core/Section';
 import { ThemeSelector } from './ThemeSelector';
 
+/**
+ * Extracts a short phase name from a field title or section name.
+ * e.g., "Auto Actions" → "Auto", "Teleop Actions" → "Teleop"
+ */
+function extractPhaseName(title: string): string {
+  const lower = title.toLowerCase();
+  if (lower.includes('auto')) return 'Auto';
+  if (lower.includes('teleop')) return 'Teleop';
+  if (lower.includes('endgame')) return 'Endgame';
+  // Fall back to the first word
+  return title.split(' ')[0];
+}
+
+/**
+ * Generates column names for all fields, expanding action-tracker
+ * fields into their constituent count and timestamps columns.
+ */
+function getColumnNames(
+  sections: { name: string; fields: { type: string; title: string }[] }[],
+): string[] {
+  return sections
+    .map(s => s.fields)
+    .flat()
+    .flatMap(f => {
+      if (f.type === 'action-tracker') {
+        const actionField = f as ActionTrackerInputData;
+        const phase = extractPhaseName(actionField.title);
+        return actionField.actions.flatMap(action => [
+          `${action.label} in ${phase} (count)`,
+          `${action.label} in ${phase} (timestamps)`,
+        ]);
+      }
+      return [f.title];
+    });
+}
+
 export function ConfigSection() {
   const [showEditor, setShowEditor] = useState(false);
-  const fieldValues = useQRScoutState(state => state.fieldValues);
+  const formData = useQRScoutState(state => state.formData);
 
   return (
     <Section>
@@ -24,7 +61,7 @@ export function ConfigSection() {
           variant="secondary"
           onClick={() =>
             navigator.clipboard.writeText(
-              fieldValues.map(f => f.code).join('\t'),
+              getColumnNames(formData.sections).join('\t'),
             )
           }
         >
