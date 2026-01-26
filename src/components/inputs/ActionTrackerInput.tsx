@@ -246,7 +246,7 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
           <Button
             key={action.code}
             variant="secondary"
-            className="h-16 flex-col gap-1 text-wrap"
+            className="min-h-16 flex-col gap-1 text-wrap py-3"
             onClick={() => recordAction(action.code)}
             disabled={data.disabled}
           >
