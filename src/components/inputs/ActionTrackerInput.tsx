@@ -1,37 +1,18 @@
 import { Button } from '@/components/ui/button';
 import { useEvent } from '@/hooks';
 import { inputSelector, updateValue, useQRScoutState } from '@/store/store';
-import dynamicIconImports from 'lucide-react/dynamicIconImports';
 import { Play, Square, Undo2 } from 'lucide-react';
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ActionTrackerInputData } from './BaseInputProps';
 import { ConfigurableInputProps } from './ConfigurableInput';
 
-// Cache for lazy-loaded icon components to avoid recreating on each render
-const iconCache = new Map<string, React.LazyExoticComponent<React.FC<{ className?: string }>>>();
+// Lazy-load DynamicIcon module only when icons are used (avoids 100KB+ bundle cost)
+const LazyDynamicIcon = lazy(() => import('./DynamicIcon'));
 
-interface DynamicIconProps {
-  name: string;
-  className?: string;
-}
-
-function DynamicIcon({ name, className }: DynamicIconProps) {
-  // Check if the icon name exists in the available imports
-  if (!name || !(name in dynamicIconImports)) {
-    return null;
-  }
-
-  // Get or create the lazy component
-  if (!iconCache.has(name)) {
-    const importFn = dynamicIconImports[name as keyof typeof dynamicIconImports];
-    iconCache.set(name, lazy(importFn) as React.LazyExoticComponent<React.FC<{ className?: string }>>);
-  }
-
-  const IconComponent = iconCache.get(name)!;
-
+function DynamicIcon({ name, className }: { name: string; className?: string }) {
   return (
     <Suspense fallback={<span className={className} />}>
-      <IconComponent className={className} />
+      <LazyDynamicIcon name={name} className={className} />
     </Suspense>
   );
 }
