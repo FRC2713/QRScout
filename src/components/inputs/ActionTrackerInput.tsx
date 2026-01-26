@@ -1,10 +1,40 @@
 import { Button } from '@/components/ui/button';
 import { useEvent } from '@/hooks';
 import { inputSelector, updateValue, useQRScoutState } from '@/store/store';
+import dynamicIconImports from 'lucide-react/dynamicIconImports';
 import { Play, Square, Undo2 } from 'lucide-react';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ActionTrackerInputData } from './BaseInputProps';
 import { ConfigurableInputProps } from './ConfigurableInput';
+
+// Cache for lazy-loaded icon components to avoid recreating on each render
+const iconCache = new Map<string, React.LazyExoticComponent<React.FC<{ className?: string }>>>();
+
+interface DynamicIconProps {
+  name: string;
+  className?: string;
+}
+
+function DynamicIcon({ name, className }: DynamicIconProps) {
+  // Check if the icon name exists in the available imports
+  if (!name || !(name in dynamicIconImports)) {
+    return null;
+  }
+
+  // Get or create the lazy component
+  if (!iconCache.has(name)) {
+    const importFn = dynamicIconImports[name as keyof typeof dynamicIconImports];
+    iconCache.set(name, lazy(importFn) as React.LazyExoticComponent<React.FC<{ className?: string }>>);
+  }
+
+  const IconComponent = iconCache.get(name)!;
+
+  return (
+    <Suspense fallback={<span className={className} />}>
+      <IconComponent className={className} />
+    </Suspense>
+  );
+}
 
 interface ActionEntry {
   actionCode: string;
@@ -220,6 +250,9 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
             onClick={() => recordAction(action.code)}
             disabled={data.disabled}
           >
+            {action.icon && (
+              <DynamicIcon name={action.icon} className="size-5" />
+            )}
             <span className="text-sm font-medium">{action.label}</span>
             <span className="text-xs text-muted-foreground">
               ({actionCounts[action.code] || 0})
