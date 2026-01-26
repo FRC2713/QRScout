@@ -157,10 +157,10 @@
                     "formResetBehavior": "reset",
                     "timerDuration": 15,
                     "actions": [
-                        { "label": "Fuel Scored", "code": "fuel" },
-                        { "label": "Crossed Bump", "code": "bump" },
-                        { "label": "Through Trench", "code": "trench" },
-                        { "label": "Climb Started", "code": "climbStart" }
+                        { "label": "Fuel Scored", "code": "fuel", "icon": "circle-dot" },
+                        { "label": "Crossed Bump", "code": "bump", "icon": "chevrons-up" },
+                        { "label": "Through Trench", "code": "trench", "icon": "move-horizontal" },
+                        { "label": "Climb Started", "code": "climbStart", "icon": "arrow-up-to-line" }
                     ]
                 },
                 {
@@ -203,10 +203,10 @@
                     "formResetBehavior": "reset",
                     "timerDuration": 135,
                     "actions": [
-                        { "label": "Fuel Scored", "code": "fuel" },
-                        { "label": "Fuel Passed", "code": "pass" },
-                        { "label": "Defense Start", "code": "defStart" },
-                        { "label": "Defense End", "code": "defEnd" }
+                        { "label": "Fuel Scored", "code": "fuel", "icon": "circle-dot" },
+                        { "label": "Fuel Passed", "code": "pass", "icon": "send" },
+                        { "label": "Defense Start", "code": "defStart", "icon": "shield" },
+                        { "label": "Defense End", "code": "defEnd", "icon": "shield-off" }
                     ]
                 },
                 {
