@@ -114,6 +114,12 @@ export const actionTrackerInputSchema = inputBaseSchema.extend({
     .null()
     .default(null)
     .describe('Default value (null, as this input generates multiple fields)'),
+  mode: z
+    .enum(['tap', 'hold'])
+    .default('hold')
+    .describe(
+      "Recording mode: 'tap' records instant timestamps on click, 'hold' records duration while button is pressed (default: 'hold')",
+    ),
   actions: z
     .array(actionSchema)
     .min(1)

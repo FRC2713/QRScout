@@ -728,6 +728,12 @@
                     "timerDuration": {
                       "type": "number",
                       "description": "Expected duration in seconds (for UI reference, e.g., 15 for auto, 135 for teleop)"
+                    },
+                    "mode": {
+                      "type": "string",
+                      "enum": ["tap", "hold"],
+                      "default": "hold",
+                      "description": "Recording mode: 'tap' records instant timestamps on click, 'hold' records duration while button is pressed (default: 'hold')"
                     }
                   },
                   "required": [
