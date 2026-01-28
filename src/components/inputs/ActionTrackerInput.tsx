@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { useEvent } from '@/hooks';
+import { cn } from '@/lib/utils';
 import { inputSelector, updateValue, useQRScoutState } from '@/store/store';
 import { Play, Square, Undo2 } from 'lucide-react';
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -19,8 +20,22 @@ function DynamicIcon({ name, className }: { name: string; className?: string }) 
 
 interface ActionEntry {
   actionCode: string;
-  timestamp: number; // seconds since timer start
+  timestamp: number; // start time in seconds since timer start
+  endTimestamp?: number; // end time in seconds (hold mode only)
 }
+
+// Track active pointer presses for multi-touch hold mode
+interface ActivePointer {
+  actionCode: string;
+  startTime: number;
+}
+
+// Haptic feedback helper - fails silently on unsupported devices
+const vibrate = (pattern: number | number[]) => {
+  if (navigator.vibrate) {
+    navigator.vibrate(pattern);
+  }
+};
 
 export default function ActionTrackerInput(props: ConfigurableInputProps) {
   const data = useQRScoutState(
@@ -39,6 +54,14 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
   // Action log state
   const [actionLog, setActionLog] = useState<ActionEntry[]>([]);
 
+  // Hold mode state - track active pointer presses for multi-touch
+  const [activePointers, setActivePointers] = useState<Map<number, ActivePointer>>(
+    () => new Map(),
+  );
+
+  // Determine mode (defaults to 'hold')
+  const isHoldMode = data.mode !== 'tap';
+
   // Refs for accurate time tracking
   const startTimeRef = useRef<number>(0);
   const elapsedAccumulatorRef = useRef<number>(0);
@@ -55,17 +78,6 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
     return counts;
   }, [actionLog, data.actions]);
 
-  // Compute times per action
-  const actionTimes = useMemo(() => {
-    const times: Record<string, number[]> = {};
-    for (const action of data.actions) {
-      times[action.code] = actionLog
-        .filter(e => e.actionCode === action.code)
-        .map(e => e.timestamp);
-    }
-    return times;
-  }, [actionLog, data.actions]);
-
   // Reset handler
   const resetState = useCallback(
     ({ force }: { force: boolean }) => {
@@ -74,6 +86,7 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
         setElapsedTime(0);
         setAutoStarted(false);
         setActionLog([]);
+        setActivePointers(new Map()); // Clear any active holds
         elapsedAccumulatorRef.current = 0;
         if (animationFrameRef.current !== null) {
           cancelAnimationFrame(animationFrameRef.current);
@@ -149,6 +162,99 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
     setActionLog(prev => prev.slice(0, -1));
   }, []);
 
+  // Hold mode: handle pointer down (start tracking)
+  const handlePointerDown = useCallback(
+    (e: React.PointerEvent, actionCode: string) => {
+      if (!isHoldMode) return;
+
+      // Capture pointer to continue tracking even if it leaves the button
+      e.currentTarget.setPointerCapture(e.pointerId);
+
+      // Auto-start timer if not running
+      if (!isRunning) {
+        startTimer();
+        setAutoStarted(true);
+      }
+
+      const startTime = Number((elapsedAccumulatorRef.current / 1000).toFixed(1));
+
+      setActivePointers(prev => {
+        const next = new Map(prev);
+        next.set(e.pointerId, { actionCode, startTime });
+        return next;
+      });
+
+      vibrate(50); // Short buzz on press
+    },
+    [isHoldMode, isRunning, startTimer],
+  );
+
+  // Hold mode: handle pointer up/cancel/leave (end tracking and record)
+  const handlePointerEnd = useCallback(
+    (e: React.PointerEvent) => {
+      if (!isHoldMode) return;
+
+      const active = activePointers.get(e.pointerId);
+      if (!active) return;
+
+      e.currentTarget.releasePointerCapture(e.pointerId);
+
+      const endTime = Number((elapsedAccumulatorRef.current / 1000).toFixed(1));
+
+      // Record the action with start and end times
+      setActionLog(prev => [
+        ...prev,
+        {
+          actionCode: active.actionCode,
+          timestamp: active.startTime,
+          endTimestamp: endTime,
+        },
+      ]);
+
+      setActivePointers(prev => {
+        const next = new Map(prev);
+        next.delete(e.pointerId);
+        return next;
+      });
+
+      vibrate([30, 20, 30]); // Double buzz on release
+    },
+    [isHoldMode, activePointers],
+  );
+
+  // Tap mode: handle click
+  const handleClick = useCallback(
+    (actionCode: string) => {
+      if (isHoldMode) return; // Hold mode uses pointer events instead
+      recordAction(actionCode);
+    },
+    [isHoldMode, recordAction],
+  );
+
+  // End all active holds when window loses focus
+  useEffect(() => {
+    const handleBlur = () => {
+      if (activePointers.size === 0) return;
+
+      const endTime = Number((elapsedAccumulatorRef.current / 1000).toFixed(1));
+
+      // Record all active holds as completed
+      setActionLog(prev => [
+        ...prev,
+        ...Array.from(activePointers.values()).map(p => ({
+          actionCode: p.actionCode,
+          timestamp: p.startTime,
+          endTimestamp: endTime,
+        })),
+      ]);
+
+      setActivePointers(new Map());
+    };
+
+    window.addEventListener('blur', handleBlur);
+    return () => window.removeEventListener('blur', handleBlur);
+  }, [activePointers]);
+
   // Sync to store whenever actionLog changes
   useEffect(() => {
     // Update each action's count and times fields
@@ -157,12 +263,16 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
       const timesCode = `${props.code}_${action.code}_times`;
 
       updateValue(countCode, actionCounts[action.code] || 0);
-      updateValue(
-        timesCode,
-        (actionTimes[action.code] || []).join(','),
-      );
+
+      // Format times based on mode
+      const entries = actionLog.filter(e => e.actionCode === action.code);
+      const formattedTimes = isHoldMode
+        ? entries.map(e => `${e.timestamp}-${e.endTimestamp}`).join(',')
+        : entries.map(e => e.timestamp).join(',');
+
+      updateValue(timesCode, formattedTimes);
     }
-  }, [actionLog, actionCounts, actionTimes, data.actions, props.code]);
+  }, [actionLog, actionCounts, data.actions, props.code, isHoldMode]);
 
   // Format elapsed time as MM:SS.s
   const formattedTime = useMemo(() => {
@@ -223,23 +333,37 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
 
       {/* Action buttons grid */}
       <div className="grid w-full grid-cols-2 gap-2">
-        {data.actions.map(action => (
-          <Button
-            key={action.code}
-            variant="secondary"
-            className="h-auto min-h-16 flex-col gap-1 text-wrap py-3"
-            onClick={() => recordAction(action.code)}
-            disabled={data.disabled}
-          >
-            {action.icon && (
-              <DynamicIcon name={action.icon} className="size-5" />
-            )}
-            <span className="text-sm font-medium">{action.label}</span>
-            <span className="text-xs text-muted-foreground">
-              ({actionCounts[action.code] || 0})
-            </span>
-          </Button>
-        ))}
+        {data.actions.map(action => {
+          // Check if this action has any active pointers (being held)
+          const isBeingHeld = Array.from(activePointers.values()).some(
+            p => p.actionCode === action.code,
+          );
+
+          return (
+            <Button
+              key={action.code}
+              variant="secondary"
+              className={cn(
+                'h-auto min-h-16 flex-col gap-1 text-wrap py-3 touch-none select-none',
+                isBeingHeld && 'ring-2 ring-primary ring-offset-2 bg-primary/20 animate-pulse',
+              )}
+              onClick={() => handleClick(action.code)}
+              onPointerDown={e => handlePointerDown(e, action.code)}
+              onPointerUp={handlePointerEnd}
+              onPointerCancel={handlePointerEnd}
+              onPointerLeave={handlePointerEnd}
+              disabled={data.disabled}
+            >
+              {action.icon && (
+                <DynamicIcon name={action.icon} className="size-5" />
+              )}
+              <span className="text-sm font-medium">{action.label}</span>
+              <span className="text-xs text-muted-foreground">
+                ({actionCounts[action.code] || 0})
+              </span>
+            </Button>
+          );
+        })}
       </div>
 
       {/* Recent action log */}
@@ -254,7 +378,10 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
                 key={`${entry.actionCode}-${entry.timestamp}-${idx}`}
                 className="rounded bg-background px-1.5 py-0.5"
               >
-                {getActionLabel(entry.actionCode)}@{entry.timestamp}s
+                {getActionLabel(entry.actionCode)}@
+                {entry.endTimestamp !== undefined
+                  ? `${entry.timestamp}-${entry.endTimestamp}s`
+                  : `${entry.timestamp}s`}
               </span>
             ))}
           </div>
