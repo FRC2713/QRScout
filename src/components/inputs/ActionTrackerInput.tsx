@@ -10,6 +10,10 @@ import { ConfigurableInputProps } from './ConfigurableInput';
 // Lazy-load DynamicIcon module only when icons are used (avoids 100KB+ bundle cost)
 const LazyDynamicIcon = lazy(() => import('./DynamicIcon'));
 
+// Touch gesture constants (based on React Native / @use-gesture standards)
+const HOLD_INTENT_DELAY_MS = 200; // Time before hold is considered intentional
+const MOVEMENT_THRESHOLD_PX = 10; // Movement that cancels a pending press (scroll detection)
+
 function DynamicIcon({ name, className }: { name: string; className?: string }) {
   return (
     <Suspense fallback={<span className={className} />}>
@@ -28,6 +32,22 @@ interface ActionEntry {
 interface ActivePointer {
   actionCode: string;
   startTime: number;
+}
+
+// Pending pointer tracking (before intent is confirmed for hold mode)
+interface PendingPointer {
+  actionCode: string;
+  startX: number;
+  startY: number;
+  intentTimerId: ReturnType<typeof setTimeout>;
+}
+
+// Pending tap tracking (for scroll detection in tap mode)
+interface PendingTap {
+  actionCode: string;
+  startX: number;
+  startY: number;
+  cancelled: boolean;
 }
 
 // Haptic feedback helper - fails silently on unsupported devices
@@ -58,6 +78,12 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
   const [activePointers, setActivePointers] = useState<Map<number, ActivePointer>>(
     () => new Map(),
   );
+
+  // Pending pointers (hold mode) - before intent is confirmed
+  const pendingPointersRef = useRef<Map<number, PendingPointer>>(new Map());
+
+  // Pending taps (tap mode) - for scroll detection
+  const pendingTapsRef = useRef<Map<number, PendingTap>>(new Map());
 
   // Determine mode (defaults to 'hold')
   const isHoldMode = data.mode !== 'tap';
@@ -162,31 +188,105 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
     setActionLog(prev => prev.slice(0, -1));
   }, []);
 
-  // Hold mode: handle pointer down (start tracking)
+  // Cancel a pending pointer (hold mode) - clears timer and removes from tracking
+  const cancelPendingPointer = useCallback((pointerId: number) => {
+    const pending = pendingPointersRef.current.get(pointerId);
+    if (pending) {
+      clearTimeout(pending.intentTimerId);
+      pendingPointersRef.current.delete(pointerId);
+    }
+  }, []);
+
+  // Hold mode: handle pointer down (start intent tracking)
   const handlePointerDown = useCallback(
     (e: React.PointerEvent, actionCode: string) => {
-      if (!isHoldMode) return;
+      if (isHoldMode) {
+        // Store element reference for use in setTimeout (e.currentTarget won't be valid later)
+        const element = e.currentTarget;
+        const pointerId = e.pointerId;
 
-      // Capture pointer to continue tracking even if it leaves the button
-      e.currentTarget.setPointerCapture(e.pointerId);
+        // Start intent timer - don't record action until confirmed
+        // NOTE: We delay setPointerCapture until intent is confirmed so that
+        // the browser can still initiate a scroll if the user moves quickly
+        const intentTimerId = setTimeout(() => {
+          // Intent confirmed after delay
+          pendingPointersRef.current.delete(pointerId);
 
-      // Auto-start timer if not running
-      if (!isRunning) {
-        startTimer();
-        setAutoStarted(true);
+          // NOW capture the pointer - user has committed to the hold
+          element.setPointerCapture(pointerId);
+
+          // Auto-start timer if not running
+          if (!isRunning) {
+            startTimer();
+            setAutoStarted(true);
+          }
+
+          const startTime = Number((elapsedAccumulatorRef.current / 1000).toFixed(1));
+
+          setActivePointers(prev => {
+            const next = new Map(prev);
+            next.set(pointerId, { actionCode, startTime });
+            return next;
+          });
+
+          vibrate(50); // Haptic on confirmed hold
+        }, HOLD_INTENT_DELAY_MS);
+
+        // Track as pending
+        pendingPointersRef.current.set(e.pointerId, {
+          actionCode,
+          startX: e.clientX,
+          startY: e.clientY,
+          intentTimerId,
+        });
+      } else {
+        // Tap mode: capture pointer immediately for reliable tracking
+        e.currentTarget.setPointerCapture(e.pointerId);
+
+        // Track for scroll detection (no delay)
+        pendingTapsRef.current.set(e.pointerId, {
+          actionCode,
+          startX: e.clientX,
+          startY: e.clientY,
+          cancelled: false,
+        });
       }
-
-      const startTime = Number((elapsedAccumulatorRef.current / 1000).toFixed(1));
-
-      setActivePointers(prev => {
-        const next = new Map(prev);
-        next.set(e.pointerId, { actionCode, startTime });
-        return next;
-      });
-
-      vibrate(50); // Short buzz on press
     },
     [isHoldMode, isRunning, startTimer],
+  );
+
+  // Handle pointer movement - detect scroll intent and cancel if needed
+  const handlePointerMove = useCallback(
+    (e: React.PointerEvent) => {
+      if (isHoldMode) {
+        // Only check pending pointers (not yet confirmed)
+        const pending = pendingPointersRef.current.get(e.pointerId);
+        if (!pending) return; // Already confirmed or not tracking
+
+        const deltaX = e.clientX - pending.startX;
+        const deltaY = e.clientY - pending.startY;
+        const distance = Math.hypot(deltaX, deltaY);
+
+        if (distance > MOVEMENT_THRESHOLD_PX) {
+          // User is scrolling - cancel the pending press
+          // No need to releasePointerCapture - we haven't captured it yet
+          cancelPendingPointer(e.pointerId);
+        }
+      } else {
+        // Tap mode: check for scroll
+        const pending = pendingTapsRef.current.get(e.pointerId);
+        if (!pending || pending.cancelled) return;
+
+        const deltaX = e.clientX - pending.startX;
+        const deltaY = e.clientY - pending.startY;
+        const distance = Math.hypot(deltaX, deltaY);
+
+        if (distance > MOVEMENT_THRESHOLD_PX) {
+          pending.cancelled = true; // Mark as cancelled (scroll detected)
+        }
+      }
+    },
+    [isHoldMode, cancelPendingPointer],
   );
 
   // Hold mode: handle pointer up/cancel/leave (end tracking and record)
@@ -194,6 +294,22 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
     (e: React.PointerEvent) => {
       if (!isHoldMode) return;
 
+      // Check if this was a pending pointer (not yet confirmed)
+      if (pendingPointersRef.current.has(e.pointerId)) {
+        // Pending pointers can be cancelled by any end event
+        // No need to releasePointerCapture - we haven't captured it yet
+        cancelPendingPointer(e.pointerId);
+        return; // Don't record - wasn't held long enough
+      }
+
+      // For CONFIRMED holds: only end on pointerup
+      // Ignore pointercancel and pointerleave - user is still holding,
+      // the browser just got confused by finger movement
+      if (e.type === 'pointercancel' || e.type === 'pointerleave') {
+        return;
+      }
+
+      // Handle confirmed active pointer (only on pointerup)
       const active = activePointers.get(e.pointerId);
       if (!active) return;
 
@@ -219,21 +335,40 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
 
       vibrate([30, 20, 30]); // Double buzz on release
     },
-    [isHoldMode, activePointers],
+    [isHoldMode, activePointers, cancelPendingPointer],
   );
 
-  // Tap mode: handle click
-  const handleClick = useCallback(
-    (actionCode: string) => {
-      if (isHoldMode) return; // Hold mode uses pointer events instead
-      recordAction(actionCode);
+  // Tap mode: handle pointer up - record action if not cancelled by scroll
+  const handleTapEnd = useCallback(
+    (e: React.PointerEvent) => {
+      if (isHoldMode) return;
+
+      const pending = pendingTapsRef.current.get(e.pointerId);
+      pendingTapsRef.current.delete(e.pointerId);
+
+      e.currentTarget.releasePointerCapture(e.pointerId);
+
+      if (pending && !pending.cancelled) {
+        // Valid tap - record action
+        recordAction(pending.actionCode);
+      }
     },
     [isHoldMode, recordAction],
   );
 
-  // End all active holds when window loses focus
+  // End all active holds and cancel pending pointers when window loses focus
   useEffect(() => {
     const handleBlur = () => {
+      // Cancel all pending pointers (hold mode)
+      for (const [, pending] of pendingPointersRef.current) {
+        clearTimeout(pending.intentTimerId);
+      }
+      pendingPointersRef.current.clear();
+
+      // Clear pending taps (tap mode)
+      pendingTapsRef.current.clear();
+
+      // Record all confirmed active holds as completed
       if (activePointers.size === 0) return;
 
       const endTime = Number((elapsedAccumulatorRef.current / 1000).toFixed(1));
@@ -254,6 +389,15 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
     window.addEventListener('blur', handleBlur);
     return () => window.removeEventListener('blur', handleBlur);
   }, [activePointers]);
+
+  // Cleanup pending pointer timers on unmount
+  useEffect(() => {
+    return () => {
+      for (const pending of pendingPointersRef.current.values()) {
+        clearTimeout(pending.intentTimerId);
+      }
+    };
+  }, []);
 
   // Sync to store whenever actionLog changes
   useEffect(() => {
@@ -345,11 +489,14 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
               variant="secondary"
               className={cn(
                 'h-auto min-h-16 flex-col gap-1 text-wrap py-3 touch-none select-none',
-                isBeingHeld && 'ring-2 ring-primary ring-offset-2 bg-primary/20 animate-pulse',
+                isBeingHeld && 'ring-2 ring-primary ring-offset-2 !bg-primary/20 animate-pulse',
               )}
-              onClick={() => handleClick(action.code)}
               onPointerDown={e => handlePointerDown(e, action.code)}
-              onPointerUp={handlePointerEnd}
+              onPointerMove={handlePointerMove}
+              onPointerUp={e => {
+                handlePointerEnd(e);
+                handleTapEnd(e);
+              }}
               onPointerCancel={handlePointerEnd}
               onPointerLeave={handlePointerEnd}
               disabled={data.disabled}
