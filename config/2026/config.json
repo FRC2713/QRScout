@@ -150,11 +150,12 @@
                 },
                 {
                     "title": "Auto Actions",
-                    "description": "Track robot actions during autonomous. Press Start when auto begins, then tap actions as they happen.",
+                    "description": "Track robot actions during autonomous. Press and hold buttons for the duration of each action.",
                     "type": "action-tracker",
                     "required": false,
                     "code": "autoAct",
                     "formResetBehavior": "reset",
+                    "mode": "hold",
                     "timerDuration": 15,
                     "actions": [
                         { "label": "Fuel Scored", "code": "fuel", "icon": "circle-dot" },
@@ -196,11 +197,12 @@
             "fields": [
                 {
                     "title": "Teleop Actions",
-                    "description": "Track robot actions during teleop. Press Start when teleop begins, then tap actions as they happen.",
+                    "description": "Track robot actions during teleop. Press and hold buttons for the duration of each action.",
                     "type": "action-tracker",
                     "required": false,
                     "code": "teleopAct",
                     "formResetBehavior": "reset",
+                    "mode": "hold",
                     "timerDuration": 135,
                     "actions": [
                         { "label": "Fuel Scored", "code": "fuel", "icon": "circle-dot" },
