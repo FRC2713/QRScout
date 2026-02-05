@@ -1,1 +1,0 @@
-import{c as e}from"./index-DWZuH7UJ.js";const t=e("SquareChevronDown",[["rect",{width:"18",height:"18",x:"3",y:"3",rx:"2",key:"afitv7"}],["path",{d:"m16 10-4 4-4-4",key:"894hmk"}]]);export{t as default};

@@ -1,0 +1,1 @@
+import{c as e}from"./index-CDQ3k_9U.js";const r=e("SquareArrowUpLeft",[["rect",{width:"18",height:"18",x:"3",y:"3",rx:"2",key:"afitv7"}],["path",{d:"M8 16V8h8",key:"19xb1h"}],["path",{d:"M16 16 8 8",key:"1qdy8n"}]]);export{r as default};

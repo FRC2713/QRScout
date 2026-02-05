@@ -1,0 +1,1 @@
+import{c as o}from"./index-CDQ3k_9U.js";const e=o("ArrowDownFromLine",[["path",{d:"M19 3H5",key:"1236rx"}],["path",{d:"M12 21V7",key:"gj6g52"}],["path",{d:"m6 15 6 6 6-6",key:"h15q88"}]]);export{e as default};
