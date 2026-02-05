@@ -29,7 +29,12 @@
           "description": "Code of the form field to get this value from"
         }
       },
-      "description": "Whether or not to always show the selected team number at the top of the screen"
+      "required": [
+        "show",
+        "codeValue"
+      ],
+      "additionalProperties": false,
+      "description": "Optional floating text box at the tob of the screen to show things like the team number. May be useful on small screens"
     },
     "theme": {
       "type": "object",
@@ -660,6 +665,83 @@
                     "type",
                     "required",
                     "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "action-tracker"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
+                    },
+                    "defaultValue": {
+                      "type": "null",
+                      "default": null,
+                      "description": "Default value (null, as this input generates multiple fields)"
+                    },
+                    "actions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "label": {
+                            "type": "string",
+                            "description": "The display label for this action button"
+                          },
+                          "code": {
+                            "type": "string",
+                            "description": "A unique code for this action (used in field names)"
+                          },
+                          "icon": {
+                            "type": "string",
+                            "description": "Optional Lucide icon name (e.g., \"fuel\", \"target\"). See https://lucide.dev/icons"
+                          }
+                        },
+                        "required": [
+                          "label",
+                          "code"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1,
+                      "description": "The actions to track. Each action becomes a tappable button."
+                    },
+                    "timerDuration": {
+                      "type": "number",
+                      "description": "Expected duration in seconds (for UI reference, e.g., 15 for auto, 135 for teleop)"
+                    },
+                    "mode": {
+                      "type": "string",
+                      "enum": ["tap", "hold"],
+                      "default": "hold",
+                      "description": "Recording mode: 'tap' records instant timestamps on click, 'hold' records duration while button is pressed (default: 'hold')"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code",
+                    "actions"
                   ],
                   "additionalProperties": false
                 }

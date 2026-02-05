@@ -11,6 +11,7 @@ export const inputTypeSchema = z
     'timer',
     'multi-select',
     'image',
+    'action-tracker',
     'TBA-team-and-robot',
     'TBA-match-number',
   ])
@@ -100,6 +101,37 @@ export const imageInputSchema = inputBaseSchema.extend({
   alt: z.string().optional().describe('The alt text for the image'),
 });
 
+export const actionSchema = z.object({
+  label: z.string().describe('The display label for this action button'),
+  code: z.string().describe('A unique code for this action (used in field names)'),
+  icon: z
+    .string()
+    .optional()
+    .describe('Optional Lucide icon name (e.g., "fuel", "target"). See https://lucide.dev/icons'),
+});
+
+export const actionTrackerInputSchema = inputBaseSchema.extend({
+  type: z.literal('action-tracker'),
+  defaultValue: z
+    .null()
+    .default(null)
+    .describe('Default value (null, as this input generates multiple fields)'),
+  mode: z
+    .enum(['tap', 'hold'])
+    .default('hold')
+    .describe(
+      "Recording mode: 'tap' records instant timestamps on click, 'hold' records duration while button is pressed (default: 'hold')",
+    ),
+  actions: z
+    .array(actionSchema)
+    .min(1)
+    .describe('The actions to track. Each action becomes a tappable button.'),
+  timerDuration: z
+    .number()
+    .optional()
+    .describe('Expected duration in seconds (for UI reference, e.g., 15 for auto, 135 for teleop)'),
+});
+
 export const tbaTeamAndRobotInputSchema = inputBaseSchema.extend({
   type: z.literal('TBA-team-and-robot'),
   defaultValue: z
@@ -132,6 +164,7 @@ export const sectionSchema = z.object({
       booleanInputSchema,
       timerInputSchema,
       imageInputSchema,
+      actionTrackerInputSchema,
       tbaTeamAndRobotInputSchema,
       tbaMatchNumberInputSchema,
     ]),
@@ -275,6 +308,8 @@ export type RangeInputData = z.infer<typeof rangeInputSchema>;
 export type BooleanInputData = z.infer<typeof booleanInputSchema>;
 export type TimerInputData = z.infer<typeof timerInputSchema>;
 export type ImageInputData = z.infer<typeof imageInputSchema>;
+export type ActionTrackerInputData = z.infer<typeof actionTrackerInputSchema>;
+export type ActionData = z.infer<typeof actionSchema>;
 export type TBATeamAndRobotInputData = z.infer<typeof tbaTeamAndRobotInputSchema>;
 export type TBAMatchNumberInputData = z.infer<typeof tbaMatchNumberInputSchema>;
 
@@ -288,6 +323,7 @@ export type InputPropsMap = {
   counter: CounterInputData;
   timer: TimerInputData;
   image: ImageInputData;
+  'action-tracker': ActionTrackerInputData;
   'TBA-team-and-robot': TBATeamAndRobotInputData;
   'TBA-match-number': TBAMatchNumberInputData;
 };

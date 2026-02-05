@@ -2,6 +2,7 @@ import { produce } from 'immer';
 import { cloneDeep } from 'lodash';
 import configJson from '../../config/2026/config.json';
 import {
+  ActionTrackerInputData,
   Config,
   configSchema,
   InputBase,
@@ -11,6 +12,41 @@ import { Result } from '../types/result';
 import { createStore } from './createStore';
 
 export type { Result };
+
+/**
+ * Generates field values for a config, including dynamic fields for action-tracker inputs.
+ * For action-tracker, creates _count and _times fields for each action.
+ */
+function generateFieldValues(config: Config): { code: string; value: any }[] {
+  const fieldValues: { code: string; value: any }[] = [];
+
+  for (const section of config.sections) {
+    for (const field of section.fields) {
+      if (field.type === 'action-tracker') {
+        // For action-tracker, generate _count and _times fields for each action
+        const actionField = field as ActionTrackerInputData;
+        for (const action of actionField.actions) {
+          fieldValues.push({
+            code: `${field.code}_${action.code}_count`,
+            value: 0,
+          });
+          fieldValues.push({
+            code: `${field.code}_${action.code}_times`,
+            value: '',
+          });
+        }
+      } else {
+        // Standard field
+        fieldValues.push({
+          code: field.code,
+          value: field.defaultValue,
+        });
+      }
+    }
+  }
+
+  return fieldValues;
+}
 
 function getDefaultConfig(): Config {
   const config = configSchema.safeParse(configJson);
@@ -35,9 +71,7 @@ export interface QRScoutState {
 
 const initialState: QRScoutState = {
   formData: getDefaultConfig(),
-  fieldValues: getDefaultConfig().sections.flatMap(s =>
-    s.fields.map(f => ({ code: f.code, value: f.defaultValue })),
-  ),
+  fieldValues: generateFieldValues(getDefaultConfig()),
   showQR: false,
 };
 
@@ -97,9 +131,7 @@ export function forceResetFields() {
 export function setFormData(config: Config) {
   const oldState = useQRScoutState.getState();
   forceResetFields();
-  const newFieldValues = config.sections.flatMap(s =>
-    s.fields.map(f => ({ code: f.code, value: f.defaultValue })),
-  );
+  const newFieldValues = generateFieldValues(config);
   useQRScoutState.setState({
     ...oldState,
     fieldValues: newFieldValues,
