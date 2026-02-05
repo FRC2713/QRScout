@@ -1,0 +1,1 @@
+import{c as e}from"./index-DWZuH7UJ.js";const o=e("Tv",[["rect",{width:"20",height:"15",x:"2",y:"7",rx:"2",ry:"2",key:"10ag99"}],["polyline",{points:"17 2 12 7 7 2",key:"11pgbg"}]]);export{o as default};

@@ -1,1 +1,0 @@
-import{c}from"./index-CDQ3k_9U.js";const o=c("Clock10",[["circle",{cx:"12",cy:"12",r:"10",key:"1mglay"}],["polyline",{points:"12 6 12 12 8 10",key:"atfzqc"}]]);export{o as default};

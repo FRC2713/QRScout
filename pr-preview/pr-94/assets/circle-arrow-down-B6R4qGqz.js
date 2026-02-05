@@ -1,0 +1,1 @@
+import{c as r}from"./index-DWZuH7UJ.js";const e=r("CircleArrowDown",[["circle",{cx:"12",cy:"12",r:"10",key:"1mglay"}],["path",{d:"M12 8v8",key:"napkw2"}],["path",{d:"m8 12 4 4 4-4",key:"k98ssh"}]]);export{e as default};

@@ -1,0 +1,1 @@
+import{c as e}from"./index-DWZuH7UJ.js";const r=e("SquareChevronRight",[["rect",{width:"18",height:"18",x:"3",y:"3",rx:"2",key:"afitv7"}],["path",{d:"m10 8 4 4-4 4",key:"1wy4r4"}]]);export{r as default};

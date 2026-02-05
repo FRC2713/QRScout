@@ -1,1 +1,0 @@
-import{c}from"./index-CDQ3k_9U.js";const a=c("CircleEqual",[["path",{d:"M7 10h10",key:"1101jm"}],["path",{d:"M7 14h10",key:"1mhdw3"}],["circle",{cx:"12",cy:"12",r:"10",key:"1mglay"}]]);export{a as default};
