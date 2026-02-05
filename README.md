@@ -382,10 +382,10 @@ The action tracker input type allows scouts to record timestamped robot actions 
   "title": "Auto Actions",
   "type": "action-tracker",
   "required": false,
-  "code": "autoAct",
+  "code": "autoAction",
   "description": "Track robot actions during autonomous",
   "formResetBehavior": "reset",
-  "mode": "tap",
+  "mode": "hold",
   "timerDuration": 15,
   "actions": [
     { "label": "Scored", "code": "score", "icon": "target" },

@@ -119,7 +119,6 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
           animationFrameRef.current = null;
         }
       }
-      // 'preserve' does nothing, 'increment' doesn't make sense for this input
     },
     [data.formResetBehavior],
   );

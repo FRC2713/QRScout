@@ -149,6 +149,17 @@
                     "defaultValue": false
                 },
                 {
+                    "title": "Fuel scored",
+                    "description": "The amount of fuel scored in auto",
+                    "type": "counter",
+                    "required": false,
+                    "code": "FIA",
+                    "formResetBehavior": "reset",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "step": 1
+                },
+                {
                     "title": "Climbed Tower",
                     "description": "The height the robot climbed in auto",
                     "type": "select",
@@ -205,6 +216,28 @@
                     "code": "FFD",
                     "formResetBehavior": "reset",
                     "required": false
+                },
+                {
+                    "title": "Robot Fuel Scored",
+                    "description": "The amount of fuel scored in teleop (by the robot)",
+                    "type": "counter",
+                    "required": false,
+                    "code": "FIT",
+                    "formResetBehavior": "reset",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "step": 1
+                },
+                {
+                    "title": "Human Fuel Scored",
+                    "description": "The amount of fuel scored directly by the human player",
+                    "type": "counter",
+                    "required": false,
+                    "code": "HFS",
+                    "formResetBehavior": "reset",
+                    "defaultValue": 0,
+                    "min": 0,
+                    "step": 1
                 },
                 {
                     "title": "Crossed Field/Played Defense?",
