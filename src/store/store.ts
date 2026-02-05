@@ -7,9 +7,11 @@ import {
   configSchema,
   InputBase,
 } from '../components/inputs/BaseInputProps';
+import { MatchData } from '../types/matchData';
+import { Result } from '../types/result';
 import { createStore } from './createStore';
 
-type Result<T> = { success: true; data: T } | { success: false; error: Error };
+export type { Result };
 
 /**
  * Generates field values for a config, including dynamic fields for action-tracker inputs.
@@ -64,6 +66,7 @@ export interface QRScoutState {
   formData: Config;
   fieldValues: { code: string; value: any }[];
   showQR: boolean;
+  matchData?: MatchData[];
 }
 
 const initialState: QRScoutState = {
@@ -88,7 +91,9 @@ export async function fetchConfigFromURL(url: string): Promise<Result<void>> {
   try {
     const response = await fetch(url);
     if (!response.ok) {
-      throw new Error(`Failed to fetch config from URL: ${response.statusText}`);
+      throw new Error(
+        `Failed to fetch config from URL: ${response.statusText}`,
+      );
     }
     const configText = await response.text();
     return setConfig(configText);
@@ -118,14 +123,20 @@ export function resetFields() {
 }
 
 export function forceResetFields() {
-  window.dispatchEvent(new CustomEvent('forceResetFields', { detail: 'forceReset' }));
+  window.dispatchEvent(
+    new CustomEvent('forceResetFields', { detail: 'forceReset' }),
+  );
 }
 
 export function setFormData(config: Config) {
   const oldState = useQRScoutState.getState();
   forceResetFields();
   const newFieldValues = generateFieldValues(config);
-  useQRScoutState.setState({ ...oldState, fieldValues: newFieldValues, formData: config });
+  useQRScoutState.setState({
+    ...oldState,
+    fieldValues: newFieldValues,
+    formData: config,
+  });
 }
 
 export function setConfig(configText: string): Result<void> {
@@ -159,4 +170,9 @@ export function inputSelector<T extends InputBase>(
     }
     return field as T;
   };
+}
+
+
+export function setMatchData(matchData: MatchData[]) {
+  useQRScoutState.setState({ matchData });
 }

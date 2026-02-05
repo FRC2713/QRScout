@@ -12,6 +12,8 @@ export const inputTypeSchema = z
     'multi-select',
     'image',
     'action-tracker',
+    'TBA-team-and-robot',
+    'TBA-match-number',
   ])
   .describe('The type of input');
 
@@ -130,6 +132,25 @@ export const actionTrackerInputSchema = inputBaseSchema.extend({
     .describe('Expected duration in seconds (for UI reference, e.g., 15 for auto, 135 for teleop)'),
 });
 
+export const tbaTeamAndRobotInputSchema = inputBaseSchema.extend({
+  type: z.literal('TBA-team-and-robot'),
+  defaultValue: z
+    .object({
+      teamNumber: z.number(),
+      robotPosition: z.string(),
+    })
+    .nullable()
+    .default(null)
+    .describe('The default team and robot position'),
+});
+
+export const tbaMatchNumberInputSchema = inputBaseSchema.extend({
+  type: z.literal('TBA-match-number'),
+  min: z.number().optional().describe('The minimum value'),
+  max: z.number().optional().describe('The maximum value'),
+  defaultValue: z.number().default(0).describe('The default value'),
+});
+
 export const sectionSchema = z.object({
   name: z.string(),
   fields: z.array(
@@ -144,6 +165,8 @@ export const sectionSchema = z.object({
       timerInputSchema,
       imageInputSchema,
       actionTrackerInputSchema,
+      tbaTeamAndRobotInputSchema,
+      tbaMatchNumberInputSchema,
     ]),
   ),
 });
@@ -287,6 +310,8 @@ export type TimerInputData = z.infer<typeof timerInputSchema>;
 export type ImageInputData = z.infer<typeof imageInputSchema>;
 export type ActionTrackerInputData = z.infer<typeof actionTrackerInputSchema>;
 export type ActionData = z.infer<typeof actionSchema>;
+export type TBATeamAndRobotInputData = z.infer<typeof tbaTeamAndRobotInputSchema>;
+export type TBAMatchNumberInputData = z.infer<typeof tbaMatchNumberInputSchema>;
 
 export type InputPropsMap = {
   text: StringInputData;
@@ -299,6 +324,8 @@ export type InputPropsMap = {
   timer: TimerInputData;
   image: ImageInputData;
   'action-tracker': ActionTrackerInputData;
+  'TBA-team-and-robot': TBATeamAndRobotInputData;
+  'TBA-match-number': TBAMatchNumberInputData;
 };
 
 export type SectionProps = z.infer<typeof sectionSchema>;
