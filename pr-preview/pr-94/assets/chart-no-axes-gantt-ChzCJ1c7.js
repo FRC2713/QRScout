@@ -1,1 +1,0 @@
-import{c as t}from"./index-CDQ3k_9U.js";const e=t("ChartNoAxesGantt",[["path",{d:"M8 6h10",key:"9lnwnk"}],["path",{d:"M6 12h9",key:"1g9pqf"}],["path",{d:"M11 18h7",key:"c8dzvl"}]]);export{e as default};
