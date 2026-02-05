@@ -149,22 +149,6 @@
                     "defaultValue": false
                 },
                 {
-                    "title": "Auto Actions",
-                    "description": "Track robot actions during autonomous. Press and hold buttons for the duration of each action.",
-                    "type": "action-tracker",
-                    "required": false,
-                    "code": "autoAct",
-                    "formResetBehavior": "reset",
-                    "mode": "hold",
-                    "timerDuration": 15,
-                    "actions": [
-                        { "label": "Fuel Scored", "code": "fuel", "icon": "circle-dot" },
-                        { "label": "Crossed Bump", "code": "bump", "icon": "chevrons-up" },
-                        { "label": "Through Trench", "code": "trench", "icon": "move-horizontal" },
-                        { "label": "Climb Started", "code": "climbStart", "icon": "arrow-up-to-line" }
-                    ]
-                },
-                {
                     "title": "Climbed Tower",
                     "description": "The height the robot climbed in auto",
                     "type": "select",
@@ -195,22 +179,6 @@
         {
             "name": "Teleop",
             "fields": [
-                {
-                    "title": "Teleop Actions",
-                    "description": "Track robot actions during teleop. Press and hold buttons for the duration of each action.",
-                    "type": "action-tracker",
-                    "required": false,
-                    "code": "teleopAct",
-                    "formResetBehavior": "reset",
-                    "mode": "hold",
-                    "timerDuration": 135,
-                    "actions": [
-                        { "label": "Fuel Scored", "code": "fuel", "icon": "circle-dot" },
-                        { "label": "Fuel Passed", "code": "pass", "icon": "send" },
-                        { "label": "Defense Start", "code": "defStart", "icon": "shield" },
-                        { "label": "Defense End", "code": "defEnd", "icon": "shield-off" }
-                    ]
-                },
                 {
                     "title": "Fuel Collected From Ground",
                     "description": "Collected fuel from the ground",

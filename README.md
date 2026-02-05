@@ -18,6 +18,8 @@ A QR Code-based scouting system for FRC
   - [Using Multi-Select Input](#using-multi-select-input)
   - [Using Image Input](#using-image-input)
   - [Using Timer Input](#using-timer-input)
+  - [Using Action Tracker Input](#using-action-tracker-input)
+  - [Using The Blue Alliance (TBA) Integration](#using-the-blue-alliance-tba-integration)
 
 ## Getting started
 
@@ -98,7 +100,7 @@ The basic structure of the config.json file is as follows:
 
 `title`: The name of this field
 
-`type`: One of "text", "number", "boolean", "range", "select", "counter", "timer", "multi-select", "image", "TBA-team-and-robot", or "TBA-match-number". Describes the type of input this is.
+`type`: One of "text", "number", "boolean", "range", "select", "counter", "timer", "multi-select", "image", "action-tracker", "TBA-team-and-robot", or "TBA-match-number". Describes the type of input this is.
 
 `required`: a boolean indicating if this must be filled out before the QRCode is generated. If any field with this set to true is not filled out, QRScout will not generate a QRCode when the commit button is pressed.
 
@@ -368,6 +370,101 @@ This allows scouts to accurately measure and compare the efficiency of different
 3. **Multiple Timers**: Consider using separate timers for different phases or actions
 4. **Backup Method**: Have a secondary way to record time in case of user error
 5. **Practice Before Competition**: Make sure scouts are comfortable using the timer function before actual matches
+
+### Using Action Tracker Input
+
+The action tracker input type allows scouts to record timestamped robot actions during a match. Rather than just counting events, scouts can tap or hold action buttons as they happen, building a timeline of what the robot did and when. This enables analysis of cycle times, action sequences, and phase-specific performance.
+
+#### Configuration in config.json
+
+```json
+{
+  "title": "Auto Actions",
+  "type": "action-tracker",
+  "required": false,
+  "code": "autoAct",
+  "description": "Track robot actions during autonomous",
+  "formResetBehavior": "reset",
+  "mode": "tap",
+  "timerDuration": 15,
+  "actions": [
+    { "label": "Scored", "code": "score", "icon": "target" },
+    { "label": "Picked Up", "code": "pickup", "icon": "package" },
+    { "label": "Missed", "code": "miss", "icon": "x" }
+  ]
+}
+```
+
+#### Action Tracker Properties
+
+- **actions**: An array of action objects, each with:
+  - `label`: Display text for the button
+  - `code`: Unique identifier for this action (used in field names)
+  - `icon` (optional): A [Lucide icon](https://lucide.dev/icons) name to display on the button
+- **mode**: Determines how actions are recorded:
+  - `"tap"`: Records an instant timestamp when the button is tapped. Best for discrete events like scoring or picking up game pieces.
+  - `"hold"`: Records both start and end timestamps while the button is held down. Best for continuous actions like playing defense or climbing. Supports multi-touch for tracking overlapping actions.
+- **timerDuration** (optional): Expected duration in seconds (e.g., 15 for auto, 135 for teleop). Used as a UI reference.
+
+#### Using Action Tracker in the Form
+
+The action tracker provides a timer and a grid of action buttons:
+
+1. **Timer**: Starts automatically when the first action is recorded, or can be started manually
+2. **Action Buttons**: Tap (or hold, depending on mode) to record actions with timestamps
+3. **Undo Button**: Removes the most recent action if recorded in error
+4. **Action Log**: Shows recent actions with their timestamps
+
+#### Data Format
+
+Each action in an action-tracker generates two output columns:
+
+- `{code}_{actionCode}_count`: Integer count of how many times this action occurred
+- `{code}_{actionCode}_times`: Comma-separated timestamps in seconds
+
+For example, an auto tracker with code `autoAct` and a "score" action produces:
+- `autoAct_score_count`: `3`
+- `autoAct_score_times`: `2.1,8.4,12.7`
+
+In hold mode, timestamps are recorded as `start-end` pairs (e.g., `2.1-4.5,8.4-10.2`).
+
+When copying column names, action-tracker fields expand into human-friendly headers like "Scored in Auto (count)" and "Scored in Auto (timestamps)".
+
+#### FRC Scouting Examples
+
+Action trackers are particularly useful for:
+
+- **Scoring Timeline**: Track when and how often a robot scores during each phase
+- **Cycle Time Analysis**: Calculate average time between actions
+- **Defense Tracking**: Record when a robot starts and stops playing defense (using hold mode)
+- **Autonomous Paths**: Understand the sequence of actions during auto
+- **Endgame Timing**: Track climb attempts and timing
+
+For example, to track scoring actions during teleop:
+
+```json
+{
+  "title": "Teleop Scoring",
+  "type": "action-tracker",
+  "required": false,
+  "code": "teleopScore",
+  "mode": "tap",
+  "timerDuration": 135,
+  "actions": [
+    { "label": "Speaker", "code": "speaker", "icon": "volume-2" },
+    { "label": "Amp", "code": "amp", "icon": "zap" },
+    { "label": "Missed", "code": "miss", "icon": "x" }
+  ]
+}
+```
+
+#### Best Practices for Action Tracker
+
+1. **Choose the Right Mode**: Use `tap` for instant events (scoring, intake), use `hold` for duration-based actions (defense, climbing)
+2. **Keep Actions Focused**: Limit each tracker to 4-6 related actions to avoid overwhelming scouts
+3. **Separate Phases**: Use distinct action-trackers for Auto and Teleop to keep data organized
+4. **Use Icons**: Icons help scouts quickly identify buttons during fast-paced matches
+5. **Practice Before Competition**: Ensure scouts are comfortable with the tap/hold interaction before actual matches
 
 ### Using The Blue Alliance (TBA) Integration
 
