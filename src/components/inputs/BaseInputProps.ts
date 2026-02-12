@@ -230,7 +230,12 @@ export const configSchema = z.object({
       'The title of the scouting site. This will be displayed in the header and browser tab.',
     ),
   page_title: z.string().describe('The title of the page'),
-  year: z.number().describe('The year this scouting config is relevant for.'),
+  year: z
+    .number()
+    .optional()
+    .describe(
+      'The year this scouting config is relevant for. Defaults to the current year if not provided.',
+    ),
   delimiter: z
     .string()
     .describe('The delimiter to use when joining the form data'),
