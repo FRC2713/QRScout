@@ -9,6 +9,10 @@
       "type": "string",
       "description": "The title of the page"
     },
+    "year": {
+      "type": "number",
+      "description": "The year this scouting config is relevant for."
+    },
     "delimiter": {
       "type": "string",
       "description": "The delimiter to use when joining the form data"
@@ -698,6 +702,15 @@
                       "default": null,
                       "description": "Default value (null, as this input generates multiple fields)"
                     },
+                    "mode": {
+                      "type": "string",
+                      "enum": [
+                        "tap",
+                        "hold"
+                      ],
+                      "default": "hold",
+                      "description": "Recording mode: 'tap' records instant timestamps on click, 'hold' records duration while button is pressed (default: 'hold')"
+                    },
                     "actions": {
                       "type": "array",
                       "items": {
@@ -728,12 +741,6 @@
                     "timerDuration": {
                       "type": "number",
                       "description": "Expected duration in seconds (for UI reference, e.g., 15 for auto, 135 for teleop)"
-                    },
-                    "mode": {
-                      "type": "string",
-                      "enum": ["tap", "hold"],
-                      "default": "hold",
-                      "description": "Recording mode: 'tap' records instant timestamps on click, 'hold' records duration while button is pressed (default: 'hold')"
                     }
                   },
                   "required": [
@@ -742,6 +749,112 @@
                     "required",
                     "code",
                     "actions"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "TBA-team-and-robot"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
+                    },
+                    "defaultValue": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "teamNumber": {
+                              "type": "number"
+                            },
+                            "robotPosition": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "teamNumber",
+                            "robotPosition"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "default": null,
+                      "description": "The default team and robot position"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "TBA-match-number"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
+                    },
+                    "defaultValue": {
+                      "type": "number",
+                      "default": 0,
+                      "description": "The default value"
+                    },
+                    "min": {
+                      "type": "number",
+                      "description": "The minimum value"
+                    },
+                    "max": {
+                      "type": "number",
+                      "description": "The maximum value"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
                   ],
                   "additionalProperties": false
                 }
@@ -763,6 +876,7 @@
   "required": [
     "title",
     "page_title",
+    "year",
     "delimiter",
     "teamNumber",
     "sections"
