@@ -33,7 +33,9 @@ export function MatchDataFetcher({
         return;
       }
 
-      const result = await fetchTeamEvents(teamNumber);
+      const year = formData.year;
+
+      const result = await fetchTeamEvents(teamNumber, year);
 
       if (!result.success) {
         onError(result.error.message);
@@ -56,24 +58,21 @@ export function MatchDataFetcher({
     }
   }, [formData, onError]);
 
-  const handleEventSelected = useCallback(
-    async (eventKey: string) => {
-      const result = await fetchEventMatches(eventKey);
+  const handleEventSelected = useCallback(async (eventKey: string) => {
+    const result = await fetchEventMatches(eventKey);
 
-      if (!result.success) {
-        throw new Error(result.error.message);
-      }
+    if (!result.success) {
+      throw new Error(result.error.message);
+    }
 
-      if (result.data.length === 0) {
-        throw new Error('No match data available for this event yet');
-      }
+    if (result.data.length === 0) {
+      throw new Error('No match data available for this event yet');
+    }
 
-      // Store match data and close dialog
-      setMatchData(result.data);
-      setIsEventDialogOpen(false);
-    },
-    [],
-  );
+    // Store match data and close dialog
+    setMatchData(result.data);
+    setIsEventDialogOpen(false);
+  }, []);
 
   return (
     <>
@@ -103,4 +102,3 @@ export function MatchDataFetcher({
     </>
   );
 }
-
