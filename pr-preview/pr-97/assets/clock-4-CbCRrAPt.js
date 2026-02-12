@@ -1,0 +1,1 @@
+import{c}from"./index-CUoMtIgK.js";const o=c("Clock4",[["circle",{cx:"12",cy:"12",r:"10",key:"1mglay"}],["polyline",{points:"12 6 12 12 16 14",key:"68esgv"}]]);export{o as default};
