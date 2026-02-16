@@ -21,6 +21,11 @@ export function App() {
     {
       userID: `${teamNumber}`,
     },
+    {
+      networkConfig: {
+        networkTimeoutMs: 2000,
+      },
+    },
   );
 
   useEffect(() => {
@@ -28,7 +33,7 @@ export function App() {
   }, [client]);
 
   return (
-    <StatsigProvider client={client} loadingComponent={<div>Loading...</div>}>
+    <StatsigProvider client={client}>
       <ThemeProvider>
         <div className="min-h-screen py-2">
           <Header />
