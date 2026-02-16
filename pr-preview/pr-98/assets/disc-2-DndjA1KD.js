@@ -1,0 +1,1 @@
+import{c}from"./index-w9hG-WbW.js";const r=c("Disc2",[["circle",{cx:"12",cy:"12",r:"10",key:"1mglay"}],["circle",{cx:"12",cy:"12",r:"4",key:"4exip2"}],["path",{d:"M12 12h.01",key:"1mp3jc"}]]);export{r as default};

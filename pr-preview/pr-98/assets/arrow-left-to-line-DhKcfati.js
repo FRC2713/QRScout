@@ -1,0 +1,1 @@
+import{c as e}from"./index-w9hG-WbW.js";const r=e("ArrowLeftToLine",[["path",{d:"M3 19V5",key:"rwsyhb"}],["path",{d:"m13 6-6 6 6 6",key:"1yhaz7"}],["path",{d:"M7 12h14",key:"uoisry"}]]);export{r as default};
