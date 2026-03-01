@@ -487,9 +487,10 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
               key={action.code}
               variant="secondary"
               className={cn(
-                'h-auto min-h-16 flex-col gap-1 text-wrap py-3 touch-none select-none',
+                'h-auto min-h-16 flex-col gap-1 text-wrap py-3 touch-none select-none [-webkit-touch-callout:none]',
                 isBeingHeld && 'ring-2 ring-primary ring-offset-2 !bg-primary/20 animate-pulse',
               )}
+              onContextMenu={e => e.preventDefault()}
               onPointerDown={e => handlePointerDown(e, action.code)}
               onPointerMove={handlePointerMove}
               onPointerUp={e => {
