@@ -491,6 +491,7 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
                 isBeingHeld && 'ring-2 ring-primary ring-offset-2 !bg-primary/20 animate-pulse',
               )}
               onContextMenu={e => e.preventDefault()}
+              onTouchStart={e => e.preventDefault()}
               onPointerDown={e => handlePointerDown(e, action.code)}
               onPointerMove={handlePointerMove}
               onPointerUp={e => {
