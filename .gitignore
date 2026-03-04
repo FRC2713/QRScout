@@ -22,8 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
+.cursorrules
 
 # Environment
 .env
 .env.*
+!.env.example

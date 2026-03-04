@@ -23,20 +23,6 @@ export function QRModal(props: QRModalProps) {
     'matchNumber',
   )}`.toUpperCase();
 
-  const qrCodePreview = useMemo(
-    () => fieldValues.map(function(obj) {
-      if (obj.value === true) {
-        return "1";
-      }
-      else if (obj.value === false) {
-        return "0";
-      }
-      else {
-        return `${obj.value}`.replace(/\n/g, ' ');
-      }
-    }).join(','),
-    [fieldValues],
-  );
   const qrCodeData = useMemo(
     () => fieldValues.map(function(obj) {
       if (obj.value === true) {
@@ -44,9 +30,6 @@ export function QRModal(props: QRModalProps) {
       }
       else if (obj.value === false) {
         return "0";
-      }
-      else {
-        return `${obj.value}`.replace(/\n/g, ' ');
       }
     }).join(formData.delimiter),
     [fieldValues],
@@ -61,15 +44,15 @@ export function QRModal(props: QRModalProps) {
           Commit
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="h-[95%]">
         <DialogTitle className="text-3xl text-primary text-center font-rhr-ns tracking-wider ">
           {title}
         </DialogTitle>
-        <div className="flex flex-col items-center gap-6">
+        <div className="flex flex-col items-center gap-6 overflow-y-scroll">
           <div className="bg-white p-4 rounded-md">
             <QRCodeSVG className="m-2 mt-4" size={256} value={qrCodeData} />
           </div>
-          <PreviewText data={qrCodePreview} />
+          <PreviewText data={qrCodeData} />
         </div>
         <DialogFooter>
           <Button

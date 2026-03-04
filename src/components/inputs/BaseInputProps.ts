@@ -1,7 +1,20 @@
 import { z } from 'zod';
 
 export const inputTypeSchema = z
-  .enum(['text', 'number', 'boolean', 'range', 'select', 'counter', 'timer'])
+  .enum([
+    'text',
+    'number',
+    'boolean',
+    'range',
+    'select',
+    'counter',
+    'timer',
+    'multi-select',
+    'image',
+    'action-tracker',
+    'TBA-team-and-robot',
+    'TBA-match-number',
+  ])
   .describe('The type of input');
 
 export const inputBaseSchema = z.object({
@@ -35,14 +48,16 @@ export const numberInputSchema = inputBaseSchema.extend({
 export const selectInputSchema = inputBaseSchema.extend({
   type: z.literal('select'),
   choices: z.record(z.string()).optional().describe('The choices'),
-  multiSelect: z
-    .boolean()
-    .optional()
-    .describe('Whether multiple choices can be selected'),
   defaultValue: z
     .string()
     .default('')
     .describe('The default value. Must be one of the choices'),
+});
+
+export const multiSelectInputSchema = inputBaseSchema.extend({
+  type: z.literal('multi-select'),
+  choices: z.record(z.string()).optional().describe('The choices'),
+  defaultValue: z.array(z.string()).optional().describe('The default value'),
 });
 
 export const counterInputSchema = inputBaseSchema.extend({
@@ -69,6 +84,77 @@ export const booleanInputSchema = inputBaseSchema.extend({
 export const timerInputSchema = inputBaseSchema.extend({
   type: z.literal('timer'),
   defaultValue: z.number().default(0).describe('The default value'),
+  outputType: z
+    .enum(['average', 'list'])
+    .default('average')
+    .describe('The type of output to display in the scouting form'),
+});
+
+export const imageInputSchema = inputBaseSchema.extend({
+  type: z.literal('image'),
+  defaultValue: z
+    .string()
+    .default('')
+    .describe('The URL to a statically hosted image'),
+  width: z.number().optional().describe('The width of the image in pixels'),
+  height: z.number().optional().describe('The height of the image in pixels'),
+  alt: z.string().optional().describe('The alt text for the image'),
+});
+
+export const actionSchema = z.object({
+  label: z.string().describe('The display label for this action button'),
+  code: z
+    .string()
+    .describe('A unique code for this action (used in field names)'),
+  icon: z
+    .string()
+    .optional()
+    .describe(
+      'Optional Lucide icon name (e.g., "fuel", "target"). See https://lucide.dev/icons',
+    ),
+});
+
+export const actionTrackerInputSchema = inputBaseSchema.extend({
+  type: z.literal('action-tracker'),
+  defaultValue: z
+    .null()
+    .default(null)
+    .describe('Default value (null, as this input generates multiple fields)'),
+  mode: z
+    .enum(['tap', 'hold'])
+    .default('hold')
+    .describe(
+      "Recording mode: 'tap' records instant timestamps on click, 'hold' records duration while button is pressed (default: 'hold')",
+    ),
+  actions: z
+    .array(actionSchema)
+    .min(1)
+    .describe('The actions to track. Each action becomes a tappable button.'),
+  timerDuration: z
+    .number()
+    .optional()
+    .describe(
+      'Expected duration in seconds (for UI reference, e.g., 15 for auto, 135 for teleop)',
+    ),
+});
+
+export const tbaTeamAndRobotInputSchema = inputBaseSchema.extend({
+  type: z.literal('TBA-team-and-robot'),
+  defaultValue: z
+    .object({
+      teamNumber: z.number(),
+      robotPosition: z.string(),
+    })
+    .nullable()
+    .default(null)
+    .describe('The default team and robot position'),
+});
+
+export const tbaMatchNumberInputSchema = inputBaseSchema.extend({
+  type: z.literal('TBA-match-number'),
+  min: z.number().optional().describe('The minimum value'),
+  max: z.number().optional().describe('The maximum value'),
+  defaultValue: z.number().default(0).describe('The default value'),
 });
 
 export const sectionSchema = z.object({
@@ -79,9 +165,14 @@ export const sectionSchema = z.object({
       stringInputSchema,
       numberInputSchema,
       selectInputSchema,
+      multiSelectInputSchema,
       rangeInputSchema,
       booleanInputSchema,
       timerInputSchema,
+      imageInputSchema,
+      actionTrackerInputSchema,
+      tbaTeamAndRobotInputSchema,
+      tbaMatchNumberInputSchema,
     ]),
   ),
 });
@@ -89,6 +180,11 @@ export const sectionSchema = z.object({
 const shadcnColorSchema = z
   .string()
   .regex(/^(\d+(?:\.\d+)?)(?: (\d+(?:\.\d+)?)%)?(?: (\d+(?:\.\d+)?)%)?$/gm);
+
+const shadcnRadiusSchema = z
+  .string()
+  .regex(/([0-9]*.[0-9]+rem)/)
+  .optional();
 
 export const colorSchemeSchema = z.object({
   background: shadcnColorSchema,
@@ -110,6 +206,7 @@ export const colorSchemeSchema = z.object({
   border: shadcnColorSchema,
   input: shadcnColorSchema,
   ring: shadcnColorSchema,
+  radius: shadcnRadiusSchema,
   chart_1: shadcnColorSchema,
   chart_2: shadcnColorSchema,
   chart_3: shadcnColorSchema,
@@ -133,12 +230,33 @@ export const configSchema = z.object({
       'The title of the scouting site. This will be displayed in the header and browser tab.',
     ),
   page_title: z.string().describe('The title of the page'),
+  year: z
+    .number()
+    .optional()
+    .describe(
+      'The year this scouting config is relevant for. Defaults to the current year if not provided.',
+    ),
   delimiter: z
     .string()
     .describe('The delimiter to use when joining the form data'),
   teamNumber: z
     .number()
     .describe('The team number of the team using this form.'),
+  floatingField: z
+    .object({
+      show: z
+        .boolean()
+        .describe(
+          'Whether or not to always show this value at the top of the screen. May be useful on small screens',
+        ),
+      codeValue: z
+        .string()
+        .describe('Code of the form field to get this value from'),
+    })
+    .optional()
+    .describe(
+      'Optional floating text box at the tob of the screen to show things like the team number. May be useful on small screens',
+    ),
   theme: themeSchema.default({
     light: {
       background: '0 0% 100%',
@@ -160,6 +278,7 @@ export const configSchema = z.object({
       border: '0 0% 89.8%',
       input: '0 0% 89.8%',
       ring: '354.44 71.3% 47.9%',
+      radius: '0.5rem',
       chart_1: '12 76% 61%',
       chart_2: '173 58% 39%',
       chart_3: '197 37% 24%',
@@ -186,6 +305,7 @@ export const configSchema = z.object({
       border: '0 0% 14.9%',
       input: '0 0% 14.9%',
       ring: '354.44 71.3% 47.9%',
+      radius: '0.5rem',
       chart_1: '220 70% 50%',
       chart_2: '160 60% 45%',
       chart_3: '30 80% 55%',
@@ -200,12 +320,20 @@ export type InputTypes = z.infer<typeof inputTypeSchema>;
 
 export type InputBase = z.infer<typeof inputBaseSchema>;
 export type SelectInputData = z.infer<typeof selectInputSchema>;
+export type MultiSelectInputData = z.infer<typeof multiSelectInputSchema>;
 export type StringInputData = z.infer<typeof stringInputSchema>;
 export type NumberInputData = z.infer<typeof numberInputSchema>;
 export type CounterInputData = z.infer<typeof counterInputSchema>;
 export type RangeInputData = z.infer<typeof rangeInputSchema>;
 export type BooleanInputData = z.infer<typeof booleanInputSchema>;
 export type TimerInputData = z.infer<typeof timerInputSchema>;
+export type ImageInputData = z.infer<typeof imageInputSchema>;
+export type ActionTrackerInputData = z.infer<typeof actionTrackerInputSchema>;
+export type ActionData = z.infer<typeof actionSchema>;
+export type TBATeamAndRobotInputData = z.infer<
+  typeof tbaTeamAndRobotInputSchema
+>;
+export type TBAMatchNumberInputData = z.infer<typeof tbaMatchNumberInputSchema>;
 
 export type InputPropsMap = {
   text: StringInputData;
@@ -213,8 +341,13 @@ export type InputPropsMap = {
   boolean: BooleanInputData;
   range: RangeInputData;
   select: SelectInputData;
+  'multi-select': MultiSelectInputData;
   counter: CounterInputData;
   timer: TimerInputData;
+  image: ImageInputData;
+  'action-tracker': ActionTrackerInputData;
+  'TBA-team-and-robot': TBATeamAndRobotInputData;
+  'TBA-match-number': TBAMatchNumberInputData;
 };
 
 export type SectionProps = z.infer<typeof sectionSchema>;

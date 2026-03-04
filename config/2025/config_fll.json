@@ -1,0 +1,447 @@
+{
+  "title": "QRScout",
+  "page_title": "Unearthed",
+  "delimiter": "\t",
+  "teamNumber": 2713,
+  "floatingField": {
+    "show": false,
+    "codeValue": "teamNumber"
+  },
+  "theme": {
+    "light": {
+      "background": "0 0% 100%",
+      "foreground": "0 0% 3.9%",
+      "card": "0 0% 100%",
+      "card_foreground": "0 0% 3.9%",
+      "popover": "0 0% 100%",
+      "popover_foreground": "0 0% 3.9%",
+      "primary": "354.44 71.3% 47.9%",
+      "primary_foreground": "0 85.7% 97.3%",
+      "secondary": "0 0% 96.1%",
+      "secondary_foreground": "0 0% 9%",
+      "muted": "0 0% 96.1%",
+      "muted_foreground": "0 0% 45.1%",
+      "accent": "0 0% 96.1%",
+      "accent_foreground": "0 0% 9%",
+      "destructive": "0 84.2% 60.2%",
+      "destructive_foreground": "0 0% 98%",
+      "border": "0 0% 89.8%",
+      "input": "0 0% 89.8%",
+      "ring": "354.44 71.3% 47.9%",
+      "chart_1": "12 76% 61%",
+      "chart_2": "173 58% 39%",
+      "chart_3": "197 37% 24%",
+      "chart_4": "43 74% 66%",
+      "chart_5": "27 87% 67%"
+    },
+    "dark": {
+      "background": "0 0% 3.9%",
+      "foreground": "0 0% 98%",
+      "card": "0 0% 3.9%",
+      "card_foreground": "0 0% 98%",
+      "popover": "0 0% 3.9%",
+      "popover_foreground": "0 0% 98%",
+      "primary": "354.44 71.3% 47.9%",
+      "primary_foreground": "0 85.7% 97.3%",
+      "secondary": "0 0% 14.9%",
+      "secondary_foreground": "0 0% 98%",
+      "muted": "0 0% 14.9%",
+      "muted_foreground": "0 0% 63.9%",
+      "accent": "0 0% 14.9%",
+      "accent_foreground": "0 0% 98%",
+      "destructive": "0 62.8% 30.6%",
+      "destructive_foreground": "0 0% 98%",
+      "border": "0 0% 14.9%",
+      "input": "0 0% 14.9%",
+      "ring": "354.44 71.3% 47.9%",
+      "chart_1": "220 70% 50%",
+      "chart_2": "160 60% 45%",
+      "chart_3": "30 80% 55%",
+      "chart_4": "280 65% 60%",
+      "chart_5": "340 75% 55%"
+    }
+  },
+  "sections": [
+    {
+      "name": "Prematch",
+      "fields": [
+        {
+          "title": "Referee Initials",
+          "description": "Enter the initials of the ref.",
+          "type": "text",
+          "required": true,
+          "code": "referee",
+          "formResetBehavior": "preserve",
+          "defaultValue": ""
+        },
+        {
+          "title": "Match Number",
+          "description": "Enter the match number.",
+          "type": "number",
+          "required": true,
+          "code": "matchNumber",
+          "formResetBehavior": "increment",
+          "defaultValue": 1
+        },
+        {
+          "title": "Table",
+          "description": "Table the robot is playing on, and position on that table.",
+          "type": "select",
+          "required": true,
+          "code": "table",
+          "formResetBehavior": "preserve",
+          "defaultValue": "R1",
+          "choices": {
+            "R1": "Red 1",
+            "R2": "Red 2",
+            "R3": "Green 1",
+            "B1": "Green 2",
+            "B2": "Blue 1",
+            "B3": "Blue 2"
+          }
+        },
+        {
+          "title": "Team Number",
+          "description": "The team number of the robot you're scouting.",
+          "type": "number",
+          "required": true,
+          "code": "teamNumber",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "max": 19999
+        },
+        {
+          "title": "Team Initials",
+          "description": "Initials of the team",
+          "type": "text",
+          "required": true,
+          "code": "teamInitials",
+          "formResetBehavior": "preserve",
+          "defaultValue": ""
+        },
+        {
+          "title": "Equipment Inspection",
+          "description": "Robot passes inspection",
+          "type": "boolean",
+          "required": true,
+          "code": "equipment",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        }
+      ]
+    },
+    {
+      "name": "Mission 1: Surface Brushing",
+      "fields": [
+        {
+          "title": "Soil deposits cleaned",
+          "description": "Soil deposits cleaned, touching the mat",
+          "type": "range",
+          "required": false,
+          "code": "SDC",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "max": 2,
+          "step": 1
+        },
+        {
+          "title": "Brush touching dig site",
+          "description": "",
+          "type": "boolean",
+          "required": false,
+          "code": "brushTouching",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        }
+      ]
+    },
+    {
+      "name": "Mission 2: Map Reveal",
+      "fields": [
+        {
+          "title": "Topsoil cleared",
+          "description": "Topsoil completely cleared.",
+          "type": "range",
+          "required": false,
+          "code": "topsoilClear",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "max": 3,
+          "step": 1
+        }
+      ]
+    },
+    {
+      "name": "Mission 3: Mineshaft Explorer",
+      "fields": [
+        {
+          "title": "Minecart on opposing field",
+          "description": "Your team's minecart is on the opposing team's field",
+          "type": "boolean",
+          "required": false,
+          "code": "minecart",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        },
+        {
+          "title": "Bonus: Opposing minecart is on your field",
+          "description": "The opposin team's minecart is on your field",
+          "type": "boolean",
+          "required": false,
+          "code": "otherMinecart",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        }
+      ]
+    },
+    {
+      "name": "Mission 4: Careful Recovery",
+      "fields": [
+        {
+          "title": "Precious artifact is not touching mine",
+          "description": "",
+          "type": "boolean",
+          "required": false,
+          "code": "artifact",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        },
+        {
+          "title": "Support structures standing",
+          "description": "Both support structures are still standing",
+          "type": "boolean",
+          "required": false,
+          "code": "SSS",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        }
+      ]
+    },
+    {
+      "name": "Mission 5: Who lived here?",
+      "fields": [
+        {
+          "title": "Structure floor is completely upright",
+          "description": "",
+          "type": "boolean",
+          "required": false,
+          "code": "floorUpright",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        }
+      ]
+    },
+    {
+      "name": "Mission 6: Forge",
+      "fields": [
+        {
+          "title": "Ore blocks not touching the forge",
+          "type": "boolean",
+          "required": false,
+          "code": "ore",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        }
+      ]
+    },
+    {
+      "name": "Mission 7: Heavy Lifting",
+      "fields": [
+        {
+          "title": "Milestone touchin base",
+          "description": "Milestone is no longer touching its base",
+          "type": "boolean",
+          "required": false,
+          "code": "milestone",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        }
+      ]
+    },
+    {
+      "name": "Mission 8: Silo",
+      "fields": [
+        {
+          "title": "Preserved pieces outside silo",
+          "type": "range",
+          "description": "Preserved pieces outside silo",
+          "required": false,
+          "code": "silo",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "max": 3,
+          "step": 1
+        }
+      ]
+    },
+    {
+      "name": "Mission 9: What's on sale?",
+      "fields": [
+        {
+          "title": "Roof raised",
+          "type": "boolean",
+          "description": "Roof is completely raised",
+          "required": false,
+          "code": "roof",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        },
+        {
+          "title": "Market wares raised",
+          "description": "Market wares are raised",
+          "type": "boolean",
+          "required": false,
+          "code": "market",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        }
+      ]
+    },
+    {
+      "name": "Mission 10: Tip the scales",
+      "fields": [
+        {
+          "title": "Scale tipped",
+          "description": "Scale is tipped and touching the mat",
+          "type": "boolean",
+          "required": false,
+          "code": "scaleTipped",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        },
+        {
+          "title": "Scale pan removed",
+          "description": "Scale pan completely removed",
+          "type": "boolean",
+          "required": false,
+          "code": "scalePan",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        }
+      ]
+    },
+    {
+      "name": "Mission 11: Angler Artifacts",
+      "fields": [
+        {
+          "title": "Artifacts raised",
+          "description": "Artifacts raised above ground layer",
+          "type": "boolean",
+          "required": false,
+          "code": "artifactsRaised",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        },
+        {
+          "title": "Bonus: the crane flag is at least partially lowered",
+          "type": "boolean",
+          "required": false,
+          "code": "craneLowered",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        }
+      ]
+    },
+    {
+      "name": "Mission 12: Salvage Operation",
+      "fields": [
+        {
+          "title": "Sand cleared",
+          "description": "Sand is completely cleared",
+          "type": "boolean",
+          "required": false,
+          "code": "sandCleared",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        },
+        {
+          "title": "Ship raised",
+          "type": "boolean",
+          "description": "Ship is completely raised",
+          "required": false,
+          "code": "shipRaised",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        }
+      ]
+    },
+    {
+      "name": "Mission 13: Statue Rebuild",
+      "fields": [
+        {
+          "title": "Statue is completely raised",
+          "type": "boolean",
+          "required": false,
+          "code": "statueRaised",
+          "formResetBehavior": "reset",
+          "defaultValue": false
+        }
+      ]
+    },
+    {
+      "name": "Mission 14: Forum",
+      "fields": [
+        {
+          "title": "Artifacts touching mat and at least partialy in forum",
+          "type": "range",
+          "required": false,
+          "code": "forum",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "max": 7,
+          "step": 1
+        }
+      ]
+    },
+    {
+      "name": "Site markings",
+      "fields": [
+        {
+          "title": "Sites with flag at least partially inside & touching mat",
+          "type": "range",
+          "required": true,
+          "code": "siteMarkings",
+          "formResetBehavior": "reset",
+          "defaultValue": 0,
+          "min": 0,
+          "max": 3,
+          "step": 1
+        }
+      ]
+    },
+    {
+      "name": "Postmatch",
+      "fields": [
+        {
+          "title": "Precision tokens",
+          "description": "Number of precision tokens remaining",
+          "type": "range",
+          "required": false,
+          "code": "precisionTokens",
+          "min": 0,
+          "max": 6,
+          "step": 1,
+          "formResetBehavior": "reset",
+          "defaultValue": 0
+        },
+        {
+          "title": "Gracious Professionalism",
+          "description": "Gracious Professionalism displayed at the robot game table",
+          "type": "range",
+          "required": false,
+          "code": "GP",
+          "formResetBehavior": "reset",
+          "defaultValue": 2,
+          "min": 2,
+          "max": 4,
+          "step": 1
+        }
+      ]
+    }
+  ]
+}

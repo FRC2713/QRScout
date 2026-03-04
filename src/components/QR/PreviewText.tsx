@@ -19,23 +19,23 @@ export function PreviewText(props: PreviewTextProps) {
     <Accordion type="single" collapsible>
       <AccordionItem value="item-1">
         <AccordionTrigger>
-          <p className=" font-mono text-wrap break-all text-gray-200 ">
+          <div className="flex flex-wrap gap-1">
             {chunks.map((c, i) => (
-              <>
-                <span key={i + c}>{c}</span>
-                <span key={i + c + 'tab'} className="text-gray-500">
-                  {i !== chunks.length - 1 ? '\t' : ' ↵'}
-                </span>
-              </>
+              <Badge key={i + c} className="font-mono">
+                {c}
+              </Badge>
             ))}
-          </p>
+          </div>
         </AccordionTrigger>
         <AccordionContent>
           <div className="grid grid-cols-2 gap-2">
             {fieldValues.map(fv => (
               <div key={fv.code} className="flex gap-2">
                 <span className="text-gray-500">{fv.code}</span>
-                <Badge variant="secondary" className="font-mono">
+                <Badge
+                  variant="secondary"
+                  className="font-mono text-wrap break-all"
+                >
                   {JSON.stringify(fv.value)}
                 </Badge>
               </div>

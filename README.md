@@ -6,6 +6,21 @@ We changed to github pages. Please use https://frc2713.github.io/QRScout/ until 
 
 A QR Code-based scouting system for FRC
 
+## Table of Contents
+
+- [Getting Started](#getting-started)
+- [Using QRScout](#using-qrscout)
+  - [Hosting a Custom JSON Config](#hosting-a-custom-json-config-for-your-team)
+- [config.json](#configjson)
+  - [Root](#root)
+  - [Individual Sections](#individual-sections)
+  - [Individual Fields](#individual-fields)
+  - [Using Multi-Select Input](#using-multi-select-input)
+  - [Using Image Input](#using-image-input)
+  - [Using Timer Input](#using-timer-input)
+  - [Using Action Tracker Input](#using-action-tracker-input)
+  - [Using The Blue Alliance (TBA) Integration](#using-the-blue-alliance-tba-integration)
+
 ## Getting started
 
 QRScout is a web app. To open it, all 3you have to do is visit https://frc2713.github.io/QRScout/
@@ -25,17 +40,19 @@ Down at the bottom of the page, there are the Commit and Reset Form buttons. The
 
 There are also the Copy Column Names and Edit Config buttons. Clicking Copy Column Names will do what it suggests, and copy the names of each column to your clipboard. The Edit Config button leads you to the `config.json` editor. The three buttons beneath this are used to change from light to dark mode, and set the page to your system theme (the default).
 
-> The line delimiter in the text alongside the QRCode is always a comma, regardless of what it set to. In the data in the QRCode and is optionally copied to your clipboard, it will be what you have set it to.
+> The line delimiter in the text alongside the QRCode is always a comma, regardless of what it set to. In the data in the QRCode and optionally copied to your clipboard, it will be what you have set it to.
 
 Clicking on Edit Config leads you to the following screen:
 ![The config editor](src/assets/images/editor_screen.png)
 The text editor allows you to edit the `config.json` file (see below). Click the Save button to save any changes you make.
 
 Once you create a custom `config.json` file for your team, there are 2 ways to leverage it in competition:
+
 1. Download the custom `config.json` file to each tablet / device for your scouts and upload it to QRScout using the "Upload Config" button in the options menu.
 2. Host the custom `config.json` file in a public GitHub repository and load it into QRScout using the "Load from URL" button in the settings menu.
 
 You can also download the config.json file to your device and reset the config.json to the default.
+
 ![Editor options menu](src/assets/images/editor_options.png)
 
 ### Hosting a custom JSON config for your team
@@ -83,7 +100,7 @@ The basic structure of the config.json file is as follows:
 
 `title`: The name of this field
 
-`type`: One of "text", "number", "boolean", "range", "select", "counter", "image" or "timer". Describes the type of input this is.
+`type`: One of "text", "number", "boolean", "range", "select", "counter", "timer", "multi-select", "image", "action-tracker", "TBA-team-and-robot", or "TBA-match-number". Describes the type of input this is.
 
 `required`: a boolean indicating if this must be filled out before the QRCode is generated. If any field with this set to true is not filled out, QRScout will not generate a QRCode when the commit button is pressed.
 
@@ -106,4 +123,472 @@ The basic structure of the config.json file is as follows:
 }
 ```
 
+For "multiselect" type fields, these choices represent the available options that can be selected.
+
 `defaultValue`: The default value of this field.
+
+### Using Multi-Select Input
+
+The multi-select input type allows users to select multiple options from a predefined list. This is useful for scenarios where multiple attributes or capabilities need to be recorded simultaneously.
+
+#### Configuration in config.json
+
+To configure a multi-select field in your `config.json`:
+
+```json
+{
+  "title": "Robot Capabilities",
+  "type": "multiselect",
+  "required": false,
+  "code": "robotCapabilities",
+  "choices": {
+    "1": "Shooting",
+    "2": "Climbing",
+    "3": "Intake",
+    "4": "Defense",
+    "5": "Autonomous"
+  },
+  "formResetBehavior": "reset",
+  "defaultValue": ["1", "3"]
+}
+```
+
+#### Using Multi-Select in the Form
+
+When using a multi-select input:
+
+1. Click on any option to select it (it will be highlighted)
+2. Click on a selected option to deselect it
+3. You can select as many options as needed
+4. The QR code will include all selected values, separated by a special character
+
+#### Data Format
+
+In the generated QR code, multi-select values are stored as a comma-separated list of the selected choice keys. For example, if "Shooting" (1) and "Climbing" (2) are selected, the QR code will contain `1,2` for that field.
+
+For multi-select fields, the `defaultValue` should be an array of strings representing the keys of the choices you want pre-selected when the form loads.
+
+#### Processing Multi-Select Data
+
+When analyzing the data in spreadsheets:
+
+1. You may want to create separate columns for each possible choice to make analysis easier
+2. Use spreadsheet functions to check if a specific value exists in the comma-separated list
+3. For example, in Google Sheets, you can use: `=REGEXMATCH(A2, "1")` to check if option "1" was selected in cell A2
+
+This allows for more detailed filtering and statistical analysis of which capabilities or attributes were most common across matches.
+
+#### FRC Scouting Example
+
+Multi-select is particularly useful for FRC scouting in scenarios like:
+
+- **Game Piece Handling**: Track which game pieces a robot can manipulate
+- **Scoring Locations**: Record all the places a robot can score (low goal, high goal, etc.)
+- **Robot Subsystems**: Document the subsystems observed on a robot
+- **Failure Modes**: Track multiple types of failures that might occur during a match
+- **Defense Capabilities**: Record specific defensive actions a robot can perform
+
+For example, in a game where robots can score in multiple locations, you might configure:
+
+```json
+{
+  "title": "Scoring Locations",
+  "type": "multi-select",
+  "required": true,
+  "code": "scoringLocations",
+  "choices": {
+    "1": "Low Goal",
+    "2": "Mid Goal",
+    "3": "High Goal",
+    "4": "Terminal",
+    "5": "Charging Station"
+  },
+  "formResetBehavior": "reset"
+}
+```
+
+This allows scouts to quickly record all locations where a robot successfully scored during a match.
+
+### Using Image Input
+
+The image input type allows you to display static images in your scouting form. This is useful for showing field layouts, robot diagrams, game piece locations, or any visual reference that helps scouts accurately record data.
+
+#### Configuration in config.json
+
+To configure an image field in your `config.json`:
+
+```json
+{
+  "title": "Field Layout",
+  "type": "image",
+  "required": false,
+  "code": "fieldLayout",
+  "description": "Reference diagram of the field",
+  "defaultValue": "https://example.com/path/to/field-layout.jpg",
+  "width": 400,
+  "height": 300,
+  "alt": "2024 FRC Field Layout Diagram",
+  "formResetBehavior": "preserve"
+}
+```
+
+#### Image Input Properties
+
+- **defaultValue**: The URL to the statically hosted image. This should be a publicly accessible URL.
+- **width** (optional): The width of the image in pixels. If not specified, the image will use responsive sizing.
+- **height** (optional): The height of the image in pixels. If not specified, the image will maintain its aspect ratio.
+- **alt** (optional): Alternative text for the image for accessibility. If not provided, it will use the title.
+
+#### Interactive Features
+
+- **Click to Enlarge**: Users can click on any image to open a full-size version in a dialog. This is particularly useful for detailed diagrams or when images need to be examined more closely.
+
+#### Best Practices for Image Input
+
+1. **Host Images Reliably**: Ensure your images are hosted on a reliable service that will be accessible during competition, even with limited internet connectivity.
+2. **Optimize Image Size**: Use appropriately sized and compressed images to ensure fast loading times, especially on tablets or devices with slower connections.
+3. **Consider Offline Use**: For critical reference images, consider embedding them directly in your application or providing a local fallback.
+4. **Use Descriptive Alt Text**: Provide meaningful alternative text to ensure accessibility for all users.
+5. **Provide Context**: Let users know they can click on images to view them in full size, especially for detailed diagrams or maps.
+
+#### FRC Scouting Examples
+
+Image inputs are particularly useful for FRC scouting in scenarios like:
+
+- **Field Layout Reference**: Show the competition field with labeled zones for more accurate position reporting
+- **Robot Diagram**: Display a diagram of a robot with numbered components for reference
+- **Scoring Locations**: Visualize different scoring positions or game elements
+- **Strategy Diagrams**: Show predefined strategies or paths that scouts should watch for
+- **Game Piece Identification**: Display images of the current season's game pieces for reference
+
+For example, to include a field diagram in your scouting form:
+
+```json
+{
+  "title": "Field Reference",
+  "type": "image",
+  "required": false,
+  "code": "fieldReference",
+  "description": "Use this diagram to identify field positions",
+  "defaultValue": "https://yourteam.org/resources/field-diagram-2024.jpg",
+  "width": 500,
+  "formResetBehavior": "preserve"
+}
+```
+
+This allows scouts to reference the field layout while recording robot positions or movements during a match.
+
+### Using Timer Input
+
+The timer input type allows users to measure and record time durations during a match. This is particularly useful for tracking how long robots take to perform specific actions or measuring cycle times for repeated tasks.
+
+#### Configuration in config.json
+
+To configure a timer field in your `config.json`:
+
+```json
+{
+  "title": "Climb Time",
+  "type": "timer",
+  "required": false,
+  "code": "climbTime",
+  "description": "Time taken to complete climb",
+  "formResetBehavior": "reset",
+  "defaultValue": 0,
+  "outputType": "average"
+}
+```
+
+#### Timer Input Properties
+
+- **defaultValue**: The initial value of the timer in seconds (typically 0).
+- **description** (optional): A brief explanation of what the timer is measuring.
+- **outputType**: Determines how multiple timer values are processed. Can be either:
+  - `"average"` (default): Records the average of all timer values.
+  - `"list"`: Records all timer values as a list.
+
+#### Using Timer in the Form
+
+The timer input provides a simple interface with the following controls:
+
+1. **Start/Stop Button**: Toggles the timer on and off
+2. **Reset Button**: Sets the timer back to 0 and records the current time as a lap
+3. **Undo Button**: Resets the timer without recording a lap
+4. **Time Display**: Shows the current elapsed time in seconds
+5. **Average Display**: Shows the average time and number of recorded laps when `outputType` is `"average"`
+6. **List Display**: Shows a list of lap times when `outputType` is `"list"`
+
+To use the timer during scouting:
+
+1. Click "Start" when the robot begins the action you want to time
+2. Click "Stop" when the action is completed
+3. Click "Reset" to record the time and prepare for another measurement
+4. The final time(s) will be recorded in the QR code data according to the outputType setting
+5. Use "Undo" if you need to restart without recording the current time
+
+#### Data Format
+
+In the generated QR code, timer values are stored differently based on the outputType:
+
+- With `outputType: "average"`: A single numeric value representing the average of all recorded times in seconds.
+- With `outputType: "list"`: A comma-separated list of all recorded times in seconds.
+
+For example, if a robot completed three climbs in 12.5, 10.2, and 11.8 seconds:
+
+- With `outputType: "average"`, the QR code will contain `11.5` (the average)
+- With `outputType: "list"`, the QR code will contain `12.5,10.2,11.8` (all values)
+
+#### FRC Scouting Examples
+
+Timer inputs are particularly useful for FRC scouting in scenarios like:
+
+- **Climb Time**: Measure how long it takes for a robot to complete a climbing action
+- **Cycle Time**: Track the time between scoring actions to calculate scoring rate
+- **Defense Recovery**: Measure how quickly a robot recovers after being defended
+- **Auto Completion**: Time how long it takes to complete autonomous routines
+- **Intake Speed**: Measure how quickly a robot can intake game pieces
+
+For example, to track cycle times for scoring game pieces:
+
+```json
+{
+  "title": "Scoring Cycle Time",
+  "type": "timer",
+  "required": false,
+  "code": "scoringCycleTime",
+  "description": "Time between consecutive scoring actions",
+  "formResetBehavior": "reset"
+}
+```
+
+This allows scouts to accurately measure and compare the efficiency of different robots' scoring mechanisms and strategies.
+
+#### Best Practices for Timer Input
+
+1. **Clear Instructions**: Ensure scouts know exactly when to start and stop the timer
+2. **Consistent Measurement**: Define clear start and end points for timed actions
+3. **Multiple Timers**: Consider using separate timers for different phases or actions
+4. **Backup Method**: Have a secondary way to record time in case of user error
+5. **Practice Before Competition**: Make sure scouts are comfortable using the timer function before actual matches
+
+### Using Action Tracker Input
+
+The action tracker input type allows scouts to record timestamped robot actions during a match. Rather than just counting events, scouts can tap or hold action buttons as they happen, building a timeline of what the robot did and when. This enables analysis of cycle times, action sequences, and phase-specific performance.
+
+#### Configuration in config.json
+
+```json
+{
+  "title": "Auto Actions",
+  "type": "action-tracker",
+  "required": false,
+  "code": "autoAction",
+  "description": "Track robot actions during autonomous",
+  "formResetBehavior": "reset",
+  "mode": "hold",
+  "timerDuration": 15,
+  "actions": [
+    { "label": "Scored", "code": "score", "icon": "target" },
+    { "label": "Picked Up", "code": "pickup", "icon": "package" },
+    { "label": "Missed", "code": "miss", "icon": "x" }
+  ]
+}
+```
+
+#### Action Tracker Properties
+
+- **actions**: An array of action objects, each with:
+  - `label`: Display text for the button
+  - `code`: Unique identifier for this action (used in field names)
+  - `icon` (optional): A [Lucide icon](https://lucide.dev/icons) name to display on the button
+- **mode**: Determines how actions are recorded:
+  - `"tap"`: Records an instant timestamp when the button is tapped. Best for discrete events like scoring or picking up game pieces.
+  - `"hold"`: Records both start and end timestamps while the button is held down. Best for continuous actions like playing defense or climbing. Supports multi-touch for tracking overlapping actions.
+- **timerDuration** (optional): Expected duration in seconds (e.g., 15 for auto, 135 for teleop). Used as a UI reference.
+
+#### Using Action Tracker in the Form
+
+The action tracker provides a timer and a grid of action buttons:
+
+1. **Timer**: Starts automatically when the first action is recorded, or can be started manually
+2. **Action Buttons**: Tap (or hold, depending on mode) to record actions with timestamps
+3. **Undo Button**: Removes the most recent action if recorded in error
+4. **Action Log**: Shows recent actions with their timestamps
+
+#### Data Format
+
+Each action in an action-tracker generates two output columns:
+
+- `{code}_{actionCode}_count`: Integer count of how many times this action occurred
+- `{code}_{actionCode}_times`: Comma-separated timestamps in seconds
+
+For example, an auto tracker with code `autoAct` and a "score" action produces:
+- `autoAct_score_count`: `3`
+- `autoAct_score_times`: `2.1,8.4,12.7`
+
+In hold mode, timestamps are recorded as `start-end` pairs (e.g., `2.1-4.5,8.4-10.2`).
+
+When copying column names, action-tracker fields expand into human-friendly headers like "Scored in Auto (count)" and "Scored in Auto (timestamps)".
+
+#### FRC Scouting Examples
+
+Action trackers are particularly useful for:
+
+- **Scoring Timeline**: Track when and how often a robot scores during each phase
+- **Cycle Time Analysis**: Calculate average time between actions
+- **Defense Tracking**: Record when a robot starts and stops playing defense (using hold mode)
+- **Autonomous Paths**: Understand the sequence of actions during auto
+- **Endgame Timing**: Track climb attempts and timing
+
+For example, to track scoring actions during teleop:
+
+```json
+{
+  "title": "Teleop Scoring",
+  "type": "action-tracker",
+  "required": false,
+  "code": "teleopScore",
+  "mode": "tap",
+  "timerDuration": 135,
+  "actions": [
+    { "label": "Speaker", "code": "speaker", "icon": "volume-2" },
+    { "label": "Amp", "code": "amp", "icon": "zap" },
+    { "label": "Missed", "code": "miss", "icon": "x" }
+  ]
+}
+```
+
+#### Best Practices for Action Tracker
+
+1. **Choose the Right Mode**: Use `tap` for instant events (scoring, intake), use `hold` for duration-based actions (defense, climbing)
+2. **Keep Actions Focused**: Limit each tracker to 4-6 related actions to avoid overwhelming scouts
+3. **Separate Phases**: Use distinct action-trackers for Auto and Teleop to keep data organized
+4. **Use Icons**: Icons help scouts quickly identify buttons during fast-paced matches
+5. **Practice Before Competition**: Ensure scouts are comfortable with the tap/hold interaction before actual matches
+
+### Using The Blue Alliance (TBA) Integration
+
+QRScout includes specialized input types that integrate with The Blue Alliance API to automatically populate match and team data. This integration provides seamless data prefilling for official FRC events.
+
+#### TBA Match Number Input
+
+The `TBA-match-number` input type automatically shows available qualification match numbers when match data is loaded from The Blue Alliance.
+
+##### Configuration in config.json
+
+```json
+{
+  "title": "Match Number",
+  "type": "TBA-match-number",
+  "required": true,
+  "code": "matchNumber",
+  "description": "Select qualification match number",
+  "formResetBehavior": "increment",
+  "defaultValue": 1,
+  "min": 1,
+  "max": 100
+}
+```
+
+##### TBA Match Number Properties
+
+- **defaultValue**: The initial match number (typically 1)
+- **min** (optional): Minimum allowed match number
+- **max** (optional): Maximum allowed match number
+
+##### Using TBA Match Number
+
+When The Blue Alliance match data is available:
+1. The input displays as a dropdown with all available qualification matches
+2. Shows matches in the format "Match 1", "Match 2", etc.
+3. Only qualification matches (`qm`) are displayed
+4. Falls back to a standard number input if no match data is available
+
+#### TBA Team and Robot Input
+
+The `TBA-team-and-robot` input type automatically shows teams and their robot positions for the selected match when connected to The Blue Alliance.
+
+##### Configuration in config.json
+
+```json
+{
+  "title": "Team & Robot Position",
+  "type": "TBA-team-and-robot",
+  "required": true,
+  "code": "teamAndRobot",
+  "description": "Select team and robot position",
+  "formResetBehavior": "reset",
+  "defaultValue": null
+}
+```
+
+##### TBA Team and Robot Properties
+
+- **defaultValue**: The initial team and robot position (typically null)
+
+##### Using TBA Team and Robot
+
+When The Blue Alliance match data is available and a match is selected:
+1. The input displays as a dropdown with all teams from the selected match
+2. Shows teams in the format "Team 2713 (Red 1)", "Team 1234 (Blue 2)", etc.
+3. Automatically extracts both team number and robot position
+4. Falls back to a standard number input for team number if no match data is available
+
+##### Data Format
+
+In the generated QR code, TBA team and robot data is stored as an object:
+```json
+{
+  "teamNumber": 2713,
+  "robotPosition": "R1"
+}
+```
+
+Robot positions are formatted as:
+- Red alliance: "R1", "R2", "R3"
+- Blue alliance: "B1", "B2", "B3"
+
+#### Using The Blue Alliance Integration
+
+1. **Load Match Data**: Click the "Prefill Match Data" button on the main form
+2. **Select Event**: Choose your team's event from the list
+3. **Enhanced Scouting**: TBA inputs will now show contextual data from the selected event
+
+#### FRC Scouting Examples
+
+TBA integration is particularly valuable for:
+
+- **Match Scouting**: Automatically populate which teams are playing in each match
+- **Alliance Analysis**: Understand robot positions and alliance compositions
+- **Schedule Management**: Ensure scouts are tracking the correct matches and teams
+- **Data Validation**: Reduce errors from manually entered team numbers or match numbers
+
+For example, a typical scouting form with TBA integration might include:
+
+```json
+{
+  "sections": [
+    {
+      "name": "Match Info",
+      "fields": [
+        {
+          "title": "Match Number",
+          "type": "TBA-match-number",
+          "required": true,
+          "code": "matchNumber",
+          "formResetBehavior": "increment"
+        },
+        {
+          "title": "Team & Position",
+          "type": "TBA-team-and-robot",
+          "required": true,
+          "code": "teamAndRobot",
+          "formResetBehavior": "reset"
+        }
+      ]
+    }
+  ]
+}
+```
+
+This allows scouts to quickly select the match and automatically see all available teams with their alliance positions, streamlining the data collection process during competition.

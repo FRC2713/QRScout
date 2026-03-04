@@ -9,6 +9,10 @@
       "type": "string",
       "description": "The title of the page"
     },
+    "year": {
+      "type": "number",
+      "description": "The year this scouting config is relevant for."
+    },
     "delimiter": {
       "type": "string",
       "description": "The delimiter to use when joining the form data"
@@ -16,6 +20,25 @@
     "teamNumber": {
       "type": "number",
       "description": "The team number of the team using this form."
+    },
+    "floatingField": {
+      "type": "object",
+      "properties": {
+        "show": {
+          "type": "boolean",
+          "description": "Whether or not to always show this value at the top of the screen. May be useful on small screens"
+        },
+        "codeValue": {
+          "type": "string",
+          "description": "Code of the form field to get this value from"
+        }
+      },
+      "required": [
+        "show",
+        "codeValue"
+      ],
+      "additionalProperties": false,
+      "description": "Optional floating text box at the tob of the screen to show things like the team number. May be useful on small screens"
     },
     "theme": {
       "type": "object",
@@ -80,6 +103,10 @@
             },
             "ring": {
               "$ref": "#/properties/theme/properties/light/properties/background"
+            },
+            "radius": {
+              "type": "string",
+              "pattern": "([0-9]*.[0-9]+rem)"
             },
             "chart_1": {
               "$ref": "#/properties/theme/properties/light/properties/background"
@@ -155,6 +182,7 @@
           "border": "0 0% 89.8%",
           "input": "0 0% 89.8%",
           "ring": "354.44 71.3% 47.9%",
+          "radius": "0.5rem",
           "chart_1": "12 76% 61%",
           "chart_2": "173 58% 39%",
           "chart_3": "197 37% 24%",
@@ -181,6 +209,7 @@
           "border": "0 0% 14.9%",
           "input": "0 0% 14.9%",
           "ring": "354.44 71.3% 47.9%",
+          "radius": "0.5rem",
           "chart_1": "220 70% 50%",
           "chart_2": "160 60% 45%",
           "chart_3": "30 80% 55%",
@@ -395,10 +424,54 @@
                         "type": "string"
                       },
                       "description": "The choices"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
                     },
-                    "multiSelect": {
-                      "type": "boolean",
-                      "description": "Whether multiple choices can be selected"
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "multi-select"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
+                    },
+                    "defaultValue": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "The default value"
+                    },
+                    "choices": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "description": "The choices"
                     }
                   },
                   "required": [
@@ -529,6 +602,252 @@
                       "type": "number",
                       "default": 0,
                       "description": "The default value"
+                    },
+                    "outputType": {
+                      "type": "string",
+                      "enum": [
+                        "average",
+                        "list"
+                      ],
+                      "default": "average",
+                      "description": "The type of output to display in the scouting form"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "image"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
+                    },
+                    "defaultValue": {
+                      "type": "string",
+                      "default": "",
+                      "description": "The URL to a statically hosted image"
+                    },
+                    "width": {
+                      "type": "number",
+                      "description": "The width of the image in pixels"
+                    },
+                    "height": {
+                      "type": "number",
+                      "description": "The height of the image in pixels"
+                    },
+                    "alt": {
+                      "type": "string",
+                      "description": "The alt text for the image"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "action-tracker"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
+                    },
+                    "defaultValue": {
+                      "type": "null",
+                      "default": null,
+                      "description": "Default value (null, as this input generates multiple fields)"
+                    },
+                    "mode": {
+                      "type": "string",
+                      "enum": [
+                        "tap",
+                        "hold"
+                      ],
+                      "default": "hold",
+                      "description": "Recording mode: 'tap' records instant timestamps on click, 'hold' records duration while button is pressed (default: 'hold')"
+                    },
+                    "actions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "label": {
+                            "type": "string",
+                            "description": "The display label for this action button"
+                          },
+                          "code": {
+                            "type": "string",
+                            "description": "A unique code for this action (used in field names)"
+                          },
+                          "icon": {
+                            "type": "string",
+                            "description": "Optional Lucide icon name (e.g., \"fuel\", \"target\"). See https://lucide.dev/icons"
+                          }
+                        },
+                        "required": [
+                          "label",
+                          "code"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1,
+                      "description": "The actions to track. Each action becomes a tappable button."
+                    },
+                    "timerDuration": {
+                      "type": "number",
+                      "description": "Expected duration in seconds (for UI reference, e.g., 15 for auto, 135 for teleop)"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code",
+                    "actions"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "TBA-team-and-robot"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
+                    },
+                    "defaultValue": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "teamNumber": {
+                              "type": "number"
+                            },
+                            "robotPosition": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "teamNumber",
+                            "robotPosition"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "default": null,
+                      "description": "The default team and robot position"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "TBA-match-number"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
+                    },
+                    "defaultValue": {
+                      "type": "number",
+                      "default": 0,
+                      "description": "The default value"
+                    },
+                    "min": {
+                      "type": "number",
+                      "description": "The minimum value"
+                    },
+                    "max": {
+                      "type": "number",
+                      "description": "The maximum value"
                     }
                   },
                   "required": [
@@ -557,6 +876,7 @@
   "required": [
     "title",
     "page_title",
+    "year",
     "delimiter",
     "teamNumber",
     "sections"

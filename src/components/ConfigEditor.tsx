@@ -52,7 +52,7 @@ function downloadConfig(formData: Config) {
 
 type ConfigEditorProps = {
   onCancel?: () => void;
-  onSave?: (config: string) => void;
+  onSave?: (config: string, warnCount: number) => void;
 };
 
 export function ConfigEditor(props: ConfigEditorProps) {
@@ -63,6 +63,7 @@ export function ConfigEditor(props: ConfigEditorProps) {
     JSON.stringify(config, null, 2),
   );
   const [errorCount, setErrorCount] = useState<number>(0);
+  const [warnCount, setWarnCount] = useState<number>(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string | null>(null);
   const [url, setUrl] = useState<string>('');
@@ -72,7 +73,7 @@ export function ConfigEditor(props: ConfigEditorProps) {
   }, [config]);
 
   useEffect(() => {
-    monaco?.languages.json.jsonDefaults.setDiagnosticsOptions({
+    monaco?.json?.jsonDefaults?.setDiagnosticsOptions({
       validate: true,
       schemas: [
         {
@@ -129,6 +130,7 @@ export function ConfigEditor(props: ConfigEditorProps) {
           onValidate={markers => {
             const severeErrors = markers.filter(m => m.severity > 4);
             setErrorCount(severeErrors.length);
+            setWarnCount(markers.length - severeErrors.length); //Get warnings
           }}
           onChange={value => value && setCurrentConfigText(value)}
         />
@@ -143,7 +145,9 @@ export function ConfigEditor(props: ConfigEditorProps) {
             onChange={e => setUrl(e.target.value)}
             className="w-full"
           />
-          <Button onClick={handleLoadFromURL} className="w-full">Load from URL</Button>
+          <Button onClick={handleLoadFromURL} className="w-full">
+            Load from URL
+          </Button>
         </div>
 
         {/* Desktop view (≥640px): URL input and button appear inline with other controls */}
@@ -158,7 +162,7 @@ export function ConfigEditor(props: ConfigEditorProps) {
             />
             <Button onClick={handleLoadFromURL}>Load from URL</Button>
           </div>
-          
+
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary">
@@ -178,10 +182,12 @@ export function ConfigEditor(props: ConfigEditorProps) {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          
+
           <Button
             variant="destructive"
-            onClick={() => props.onSave && props.onSave(currentConfigText)}
+            onClick={() =>
+              props.onSave && props.onSave(currentConfigText, warnCount)
+            }
             disabled={currentConfigText.length === 0 || errorCount > 0}
           >
             <Save className="h-5 w-5" />
