@@ -1,0 +1,256 @@
+{
+  "$schema": "../schema.json",
+  "title": "QRScout",
+  "page_title": "Crescendo",
+  "sections": [
+    {
+      "name": "Prematch",
+      "fields": [
+        {
+          "title": "Scouter Initials",
+          "type": "text",
+          "required": true,
+          "code": "scouter",
+          "preserveDataOnReset": true
+        },
+        {
+          "title": "Team Number",
+          "type": "number",
+          "required": true,
+          "code": "teamNumber"
+        },
+        {
+          "title": "Match Number",
+          "type": "number",
+          "required": true,
+          "min": 0,
+          "code": "matchNumber",
+          "preserveDataOnReset": true,
+          "autoIncrementOnReset": true
+        }
+      ]
+    },
+    {
+      "name": "Autonomous",
+      "fields": [
+        {
+          "title": "Leave?",
+          "type": "boolean",
+          "defaultValue": false,
+          "required": false,
+          "code": "Lve"
+        },
+        {
+          "code": "auss",
+          "title": "Speaker Scores",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
+          "code": "ausm",
+          "title": "Speaker Misses",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
+          "title": "Amp Scores",
+          "code": "auas",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
+          "title": "Amp Misses",
+          "code": "auam",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
+          "code": "auf",
+          "title": "Auto Fouls",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
+          "code": "autf",
+          "title": "Auto Tech Fouls",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Teleop",
+      "fields": [
+        {
+          "code": "tas",
+          "title": "Amp Scores",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
+          "title": "Amp Misses",
+          "code": "tam",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
+          "code": "tsc",
+          "title": "Speaker Scores",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
+          "title": "Speaker Misses",
+          "code": "tsm",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
+          "code": "tps",
+          "title": "Passing Shots",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "required": false
+        },
+        {
+          "code": "Fou/Tech",
+          "title": "Teleop Fouls",
+          "type": "counter",
+          "defaultValue": 0,
+          "required": false
+        },
+        {
+          "code": "ttf",
+          "title": "Teleop Tech Fouls",
+          "type": "counter",
+          "defaultValue": 0,
+          "required": false
+        },
+        {
+          "code": "def",
+          "title": "Defense Performed?",
+          "type": "boolean",
+          "defaultValue": false,
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Endgame",
+      "fields": [
+        {
+          "code": "cn",
+          "title": "Notes in Trap",
+          "type": "counter",
+          "defaultValue": 0,
+          "min": 0,
+          "max": 3,
+          "required": false
+        },
+        {
+          "title": "End Position",
+          "type": "select",
+          "required": true,
+          "code": "ePos",
+          "choices": {
+            "0": "No Climb",
+            "1": "Parked",
+            "3": "Onstage",
+            "5": "Harmony"
+          },
+          "defaultValue": "0"
+        }
+      ]
+    },
+    {
+      "name": "Postmatch",
+      "fields": [
+        {
+          "code": "dt",
+          "title": "Time inactive (broken)",
+          "type": "select",
+          "choices": {
+            "0": "<15 Seconds",
+            "30": "~30 Seconds",
+            "60": "~60 Seconds",
+            "150": "Whole Match"
+          },
+          "defaultValue": "0",
+          "required": true
+        },
+        {
+          "code": "or",
+          "title": "Offense Skill",
+          "type": "select",
+          "choices": {
+            "1": "Ineffective",
+            "2": "Below Average",
+            "3": "Average",
+            "4": "Above Average",
+            "5": "Exceptional",
+            "x": "Not Observed"
+          },
+          "defaultValue": "",
+          "required": true
+        },
+        {
+          "code": "dr",
+          "title": "Defense Skill",
+          "type": "select",
+          "choices": {
+            "1": "Ineffective",
+            "2": "Below Average",
+            "3": "Average",
+            "4": "Above Average",
+            "5": "Exceptional",
+            "x": "Not Observed"
+          },
+          "defaultValue": "",
+          "required": true
+        },
+        {
+          "code": "yc",
+          "title": "Yellow/Red Card",
+          "type": "select",
+          "defaultValue": "No Card",
+          "required": true,
+          "choices": {
+            "No Card": "No Card",
+            "Yellow": "Yellow Card",
+            "Red": "Red Card"
+          }
+        },
+        {
+          "code": "co",
+          "title": "Comments",
+          "type": "text",
+          "min": 0,
+          "max": 50,
+          "defaultValue": "",
+          "required": false
+        }
+      ]
+    }
+  ]
+}

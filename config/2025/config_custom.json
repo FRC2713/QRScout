@@ -1,0 +1,405 @@
+{
+  "title": "QRScout",
+  "page_title": "Reefscape V1.1",
+  "delimiter": "\t",
+  "teamNumber": 2713,
+  "theme": {
+    "light": {
+      "background": "0 0% 100%",
+      "foreground": "0 0% 3.9%",
+      "card": "0 0% 100%",
+      "card_foreground": "0 0% 3.9%",
+      "popover": "0 0% 100%",
+      "popover_foreground": "0 0% 3.9%",
+      "primary": "354.44 71.3% 47.9%",
+      "primary_foreground": "0 85.7% 97.3%",
+      "secondary": "0 0% 96.1%",
+      "secondary_foreground": "0 0% 9%",
+      "muted": "0 0% 96.1%",
+      "muted_foreground": "0 0% 45.1%",
+      "accent": "0 0% 96.1%",
+      "accent_foreground": "0 0% 9%",
+      "destructive": "0 84.2% 60.2%",
+      "destructive_foreground": "0 0% 98%",
+      "border": "0 0% 89.8%",
+      "input": "0 0% 89.8%",
+      "ring": "354.44 71.3% 47.9%",
+      "chart_1": "12 76% 61%",
+      "chart_2": "173 58% 39%",
+      "chart_3": "197 37% 24%",
+      "chart_4": "43 74% 66%",
+      "chart_5": "27 87% 67%"
+    },
+    "dark": {
+      "background": "0 0% 3.9%",
+      "foreground": "0 0% 98%",
+      "card": "0 0% 3.9%",
+      "card_foreground": "0 0% 98%",
+      "popover": "0 0% 3.9%",
+      "popover_foreground": "0 0% 98%",
+      "primary": "354.44 71.3% 47.9%",
+      "primary_foreground": "0 85.7% 97.3%",
+      "secondary": "0 0% 14.9%",
+      "secondary_foreground": "0 0% 98%",
+      "muted": "0 0% 14.9%",
+      "muted_foreground": "0 0% 63.9%",
+      "accent": "0 0% 14.9%",
+      "accent_foreground": "0 0% 98%",
+      "destructive": "0 62.8% 30.6%",
+      "destructive_foreground": "0 0% 98%",
+      "border": "0 0% 14.9%",
+      "input": "0 0% 14.9%",
+      "ring": "354.44 71.3% 47.9%",
+      "chart_1": "220 70% 50%",
+      "chart_2": "160 60% 45%",
+      "chart_3": "30 80% 55%",
+      "chart_4": "280 65% 60%",
+      "chart_5": "340 75% 55%"
+    }
+  },
+  "sections": [
+    {
+      "name": "Prematch",
+      "fields": [
+        {
+          "title": "Scouter Initials",
+          "description": "Enter the initials of the scouter.",
+          "type": "text",
+          "required": true,
+          "code": "scouter",
+          "defaultValue": "",
+          "formResetBehavior": "preserve"
+        },
+        {
+          "title": "Team Number",
+          "description": "The team number of the robot you're scouting.",
+          "type": "number",
+          "required": true,
+          "code": "teamNumber",
+          "defaultValue": 0,
+          "min": 0,
+          "max": 19999
+        },
+        {
+          "title": "Match Number",
+          "description": "Enter the match number.",
+          "type": "number",
+          "required": true,
+          "code": "matchNumber",
+          "defaultValue": 1,
+          "formResetBehavior": "increment"
+        },
+        {
+          "title": "Starting Position",
+          "description": "The starting position of the robot.",
+          "type": "select",
+          "required": true,
+          "code": "Prsp",
+          "defaultValue": "",
+          "choices": {
+            "L": "Left",
+            "M": "Middle",
+            "R": "Right"
+          }
+        },
+        {
+          "title": "Cage Position",
+          "description": "The starting level of the cage in front of the team's driver station, not their robot.",
+          "type": "select",
+          "required": true,
+          "code": "CPos",
+          "defaultValue": "",
+          "choices": {
+            "D": "Deep",
+            "S": "Shallow"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Autonomous",
+      "fields": [
+        {
+          "title": "Leave?",
+          "description": "Check if the robot's bumpers fully leave the robot starting line in auto.",
+          "type": "boolean",
+          "required": false,
+          "code": "lve",
+          "defaultValue": false
+        },
+        {
+          "title": "Coral L1 Scored",
+          "description": "The number of level 1 coral scored during auto.",
+          "type": "counter",
+          "required": false,
+          "code": "CLOA",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "title": "Coral L2/3 Scored",
+          "description": "The number of level 2 and 3 coral scored during auto.",
+          "type": "counter",
+          "required": false,
+          "code": "CLTA",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1,
+          "max": 24
+        },
+        {
+          "title": "Coral L4 Scored",
+          "description": "The number of level 4 coral scored during auto.",
+          "type": "counter",
+          "required": false,
+          "code": "CLFA",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1,
+          "max": 12
+        },
+        {
+          "title": "Coral Missed",
+          "description": "The number of coral missed from all levels during auto. Includes misses that score L1 accidentally.",
+          "type": "counter",
+          "required": false,
+          "code": "CMA",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "title": "Algae Dislodged",
+          "type": "counter",
+          "required": false,
+          "code": "dau",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "title": "Net Algae Scored",
+          "description": "The number of Algae scored in the net during auto.",
+          "type": "counter",
+          "required": false,
+          "code": "BASA",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "title": "Processor Algae Scored",
+          "description": "The number of Algae scored in the processor during auto.",
+          "type": "counter",
+          "required": false,
+          "code": "PASA",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "title": "Auto Fouls",
+          "description": "The number of fouls, major and minor, committed during auto.",
+          "type": "counter",
+          "required": false,
+          "code": "auf",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "title": "Didn't Move?",
+          "description": "Check if the robot did not move during auto.",
+          "type": "boolean",
+          "required": false,
+          "code": "Mved",
+          "defaultValue": false
+        }
+      ]
+    },
+    {
+      "name": "Teleop",
+      "fields": [
+        {
+          "title": "Coral L1 Scored",
+          "description": "The number of level 1 coral scored during teleop.",
+          "type": "counter",
+          "required": false,
+          "code": "CLOT",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "title": "Coral L2/3 Scored",
+          "description": "The number of level 2 and 3 coral scored during teleop.",
+          "type": "counter",
+          "required": false,
+          "code": "CLTT",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1,
+          "max": 24
+        },
+        {
+          "title": "Coral L4 Scored",
+          "description": "The number of level 4 coral scored during teleop.",
+          "type": "counter",
+          "required": false,
+          "code": "CLFT",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1,
+          "max": 12
+        },
+        {
+          "title": "Coral Missed",
+          "description": "The number of coral missed from all levels during teleop. Includes misses that score L1 accidentally.",
+          "type": "counter",
+          "required": false,
+          "code": "CMT",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "title": "Algae Dislodged",
+          "type": "counter",
+          "required": false,
+          "code": "dto",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "title": "Net Algae Scored",
+          "description": "The number of Algae scored in the net during teleop.",
+          "type": "counter",
+          "required": false,
+          "code": "BAST",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "title": "Processor Algae Scored",
+          "description": "The number of Algae scored in the processor during autonomous.",
+          "type": "counter",
+          "required": false,
+          "code": "PAST",
+          "defaultValue": 0,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "title": "Teleop Fouls",
+          "description": "The number of fouls, major and minor, committed during teleop.",
+          "type": "counter",
+          "required": false,
+          "code": "Fou/Tech",
+          "defaultValue": 0,
+          "step": 1
+        },
+        {
+          "title": "Crossed Field/Played Defense?",
+          "type": "boolean",
+          "required": false,
+          "code": "CFPDT",
+          "defaultValue": false
+        }
+        
+      ]
+    },
+    {
+      "name": "Endgame",
+      "fields": [
+        {
+          "title": "End Position",
+          "type": "select",
+          "required": true,
+          "code": "epo",
+          "defaultValue": "No",
+          "choices": {
+            "No": "Not Parked",
+            "P": "Parked",
+            "Sc": "Shallow Climb",
+            "Dc": "Deep Climb",
+            "Fc": "Failed Climb"
+          }
+        },
+        {
+          "title": "Was Defended?",
+          "type": "boolean",
+          "required": false,
+          "code": "DEFEg",
+          "defaultValue": false
+        },
+        {
+          "title": "Time Incap",
+          "type": "select",
+          "description": "The amount of time the robot was not able to contribute to winning the match due to unexpected issues.",
+          "required": false,
+          "code": "incap",
+          "defaultValue": "0",
+          "choices": {
+            "0": "<15 Sec",
+            "20": "15-30 Sec",
+            "40": ">30 Sec"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Postmatch",
+      "fields": [
+        {
+          "title": "Offense Skill",
+          "type": "range",
+          "required": false,
+          "code": "or",
+          "defaultValue": 3,
+          "min": 1,
+          "max": 5,
+          "step": 1
+        },
+        {
+          "title": "Defensive Skill",
+          "type": "select",
+          "required": true,
+          "code": "dr",
+          "defaultValue": "",
+          "choices": {
+            "NA": "Not Observed",
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5"
+          }
+        },
+        {
+          "title": "Yellow/Red Card",
+          "type": "select",
+          "required": true,
+          "code": "yc",
+          "defaultValue": "No Card",
+          "choices": {
+            "No Card": "No Card",
+            "Yellow": "Yellow Card",
+            "Red": "Red Card"
+          }
+        },
+        {
+          "title": "Comments",
+          "type": "text",
+          "required": false,
+          "code": "co",
+          "defaultValue": "",
+          "min": 0,
+          "max": 55
+        }
+      ]
+    }
+  ]
+}
