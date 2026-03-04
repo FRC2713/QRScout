@@ -25,7 +25,7 @@
           "properties": {
             "background": {
               "type": "string",
-              "pattern": "\\d+\\s+\\d+%\\s+\\d+%"
+              "pattern": "^(\\d+(?:\\.\\d+)?)(?: (\\d+(?:\\.\\d+)?)%)?(?: (\\d+(?:\\.\\d+)?)%)?$"
             },
             "foreground": {
               "$ref": "#/properties/theme/properties/light/properties/background"
@@ -197,9 +197,6 @@
           "name": {
             "type": "string"
           },
-          "preserveDataOnReset": {
-            "type": "boolean"
-          },
           "fields": {
             "type": "array",
             "items": {
@@ -231,9 +228,15 @@
                       "type": "boolean",
                       "description": "Whether this input is disabled"
                     },
-                    "preserveDataOnReset": {
-                      "type": "boolean",
-                      "description": "Whether this input should be preserved when the scouting form is reset"
+                    "formResetBehavior": {
+                      "type": "string",
+                      "enum": [
+                        "reset",
+                        "preserve",
+                        "increment"
+                      ],
+                      "default": "reset",
+                      "description": "The behavior of this input when the form is reset"
                     },
                     "defaultValue": {
                       "type": "number",
@@ -252,10 +255,6 @@
                       "type": "number",
                       "description": "The step value",
                       "default": 1
-                    },
-                    "autoIncrementOnReset": {
-                      "type": "boolean",
-                      "description": "Whether this input should auto-increment on reset, instead of resetting to the default value"
                     }
                   },
                   "required": [
@@ -288,8 +287,8 @@
                     "disabled": {
                       "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
                     },
-                    "preserveDataOnReset": {
-                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/preserveDataOnReset"
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
                     },
                     "defaultValue": {
                       "type": "string",
@@ -335,8 +334,8 @@
                     "disabled": {
                       "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
                     },
-                    "preserveDataOnReset": {
-                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/preserveDataOnReset"
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
                     },
                     "defaultValue": {
                       "type": "number",
@@ -350,10 +349,6 @@
                     "max": {
                       "type": "number",
                       "description": "The maximum value"
-                    },
-                    "autoIncrementOnReset": {
-                      "type": "boolean",
-                      "description": "Whether this input should auto-increment on reset, instead of resetting to the default value"
                     }
                   },
                   "required": [
@@ -386,8 +381,8 @@
                     "disabled": {
                       "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
                     },
-                    "preserveDataOnReset": {
-                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/preserveDataOnReset"
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
                     },
                     "defaultValue": {
                       "type": "string",
@@ -436,8 +431,8 @@
                     "disabled": {
                       "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
                     },
-                    "preserveDataOnReset": {
-                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/preserveDataOnReset"
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
                     },
                     "defaultValue": {
                       "type": "number",
@@ -456,10 +451,6 @@
                       "type": "number",
                       "description": "The step value",
                       "default": 1
-                    },
-                    "autoIncrementOnReset": {
-                      "type": "boolean",
-                      "description": "Whether this input should auto-increment on reset, instead of resetting to the default value"
                     }
                   },
                   "required": [
@@ -492,8 +483,8 @@
                     "disabled": {
                       "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
                     },
-                    "preserveDataOnReset": {
-                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/preserveDataOnReset"
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
                     },
                     "defaultValue": {
                       "type": "boolean",
@@ -531,8 +522,8 @@
                     "disabled": {
                       "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
                     },
-                    "preserveDataOnReset": {
-                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/preserveDataOnReset"
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
                     },
                     "defaultValue": {
                       "type": "number",
@@ -568,7 +559,6 @@
     "page_title",
     "delimiter",
     "teamNumber",
-    "theme",
     "sections"
   ],
   "additionalProperties": false,

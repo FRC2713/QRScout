@@ -24,11 +24,31 @@ export function QRModal(props: QRModalProps) {
   )}`.toUpperCase();
 
   const qrCodePreview = useMemo(
-    () => fieldValues.map(f => f.value).join(','),
+    () => fieldValues.map(function(obj) {
+      if (obj.value === true) {
+        return "1";
+      }
+      else if (obj.value === false) {
+        return "0";
+      }
+      else {
+        return `${obj.value}`.replace(/\n/g, ' ');
+      }
+    }).join(','),
     [fieldValues],
   );
   const qrCodeData = useMemo(
-    () => fieldValues.map(f => f.value).join(formData.delimiter),
+    () => fieldValues.map(function(obj) {
+      if (obj.value === true) {
+        return "1";
+      }
+      else if (obj.value === false) {
+        return "0";
+      }
+      else {
+        return `${obj.value}`.replace(/\n/g, ' ');
+      }
+    }).join(formData.delimiter),
     [fieldValues],
   );
   //Two seperate values are required- qrCodePreview is what is shown to the user beneath the QR code, qrCodeData is the actual data.
