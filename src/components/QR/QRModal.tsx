@@ -12,6 +12,16 @@ import {
 } from '../ui/dialog';
 import { PreviewText } from './PreviewText';
 
+/** Serialize a field value for QR code or display; TBA-team-and-robot is stored as an object. */
+function fieldValueToQrString(value: unknown): string {
+  if (value != null && typeof value === 'object' && 'teamNumber' in value) {
+    const { teamNumber } = value as { teamNumber: number };
+    return String(teamNumber);
+  }
+  if (value === null || value === undefined) return '';
+  return String(value);
+}
+
 export interface QRModalProps {
   disabled?: boolean;
 }
@@ -19,13 +29,17 @@ export interface QRModalProps {
 export function QRModal(props: QRModalProps) {
   const fieldValues = useQRScoutState(state => state.fieldValues);
   const formData = useQRScoutState(state => state.formData);
-  const title = `${getFieldValue('robot')} - M${getFieldValue(
+  const robotValue = getFieldValue('robot');
+  const title = `${fieldValueToQrString(robotValue)} - M${getFieldValue(
     'matchNumber',
   )}`.toUpperCase();
 
   const qrCodeData = useMemo(
-    () => fieldValues.map(f => f.value).join(formData.delimiter),
-    [fieldValues],
+    () =>
+      fieldValues
+        .map(f => fieldValueToQrString(f.value))
+        .join(formData.delimiter),
+    [fieldValues, formData.delimiter],
   );
   //Two seperate values are required- qrCodePreview is what is shown to the user beneath the QR code, qrCodeData is the actual data.
 
