@@ -2,6 +2,7 @@ import { InputTypes } from './BaseInputProps';
 import ActionTrackerInput from './ActionTrackerInput';
 import CheckboxInput from './CheckboxInput';
 import CounterInput from './CounterInput';
+import MultiCounterInput from './MultiCounterInput';
 import ImageInput from './ImageInput';
 import NumberInput from './NumberInput';
 import RangeInput from './RangeInput';
@@ -31,6 +32,8 @@ export default function ConfigurableInput(props: ConfigurableInputProps) {
       return <CheckboxInput {...props} key={props.code} />;
     case 'counter':
       return <CounterInput {...props} key={props.code} />;
+    case 'multi-counter':
+      return <MultiCounterInput {...props} key={props.code} />;
     case 'range':
       return <RangeInput {...props} key={props.code} />;
     case 'timer':

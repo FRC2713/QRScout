@@ -16,6 +16,7 @@ A QR Code-based scouting system for FRC
   - [Individual Sections](#individual-sections)
   - [Individual Fields](#individual-fields)
   - [Using Multi-Select Input](#using-multi-select-input)
+  - [Using Multi-Counter Input](#using-multi-counter-input)
   - [Using Image Input](#using-image-input)
   - [Using Timer Input](#using-timer-input)
   - [Using Action Tracker Input](#using-action-tracker-input)
@@ -100,7 +101,7 @@ The basic structure of the config.json file is as follows:
 
 `title`: The name of this field
 
-`type`: One of "text", "number", "boolean", "range", "select", "counter", "timer", "multi-select", "image", "action-tracker", "TBA-team-and-robot", or "TBA-match-number". Describes the type of input this is.
+`type`: One of "text", "number", "boolean", "range", "select", "counter", "multi-counter", "timer", "multi-select", "image", "action-tracker", "TBA-team-and-robot", or "TBA-match-number". Describes the type of input this is.
 
 `required`: a boolean indicating if this must be filled out before the QRCode is generated. If any field with this set to true is not filled out, QRScout will not generate a QRCode when the commit button is pressed.
 
@@ -208,6 +209,75 @@ For example, in a game where robots can score in multiple locations, you might c
 ```
 
 This allows scouts to quickly record all locations where a robot successfully scored during a match.
+
+### Using Multi-Counter Input
+
+The multi-counter input type provides a quick-tap counter with multiple increment sizes. Instead of tapping +1 repeatedly, scouts can tap +1, +5, or +10 (and their negative counterparts) to rapidly approximate large counts. A prominent running tally confirms each press took effect.
+
+#### Configuration in config.json
+
+```json
+{
+  "title": "Fuel Scored",
+  "type": "multi-counter",
+  "required": false,
+  "code": "fuelScored",
+  "description": "Approximate fuel scored during the match",
+  "formResetBehavior": "reset",
+  "defaultValue": 0
+}
+```
+
+#### Multi-Counter Properties
+
+- **defaultValue**: The initial value of the counter (typically 0).
+
+#### Using Multi-Counter in the Form
+
+The multi-counter displays:
+
+1. **Running Tally**: A large number at the top showing the current count
+2. **Subtract Row**: Three buttons (−1, −5, −10) for correcting mistakes
+3. **Add Row**: Three buttons (+1, +5, +10) for incrementing the count
+
+The value is floored at 0 — it cannot go negative.
+
+Button feedback uses `active:` styling rather than `hover:` to avoid the sticky highlight issue common on touch devices (Android tablets, iPads).
+
+#### Data Format
+
+In the generated QR code, the multi-counter stores a single integer value representing the current tally. For example, if a scout tapped +10 three times and −1 twice, the QR code will contain `28`.
+
+#### FRC Scouting Examples
+
+Multi-counter is particularly useful for FRC scouting in scenarios where quantities are large and exact precision isn't critical:
+
+- **Fuel/Game Piece Counting**: Quickly approximate how many game pieces a robot scored when individual counting would be too slow
+- **Cycle Counting**: Track approximate number of cycles across a match
+- **Points Estimation**: Rough point tallying during a match
+
+For example, to track fuel scored during autonomous:
+
+```json
+{
+  "title": "Auto Fuel Scored",
+  "type": "multi-counter",
+  "required": false,
+  "code": "autoFuelScored",
+  "description": "Approximate fuel scored during autonomous",
+  "formResetBehavior": "reset",
+  "defaultValue": 0
+}
+```
+
+This allows scouts to quickly tap +5 or +10 as game pieces stream in, rather than trying to count each one individually. The subtract buttons let them correct if they overshoot.
+
+#### Best Practices for Multi-Counter
+
+1. **Set Expectations**: Make sure scouts understand the count is a ballpark estimate, not an exact tally
+2. **Use for High-Volume Counts**: Reserve this input for scenarios where counts are large enough that +1 tapping would be impractical
+3. **Pair with Action Tracker**: For more precise timing data, combine with an action-tracker that records when scoring bursts happen
+4. **Practice Before Competition**: Have scouts practice with the +5/+10 buttons to build muscle memory
 
 ### Using Image Input
 
@@ -387,6 +457,7 @@ The action tracker input type allows scouts to record timestamped robot actions 
   "formResetBehavior": "reset",
   "mode": "hold",
   "timerDuration": 15,
+  "autoStopSeconds": 25,
   "actions": [
     { "label": "Scored", "code": "score", "icon": "target" },
     { "label": "Picked Up", "code": "pickup", "icon": "package" },
@@ -405,6 +476,7 @@ The action tracker input type allows scouts to record timestamped robot actions 
   - `"tap"`: Records an instant timestamp when the button is tapped. Best for discrete events like scoring or picking up game pieces.
   - `"hold"`: Records both start and end timestamps while the button is held down. Best for continuous actions like playing defense or climbing. Supports multi-touch for tracking overlapping actions.
 - **timerDuration** (optional): Expected duration in seconds (e.g., 15 for auto, 135 for teleop). Used as a UI reference.
+- **autoStopSeconds** (optional): Automatically stop the timer after this many seconds. When the timer reaches this limit, it stops, any active holds are finalized, and the action buttons are disabled. Useful to prevent the timer from running past the match phase duration (e.g., 25 for auto, 150 for teleop with some leeway).
 
 #### Using Action Tracker in the Form
 
