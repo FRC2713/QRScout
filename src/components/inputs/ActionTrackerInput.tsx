@@ -125,15 +125,53 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
 
   useEvent('resetFields', resetState);
 
+  // Auto-stop threshold in milliseconds (if configured)
+  const autoStopMs = data.autoStopSeconds ? data.autoStopSeconds * 1000 : null;
+
+  // Whether the timer has reached the auto-stop limit
+  const hasAutoStopped = autoStopMs !== null && !isRunning && elapsedTime >= autoStopMs;
+
   // Timer update loop using requestAnimationFrame
   const updateTimer = useCallback(() => {
     const now = performance.now();
     const elapsed = now - startTimeRef.current;
     startTimeRef.current = now;
     elapsedAccumulatorRef.current += elapsed;
+
+    // Auto-stop if we've exceeded the configured duration
+    if (autoStopMs && elapsedAccumulatorRef.current >= autoStopMs) {
+      elapsedAccumulatorRef.current = autoStopMs;
+      setElapsedTime(autoStopMs);
+      setIsRunning(false);
+
+      // Finalize any active holds at the auto-stop time
+      setActivePointers(prev => {
+        if (prev.size === 0) return prev;
+        const endTime = Number((autoStopMs / 1000).toFixed(1));
+        setActionLog(log => [
+          ...log,
+          ...Array.from(prev.values()).map(p => ({
+            actionCode: p.actionCode,
+            timestamp: p.startTime,
+            endTimestamp: endTime,
+          })),
+        ]);
+        return new Map();
+      });
+
+      // Cancel any pending pointers
+      for (const pending of pendingPointersRef.current.values()) {
+        clearTimeout(pending.intentTimerId);
+      }
+      pendingPointersRef.current.clear();
+      pendingTapsRef.current.clear();
+
+      return;
+    }
+
     setElapsedTime(elapsedAccumulatorRef.current);
     animationFrameRef.current = requestAnimationFrame(updateTimer);
-  }, []);
+  }, [autoStopMs]);
 
   // Effect to handle timer start/stop
   useEffect(() => {
@@ -166,6 +204,9 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
   // Record an action
   const recordAction = useCallback(
     (actionCode: string) => {
+      // Don't record if timer has auto-stopped
+      if (hasAutoStopped) return;
+
       // Auto-start timer if not running
       if (!isRunning) {
         startTimer();
@@ -179,7 +220,7 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
 
       setActionLog(prev => [...prev, { actionCode, timestamp: timestampSeconds }]);
     },
-    [isRunning, startTimer],
+    [isRunning, startTimer, hasAutoStopped],
   );
 
   // Undo last action
@@ -199,6 +240,9 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
   // Hold mode: handle pointer down (start intent tracking)
   const handlePointerDown = useCallback(
     (e: React.PointerEvent, actionCode: string) => {
+      // Don't start new actions if timer has auto-stopped
+      if (hasAutoStopped) return;
+
       if (isHoldMode) {
         // Store element reference for use in setTimeout (e.currentTarget won't be valid later)
         const element = e.currentTarget;
@@ -251,7 +295,7 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
         });
       }
     },
-    [isHoldMode, isRunning, startTimer],
+    [isHoldMode, isRunning, startTimer, hasAutoStopped],
   );
 
   // Handle pointer movement - detect scroll intent and cancel if needed
@@ -442,10 +486,16 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
     <div className="my-2 flex flex-col items-center gap-3">
       {/* Timer display */}
       <div className="flex flex-col items-center gap-1">
-        <div className="font-mono text-3xl font-bold dark:text-white">
+        <div className={cn(
+          "font-mono text-3xl font-bold dark:text-white",
+          hasAutoStopped && "text-muted-foreground"
+        )}>
           {formattedTime}
         </div>
-        {autoStarted && !isRunning && (
+        {hasAutoStopped && (
+          <span className="text-xs text-muted-foreground">(time&apos;s up)</span>
+        )}
+        {autoStarted && !isRunning && !hasAutoStopped && (
           <span className="text-xs text-muted-foreground">(auto-started)</span>
         )}
       </div>
@@ -453,7 +503,7 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
       {/* Timer controls */}
       <div className="flex gap-2">
         {!isRunning ? (
-          <Button variant="outline" size="sm" onClick={startTimer}>
+          <Button variant="outline" size="sm" onClick={startTimer} disabled={hasAutoStopped}>
             <Play className="mr-1 size-4" />
             Start
           </Button>
@@ -499,7 +549,7 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
               }}
               onPointerCancel={handlePointerEnd}
               onPointerLeave={handlePointerEnd}
-              disabled={data.disabled}
+              disabled={data.disabled || hasAutoStopped}
             >
               {action.icon && (
                 <DynamicIcon name={action.icon} className="size-5" />

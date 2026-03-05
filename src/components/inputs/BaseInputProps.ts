@@ -136,6 +136,12 @@ export const actionTrackerInputSchema = inputBaseSchema.extend({
     .describe(
       'Expected duration in seconds (for UI reference, e.g., 15 for auto, 135 for teleop)',
     ),
+  autoStopSeconds: z
+    .number()
+    .optional()
+    .describe(
+      'Automatically stop the timer after this many seconds. Useful to prevent the timer from running past the match phase duration.',
+    ),
 });
 
 export const tbaTeamAndRobotInputSchema = inputBaseSchema.extend({
