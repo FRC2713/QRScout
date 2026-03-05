@@ -125,6 +125,15 @@
             "name": "Autonomous",
             "fields": [
                 {
+                    "title": "Fuel Scored",
+                    "description": "Approximate fuel scored during autonomous.",
+                    "type": "multi-counter",
+                    "required": false,
+                    "code": "autoFuelScored",
+                    "formResetBehavior": "reset",
+                    "defaultValue": 0
+                },
+                {
                     "title": "Actions",
                     "description": "Track actions performed during autonomous.",
                     "type": "action-tracker",
@@ -191,6 +200,15 @@
         {
             "name": "Teleop",
             "fields": [
+                {
+                    "title": "Fuel Scored",
+                    "description": "Approximate fuel scored during teleop.",
+                    "type": "multi-counter",
+                    "required": false,
+                    "code": "teleopFuelScored",
+                    "formResetBehavior": "reset",
+                    "defaultValue": 0
+                },
                 {
                     "title": "Alliance won auto?",
                     "description": "Did your alliance win the autonomous period?",
