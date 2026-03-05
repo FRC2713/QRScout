@@ -134,6 +134,7 @@
                     "defaultValue": null,
                     "mode": "hold",
                     "timerDuration": 15,
+                    "autoStopSeconds": 25,
                     "actions": [
                         { "label": "Scoring", "code": "scoring" },
                         { "label": "Depot Collect", "code": "depot_collect" },
@@ -210,6 +211,7 @@
                     "defaultValue": null,
                     "mode": "hold",
                     "timerDuration": 135,
+                    "autoStopSeconds": 150,
                     "actions": [
                         { "label": "Scoring", "code": "scoring" },
                         { "label": "Depot Collect", "code": "depot_collect" },
