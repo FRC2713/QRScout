@@ -387,6 +387,7 @@ The action tracker input type allows scouts to record timestamped robot actions 
   "formResetBehavior": "reset",
   "mode": "hold",
   "timerDuration": 15,
+  "autoStopSeconds": 25,
   "actions": [
     { "label": "Scored", "code": "score", "icon": "target" },
     { "label": "Picked Up", "code": "pickup", "icon": "package" },
@@ -405,6 +406,7 @@ The action tracker input type allows scouts to record timestamped robot actions 
   - `"tap"`: Records an instant timestamp when the button is tapped. Best for discrete events like scoring or picking up game pieces.
   - `"hold"`: Records both start and end timestamps while the button is held down. Best for continuous actions like playing defense or climbing. Supports multi-touch for tracking overlapping actions.
 - **timerDuration** (optional): Expected duration in seconds (e.g., 15 for auto, 135 for teleop). Used as a UI reference.
+- **autoStopSeconds** (optional): Automatically stop the timer after this many seconds. When the timer reaches this limit, it stops, any active holds are finalized, and the action buttons are disabled. Useful to prevent the timer from running past the match phase duration (e.g., 25 for auto, 150 for teleop with some leeway).
 
 #### Using Action Tracker in the Form
 
