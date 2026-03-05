@@ -8,6 +8,7 @@ export const inputTypeSchema = z
     'range',
     'select',
     'counter',
+    'multi-counter',
     'timer',
     'multi-select',
     'image',
@@ -65,6 +66,11 @@ export const counterInputSchema = inputBaseSchema.extend({
   min: z.number().optional().describe('The minimum value'),
   max: z.number().optional().describe('The maximum value'),
   step: z.number().optional().describe('The step value').default(1),
+  defaultValue: z.number().default(0).describe('The default value'),
+});
+
+export const multiCounterInputSchema = inputBaseSchema.extend({
+  type: z.literal('multi-counter'),
   defaultValue: z.number().default(0).describe('The default value'),
 });
 
@@ -162,6 +168,7 @@ export const sectionSchema = z.object({
   fields: z.array(
     z.discriminatedUnion('type', [
       counterInputSchema,
+      multiCounterInputSchema,
       stringInputSchema,
       numberInputSchema,
       selectInputSchema,
@@ -324,6 +331,7 @@ export type MultiSelectInputData = z.infer<typeof multiSelectInputSchema>;
 export type StringInputData = z.infer<typeof stringInputSchema>;
 export type NumberInputData = z.infer<typeof numberInputSchema>;
 export type CounterInputData = z.infer<typeof counterInputSchema>;
+export type MultiCounterInputData = z.infer<typeof multiCounterInputSchema>;
 export type RangeInputData = z.infer<typeof rangeInputSchema>;
 export type BooleanInputData = z.infer<typeof booleanInputSchema>;
 export type TimerInputData = z.infer<typeof timerInputSchema>;
@@ -343,6 +351,7 @@ export type InputPropsMap = {
   select: SelectInputData;
   'multi-select': MultiSelectInputData;
   counter: CounterInputData;
+  'multi-counter': MultiCounterInputData;
   timer: TimerInputData;
   image: ImageInputData;
   'action-tracker': ActionTrackerInputData;
