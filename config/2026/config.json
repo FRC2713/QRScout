@@ -136,14 +136,14 @@
                     "timerDuration": 15,
                     "actions": [
                         { "label": "Scoring", "code": "scoring" },
-                        { "label": "Depot Collect", "code": "depot_collect" },
-                        { "label": "Outpost Collect", "code": "outpost_collect" },
                         { "label": "Ground Collect", "code": "ground_collect" },
+                        { "label": "Outpost Collect", "code": "outpost_collect" },
+                        { "label": "Depot Collect", "code": "depot_collect" },
                         { "label": "Passing", "code": "passing" },
-                        { "label": "Faffing/Stuck on Fuel", "code": "faffing" },
                         { "label": "Climbing", "code": "climbing" },
                         { "label": "Bump", "code": "bump" },
-                        { "label": "Trench", "code": "trench" }
+                        { "label": "Trench", "code": "trench" },
+                        { "label": "Faffing & Stuck", "code": "faffing" }
                     ]
                 },
                 {
@@ -185,12 +185,7 @@
                     "defaultValue": 0,
                     "min": 0,
                     "step": 1
-                }
-            ]
-        },
-        {
-            "name": "Teleop",
-            "fields": [
+                },
                 {
                     "title": "Alliance won auto?",
                     "description": "Did your alliance win the autonomous period?",
@@ -199,7 +194,12 @@
                     "code": "allianceWonAuto",
                     "formResetBehavior": "reset",
                     "defaultValue": false
-                },
+                }
+            ]
+        },
+        {
+            "name": "Teleop",
+            "fields": [
                 {
                     "title": "Actions",
                     "description": "Track actions performed during teleop.",
@@ -212,29 +212,19 @@
                     "timerDuration": 135,
                     "actions": [
                         { "label": "Scoring", "code": "scoring" },
-                        { "label": "Depot Collect", "code": "depot_collect" },
-                        { "label": "Outpost Collect", "code": "outpost_collect" },
-                        { "label": "Ground Collect", "code": "ground_collect" },
-                        { "label": "Bump", "code": "bump" },
-                        { "label": "Trench", "code": "trench" },
+                        { "label": "Collecting", "code": "collectin" },
                         { "label": "Passing", "code": "passing" },
                         { "label": "Climbing", "code": "climbing" },
-                        { "label": "Defense", "code": "defense" },
-                        { "label": "Faffing/Stuck on Fuel", "code": "faffing" }
+                        { "label": "Alliance Zone", "code": "alliance_zone" },
+                        { "label": "Neutral Zone", "code": "neutral_zone" },
+                        { "label": "Faffing & Stuck", "code": "faffing" },
+                        { "label": "Opponent Zone", "code": "opponent_zone" },
+                        { "label": "Defense", "code": "defense" }
                     ]
                 },
                 {
-                    "title": "Crossed into opposite zone?",
-                    "description": "Did the robot cross into the opposing alliance's zone?",
-                    "type": "boolean",
-                    "required": false,
-                    "code": "crossedZone",
-                    "formResetBehavior": "reset",
-                    "defaultValue": false
-                },
-                {
-                    "title": "Defended during match?",
-                    "description": "Did the robot play defense during the match?",
+                    "title": "Defended by opponent?",
+                    "description": "Was the robot defended by an opponent during the match?",
                     "type": "boolean",
                     "required": false,
                     "code": "robotDefended",
