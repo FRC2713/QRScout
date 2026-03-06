@@ -186,17 +186,6 @@
                     }
                 },
                 {
-                    "title": "Fuel Scored in Auto?",
-                    "description": "The number of fuel scored in autonomous.",
-                    "type": "counter",
-                    "required": false,
-                    "code": "autoFuelScored",
-                    "formResetBehavior": "reset",
-                    "defaultValue": 0,
-                    "min": 0,
-                    "step": 1
-                },
-                {
                     "title": "Fuel Scored",
                     "description": "Approximate fuel scored during teleop.",
                     "type": "multi-counter",
