@@ -52,9 +52,14 @@ export default function TBAMatchNumberInput(props: ConfigurableInputProps) {
       if (data.formResetBehavior === 'preserve') {
         return;
       }
+      if (data.formResetBehavior === 'increment') {
+        const newValue = (value == '') ? value : value + 1;
+        setValue(newValue);
+        return;
+      }
       setValue(data.defaultValue);
     },
-    [data.defaultValue, data.formResetBehavior],
+    [data.defaultValue, data.formResetBehavior, value],
   );
 
   useEvent('resetFields', resetState);
