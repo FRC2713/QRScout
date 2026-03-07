@@ -31,6 +31,11 @@ export default function TBATeamAndRobotInput(props: ConfigurableInputProps) {
     const value = getFieldValue('matchNumber');
     return typeof value === 'number' ? value : null;
   });
+  // Scouts are often assigned to a single robot position
+  // Remember this when changing match numbers
+  const driverStation = useQRScoutState(() => {
+    return getFieldValue("driverStation");
+  })
 
   if (!data) {
     return <div>Invalid input</div>;
@@ -89,6 +94,19 @@ export default function TBATeamAndRobotInput(props: ConfigurableInputProps) {
 
     return teams;
   }, [matchData, selectedMatchNumber]);
+
+  // Automatically select team and robot based on selected driver station and match number
+  useEffect(() => {
+    if (driverStation !== '') {
+      const teamNumber = teamOptions.find((team) => team.robotPosition == driverStation)?.teamNumber;
+      if (teamNumber !== undefined) {
+        setValue({
+          teamNumber,
+          robotPosition: driverStation,
+        })
+      }
+    }
+  }, [teamOptions, selectedMatchNumber, driverStation])
 
   const resetState = useCallback(
     ({ force }: { force: boolean }) => {
