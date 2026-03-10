@@ -11,7 +11,7 @@
     },
     "year": {
       "type": "number",
-      "description": "The year this scouting config is relevant for."
+      "description": "The year this scouting config is relevant for. Defaults to the current year if not provided."
     },
     "delimiter": {
       "type": "string",
@@ -284,6 +284,45 @@
                       "type": "number",
                       "description": "The step value",
                       "default": 1
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "multi-counter"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
+                    },
+                    "defaultValue": {
+                      "type": "number",
+                      "default": 0,
+                      "description": "The default value"
                     }
                   },
                   "required": [
@@ -741,6 +780,10 @@
                     "timerDuration": {
                       "type": "number",
                       "description": "Expected duration in seconds (for UI reference, e.g., 15 for auto, 135 for teleop)"
+                    },
+                    "autoStopSeconds": {
+                      "type": "number",
+                      "description": "Automatically stop the timer after this many seconds. Useful to prevent the timer from running past the match phase duration."
                     }
                   },
                   "required": [
@@ -786,7 +829,16 @@
                               "type": "number"
                             },
                             "robotPosition": {
-                              "type": "string"
+                              "type": "string",
+                              "enum": [
+                                "R1",
+                                "R2",
+                                "R3",
+                                "B1",
+                                "B2",
+                                "B3"
+                              ],
+                              "description": "The robot position in the alliance. R = Red alliance, B = Blue alliance, 1/2/3 = position on the alliance."
                             }
                           },
                           "required": [
@@ -801,6 +853,10 @@
                       ],
                       "default": null,
                       "description": "The default team and robot position"
+                    },
+                    "autoAssignFromFieldCode": {
+                      "type": "string",
+                      "description": "Optional code of another field to auto-assign"
                     }
                   },
                   "required": [
@@ -857,6 +913,59 @@
                     "code"
                   ],
                   "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "TBA-assigned-station"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
+                    },
+                    "defaultValue": {
+                      "type": "string",
+                      "default": "",
+                      "description": "If assigning by driver station, the driver station to use for selecting team and robot position across matches"
+                    },
+                    "choices": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "default": {
+                        "R1": "Red 1",
+                        "R2": "Red 2",
+                        "R3": "Red 3",
+                        "B1": "Blue 1",
+                        "B2": "Blue 2",
+                        "B3": "Blue 3"
+                      }
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
                 }
               ]
             }
@@ -876,7 +985,6 @@
   "required": [
     "title",
     "page_title",
-    "year",
     "delimiter",
     "teamNumber",
     "sections"

@@ -75,6 +75,14 @@
                     "defaultValue": ""
                 },
                 {
+                    "title": "Assigned Station",
+                    "description": "The station assigned to the scout (e.g., R1, R2, R3, B1, B2, B3). Use this to automatically assign the team and robot position based on the match number and station.",
+                    "type": "TBA-assigned-station",
+                    "required": false,
+                    "code": "assignedStation",
+                    "formResetBehavior": "preserve"
+                },
+                {
                     "title": "Match Number",
                     "description": "Select the match number.",
                     "type": "TBA-match-number",
@@ -90,7 +98,8 @@
                     "required": true,
                     "code": "robot",
                     "formResetBehavior": "preserve",
-                    "defaultValue": null
+                    "defaultValue": null,
+                    "autoAssignFromFieldCode": "assignedStation"
                 },
                 {
                     "title": "Starting Position",
