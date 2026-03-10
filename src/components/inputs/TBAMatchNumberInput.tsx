@@ -52,6 +52,10 @@ export default function TBAMatchNumberInput(props: ConfigurableInputProps) {
       if (data.formResetBehavior === 'preserve') {
         return;
       }
+      if (data.formResetBehavior === 'increment') {
+        setValue(prev => typeof prev === 'number' ? prev + 1 : data.defaultValue);
+        return;
+      }
       setValue(data.defaultValue);
     },
     [data.defaultValue, data.formResetBehavior],
