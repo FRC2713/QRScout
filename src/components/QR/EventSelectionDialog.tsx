@@ -83,7 +83,10 @@ export function EventSelectionDialog({
                   </p>
                   {event.short_name && (
                     <p className="text-xs text-muted-foreground mt-1">
-                      {event.short_name} (Week {event.week})
+                      {event.short_name}
+                      {event.week !== null && event.week !== undefined
+                        ? ` (Week ${event.week + 1})`
+                        : ''}
                     </p>
                   )}
                 </CardContent>
