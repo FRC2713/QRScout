@@ -186,15 +186,6 @@
                     }
                 },
                 {
-                    "title": "Fuel Scored",
-                    "description": "Approximate fuel scored during teleop.",
-                    "type": "multi-counter",
-                    "required": false,
-                    "code": "teleopFuelScored",
-                    "formResetBehavior": "reset",
-                    "defaultValue": 0
-                },
-                {
                     "title": "Alliance won auto?",
                     "description": "Did your alliance win the autonomous period?",
                     "type": "boolean",
@@ -208,6 +199,15 @@
         {
             "name": "Teleop",
             "fields": [
+                {
+                    "title": "Fuel Scored",
+                    "description": "Approximate fuel scored during teleop.",
+                    "type": "multi-counter",
+                    "required": false,
+                    "code": "teleopFuelScored",
+                    "formResetBehavior": "reset",
+                    "defaultValue": 0
+                },
                 {
                     "title": "Actions",
                     "description": "Track actions performed during teleop.",
