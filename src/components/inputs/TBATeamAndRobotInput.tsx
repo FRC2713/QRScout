@@ -35,17 +35,11 @@ export default function TBATeamAndRobotInput(props: ConfigurableInputProps) {
   // (e.g. Red 1, Red 2, Red 3, Blue 1, Blue 2, Blue 3) across matches. To save time
   // and reduce errors, we can automatically select the team and robot position based
   // on the selected match number and driver station.
-  //
-  // By temporary convention, we assume the field for driver station selection is
-  // called "driverStation" and contains values like "R1", "R2", "R3", "B1", "B2",
-  // "B3". If the driver station field is present and has a valid value, we will
-  // automatically select the corresponding team and robot position for the scout.
-  //
-  // This is an optional feature that can be used by teams who want it, and it will
-  // eventually graduate into explicit config.
   const driverStation = useQRScoutState(() => {
-    return getFieldValue("driverStation");
-  })
+    return data?.autoAssignFromFieldCode
+      ? getFieldValue(data.autoAssignFromFieldCode)
+      : undefined;
+  });
 
   if (!data) {
     return <div>Invalid input</div>;
@@ -108,15 +102,17 @@ export default function TBATeamAndRobotInput(props: ConfigurableInputProps) {
   // Automatically select team and robot based on selected driver station and match number
   useEffect(() => {
     if (driverStation !== '') {
-      const teamNumber = teamOptions.find((team) => team.robotPosition == driverStation)?.teamNumber;
+      const teamNumber = teamOptions.find(
+        team => team.robotPosition == driverStation,
+      )?.teamNumber;
       if (teamNumber !== undefined) {
         setValue({
           teamNumber,
           robotPosition: driverStation,
-        })
+        });
       }
     }
-  }, [teamOptions, selectedMatchNumber, driverStation])
+  }, [teamOptions, selectedMatchNumber, driverStation]);
 
   const resetState = useCallback(
     ({ force }: { force: boolean }) => {

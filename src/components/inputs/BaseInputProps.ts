@@ -15,6 +15,7 @@ export const inputTypeSchema = z
     'action-tracker',
     'TBA-team-and-robot',
     'TBA-match-number',
+    'TBA-assigned-station',
   ])
   .describe('The type of input');
 
@@ -150,16 +151,35 @@ export const actionTrackerInputSchema = inputBaseSchema.extend({
     ),
 });
 
+export const robotPosition = z
+  .enum(['R1', 'R2', 'R3', 'B1', 'B2', 'B3'])
+  .describe(
+    'The robot position in the alliance. R = Red alliance, B = Blue alliance, 1/2/3 = position on the alliance.',
+  );
+
+export const robotPositionLabels = {
+  R1: 'Red 1',
+  R2: 'Red 2',
+  R3: 'Red 3',
+  B1: 'Blue 1',
+  B2: 'Blue 2',
+  B3: 'Blue 3',
+};
+
 export const tbaTeamAndRobotInputSchema = inputBaseSchema.extend({
   type: z.literal('TBA-team-and-robot'),
   defaultValue: z
     .object({
       teamNumber: z.number(),
-      robotPosition: z.string(),
+      robotPosition,
     })
     .nullable()
     .default(null)
     .describe('The default team and robot position'),
+  autoAssignFromFieldCode: z
+    .string()
+    .optional()
+    .describe('Optional code of another field to auto-assign'),
 });
 
 export const tbaMatchNumberInputSchema = inputBaseSchema.extend({
@@ -167,6 +187,17 @@ export const tbaMatchNumberInputSchema = inputBaseSchema.extend({
   min: z.number().optional().describe('The minimum value'),
   max: z.number().optional().describe('The maximum value'),
   defaultValue: z.number().default(0).describe('The default value'),
+});
+
+export const tbaAssignedStationInputSchema = selectInputSchema.extend({
+  type: z.literal('TBA-assigned-station'),
+  choices: z.record(z.string()).default(robotPositionLabels),
+  defaultValue: z
+    .string()
+    .default('')
+    .describe(
+      'If assigning by driver station, the driver station to use for selecting team and robot position across matches',
+    ),
 });
 
 export const sectionSchema = z.object({
@@ -186,6 +217,7 @@ export const sectionSchema = z.object({
       actionTrackerInputSchema,
       tbaTeamAndRobotInputSchema,
       tbaMatchNumberInputSchema,
+      tbaAssignedStationInputSchema,
     ]),
   ),
 });

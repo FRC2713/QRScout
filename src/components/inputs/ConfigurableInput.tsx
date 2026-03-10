@@ -46,5 +46,7 @@ export default function ConfigurableInput(props: ConfigurableInputProps) {
       return <TBATeamAndRobotInput {...props} key={props.code} />;
     case 'TBA-match-number':
       return <TBAMatchNumberInput {...props} key={props.code} />;
+    case 'TBA-assigned-station':
+      return <SelectInput {...props} key={props.code} />;
   }
 }
