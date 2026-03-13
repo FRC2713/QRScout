@@ -11,7 +11,7 @@
     },
     "year": {
       "type": "number",
-      "description": "The year this scouting config is relevant for."
+      "description": "The year this scouting config is relevant for. Defaults to the current year if not provided."
     },
     "delimiter": {
       "type": "string",
@@ -284,6 +284,45 @@
                       "type": "number",
                       "description": "The step value",
                       "default": 1
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
+                      "const": "multi-counter"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
+                    },
+                    "defaultValue": {
+                      "type": "number",
+                      "default": 0,
+                      "description": "The default value"
                     }
                   },
                   "required": [
@@ -741,6 +780,10 @@
                     "timerDuration": {
                       "type": "number",
                       "description": "Expected duration in seconds (for UI reference, e.g., 15 for auto, 135 for teleop)"
+                    },
+                    "autoStopSeconds": {
+                      "type": "number",
+                      "description": "Automatically stop the timer after this many seconds. Useful to prevent the timer from running past the match phase duration."
                     }
                   },
                   "required": [
@@ -876,7 +919,6 @@
   "required": [
     "title",
     "page_title",
-    "year",
     "delimiter",
     "teamNumber",
     "sections"
