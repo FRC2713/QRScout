@@ -9,7 +9,7 @@
     "dev": "vite",
     "build": "tsc && vite build ",
     "preview": "vite preview",
-    "schema": "ts-node src/scripts/generateJsonSchema.ts src/assets/schema.json && cp src/assets/schema.json public/schema.json"
+    "schema": "npx tsx src/scripts/generateJsonSchema.ts src/assets/schema.json && cp src/assets/schema.json public/schema.json"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.19",
