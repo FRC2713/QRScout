@@ -200,6 +200,28 @@
                     "defaultValue": false
                 },
                 {
+                    "title": "Actions",
+                    "description": "Track actions performed during teleop.",
+                    "type": "action-tracker",
+                    "required": false,
+                    "code": "teleopActions",
+                    "formResetBehavior": "reset",
+                    "defaultValue": null,
+                    "mode": "hold",
+                    "actions": [
+                        {
+                            "label": "Faffing & Stuck",
+                            "code": "faffing"
+                        },
+                        {
+                            "label": "Defense",
+                            "code": "defense"
+                        }
+                    ],
+                    "timerDuration": 135,
+                    "autoStopSeconds": 150
+                },
+                {
                     "title": "Fuel Scored",
                     "description": "Approximate fuel scored during teleop.",
                     "type": "multi-counter",
@@ -249,28 +271,6 @@
                         "1": "Collecting",
                         "2": "Defense"
                     }
-                },
-                {
-                    "title": "Actions",
-                    "description": "Track actions performed during teleop.",
-                    "type": "action-tracker",
-                    "required": false,
-                    "code": "teleopActions",
-                    "formResetBehavior": "reset",
-                    "defaultValue": null,
-                    "mode": "hold",
-                    "actions": [
-                        {
-                            "label": "Faffing & Stuck",
-                            "code": "faffing"
-                        },
-                        {
-                            "label": "Defense",
-                            "code": "defense"
-                        }
-                    ],
-                    "timerDuration": 135,
-                    "autoStopSeconds": 150
                 }
             ]
         },
@@ -440,7 +440,7 @@
                 {
                     "title": "Comments",
                     "type": "text",
-                    "required": false,
+                    "required": true,
                     "code": "co",
                     "formResetBehavior": "reset",
                     "defaultValue": "",
