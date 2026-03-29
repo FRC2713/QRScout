@@ -136,7 +136,7 @@
         {
           "title": "Where Collected Fuel",
           "description": "Areas where fuel was collect from during autonomous",
-          "type": "multi-select",
+          "type": "checkbox-select",
           "required": false,
           "code": "autoCollectLoc",
           "formResetBehavior": "reset",
@@ -150,7 +150,7 @@
         {
           "title": "Other Auto Actions",
           "description": "Additional actions completed during autonomous",
-          "type": "multi-select",
+          "type": "checkbox-select",
           "required": false,
           "code": "autoAdditionAct",
           "formResetBehavior": "reset",
@@ -233,7 +233,7 @@
         {
           "title": "Bump / Trench",
           "description": "Did the robot go under the bump or over the trench at least once during the match?",
-          "type": "multi-select",
+          "type": "checkbox-select",
           "required": false,
           "code": "teleBumpTrench",
           "formResetBehavior": "reset",
@@ -263,7 +263,7 @@
         {
           "title": "Opposing Zone Actions",
           "description": "If the robot went into the opposing zone, what actions were completed?",
-          "type": "multi-select",
+          "type": "checkbox-select",
           "required": false,
           "code": "teleOpposingActs",
           "formResetBehavior": "reset",
@@ -371,7 +371,7 @@
         {
           "title": "Scoring Location",
           "description": "What locations in alliance zone did the robot score from?",
-          "type": "multi-select",
+          "type": "checkbox-select",
           "required": false,
           "code": "teleScoreLoc",
           "formResetBehavior": "reset",
