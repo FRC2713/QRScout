@@ -84,6 +84,7 @@ export const useQRScoutState = createStore<QRScoutState>(
 );
 
 export function resetToDefaultConfig() {
+  forceResetFields(); // clicking 'x' instead of Save can prevent a `setFormData` call
   useQRScoutState.setState(initialState);
 }
 
@@ -119,12 +120,12 @@ export function getFieldValue(code: string) {
 }
 
 export function resetFields() {
-  window.dispatchEvent(new CustomEvent('resetFields', { detail: 'reset' }));
+  window.dispatchEvent(new CustomEvent('resetFields', { detail: { force: false } }));
 }
 
 export function forceResetFields() {
   window.dispatchEvent(
-    new CustomEvent('forceResetFields', { detail: 'forceReset' }),
+    new CustomEvent('resetFields', { detail: { force: true } }),
   );
 }
 
