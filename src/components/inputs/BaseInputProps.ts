@@ -11,6 +11,7 @@ export const inputTypeSchema = z
     'multi-counter',
     'timer',
     'multi-select',
+    'checkbox-select',
     'image',
     'action-tracker',
     'TBA-team-and-robot',
@@ -57,6 +58,12 @@ export const selectInputSchema = inputBaseSchema.extend({
 
 export const multiSelectInputSchema = inputBaseSchema.extend({
   type: z.literal('multi-select'),
+  choices: z.record(z.string()).optional().describe('The choices'),
+  defaultValue: z.array(z.string()).optional().describe('The default value'),
+});
+
+export const checkboxSelectInputSchema = inputBaseSchema.extend({
+  type: z.literal('checkbox-select'),
   choices: z.record(z.string()).optional().describe('The choices'),
   defaultValue: z.array(z.string()).optional().describe('The default value'),
 });
@@ -179,6 +186,7 @@ export const sectionSchema = z.object({
       numberInputSchema,
       selectInputSchema,
       multiSelectInputSchema,
+      checkboxSelectInputSchema,
       rangeInputSchema,
       booleanInputSchema,
       timerInputSchema,
@@ -334,6 +342,7 @@ export type InputTypes = z.infer<typeof inputTypeSchema>;
 export type InputBase = z.infer<typeof inputBaseSchema>;
 export type SelectInputData = z.infer<typeof selectInputSchema>;
 export type MultiSelectInputData = z.infer<typeof multiSelectInputSchema>;
+export type CheckboxSelectInputData = z.infer<typeof checkboxSelectInputSchema>;
 export type StringInputData = z.infer<typeof stringInputSchema>;
 export type NumberInputData = z.infer<typeof numberInputSchema>;
 export type CounterInputData = z.infer<typeof counterInputSchema>;
@@ -356,6 +365,7 @@ export type InputPropsMap = {
   range: RangeInputData;
   select: SelectInputData;
   'multi-select': MultiSelectInputData;
+  'checkbox-select': CheckboxSelectInputData;
   counter: CounterInputData;
   'multi-counter': MultiCounterInputData;
   timer: TimerInputData;

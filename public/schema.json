@@ -532,6 +532,54 @@
                     },
                     "type": {
                       "type": "string",
+                      "const": "checkbox-select"
+                    },
+                    "required": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/required"
+                    },
+                    "code": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/code"
+                    },
+                    "disabled": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/disabled"
+                    },
+                    "formResetBehavior": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/formResetBehavior"
+                    },
+                    "defaultValue": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "The default value"
+                    },
+                    "choices": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "description": "The choices"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "type",
+                    "required",
+                    "code"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/title"
+                    },
+                    "description": {
+                      "$ref": "#/properties/sections/items/properties/fields/items/anyOf/0/properties/description"
+                    },
+                    "type": {
+                      "type": "string",
                       "const": "range"
                     },
                     "required": {
