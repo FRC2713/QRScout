@@ -136,7 +136,7 @@
         {
           "title": "Where Collected Fuel",
           "description": "Areas where fuel was collect from during autonomous",
-          "type": "checkbox-select",
+          "type": "multi-select",
           "required": false,
           "code": "autoCollectLoc",
           "formResetBehavior": "reset",
@@ -144,13 +144,15 @@
             "1": "Outpost",
             "2": "Depot",
             "3": "Neutral Zone",
-            "4": "Neutral Zone 2nd Pass"
+            "4": "Neutral Zone 2nd Pass",
+            "5": "Did Not Move",
+            "6": "Moved w/o Collecting Fuel"
           }
         },
         {
           "title": "Other Auto Actions",
           "description": "Additional actions completed during autonomous",
-          "type": "checkbox-select",
+          "type": "multi-select",
           "required": false,
           "code": "autoAdditionAct",
           "formResetBehavior": "reset",
@@ -179,9 +181,7 @@
           "defaultValue": "No",
           "choices": {
             "No": "No Climb",
-            "Out": "Output Side",
-            "Mid": "Middle",
-            "Dep": "Depot Side",
+            "C": "Climbed",
             "F": "Failed Climb"
           }
         }
@@ -190,15 +190,6 @@
     {
       "name": "Teleop",
       "fields": [
-        {
-          "title": "Alliance won auto?",
-          "description": "Did your alliance win the autonomous period?",
-          "type": "boolean",
-          "required": false,
-          "code": "allianceWonAuto",
-          "formResetBehavior": "reset",
-          "defaultValue": false
-        },
         {
           "title": "Actions",
           "description": "Track actions performed during teleop.",
@@ -233,7 +224,7 @@
         {
           "title": "Bump / Trench",
           "description": "Did the robot go under the bump or over the trench at least once during the match?",
-          "type": "checkbox-select",
+          "type": "multi-select",
           "required": false,
           "code": "teleBumpTrench",
           "formResetBehavior": "reset",
@@ -263,7 +254,7 @@
         {
           "title": "Opposing Zone Actions",
           "description": "If the robot went into the opposing zone, what actions were completed?",
-          "type": "checkbox-select",
+          "type": "multi-select",
           "required": false,
           "code": "teleOpposingActs",
           "formResetBehavior": "reset",
@@ -291,21 +282,6 @@
             "L2": "Level 2",
             "L3": "Level 3",
             "F": "Failed Climb"
-          }
-        },
-        {
-          "title": "Where Climbed",
-          "description": "Where on the tower did the robot climb?",
-          "type": "select",
-          "required": false,
-          "code": "climbPos",
-          "formResetBehavior": "reset",
-          "defaultValue": "No",
-          "choices": {
-            "No": "No Climb",
-            "Out": "Output Side",
-            "Mid": "Middle",
-            "Dep": "Depot Side"
           }
         },
         {
@@ -356,12 +332,11 @@
           "title": "Scored How?",
           "description": "How did the robot score?",
           "type": "select",
-          "required": false,
+          "required": true,
           "code": "scoredHow",
           "formResetBehavior": "reset",
-          "defaultValue": "blank",
+          "defaultValue": "",
           "choices": {
-            "blank": "(blank)",
             "driving": "While driving",
             "stationary": "While stationary",
             "both": "Both",
@@ -371,7 +346,7 @@
         {
           "title": "Scoring Location",
           "description": "What locations in alliance zone did the robot score from?",
-          "type": "checkbox-select",
+          "type": "multi-select",
           "required": false,
           "code": "teleScoreLoc",
           "formResetBehavior": "reset",
@@ -400,12 +375,11 @@
           "title": "Passed How?",
           "description": "How did the robot pass with their shooter (i.e. not herding balls with bumpers)?",
           "type": "select",
-          "required": false,
+          "required": true,
           "code": "passedHow",
           "formResetBehavior": "reset",
-          "defaultValue": "blank",
+          "defaultValue": "",
           "choices": {
-            "blank": "(blank)",
             "driving": "While driving",
             "stationary": "While stationary",
             "both": "Both",
@@ -430,11 +404,39 @@
           "required": true,
           "code": "yc",
           "formResetBehavior": "reset",
-          "defaultValue": "No Card",
+          "defaultValue": "",
           "choices": {
             "No Card": "No Card",
             "Yellow": "Yellow Card",
             "Red": "Red Card"
+          }
+        },
+        {
+          "title": "Would you put this robot on our second pick (scoring) pick list?",
+          "description": "A quick reference to use in conjuction with quantitative data at scouting meeting",
+          "type": "select",
+          "required": false,
+          "code": "2Pick",
+          "formResetBehavior": "reset",
+          "defaultValue": "",
+          "choices": {
+            "Yes": "Yes",
+            "May": "Maybe",
+            "No": "No"
+          }
+        },
+        {
+          "title": "Would you put this robot on our a third pick (passing/defense) pick list?",
+          "description": "A quick reference to use in conjuction with quantitative data at scouting meeting",
+          "type": "select",
+          "required": false,
+          "code": "3Pick",
+          "formResetBehavior": "reset",
+          "defaultValue": "",
+          "choices": {
+            "Yes": "Yes",
+            "May": "Maybe",
+            "No": "No"
           }
         },
         {
