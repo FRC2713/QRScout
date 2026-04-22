@@ -12,6 +12,10 @@ import {
 } from '../ui/dialog';
 import { PreviewText } from './PreviewText';
 
+function removeNewlines(value: string): string {
+  return value.replace(/\r\n|\r|\n/g, ' ');
+}
+
 /** Serialize a field value for QR code or display; TBA-team-and-robot is stored as an object. */
 function fieldValueToQrString(value: unknown): string {
   if (value != null && typeof value === 'object' && 'teamNumber' in value) {
@@ -19,7 +23,7 @@ function fieldValueToQrString(value: unknown): string {
     return String(teamNumber);
   }
   if (value === null || value === undefined) return '';
-  return String(value);
+  return removeNewlines(String(value));
 }
 
 export interface QRModalProps {
