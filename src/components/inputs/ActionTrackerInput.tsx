@@ -79,11 +79,27 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
     () => new Map(),
   );
 
+  // Ref mirror of activePointers so event handlers always see the latest state
+  // (avoids stale closure bugs where pointerup fires before React re-renders)
+  const activePointersRef = useRef<Map<number, ActivePointer>>(new Map());
+
   // Pending pointers (hold mode) - before intent is confirmed
   const pendingPointersRef = useRef<Map<number, PendingPointer>>(new Map());
 
   // Pending taps (tap mode) - for scroll detection
   const pendingTapsRef = useRef<Map<number, PendingTap>>(new Map());
+
+  // Helper: update activePointers state AND ref in sync
+  const updateActivePointers = useCallback(
+    (updater: (prev: Map<number, ActivePointer>) => Map<number, ActivePointer>) => {
+      setActivePointers(prev => {
+        const next = updater(prev);
+        activePointersRef.current = next;
+        return next;
+      });
+    },
+    [],
+  );
 
   // Determine mode (defaults to 'hold')
   const isHoldMode = data.mode !== 'tap';
@@ -112,7 +128,7 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
         setElapsedTime(0);
         setAutoStarted(false);
         setActionLog([]);
-        setActivePointers(new Map()); // Clear any active holds
+        updateActivePointers(() => new Map()); // Clear any active holds
         elapsedAccumulatorRef.current = 0;
         if (animationFrameRef.current !== null) {
           cancelAnimationFrame(animationFrameRef.current);
@@ -145,7 +161,7 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
       setIsRunning(false);
 
       // Finalize any active holds at the auto-stop time
-      setActivePointers(prev => {
+      updateActivePointers(prev => {
         if (prev.size === 0) return prev;
         const endTime = Number((autoStopMs / 1000).toFixed(1));
         setActionLog(log => [
@@ -266,7 +282,7 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
 
           const startTime = Number((elapsedAccumulatorRef.current / 1000).toFixed(1));
 
-          setActivePointers(prev => {
+          updateActivePointers(prev => {
             const next = new Map(prev);
             next.set(pointerId, { actionCode, startTime });
             return next;
@@ -345,18 +361,24 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
         return; // Don't record - wasn't held long enough
       }
 
-      // For CONFIRMED holds: only end on pointerup
-      // Ignore pointercancel and pointerleave - user is still holding,
-      // the browser just got confused by finger movement
-      if (e.type === 'pointercancel' || e.type === 'pointerleave') {
+      // For CONFIRMED holds: ignore pointerleave only.
+      // pointercancel is a TERMINAL event on mobile — no pointerup follows,
+      // so we must treat it as an end event to avoid stuck holds.
+      if (e.type === 'pointerleave') {
         return;
       }
 
-      // Handle confirmed active pointer (only on pointerup)
-      const active = activePointers.get(e.pointerId);
+      // Handle confirmed active pointer (pointerup or pointercancel)
+      // Read from ref to avoid stale closure — state may not have
+      // re-rendered yet when rapid pointer events fire
+      const active = activePointersRef.current.get(e.pointerId);
       if (!active) return;
 
-      e.currentTarget.releasePointerCapture(e.pointerId);
+      try {
+        e.currentTarget.releasePointerCapture(e.pointerId);
+      } catch {
+        // Pointer capture may already be released (e.g. after pointercancel)
+      }
 
       const endTime = Number((elapsedAccumulatorRef.current / 1000).toFixed(1));
 
@@ -370,7 +392,7 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
         },
       ]);
 
-      setActivePointers(prev => {
+      updateActivePointers(prev => {
         const next = new Map(prev);
         next.delete(e.pointerId);
         return next;
@@ -378,7 +400,7 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
 
       vibrate([30, 20, 30]); // Double buzz on release
     },
-    [isHoldMode, activePointers, cancelPendingPointer],
+    [isHoldMode, cancelPendingPointer, updateActivePointers],
   );
 
   // Tap mode: handle pointer up - record action if not cancelled by scroll
@@ -412,26 +434,28 @@ export default function ActionTrackerInput(props: ConfigurableInputProps) {
       pendingTapsRef.current.clear();
 
       // Record all confirmed active holds as completed
-      if (activePointers.size === 0) return;
+      // Use ref to get latest state without needing it as a dependency
+      const current = activePointersRef.current;
+      if (current.size === 0) return;
 
       const endTime = Number((elapsedAccumulatorRef.current / 1000).toFixed(1));
 
       // Record all active holds as completed
       setActionLog(prev => [
         ...prev,
-        ...Array.from(activePointers.values()).map(p => ({
+        ...Array.from(current.values()).map(p => ({
           actionCode: p.actionCode,
           timestamp: p.startTime,
           endTimestamp: endTime,
         })),
       ]);
 
-      setActivePointers(new Map());
+      updateActivePointers(() => new Map());
     };
 
     window.addEventListener('blur', handleBlur);
     return () => window.removeEventListener('blur', handleBlur);
-  }, [activePointers]);
+  }, [updateActivePointers]);
 
   // Cleanup pending pointer timers on unmount
   useEffect(() => {
